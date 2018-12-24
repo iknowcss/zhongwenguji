@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Pure as CharacterTest } from './CharacterTest';
+import {markCurrentKnown} from "./characterTestActions";
 
 const mockUnregister = jest.fn();
 let mockOnKeyDown = null;
@@ -34,9 +35,30 @@ describe('CharacterTest', () => {
   });
 
   it('toggles the definition', () => {
-    const toggleDefinitionMock = jest.fn();
-    setup({ toggleDefinition: toggleDefinitionMock });
+    const toggleDefinition = jest.fn();
+    setup({ toggleDefinition });
     mockOnKeyDown('ArrowUp');
-    expect(toggleDefinitionMock).toHaveBeenCalled();
+    expect(toggleDefinition).toHaveBeenCalled();
+  });
+
+  it('marks the card unknown', () => {
+    const markCurrentUnknown = jest.fn();
+    setup({ markCurrentUnknown });
+    mockOnKeyDown('ArrowLeft');
+    expect(markCurrentUnknown).toHaveBeenCalled();
+  });
+
+  it('marks the card known', () => {
+    const markCurrentKnown = jest.fn();
+    setup({ markCurrentKnown });
+    mockOnKeyDown('ArrowRight');
+    expect(markCurrentKnown).toHaveBeenCalled();
+  });
+
+  it('un-does the previous marking', () => {
+    const undoLastMark = jest.fn();
+    setup({ undoLastMark });
+    mockOnKeyDown('ArrowDown');
+    expect(undoLastMark).toHaveBeenCalled();
   });
 });

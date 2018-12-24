@@ -9,7 +9,8 @@ export const actionTypes = {
   CHARACTER_SAMPLES_DEFINITION_SHOW: '@zwgj//characterSamples/definition/show',
   CHARACTER_SAMPLES_DEFINITION_HIDE: '@zwgj//characterSamples/definition/hide',
   TEST_CARD_MARK_KNOWN: '@zwgj//testCard/markKnown',
-  TEST_CARD_MARK_UNKNOWN: '@zwgj//testCard/markUnknown'
+  TEST_CARD_MARK_UNKNOWN: '@zwgj//testCard/markUnknown',
+  TEST_CARD_MARK_UNDO: '@zwgj//testCard/markUndo'
 };
 
 function extractJson(response) {
@@ -45,3 +46,15 @@ export const toggleDefinition = () => (dispatch, getState) => {
     dispatch({ type: actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW });
   }
 };
+
+export const markCurrentKnown = () => ({
+  type: actionTypes.TEST_CARD_MARK_KNOWN
+});
+
+export const markCurrentUnknown = () => ({
+  type: actionTypes.TEST_CARD_MARK_UNKNOWN
+});
+
+export const undoLastMark = () => ({
+  type: actionTypes.TEST_CARD_MARK_UNDO
+});

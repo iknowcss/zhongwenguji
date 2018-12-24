@@ -109,6 +109,54 @@ describe('characterTestReducer', () => {
         currentCardIndex: 0
       });
     });
+
+    it('un-does the previous mark back to the previous card', () => {
+      expect(characterTestReducer({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 1
+      }, {
+        type: actionTypes.TEST_CARD_MARK_UNDO
+      })).toEqual({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+
+    it('un-does the previous mark back to the previous section', () => {
+      expect(characterTestReducer({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 1,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_UNDO
+      })).toEqual({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 1
+      });
+    });
+
+    it('does not undo beyond the first card', () => {
+      expect(characterTestReducer({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_UNDO
+      })).toEqual({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
   });
 
   describe('selectors', () => {

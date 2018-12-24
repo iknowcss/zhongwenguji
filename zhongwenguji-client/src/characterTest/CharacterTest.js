@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toggleDefinition } from './characterTestActions';
+import {
+  toggleDefinition,
+  markCurrentKnown,
+  markCurrentUnknown,
+  undoLastMark
+} from './characterTestActions';
 import { currentCard, isShowDefinition, status } from './characterTestReducer';
 import keyHandler from '../util/keyHandler';
 import CharacterCard from './CharacterCard';
 import './CharacterTest.css';
+
+const noop = () => {};
 
 class CharacterTest extends Component {
   static propTypes = {
     currentCard: PropTypes.object,
     isShowDefinition: PropTypes.bool,
     status: PropTypes.string,
-    toggleDefinition: PropTypes.func
+
+    toggleDefinition: PropTypes.func,
+    markCurrentKnown: PropTypes.func,
+    markCurrentUnknown: PropTypes.func
   };
 
   static defaultProps = {
     currentCard: null,
     isShowDefinition: false,
-    toggleDefinition: () => {}
+    toggleDefinition: noop,
+    markCurrentKnown: noop,
+    markCurrentUnknown: noop,
+    undoLastMark: noop,
   };
 
   componentDidMount() {
@@ -32,8 +45,21 @@ class CharacterTest extends Component {
   }
 
   handleKeyDown = (key) => {
-    if (key === 'ArrowUp') {
-      this.props.toggleDefinition();
+    switch (key) {
+      case 'ArrowUp':
+        this.props.toggleDefinition();
+        break;
+      case 'ArrowLeft':
+        this.props.markCurrentUnknown();
+        break;
+      case 'ArrowRight':
+        this.props.markCurrentKnown();
+        break;
+      case 'ArrowDown':
+        this.props.undoLastMark();
+        break;
+      default:
+        break;
     }
   };
 
@@ -66,6 +92,9 @@ export default connect(mapSelectors({
   isShowDefinition,
   status
 }), {
-  toggleDefinition
+  toggleDefinition,
+  markCurrentKnown,
+  markCurrentUnknown,
+  undoLastMark
 })(CharacterTest);
 

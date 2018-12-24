@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
   currentCardIndex: 0
 };
 
-function processMark(state, action) {
+function processMark(state) {
   if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
     return { ...state, currentCardIndex: state.currentCardIndex + 1 };
   }
@@ -21,6 +21,19 @@ function processMark(state, action) {
     currentSectionIndex: 0,
     state: 'COMPLETE',
   };
+}
+
+function processUndoMark(state) {
+  if (state.currentCardIndex > 0) {
+    return { ...state, currentCardIndex: state.currentCardIndex - 1 };
+  }
+  if (state.currentSectionIndex > 0) {
+    return { ...state,
+      currentSectionIndex: state.currentSectionIndex - 1,
+      currentCardIndex: state.bins[state.currentSectionIndex - 1].sample.length - 1
+    };
+  }
+  return state;
 }
 
 export default (state = DEFAULT_STATE, action = {}) => {
@@ -38,6 +51,8 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.TEST_CARD_MARK_KNOWN:
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
       return processMark(state, action);
+    case actionTypes.TEST_CARD_MARK_UNDO:
+      return processUndoMark(state, action);
     default:
       return state;
   }
