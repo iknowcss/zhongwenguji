@@ -1,7 +1,8 @@
 import { actionTypes } from './characterSamplesActions';
 
 const DEFAULT_STATE = {
-  bins: []
+  bins: [],
+  isShowDefinition: false
 };
 
 export default (state = DEFAULT_STATE, action = {}) => {
@@ -13,6 +14,10 @@ export default (state = DEFAULT_STATE, action = {}) => {
         ...state,
         bins: action.characters
       };
+    case actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW:
+      return { ...state, isShowDefinition: true };
+    case actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE:
+      return { ...state, isShowDefinition: false };
     default:
       return state;
   }
@@ -20,3 +25,4 @@ export default (state = DEFAULT_STATE, action = {}) => {
 }
 
 export const bins = state => state.characterSamples.bins;
+export const isShowDefinition = state => state.characterSamples.isShowDefinition;

@@ -8,13 +8,29 @@ body {
 }
 
 .TestCard {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border: 3px solid black;
   box-sizing: border-box;
-  width: 150px;
-  line-height: calc(200px - 6px);
-  text-align: center;
-  font-size: 100px;
-  display: block;
-  vertical-align: middle;
+  width: 12em;
+  height: 15em;
   border-radius: 3px;
+}
+
+.TestCard__character {
+  font-size: 8em;
+  align-self: center;
+}
+
+.TestCard__definition {
+  word-break: break-word;
+  font-size: 1.5em;
+  margin: 0.5em;
+}
+
+.TestCard__pinyin {
+  font-size: 2em;
 }
