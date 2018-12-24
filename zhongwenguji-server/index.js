@@ -34,13 +34,10 @@ function sampleCharacters({ seed, binCount, samplesPerBin }) {
   const sampler = xxx({ seed, samplesPerBin });
   return Array
     .from({ length: binCount }, (x, i) => allCharacters.slice(i * binSize, (i + 1) * binSize))
-    .map((bin, i) => {
-      console.log(bin.length)
-      return {
-        range: { from: i * binSize, to: (i + 1) * binSize - 1 },
-        sample: sampler(bin)
-      };
-    });
+    .map((bin, i) => ({
+      range: [i * binSize, (i + 1) * binSize - 1 ],
+      sample: sampler(bin)
+    }));
 }
 
 function extractSeed(req) {
