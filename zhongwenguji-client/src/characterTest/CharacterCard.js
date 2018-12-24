@@ -1,7 +1,7 @@
 import React from 'react';
-import { formatPinyin } from './util';
+import formatPinyin from '../util/formatPinyin';
 
-export default ({ showDefinition = false, data: { i, c, p, d } }) => (
+export default ({ showDefinition = false, card: { i, c, p, d } }) => (
   <span className="TestCard">
     {showDefinition ? (
       <>

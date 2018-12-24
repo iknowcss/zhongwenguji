@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CharacterTest renders 1`] = `
+Array [
+  <div>
+    Test status: 
+  </div>,
+  <div
+    className="TestCardStack"
+  />,
+]
+`;

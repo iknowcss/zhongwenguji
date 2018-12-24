@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import characterSamples from './characterSamples/characterSamplesReducer';
+import characterTestReducer from './characterTest/characterTestReducer';
 
 export default combineReducers({
-  characterSamples
+  characterTestReducer
 });
