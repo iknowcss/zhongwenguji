@@ -50,9 +50,9 @@ export default (state = DEFAULT_STATE, action = {}) => {
       return { ...state, isShowDefinition: false };
     case actionTypes.TEST_CARD_MARK_KNOWN:
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
-      return processMark(state, action);
+      return { ...processMark(state, action), isShowDefinition: false };
     case actionTypes.TEST_CARD_MARK_UNDO:
-      return processUndoMark(state, action);
+      return { ...processUndoMark(state, action), isShowDefinition: false };
     default:
       return state;
   }

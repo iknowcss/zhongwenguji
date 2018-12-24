@@ -14,6 +14,11 @@
   width: 12em;
   height: 15em;
   border-radius: 3px;
+  overflow-y: auto;
+}
+
+.TestCard--showDefinition {
+  justify-content: flex-start;
 }
 
 .TestCard__character {
@@ -24,9 +29,12 @@
 .TestCard__definition {
   word-break: break-word;
   font-size: 1.5em;
-  margin: 0.5em;
+  margin: 0 0.5em;
 }
 
 .TestCard__pinyin {
   font-size: 2em;
+  min-height: 1.5em;
+  line-height: 1.5em;
+  margin: 0.2em 0;
 }

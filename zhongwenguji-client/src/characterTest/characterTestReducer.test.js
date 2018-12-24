@@ -74,7 +74,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 1
+        currentCardIndex: 1,
+        isShowDefinition: false
       });
     });
 
@@ -90,7 +91,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 1,
-        currentCardIndex: 0
+        currentCardIndex: 0,
+        isShowDefinition: false
       });
     });
 
@@ -106,7 +108,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'COMPLETE',
         currentSectionIndex: 0,
-        currentCardIndex: 0
+        currentCardIndex: 0,
+        isShowDefinition: false
       });
     });
 
@@ -122,7 +125,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 0
+        currentCardIndex: 0,
+        isShowDefinition: false
       });
     });
 
@@ -138,7 +142,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 1
+        currentCardIndex: 1,
+        isShowDefinition: false
       });
     });
 
@@ -154,7 +159,8 @@ describe('characterTestReducer', () => {
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 0
+        currentCardIndex: 0,
+        isShowDefinition: false
       });
     });
   });
