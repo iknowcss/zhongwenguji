@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadSamples } from './characterSamples/characterSamplesActions';
 import { bins } from './characterSamples/characterSamplesReducer';
+import CharacterCard from './CharacterCard';
 import './App.css';
 
 class App extends Component {
@@ -20,16 +21,28 @@ class App extends Component {
     this.props.loadSamples();
   }
 
+  renderCurrentCard() {
+    const binI = 0;
+    const sampleI = 0;
+    if (!this.props.bins[binI] || !this.props.bins[binI].sample[sampleI]) {
+      return null;
+    }
+    return (
+      <CharacterCard data={this.props.bins[binI].sample[sampleI]} />
+    );
+  }
+
   render() {
     return (
       <div className="App">
-        {this.props.bins.map(({ range, sample }) => (
+        {/*this.props.bins.map(({ range, sample }) => (
           <div key={range.join('-')}>
-            {sample.map(({ i, c, p, d }) => (
-              <span>{c}</span>
-            ))}
+            {sample.map(data => <CharacterCard data={data} />)}
           </div>
-        ))}
+        ))*/}
+        <div className="TestCardStack">
+          {this.renderCurrentCard()}
+        </div>
       </div>
     );
   }

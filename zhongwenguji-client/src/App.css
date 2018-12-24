@@ -1,0 +1,20 @@
+body {
+  font-size: 24px;
+}
+
+.TestCardStack {
+  display: flex;
+  justify-content: center;
+}
+
+.TestCard {
+  border: 3px solid black;
+  box-sizing: border-box;
+  width: 150px;
+  line-height: calc(200px - 6px);
+  text-align: center;
+  font-size: 100px;
+  display: block;
+  vertical-align: middle;
+  border-radius: 3px;
+}
