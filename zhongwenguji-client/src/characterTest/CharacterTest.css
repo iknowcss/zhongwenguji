@@ -4,6 +4,8 @@
 }
 
 .TestCard {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotateZ(0);
   font-size: 16px;
   display: flex;
   flex-direction: column;
@@ -43,14 +45,15 @@
 
 .cardSwipe-leave {
   transform: translateX(0);
-  opacity: 1;
 }
 
-.cardSwipe-leave.cardSwipe-leave-active.TestCard--markedUnknown,
-.cardSwipe-leave.cardSwipe-leave-active.TestCard--markedKnown
+/* Leave animation */
+
+.TestCard--markedUnknown.cardSwipe-leave,
+.TestCard--markedKnown.cardSwipe-leave
 {
   opacity: 0.01;
-  transition: transform 300ms ease-in, opacity 300ms ease-in;
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
 }
 
 .TestCard--markedUnknown.cardSwipe-leave.cardSwipe-leave-active {
@@ -61,4 +64,30 @@
 .TestCard--markedKnown.cardSwipe-leave.cardSwipe-leave-active {
   background-color: #efe;
   transform: translateX(150%) translateY(50%) rotateZ(10deg);
+}
+
+/* Enter animation */
+.TestCard--markedUnknown.cardSwipe-enter,
+.TestCard--markedKnown.cardSwipe-enter {
+  opacity: 0.001;
+  z-index: 1;
+}
+
+
+.TestCard--markedUnknown.cardSwipe-enter {
+  background-color: #fee;
+  transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+}
+
+.TestCard--markedKnown.cardSwipe-enter {
+  background-color: #efe;
+  transform: translateX(150%) translateY(50%) rotateZ(10deg);
+}
+
+.TestCard--markedUnknown.cardSwipe-enter.cardSwipe-enter-active,
+.TestCard--markedKnown.cardSwipe-enter.cardSwipe-enter-active
+{
+  transition: transform 100ms ease-in, opacity 100ms ease-in;
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotateZ(0);
 }

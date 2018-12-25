@@ -47,7 +47,7 @@ class CharacterTest extends Component {
 
   handleKeyDown = (key) => {
     switch (key) {
-      case 'ArrowUp':
+      case 'ArrowDown':
         this.props.toggleDefinition();
         break;
       case 'ArrowLeft':
@@ -56,7 +56,7 @@ class CharacterTest extends Component {
       case 'ArrowRight':
         this.props.markCurrentKnown();
         break;
-      case 'ArrowDown':
+      case 'ArrowUp':
         this.props.undoDiscard();
         break;
       default:
