@@ -17,11 +17,16 @@ function processTestComplete(state) {
   };
 }
 
+const calculateScoreStatisticsMemo = {};
 const calculateScoreStatistics = ({ bins }) => {
+  if (calculateScoreStatisticsMemo.bins === bins) {
+    return calculateScoreStatisticsMemo.result;
+  }
+
   let failedSectionCount = 0;
   let lastTestedSectionIndex = 0;
 
-  const binStats = bins.map(({ sample }, i) => {
+  const sectionStats = bins.map(({ sample }, i) => {
     const totalScore = sample.reduce((sum, { score }) => sum + score, 0);
     if (totalScore === 0) {
       failedSectionCount++;
@@ -34,11 +39,16 @@ const calculateScoreStatistics = ({ bins }) => {
     return { isTested, knownPercent };
   });
 
-  return {
+  const result = {
     lastTestedSectionIndex,
     failedSectionCount,
-    binStats
+    sectionStats
   };
+
+  calculateScoreStatisticsMemo.bins = bins;
+  calculateScoreStatisticsMemo.result = result;
+
+  return result;
 };
 
 function processStepCard(state) {
@@ -60,7 +70,7 @@ function processDiscard(state) {
   const {
     lastTestedSectionIndex,
     failedSectionCount,
-    binStats
+    sectionStats
   } = calculateScoreStatistics(state);
 
   if (failedSectionCount > 1 || (failedSectionCount === 1 && lastTestedSectionIndex === 0)) {
@@ -69,7 +79,7 @@ function processDiscard(state) {
   if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
     return processStepCard(state);
   }
-  if (binStats[lastTestedSectionIndex].knownPercent >= 100) {
+  if (sectionStats[lastTestedSectionIndex].knownPercent >= 100) {
     return processStepSection(state, 2);
   }
   return processStepSection(state, 1);
@@ -166,7 +176,10 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
     case actionTypes.TEST_CARD_MARK_KNOWN:
     case actionTypes.TEST_CARD_MARK_CLEAR:
-      return processMark(state, action);
+      if (state.state === 'TESTING') {
+        return processMark(state, action);
+      }
+      break;
     case actionTypes.TEST_CARD_DISCARD:
       return { ...processDiscard(state, action), isShowDefinition: false };
     case actionTypes.TEST_CARD_DISCARD_UNDO:
@@ -174,6 +187,7 @@ export default (state = DEFAULT_STATE, action = {}) => {
     default:
       return state;
   }
+  return state;
 }
 
 /// - Root state selectors -------------------------------------------------------------------------

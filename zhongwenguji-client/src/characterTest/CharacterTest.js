@@ -8,7 +8,12 @@ import {
   markCurrentUnknown,
   undoDiscard
 } from './characterTestActions';
-import { currentCard, isShowDefinition, status } from './characterTestReducer';
+import {
+  currentCard,
+  isShowDefinition,
+  status,
+  scoreStatistics
+} from './characterTestReducer';
 import keyHandler from '../util/keyHandler';
 import CharacterCard from './CharacterCard';
 import './CharacterTest.css';
@@ -20,6 +25,7 @@ class CharacterTest extends Component {
     currentCard: PropTypes.object,
     isShowDefinition: PropTypes.bool,
     status: PropTypes.string,
+    scoreStatistics: PropTypes.object,
 
     toggleDefinition: PropTypes.func,
     markCurrentKnown: PropTypes.func,
@@ -29,6 +35,7 @@ class CharacterTest extends Component {
   static defaultProps = {
     currentCard: null,
     isShowDefinition: false,
+    scoreStatistics: {},
     toggleDefinition: noop,
     markCurrentKnown: noop,
     markCurrentUnknown: noop,
@@ -64,10 +71,35 @@ class CharacterTest extends Component {
     }
   };
 
+  renderLiveStats() {
+    const { sectionStats = [] } = this.props.scoreStatistics;
+
+    return (
+      <svg width="420" height="220">
+        {sectionStats.map(({ isTested, knownPercent }, i) => (
+          (isTested && knownPercent >= 0) ? (
+            <circle
+              cx={10 + 10 * i}
+              cy={10 + 100 - knownPercent}
+              r={3}
+              style={{fill: 'rgb(0,0,255)'}}
+            />
+          ) : (
+            null
+          )
+        ))}
+      </svg>
+    );
+  }
+
   render() {
     return (
       <>
         <div>Test status: {this.props.status}</div>
+        <div>
+          Live Stats
+          {this.renderLiveStats()}
+        </div>
         <CSSTransitionGroup
           component="div"
           className="TestCardStack"
@@ -75,13 +107,11 @@ class CharacterTest extends Component {
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
         >
-            {this.props.currentCard ? (
-              <CharacterCard
-                {...this.props.currentCard}
-                showDefinition={this.props.isShowDefinition}
-                key={this.props.currentCard.index}
-              />
-            ) : null}
+          {this.props.currentCard ? (<CharacterCard
+            {...this.props.currentCard}
+            showDefinition={this.props.isShowDefinition}
+            key={this.props.currentCard.index}
+          />) : null}
         </CSSTransitionGroup>
       </>
     );
@@ -98,7 +128,8 @@ const mapSelectors = (map) => (state) => Object.keys(map).reduce((props, key) =>
 export default connect(mapSelectors({
   currentCard,
   isShowDefinition,
-  status
+  status,
+  scoreStatistics
 }), {
   toggleDefinition,
   markCurrentKnown,

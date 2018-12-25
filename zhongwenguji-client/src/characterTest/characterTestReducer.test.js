@@ -100,6 +100,26 @@ describe('characterTestReducer', () => {
   });
 
   describe('marking', () => {
+    it('does not mark if not testing', () => {
+      const bins = prepareBins(
+        [0, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN],
+      );
+      expect(characterTestReducer({
+        bins,
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_KNOWN
+      })).toEqual({
+        bins,
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+
     it('marks current as unknown', () => {
       expect(characterTestReducer({
         bins: [
@@ -433,26 +453,46 @@ describe('characterTestReducer', () => {
   });
 
   describe('selectors', () => {
-    it('scoreStatistics', () => {
-      expect(scoreStatistics({
-        characterTestReducer: {
-          bins: prepareBins(
-            [1, 1, 1, 1, 0],
-            [NaN, NaN, NaN, NaN, NaN],
-            [0, 0, 0, 0, 0],
-            [1, 0, NaN, NaN, NaN],
-          )
-        }
-      })).toEqual({
-        lastTestedSectionIndex: 3,
-        failedSectionCount: 1,
-        binStats: [
-          { isTested: true, knownPercent: 80 },
-          { isTested: false, knownPercent: NaN },
-          { isTested: true, knownPercent: 0 },
-          { isTested: true, knownPercent: NaN }
-        ]
+    describe('scoreStatistics', () => {
+      it('calculates the current statistics', () => {
+        expect(scoreStatistics({
+          characterTestReducer: {
+            bins: prepareBins(
+              [1, 1, 1, 1, 0],
+              [NaN, NaN, NaN, NaN, NaN],
+              [0, 0, 0, 0, 0],
+              [1, 0, NaN, NaN, NaN],
+            )
+          }
+        })).toEqual({
+          lastTestedSectionIndex: 3,
+          failedSectionCount: 1,
+          sectionStats: [
+            { isTested: true, knownPercent: 80 },
+            { isTested: false, knownPercent: NaN },
+            { isTested: true, knownPercent: 0 },
+            { isTested: true, knownPercent: NaN }
+          ]
+        });
       });
+
+      it('memoizes the result on the "bins" instance', () => {
+        const binsA = prepareBins([1]);
+        const binsB = prepareBins([0]);
+
+        const results = [
+          scoreStatistics({ characterTestReducer: { bins: binsA }}),
+          scoreStatistics({ characterTestReducer: { bins: binsA }}),
+          scoreStatistics({ characterTestReducer: { bins: binsB }}),
+          scoreStatistics({ characterTestReducer: { bins: binsB }}),
+          scoreStatistics({ characterTestReducer: { bins: binsA }})
+        ];
+
+        expect(results[0]).toBe(results[1]);
+        expect(results[1]).not.toBe(results[2]);
+        expect(results[2]).toBe(results[3]);
+        expect(results[3]).not.toBe(results[4]);
+      })
     });
   });
 });

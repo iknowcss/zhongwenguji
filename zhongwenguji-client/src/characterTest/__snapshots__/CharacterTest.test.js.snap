@@ -5,6 +5,13 @@ Array [
   <div>
     Test status: 
   </div>,
+  <div>
+    Live Stats
+    <svg
+      height="220"
+      width="420"
+    />
+  </div>,
   <div
     className="TestCardStack"
   />,
