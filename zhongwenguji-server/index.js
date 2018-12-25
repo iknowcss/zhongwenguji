@@ -3,6 +3,9 @@ const path = require('path');
 const serverless = require('serverless-http');
 const express = require('express');
 
+const DEFAULT_BIN_COUNT = 40;
+const DEFAULT_SAMPLES_PER_BIN = 5;
+
 const app = express();
 
 const allCharacters = fs
@@ -55,8 +58,8 @@ function extractSeed(req) {
 app.get('/', (req, res) => {
   const config = {
     seed: extractSeed(req),
-    binCount: 10,
-    samplesPerBin: 5
+    binCount: DEFAULT_BIN_COUNT,
+    samplesPerBin: DEFAULT_SAMPLES_PER_BIN
   };
   res.json({
     ...config,

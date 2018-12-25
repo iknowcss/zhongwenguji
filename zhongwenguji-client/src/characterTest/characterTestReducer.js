@@ -8,13 +8,7 @@ const DEFAULT_STATE = {
   currentCardIndex: 0
 };
 
-function processDiscard(state) {
-  if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
-    return { ...state, currentCardIndex: state.currentCardIndex + 1 };
-  }
-  if (state.currentSectionIndex + 1 < state.bins.length) {
-    return { ...state, currentCardIndex: 0, currentSectionIndex: state.currentSectionIndex + 1 };
-  }
+function processTestComplete(state) {
   return {
     ...state,
     currentCardIndex: 0,
@@ -23,7 +17,65 @@ function processDiscard(state) {
   };
 }
 
-function updateScore(bins, sectionIndex, cardIndex, score) {
+const calculateScoreStatistics = ({ bins }) => {
+  let failedSectionCount = 0;
+  let lastTestedSectionIndex = 0;
+
+  const binStats = bins.map(({ sample }, i) => {
+    const totalScore = sample.reduce((sum, { score }) => sum + score, 0);
+    if (totalScore === 0) {
+      failedSectionCount++;
+    }
+    const knownPercent = Math.round(100 * totalScore / sample.length);
+    const isTested = sample[0].score >= 0;
+    if (isTested) {
+      lastTestedSectionIndex = i;
+    }
+    return { isTested, knownPercent };
+  });
+
+  return {
+    lastTestedSectionIndex,
+    failedSectionCount,
+    binStats
+  };
+};
+
+function processStepCard(state) {
+  return { ...state, currentCardIndex: state.currentCardIndex + 1 };
+}
+
+function processStepSection(state, stepSize = 1) {
+  if (state.currentSectionIndex + stepSize < state.bins.length) {
+    return {
+      ...state,
+      currentCardIndex: 0,
+      currentSectionIndex: state.currentSectionIndex + stepSize
+    };
+  }
+  return processTestComplete(state);
+}
+
+function processDiscard(state) {
+  const {
+    lastTestedSectionIndex,
+    failedSectionCount,
+    binStats
+  } = calculateScoreStatistics(state);
+
+  if (failedSectionCount > 1 || (failedSectionCount === 1 && lastTestedSectionIndex === 0)) {
+    return processTestComplete(state);
+  }
+  if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
+    return processStepCard(state);
+  }
+  if (binStats[lastTestedSectionIndex].knownPercent >= 100) {
+    return processStepSection(state, 2);
+  }
+  return processStepSection(state, 1);
+}
+
+function processBinScore(bins, { sectionIndex, cardIndex, score }) {
   return Array.from(bins, (section, i) => {
     if (i === sectionIndex) {
       return {
@@ -45,12 +97,11 @@ function processUndoDiscard(state) {
     return state;
   }
 
-  const bins = updateScore(
-    state.bins,
-    state.currentSectionIndex,
-    state.currentCardIndex,
-    NaN
-  );
+  const bins = processBinScore(state.bins, {
+    sectionIndex: state.currentSectionIndex,
+    cardIndex: state.currentCardIndex,
+    score: NaN
+  });
 
   if (state.currentCardIndex > 0) {
     return {
@@ -77,12 +128,11 @@ function processMark(state, action) {
   })[action.type];
   return {
     ...state,
-    bins: updateScore(
-      state.bins,
-      state.currentSectionIndex,
-      state.currentCardIndex,
+    bins: processBinScore(state.bins, {
+      sectionIndex: state.currentSectionIndex,
+      cardIndex: state.currentCardIndex,
       score
-    )
+    })
   };
 }
 
@@ -98,6 +148,8 @@ function processBins(characers) {
     }))
   }));
 }
+
+/// - State reducer --------------------------------------------------------------------------------
 
 export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
@@ -124,11 +176,17 @@ export default (state = DEFAULT_STATE, action = {}) => {
   }
 }
 
-export const status = state => state.characterTestReducer.state;
-export const isShowDefinition = state => state.characterTestReducer.isShowDefinition;
+/// - Root state selectors -------------------------------------------------------------------------
+
+export const status = rootState => rootState.characterTestReducer.state;
+
+export const isShowDefinition = rootState => rootState.characterTestReducer.isShowDefinition;
+
 export const currentCard = ({ characterTestReducer: { currentSectionIndex, currentCardIndex, bins, state } }) => {
   if (state === 'TESTING') {
     return bins[currentSectionIndex].sample[currentCardIndex];
   }
   return null;
 };
+
+export const scoreStatistics = rootState => calculateScoreStatistics(rootState.characterTestReducer);

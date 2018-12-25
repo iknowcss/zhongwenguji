@@ -1,7 +1,11 @@
-import characterTestReducer from './characterTestReducer';
+import characterTestReducer, { scoreStatistics } from './characterTestReducer';
 import { actionTypes } from './characterTestActions';
 
 describe('characterTestReducer', () => {
+  const prepareBins = (...sections) => sections.map(section => ({
+    sample: section.map(score => ({ score }))
+  }));
+
   describe('loading', () => {
     it('has defaults', () => {
       expect(characterTestReducer()).toEqual({
@@ -211,37 +215,128 @@ describe('characterTestReducer', () => {
       });
     });
 
-    it('discards current and moves to next section', () => {
-      expect(characterTestReducer({
-        bins: [{sample: [{}, {}]}, {sample: [{}, {}]}],
-        state: 'TESTING',
-        currentSectionIndex: 0,
-        currentCardIndex: 1
-      }, {
-        type: actionTypes.TEST_CARD_DISCARD
-      })).toEqual({
-        bins: [{sample: [{}, {}]}, {sample: [{}, {}]}],
-        state: 'TESTING',
-        currentSectionIndex: 1,
-        currentCardIndex: 0,
-        isShowDefinition: false
+    describe('the current section was not failed', () => {
+      const bins = prepareBins(
+        [1, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      it('discards current and moves to next section', () => {
+        expect(characterTestReducer({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 0,
+          currentCardIndex: 4
+        }, {
+          type: actionTypes.TEST_CARD_DISCARD
+        })).toEqual({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 1,
+          currentCardIndex: 0,
+          isShowDefinition: false
+        });
       });
     });
 
-    it('discards current and completes the test', () => {
-      expect(characterTestReducer({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
-        state: 'TESTING',
-        currentSectionIndex: 1,
-        currentCardIndex: 1
-      }, {
-        type: actionTypes.TEST_CARD_DISCARD
-      })).toEqual({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
-        state: 'COMPLETE',
-        currentSectionIndex: 0,
-        currentCardIndex: 0,
-        isShowDefinition: false
+    describe('the current section was aced', () => {
+      const bins = prepareBins(
+        [1, 1, 1, 1, 1],
+        [NaN, NaN, NaN, NaN, NaN],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      it('discards current and moves ahead 2 sections', () => {
+        expect(characterTestReducer({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 0,
+          currentCardIndex: 4
+        }, {
+          type: actionTypes.TEST_CARD_DISCARD
+        })).toEqual({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 2,
+          currentCardIndex: 0,
+          isShowDefinition: false
+        });
+      });
+    });
+
+    describe('the current section is the first failed', () => {
+      const bins = prepareBins(
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      it('discards current and moves to next section', () => {
+        expect(characterTestReducer({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 1,
+          currentCardIndex: 4
+        }, {
+          type: actionTypes.TEST_CARD_DISCARD
+        })).toEqual({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 2,
+          currentCardIndex: 0,
+          isShowDefinition: false
+        });
+      });
+    });
+
+    describe('the current section is the 2nd failed', () => {
+      const bins = prepareBins(
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      it('discards current and completes the test', () => {
+        expect(characterTestReducer({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 2,
+          currentCardIndex: 4
+        }, {
+          type: actionTypes.TEST_CARD_DISCARD
+        })).toEqual({
+          bins,
+          state: 'COMPLETE',
+          currentSectionIndex: 0,
+          currentCardIndex: 0,
+          isShowDefinition: false
+        });
+      });
+    });
+
+    describe('the current section is the 1st section and it was failed', () => {
+      const bins = prepareBins(
+        [0, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      it('discards current and completes the test', () => {
+        expect(characterTestReducer({
+          bins,
+          state: 'TESTING',
+          currentSectionIndex: 0,
+          currentCardIndex: 4
+        }, {
+          type: actionTypes.TEST_CARD_DISCARD
+        })).toEqual({
+          bins,
+          state: 'COMPLETE',
+          currentSectionIndex: 0,
+          currentCardIndex: 0,
+          isShowDefinition: false
+        });
       });
     });
   });
@@ -338,6 +433,26 @@ describe('characterTestReducer', () => {
   });
 
   describe('selectors', () => {
-
+    it('scoreStatistics', () => {
+      expect(scoreStatistics({
+        characterTestReducer: {
+          bins: prepareBins(
+            [1, 1, 1, 1, 0],
+            [NaN, NaN, NaN, NaN, NaN],
+            [0, 0, 0, 0, 0],
+            [1, 0, NaN, NaN, NaN],
+          )
+        }
+      })).toEqual({
+        lastTestedSectionIndex: 3,
+        failedSectionCount: 1,
+        binStats: [
+          { isTested: true, knownPercent: 80 },
+          { isTested: false, knownPercent: NaN },
+          { isTested: true, knownPercent: 0 },
+          { isTested: true, knownPercent: NaN }
+        ]
+      });
+    });
   });
 });
