@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CharacterCard renders the character 1`] = `
+<span
+  className="TestCard"
+>
+  <span
+    className="TestCard__character"
+  >
+    科
+  </span>
+</span>
+`;
+
+exports[`CharacterCard renders the definition 1`] = `
+<span
+  className="TestCard TestCard--showDefinition"
+>
+  <span
+    className="TestCard__pinyin"
+  >
+    ke1
+  </span>
+  <span
+    className="TestCard__definition"
+  >
+    branch of study
+  </span>
+</span>
+`;

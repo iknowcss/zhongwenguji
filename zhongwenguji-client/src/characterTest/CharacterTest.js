@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CSSTransitionGroup } from 'react-transition-group';
 import {
   toggleDefinition,
   markCurrentKnown,
   markCurrentUnknown,
-  undoLastMark
+  undoDiscard
 } from './characterTestActions';
 import { currentCard, isShowDefinition, status } from './characterTestReducer';
 import keyHandler from '../util/keyHandler';
@@ -31,7 +32,7 @@ class CharacterTest extends Component {
     toggleDefinition: noop,
     markCurrentKnown: noop,
     markCurrentUnknown: noop,
-    undoLastMark: noop,
+    undoDiscard: noop,
   };
 
   componentDidMount() {
@@ -56,7 +57,7 @@ class CharacterTest extends Component {
         this.props.markCurrentKnown();
         break;
       case 'ArrowDown':
-        this.props.undoLastMark();
+        this.props.undoDiscard();
         break;
       default:
         break;
@@ -67,14 +68,21 @@ class CharacterTest extends Component {
     return (
       <>
         <div>Test status: {this.props.status}</div>
-        <div className="TestCardStack">
-          {this.props.currentCard ? (
-            <CharacterCard
-              card={this.props.currentCard}
-              showDefinition={this.props.isShowDefinition}
-            />
-          ) : null}
-        </div>
+        <CSSTransitionGroup
+          component="div"
+          className="TestCardStack"
+          transitionName="cardSwipe"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
+            {this.props.currentCard ? (
+              <CharacterCard
+                {...this.props.currentCard}
+                showDefinition={this.props.isShowDefinition}
+                key={this.props.currentCard.index}
+              />
+            ) : null}
+        </CSSTransitionGroup>
       </>
     );
   }
@@ -95,6 +103,6 @@ export default connect(mapSelectors({
   toggleDefinition,
   markCurrentKnown,
   markCurrentUnknown,
-  undoLastMark
+  undoDiscard
 })(CharacterTest);
 

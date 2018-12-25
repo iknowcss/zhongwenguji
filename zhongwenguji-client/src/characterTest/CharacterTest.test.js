@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Pure as CharacterTest } from './CharacterTest';
-import {markCurrentKnown} from "./characterTestActions";
 
 const mockUnregister = jest.fn();
 let mockOnKeyDown = null;
@@ -56,9 +55,9 @@ describe('CharacterTest', () => {
   });
 
   it('un-does the previous marking', () => {
-    const undoLastMark = jest.fn();
-    setup({ undoLastMark });
+    const undoDiscard = jest.fn();
+    setup({ undoDiscard });
     mockOnKeyDown('ArrowDown');
-    expect(undoLastMark).toHaveBeenCalled();
+    expect(undoDiscard).toHaveBeenCalled();
   });
 });

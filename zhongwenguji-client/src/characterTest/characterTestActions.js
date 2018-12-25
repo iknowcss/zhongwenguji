@@ -10,7 +10,9 @@ export const actionTypes = {
   CHARACTER_SAMPLES_DEFINITION_HIDE: '@zwgj//characterSamples/definition/hide',
   TEST_CARD_MARK_KNOWN: '@zwgj//testCard/markKnown',
   TEST_CARD_MARK_UNKNOWN: '@zwgj//testCard/markUnknown',
-  TEST_CARD_MARK_UNDO: '@zwgj//testCard/markUndo'
+  TEST_CARD_MARK_CLEAR: '@zwgj//testCard/markClear',
+  TEST_CARD_DISCARD_UNDO: '@zwgj//testCard/discardUndo',
+  TEST_CARD_DISCARD: '@zwgj//testCard/discard'
 };
 
 function extractJson(response) {
@@ -31,7 +33,7 @@ export const loadSamples = (url = DEFAULT_CHARACTER_SAMPLE_URL) => (dispatch) =>
       });
     })
     .catch((error) => {
-      // console.error('Could not fetch samples', error);
+      console.error('Could not fetch samples', error);
       dispatch({
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL,
         error
@@ -47,14 +49,21 @@ export const toggleDefinition = () => (dispatch, getState) => {
   }
 };
 
-export const markCurrentKnown = () => ({
-  type: actionTypes.TEST_CARD_MARK_KNOWN
+export const discardCurrent = () => ({
+  type: actionTypes.TEST_CARD_DISCARD
 });
 
-export const markCurrentUnknown = () => ({
-  type: actionTypes.TEST_CARD_MARK_UNKNOWN
-});
+export const markCurrentUnknown = () => (dispatch) => {
+  dispatch({ type: actionTypes.TEST_CARD_MARK_UNKNOWN });
+  dispatch({ type: actionTypes.TEST_CARD_DISCARD });
+};
 
-export const undoLastMark = () => ({
-  type: actionTypes.TEST_CARD_MARK_UNDO
-});
+export const markCurrentKnown = () => (dispatch) => {
+  dispatch({ type: actionTypes.TEST_CARD_MARK_KNOWN });
+  dispatch({ type: actionTypes.TEST_CARD_DISCARD });
+};
+
+export const undoDiscard = () => (dispatch) => {
+  dispatch({ type: actionTypes.TEST_CARD_MARK_CLEAR });
+  dispatch({ type: actionTypes.TEST_CARD_DISCARD_UNDO });
+};

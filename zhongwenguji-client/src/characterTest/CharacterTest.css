@@ -15,6 +15,8 @@
   height: 15em;
   border-radius: 3px;
   overflow-y: auto;
+  background-color: white;
+  position: absolute;
 }
 
 .TestCard--showDefinition {
@@ -37,4 +39,26 @@
   min-height: 1.5em;
   line-height: 1.5em;
   margin: 0.2em 0;
+}
+
+.cardSwipe-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cardSwipe-leave.cardSwipe-leave-active.TestCard--markedUnknown,
+.cardSwipe-leave.cardSwipe-leave-active.TestCard--markedKnown
+{
+  opacity: 0.01;
+  transition: transform 300ms ease-in, opacity 300ms ease-in;
+}
+
+.TestCard--markedUnknown.cardSwipe-leave.cardSwipe-leave-active {
+  background-color: #fee;
+  transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+}
+
+.TestCard--markedKnown.cardSwipe-leave.cardSwipe-leave-active {
+  background-color: #efe;
+  transform: translateX(150%) translateY(50%) rotateZ(10deg);
 }

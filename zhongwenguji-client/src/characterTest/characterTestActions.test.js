@@ -6,14 +6,25 @@ import {
   loadSamples,
   markCurrentUnknown,
   markCurrentKnown,
-  undoLastMark
+  undoDiscard,
+  discardCurrent
 } from './characterTestActions';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('characterTestActions', () => {
+  const oldConsole = {};
+  let store;
+
+  beforeEach(() => {
+    store = mockStore({});
+    oldConsole.error = console.error;
+    console.error = jest.fn();
+  });
+
   afterEach(() => {
     fetchMock.restore();
+    console.error = oldConsole.error;
   });
 
   it('loads character samples', () => {
@@ -22,7 +33,6 @@ describe('characterTestActions', () => {
       headers: { 'Content-type': 'application/json' }
     });
 
-    const store = mockStore({});
     return store.dispatch(loadSamples('http://example.com/characters/sample'))
       .then(() => {
         expect(store.getActions()).toEqual([
@@ -38,9 +48,13 @@ describe('characterTestActions', () => {
   it('handles character sample load failure', () => {
     fetchMock.getOnce('http://example.com/characters/sample', 500);
 
-    const store = mockStore({});
     return store.dispatch(loadSamples('http://example.com/characters/sample'))
       .then(() => {
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalledWith(
+          'Could not fetch samples',
+          new Error('Response was not OK')
+        );
         expect(store.getActions()).toEqual([
           { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
           {
@@ -51,15 +65,31 @@ describe('characterTestActions', () => {
       });
   });
 
+  it('discards the current card', () => {
+    expect(discardCurrent()).toEqual({ type: actionTypes.TEST_CARD_DISCARD });
+  });
+
   it('marks the current character unknown', () => {
-    expect(markCurrentUnknown()).toEqual({ type: actionTypes.TEST_CARD_MARK_UNKNOWN });
+    store.dispatch(markCurrentUnknown());
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.TEST_CARD_MARK_UNKNOWN },
+      { type: actionTypes.TEST_CARD_DISCARD }
+    ]);
   });
 
   it('marks the current character known', () => {
-    expect(markCurrentKnown()).toEqual({ type: actionTypes.TEST_CARD_MARK_KNOWN });
+    store.dispatch(markCurrentKnown());
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.TEST_CARD_MARK_KNOWN },
+      { type: actionTypes.TEST_CARD_DISCARD }
+    ]);
   });
 
   it('un-does the previous marking', () => {
-    expect(undoLastMark()).toEqual({ type: actionTypes.TEST_CARD_MARK_UNDO });
+    store.dispatch(undoDiscard());
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.TEST_CARD_MARK_CLEAR },
+      { type: actionTypes.TEST_CARD_DISCARD_UNDO }
+    ]);
   });
 });

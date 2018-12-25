@@ -25,9 +25,43 @@ describe('characterTestReducer', () => {
     it('successfully loads character samples and starts the test', () => {
       expect(characterTestReducer(null, {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        characters: [[], [], []]
+        characters: [
+          { sample: [
+            { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
+            { i: 2, c: '一', p: 'yi1', d: 'one' },
+          ] },
+          { sample: [
+            { i: 3, c: '是', p: 'shi4', d: 'is' }
+          ] }
+        ]
       })).toEqual({
-        bins: [[], [], []],
+        bins: [
+          { sample: [
+            {
+              index: 1,
+              character: '的',
+              pinyin: 'de',
+              definition: '(possessive particle)',
+              score: NaN
+            },
+            {
+              index: 2,
+              character: '一',
+              pinyin: 'yi1',
+              definition: 'one',
+              score: NaN
+            },
+          ] },
+          { sample: [
+            {
+              index: 3,
+              character: '是',
+              pinyin: 'shi4',
+              definition: 'is',
+              score: NaN
+            }
+          ] }
+        ],
         state: 'TESTING'
       });
     });
@@ -62,14 +96,112 @@ describe('characterTestReducer', () => {
   });
 
   describe('marking', () => {
-    it('mark current and moves to next card', () => {
+    it('marks current as unknown', () => {
+      expect(characterTestReducer({
+        bins: [
+          { sample: [
+            { score: NaN },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_UNKNOWN
+      })).toEqual({
+        bins: [
+          { sample: [
+            { score: 0 },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+
+    it('marks current as known', () => {
+      expect(characterTestReducer({
+        bins: [
+          { sample: [
+            { score: NaN },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_KNOWN
+      })).toEqual({
+        bins: [
+          { sample: [
+            { score: 1 },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+
+    it('clears current card mark', () => {
+      expect(characterTestReducer({
+        bins: [
+          { sample: [
+            { score: 0 },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_MARK_CLEAR
+      })).toEqual({
+        bins: [
+          { sample: [
+            { score: NaN },
+            { score: NaN },
+          ] },
+          { sample: [
+            { score: NaN }
+          ] }
+        ],
+        state: 'TESTING',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+  });
+
+  describe('discarding', () => {
+    it('discards current and moves to next card', () => {
       expect(characterTestReducer({
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 0,
         currentCardIndex: 0
       }, {
-        type: actionTypes.TEST_CARD_MARK_KNOWN
+        type: actionTypes.TEST_CARD_DISCARD
       })).toEqual({
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
@@ -79,16 +211,16 @@ describe('characterTestReducer', () => {
       });
     });
 
-    it('mark current and moves to next section', () => {
+    it('discards current and moves to next section', () => {
       expect(characterTestReducer({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [{sample: [{}, {}]}, {sample: [{}, {}]}],
         state: 'TESTING',
         currentSectionIndex: 0,
         currentCardIndex: 1
       }, {
-        type: actionTypes.TEST_CARD_MARK_KNOWN
+        type: actionTypes.TEST_CARD_DISCARD
       })).toEqual({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [{sample: [{}, {}]}, {sample: [{}, {}]}],
         state: 'TESTING',
         currentSectionIndex: 1,
         currentCardIndex: 0,
@@ -96,14 +228,14 @@ describe('characterTestReducer', () => {
       });
     });
 
-    it('mark current and completes the test', () => {
+    it('discards current and completes the test', () => {
       expect(characterTestReducer({
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',
         currentSectionIndex: 1,
         currentCardIndex: 1
       }, {
-        type: actionTypes.TEST_CARD_MARK_KNOWN
+        type: actionTypes.TEST_CARD_DISCARD
       })).toEqual({
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'COMPLETE',
@@ -112,37 +244,77 @@ describe('characterTestReducer', () => {
         isShowDefinition: false
       });
     });
+  });
 
+  describe('undoing', () => {
     it('un-does the previous mark back to the previous card', () => {
       expect(characterTestReducer({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [
+          { sample: [
+              { index: 1, score: 1 },
+              { index: 2, score: 1 },
+              { index: 3, score: 0 }
+            ] },
+          { sample: [
+              { index: 4, score: NaN },
+            ] }
+        ],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 1
+        currentCardIndex: 2
       }, {
-        type: actionTypes.TEST_CARD_MARK_UNDO
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
       })).toEqual({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [
+          { sample: [
+              { index: 1, score: 1 },
+              { index: 2, score: 1 },
+              { index: 3, score: NaN }
+            ] },
+          { sample: [
+              { index: 4, score: NaN },
+            ] }
+        ],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 0,
+        currentCardIndex: 1,
         isShowDefinition: false
       });
     });
 
     it('un-does the previous mark back to the previous section', () => {
       expect(characterTestReducer({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [
+          { sample: [
+            { index: 1, score: 1 },
+            { index: 2, score: 1 },
+            { index: 3, score: 0 }
+          ] },
+          { sample: [
+            { index: 4, score: 0 },
+            { index: 5, score: NaN },
+          ] }
+        ],
         state: 'TESTING',
         currentSectionIndex: 1,
         currentCardIndex: 0
       }, {
-        type: actionTypes.TEST_CARD_MARK_UNDO
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
       })).toEqual({
-        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        bins: [
+          { sample: [
+            { index: 1, score: 1 },
+            { index: 2, score: 1 },
+            { index: 3, score: 0 }
+          ] },
+          { sample: [
+            { index: 4, score: NaN },
+            { index: 5, score: NaN },
+          ] }
+        ],
         state: 'TESTING',
         currentSectionIndex: 0,
-        currentCardIndex: 1,
+        currentCardIndex: 2,
         isShowDefinition: false
       });
     });
@@ -154,7 +326,7 @@ describe('characterTestReducer', () => {
         currentSectionIndex: 0,
         currentCardIndex: 0
       }, {
-        type: actionTypes.TEST_CARD_MARK_UNDO
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
       })).toEqual({
         bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
         state: 'TESTING',

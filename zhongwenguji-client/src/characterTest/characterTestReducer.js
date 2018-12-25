@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
   currentCardIndex: 0
 };
 
-function processMark(state) {
+function processDiscard(state) {
   if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
     return { ...state, currentCardIndex: state.currentCardIndex + 1 };
   }
@@ -23,17 +23,80 @@ function processMark(state) {
   };
 }
 
-function processUndoMark(state) {
+function updateScore(bins, sectionIndex, cardIndex, score) {
+  return Array.from(bins, (section, i) => {
+    if (i === sectionIndex) {
+      return {
+        ...section,
+        sample: Array.from(section.sample, (character, j) => {
+          if (j === cardIndex) {
+            return { ...character, score };
+          }
+          return character;
+        })
+      };
+    }
+    return section;
+  });
+}
+
+function processUndoDiscard(state) {
+  if (state.currentCardIndex <= 0 && state.currentSectionIndex <= 0) {
+    return state;
+  }
+
+  const bins = updateScore(
+    state.bins,
+    state.currentSectionIndex,
+    state.currentCardIndex,
+    NaN
+  );
+
   if (state.currentCardIndex > 0) {
-    return { ...state, currentCardIndex: state.currentCardIndex - 1 };
+    return {
+      ...state,
+      bins,
+      currentCardIndex: state.currentCardIndex - 1
+    };
   }
   if (state.currentSectionIndex > 0) {
-    return { ...state,
+    return {
+      ...state,
+      bins,
       currentSectionIndex: state.currentSectionIndex - 1,
       currentCardIndex: state.bins[state.currentSectionIndex - 1].sample.length - 1
     };
   }
-  return state;
+}
+
+function processMark(state, action) {
+  const score = ({
+    [actionTypes.TEST_CARD_MARK_UNKNOWN]: 0,
+    [actionTypes.TEST_CARD_MARK_KNOWN]: 1,
+    [actionTypes.TEST_CARD_MARK_CLEAR]: NaN
+  })[action.type];
+  return {
+    ...state,
+    bins: updateScore(
+      state.bins,
+      state.currentSectionIndex,
+      state.currentCardIndex,
+      score
+    )
+  };
+}
+
+function processBins(characers) {
+  return characers.map(section => ({
+    ...section,
+    sample: section.sample.map(({ i, c, p, d }) => ({
+      index: i,
+      character: c,
+      pinyin: p,
+      definition: d,
+      score: NaN
+    }))
+  }));
 }
 
 export default (state = DEFAULT_STATE, action = {}) => {
@@ -41,18 +104,21 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START:
       return { ...state, state: 'LOADING', bins: [] };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS:
-      return { ...state, state: 'TESTING', bins: action.characters };
+      return { ...state, state: 'TESTING', bins: processBins(action.characters) };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
       return { ...state, state: 'ERROR' };
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW:
       return { ...state, isShowDefinition: true };
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE:
       return { ...state, isShowDefinition: false };
-    case actionTypes.TEST_CARD_MARK_KNOWN:
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
-      return { ...processMark(state, action), isShowDefinition: false };
-    case actionTypes.TEST_CARD_MARK_UNDO:
-      return { ...processUndoMark(state, action), isShowDefinition: false };
+    case actionTypes.TEST_CARD_MARK_KNOWN:
+    case actionTypes.TEST_CARD_MARK_CLEAR:
+      return processMark(state, action);
+    case actionTypes.TEST_CARD_DISCARD:
+      return { ...processDiscard(state, action), isShowDefinition: false };
+    case actionTypes.TEST_CARD_DISCARD_UNDO:
+      return { ...processUndoDiscard(state, action), isShowDefinition: false };
     default:
       return state;
   }
