@@ -36,7 +36,7 @@ describe('CharacterTest', () => {
   it('toggles the definition', () => {
     const toggleDefinition = jest.fn();
     setup({ toggleDefinition });
-    mockOnKeyDown('ArrowUp');
+    mockOnKeyDown('ArrowDown');
     expect(toggleDefinition).toHaveBeenCalled();
   });
 
@@ -57,7 +57,7 @@ describe('CharacterTest', () => {
   it('un-does the previous marking', () => {
     const undoDiscard = jest.fn();
     setup({ undoDiscard });
-    mockOnKeyDown('ArrowDown');
+    mockOnKeyDown('ArrowUp');
     expect(undoDiscard).toHaveBeenCalled();
   });
 });

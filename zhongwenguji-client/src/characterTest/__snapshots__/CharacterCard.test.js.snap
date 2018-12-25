@@ -19,7 +19,7 @@ exports[`CharacterCard renders the definition 1`] = `
   <span
     className="TestCard__pinyin"
   >
-    ke1
+    kē
   </span>
   <span
     className="TestCard__definition"

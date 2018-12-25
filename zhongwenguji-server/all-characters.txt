@@ -1037,7 +1037,7 @@
 1037	访	29134	89.7170838075	fang3	inquire/seek/visit
 1038	弱	29129	89.7321372417	ruo4	weak/feeble/young/inferior
 1039	蒙	29019	89.7471338295	meng1/meng2/meng3	deceive/cheat/hoodwink, drizzle/mist, dim sighted/ignorant, Mongolia/cover
-1040	歌	28957	89.7620983767	ge1/ge1ge	song
+1040	歌	28957	89.7620983767	ge1/ge	song
 1041	店	28926	89.7770469035	dian4	inn/shop/store
 1042	鬼	28916	89.7919902624	gui3	ghost/sly/crafty
 1043	软	28885	89.8069176011	ruan3	soft/flexible
