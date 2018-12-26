@@ -1,0 +1,1455 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getCharacterSample returns 1`] = `
+Object {
+  "binCount": 40,
+  "characters": Array [
+    Object {
+      "range": Array [
+        0,
+        249,
+      ],
+      "sample": Array [
+        Object {
+          "c": "明",
+          "d": "clear/bright/to understand/next/the Ming dynasty",
+          "i": "121",
+          "p": "ming2",
+        },
+        Object {
+          "c": "知",
+          "d": "to know/to be aware",
+          "i": "123",
+          "p": "zhi1",
+        },
+        Object {
+          "c": "论",
+          "d": "the Analects (of Confucius), by the/per/discuss/theory/to talk (about)/to discuss",
+          "i": "205",
+          "p": "lun2/lun4",
+        },
+        Object {
+          "c": "为",
+          "d": "act as/take...to be/to be/to do/to serve as/to become, because of/for/to",
+          "i": "18",
+          "p": "wei2/wei4",
+        },
+        Object {
+          "c": "立",
+          "d": "set up/to stand",
+          "i": "197",
+          "p": "li4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        249,
+        498,
+      ],
+      "sample": Array [
+        Object {
+          "c": "令",
+          "d": "make or cause to be/order/command/decree/honorable",
+          "i": "378",
+          "p": "ling4",
+        },
+        Object {
+          "c": "准",
+          "d": "to allow/to grant/to permit/accurate/standard, accurate/standard",
+          "i": "379",
+          "p": "zhun3",
+        },
+        Object {
+          "c": "质",
+          "d": "hostage/substance/nature/quality",
+          "i": "404",
+          "p": "zhi4",
+        },
+        Object {
+          "c": "轻",
+          "d": "light/easy/gentle/soft/reckless/unimportant/frivolous/small in number/unstressed/neutral/soft",
+          "i": "460",
+          "p": "qing1",
+        },
+        Object {
+          "c": "似",
+          "d": "to seem/to appear/similar/like/to resemble",
+          "i": "431",
+          "p": "si4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        498,
+        747,
+      ],
+      "sample": Array [
+        Object {
+          "c": "环",
+          "d": "bracelet/ring (not for finger)/to surround/to loop/loop",
+          "i": "681",
+          "p": "huan2",
+        },
+        Object {
+          "c": "云",
+          "d": "(classical) to say, cloud/(abbr.) for Yunnan/surname",
+          "i": "692",
+          "p": "yun2",
+        },
+        Object {
+          "c": "革",
+          "d": "leather/remove",
+          "i": "521",
+          "p": "ge2",
+        },
+        Object {
+          "c": "征",
+          "d": "attack/levy (troops or taxes)/journey/trip/expedition",
+          "i": "739",
+          "p": "zheng1",
+        },
+        Object {
+          "c": "男",
+          "d": "male",
+          "i": "602",
+          "p": "nan2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        747,
+        996,
+      ],
+      "sample": Array [
+        Object {
+          "c": "左",
+          "d": "left",
+          "i": "782",
+          "p": "zuo3",
+        },
+        Object {
+          "c": "乡",
+          "d": "country/village",
+          "i": "922",
+          "p": "xiang1",
+        },
+        Object {
+          "c": "亡",
+          "d": "to die/to perish",
+          "i": "957",
+          "p": "wang2",
+        },
+        Object {
+          "c": "败",
+          "d": "be defeated/to defeat/loss",
+          "i": "862",
+          "p": "bai4",
+        },
+        Object {
+          "c": "铁",
+          "d": "iron",
+          "i": "779",
+          "p": "tie3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        996,
+        1245,
+      ],
+      "sample": Array [
+        Object {
+          "c": "宽",
+          "d": "lenient/wide/broad",
+          "i": "1155",
+          "p": "kuan1",
+        },
+        Object {
+          "c": "齐",
+          "d": "(surname)/even/to make even",
+          "i": "1063",
+          "p": "qi2",
+        },
+        Object {
+          "c": "丈",
+          "d": "ten feet",
+          "i": "1242",
+          "p": "zhang4",
+        },
+        Object {
+          "c": "彻",
+          "d": "pervade/penetrate/pass through/thorough/penetrating",
+          "i": "1240",
+          "p": "che4",
+        },
+        Object {
+          "c": "窗",
+          "d": "shutter/window",
+          "i": "1074",
+          "p": "chuang1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        1245,
+        1494,
+      ],
+      "sample": Array [
+        Object {
+          "c": "摄",
+          "d": "assist/collect/absorb",
+          "i": "1403",
+          "p": "she4",
+        },
+        Object {
+          "c": "患",
+          "d": "misfortune/suffer (from illness)/trouble/danger/worry/to contract (a disease)",
+          "i": "1249",
+          "p": "huan4",
+        },
+        Object {
+          "c": "冬",
+          "d": "winter",
+          "i": "1384",
+          "p": "dong1",
+        },
+        Object {
+          "c": "尺",
+          "d": "a Chinese foot (M)/one-third of a meter/a ruler/a note musical note on traditional Chinese scale",
+          "i": "1474",
+          "p": "chi3",
+        },
+        Object {
+          "c": "奉",
+          "d": "to receive (from superior)/to offer/to revere",
+          "i": "1382",
+          "p": "feng4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        1494,
+        1743,
+      ],
+      "sample": Array [
+        Object {
+          "c": "椅",
+          "d": "chair",
+          "i": "1663",
+          "p": "yi3",
+        },
+        Object {
+          "c": "惨",
+          "d": "miserable/wretched/cruel/inhuman/seriously/badly/tragic",
+          "i": "1530",
+          "p": "can3",
+        },
+        Object {
+          "c": "戈",
+          "d": "(surname)/spear",
+          "i": "1695",
+          "p": "ge1",
+        },
+        Object {
+          "c": "邓",
+          "d": "Deng (Xiaoping)",
+          "i": "1614",
+          "p": "deng4",
+        },
+        Object {
+          "c": "扣",
+          "d": "10 percent/button/detain, button",
+          "i": "1625",
+          "p": "kou4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        1743,
+        1992,
+      ],
+      "sample": Array [
+        Object {
+          "c": "削",
+          "d": "to scrape, to reduce/to pare (away)/to cut (down)",
+          "i": "1794",
+          "p": "xiao1/xue1",
+        },
+        Object {
+          "c": "哀",
+          "d": "sorrow/grief/pity/to grieve for/to pity/to lament",
+          "i": "1751",
+          "p": "ai1",
+        },
+        Object {
+          "c": "葛",
+          "d": "coarse grass linen, (surname)",
+          "i": "1919",
+          "p": "ge2/ge3",
+        },
+        Object {
+          "c": "哼",
+          "d": "hum, (interj. of contempt)",
+          "i": "1966",
+          "p": "heng1/hng",
+        },
+        Object {
+          "c": "丑",
+          "d": "2nd Earthly Branch/clown/Chou (surname), shameful/ugly/disgraceful",
+          "i": "1901",
+          "p": "chou3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        1992,
+        2241,
+      ],
+      "sample": Array [
+        Object {
+          "c": "妮",
+          "d": "girl/phonetic \\"ni\\" (in girl's name)",
+          "i": "2124",
+          "p": "ni1",
+        },
+        Object {
+          "c": "肺",
+          "d": "lung",
+          "i": "2044",
+          "p": "fei4",
+        },
+        Object {
+          "c": "悠",
+          "d": "at ease/long (in time)/sad",
+          "i": "2055",
+          "p": "you1",
+        },
+        Object {
+          "c": "禧",
+          "d": "joy",
+          "i": "2085",
+          "p": "xi3",
+        },
+        Object {
+          "c": "狮",
+          "d": "lion",
+          "i": "2211",
+          "p": "shi1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        2241,
+        2490,
+      ],
+      "sample": Array [
+        Object {
+          "c": "搏",
+          "d": "fight/combat/seize",
+          "i": "2372",
+          "p": "bo2",
+        },
+        Object {
+          "c": "媚",
+          "d": "flatter/charm",
+          "i": "2291",
+          "p": "mei4",
+        },
+        Object {
+          "c": "夷",
+          "d": "a barbarian",
+          "i": "2337",
+          "p": "yi2",
+        },
+        Object {
+          "c": "颁",
+          "d": "promulgate/send out/issue/to grant or confer",
+          "i": "2319",
+          "p": "ban1",
+        },
+        Object {
+          "c": "膊",
+          "d": "shoulder/upper arm",
+          "i": "2440",
+          "p": "bo2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        2490,
+        2739,
+      ],
+      "sample": Array [
+        Object {
+          "c": "桐",
+          "d": "Aleurites cordata",
+          "i": "2712",
+          "p": "tong2",
+        },
+        Object {
+          "c": "淘",
+          "d": "cleanse/eliminate/to clean out/to wash",
+          "i": "2499",
+          "p": "tao2",
+        },
+        Object {
+          "c": "幢",
+          "d": "(measure word for houses)/tents",
+          "i": "2566",
+          "p": "chuang2/zhuang4",
+        },
+        Object {
+          "c": "凳",
+          "d": "bench/stool",
+          "i": "2680",
+          "p": "deng4",
+        },
+        Object {
+          "c": "瑰",
+          "d": "(semi-precious stone)/extraordinary",
+          "i": "2492",
+          "p": "gui1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        2739,
+        2988,
+      ],
+      "sample": Array [
+        Object {
+          "c": "钙",
+          "d": "calcium",
+          "i": "2951",
+          "p": "gai4",
+        },
+        Object {
+          "c": "萎",
+          "d": "spiritless/withered, wither",
+          "i": "2757",
+          "p": "wei1/wei3",
+        },
+        Object {
+          "c": "敷",
+          "d": "announce/apply",
+          "i": "2788",
+          "p": "fu1",
+        },
+        Object {
+          "c": "鄂",
+          "d": "hupeh",
+          "i": "2946",
+          "p": "e4/E4",
+        },
+        Object {
+          "c": "聂",
+          "d": "(surname)/whisper",
+          "i": "2797",
+          "p": "nie4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        2988,
+        3237,
+      ],
+      "sample": Array [
+        Object {
+          "c": "瑛",
+          "d": "(crystal)/lustrous",
+          "i": "2998",
+          "p": "ying1",
+        },
+        Object {
+          "c": "淀",
+          "d": "shallow water, sediment/precipitate",
+          "i": "3159",
+          "p": "dian4",
+        },
+        Object {
+          "c": "谟",
+          "d": "plan/to practice",
+          "i": "3172",
+          "p": "mo2",
+        },
+        Object {
+          "c": "巍",
+          "d": "high/lofty/towering/majestic",
+          "i": "3201",
+          "p": "wei1",
+        },
+        Object {
+          "c": "炳",
+          "d": "bright/brilliant/luminous",
+          "i": "3227",
+          "p": "bing3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        3237,
+        3486,
+      ],
+      "sample": Array [
+        Object {
+          "c": "漓",
+          "d": "pattering (of rain)/seep through",
+          "i": "3413",
+          "p": "li2",
+        },
+        Object {
+          "c": "咏",
+          "d": "sing",
+          "i": "3469",
+          "p": "yong3",
+        },
+        Object {
+          "c": "氮",
+          "d": "nitrogen",
+          "i": "3482",
+          "p": "dan4",
+        },
+        Object {
+          "c": "肛",
+          "d": "anus",
+          "i": "3394",
+          "p": "gang1",
+        },
+        Object {
+          "c": "冕",
+          "d": "royal crown",
+          "i": "3456",
+          "p": "mian3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        3486,
+        3735,
+      ],
+      "sample": Array [
+        Object {
+          "c": "嗔",
+          "d": "to be angry at",
+          "i": "3546",
+          "p": "chen1",
+        },
+        Object {
+          "c": "沥",
+          "d": "drip",
+          "i": "3598",
+          "p": "li4",
+        },
+        Object {
+          "c": "匾",
+          "d": "a tablet/a board with an inscription/a sign hung above a door, basket-couch in coffin",
+          "i": "3501",
+          "p": "bian3/pian2",
+        },
+        Object {
+          "c": "湄",
+          "d": "brink/edge",
+          "i": "3639",
+          "p": "mei2",
+        },
+        Object {
+          "c": "揍",
+          "d": "beat up/break to pieces",
+          "i": "3540",
+          "p": "zou4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        3735,
+        3984,
+      ],
+      "sample": Array [
+        Object {
+          "c": "瓮",
+          "d": "earthen jar/urn",
+          "i": "3873",
+          "p": "weng4",
+        },
+        Object {
+          "c": "锢",
+          "d": "obstinate disease/restrain/to stop",
+          "i": "3948",
+          "p": "gu4",
+        },
+        Object {
+          "c": "蟀",
+          "d": "cricket",
+          "i": "3792",
+          "p": "shuai4",
+        },
+        Object {
+          "c": "箍",
+          "d": "hoop/bind with hoops",
+          "i": "3764",
+          "p": "gu1",
+        },
+        Object {
+          "c": "傀",
+          "d": "grand/strange/exotic, puppet",
+          "i": "3946",
+          "p": "gui1/kui3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        3984,
+        4233,
+      ],
+      "sample": Array [
+        Object {
+          "c": "宕",
+          "d": "dissipated/put off",
+          "i": "4231",
+          "p": "dang4",
+        },
+        Object {
+          "c": "芥",
+          "d": "mustard",
+          "i": "4002",
+          "p": "jie4",
+        },
+        Object {
+          "c": "铿",
+          "d": "jingling of metals/to strike",
+          "i": "4111",
+          "p": "keng1",
+        },
+        Object {
+          "c": "甬",
+          "d": "5 pecks (M)/Ningpo",
+          "i": "4038",
+          "p": "yong3",
+        },
+        Object {
+          "c": "淙",
+          "d": "noise of water",
+          "i": "4172",
+          "p": "cong2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        4233,
+        4482,
+      ],
+      "sample": Array [
+        Object {
+          "c": "骁",
+          "d": "brave/good horse/strong",
+          "i": "4404",
+          "p": "xiao1",
+        },
+        Object {
+          "c": "蚜",
+          "d": "aphis",
+          "i": "4415",
+          "p": "ya2",
+        },
+        Object {
+          "c": "芍",
+          "d": "Paeonia albiflora",
+          "i": "4361",
+          "p": "shao2",
+        },
+        Object {
+          "c": "缜",
+          "d": "fine and close",
+          "i": "4383",
+          "p": "zhen3",
+        },
+        Object {
+          "c": "俚",
+          "d": "rustic",
+          "i": "4358",
+          "p": "li3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        4482,
+        4731,
+      ],
+      "sample": Array [
+        Object {
+          "c": "杈",
+          "d": "fork of a tree/pitchfork, branches of a tree/fork of a tree",
+          "i": "4529",
+          "p": "cha1/cha4",
+        },
+        Object {
+          "c": "犷",
+          "i": "4624",
+          "p": "guang3",
+        },
+        Object {
+          "c": "艮",
+          "d": "a sign in trigram",
+          "i": "4564",
+          "p": "gen4",
+        },
+        Object {
+          "c": "讣",
+          "d": "obituary notice",
+          "i": "4666",
+          "p": "fu4",
+        },
+        Object {
+          "c": "罄",
+          "d": "entirely/exhausted/stern",
+          "i": "4542",
+          "p": "qing4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        4731,
+        4980,
+      ],
+      "sample": Array [
+        Object {
+          "c": "湟",
+          "d": "name of a river",
+          "i": "4862",
+          "p": "huang2",
+        },
+        Object {
+          "c": "菏",
+          "i": "4926",
+          "p": "he2",
+        },
+        Object {
+          "c": "峥",
+          "d": "excel/lofty",
+          "i": "4958",
+          "p": "zheng1",
+        },
+        Object {
+          "c": "邛",
+          "d": "mound/place name",
+          "i": "4885",
+          "p": "qiong2",
+        },
+        Object {
+          "c": "闶",
+          "i": "4797",
+          "p": "kang1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        4980,
+        5229,
+      ],
+      "sample": Array [
+        Object {
+          "c": "聩",
+          "d": "born deaf/deaf",
+          "i": "5209",
+          "p": "kui4",
+        },
+        Object {
+          "c": "稔",
+          "d": "ripe grain",
+          "i": "5151",
+          "p": "ren3",
+        },
+        Object {
+          "c": "咭",
+          "i": "5107",
+          "p": "ji1",
+        },
+        Object {
+          "c": "黍",
+          "d": "broomcorn millet/glutinous millet",
+          "i": "5081",
+          "p": "shu3",
+        },
+        Object {
+          "c": "鬈",
+          "d": "to curl/curled",
+          "i": "5094",
+          "p": "quan2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        5229,
+        5478,
+      ],
+      "sample": Array [
+        Object {
+          "c": "胨",
+          "i": "5397",
+          "p": "dong4",
+        },
+        Object {
+          "c": "鼋",
+          "d": "sea turtle",
+          "i": "5232",
+          "p": "yuan2",
+        },
+        Object {
+          "c": "纰",
+          "d": "error/carelessness/spoiled silk",
+          "i": "5277",
+          "p": "pi1",
+        },
+        Object {
+          "c": "苤",
+          "d": "Brassica campestris subsp. rapa",
+          "i": "5404",
+          "p": "pie3",
+        },
+        Object {
+          "c": "铄",
+          "d": "bright/melt/fuse (metal)",
+          "i": "5473",
+          "p": "shuo4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        5478,
+        5727,
+      ],
+      "sample": Array [
+        Object {
+          "c": "煸",
+          "i": "5609",
+          "p": "bian1",
+        },
+        Object {
+          "c": "悭",
+          "d": "stingy",
+          "i": "5480",
+          "p": "qian1",
+        },
+        Object {
+          "c": "鼍",
+          "d": "large water lizard",
+          "i": "5562",
+          "p": "tuo2",
+        },
+        Object {
+          "c": "帑",
+          "d": "treasury",
+          "i": "5546",
+          "p": "tang3",
+        },
+        Object {
+          "c": "螬",
+          "d": "larva of Mimela lucidula",
+          "i": "5726",
+          "p": "cao2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        5727,
+        5976,
+      ],
+      "sample": Array [
+        Object {
+          "c": "糇",
+          "i": "5898",
+          "p": "hou2",
+        },
+        Object {
+          "c": "呒",
+          "d": "unclear/an expletive",
+          "i": "5781",
+          "p": "fu3/mu2",
+        },
+        Object {
+          "c": "鹈",
+          "d": "pelican",
+          "i": "5868",
+          "p": "ti2",
+        },
+        Object {
+          "c": "澶",
+          "d": "still (as of water)/still water",
+          "i": "5906",
+          "p": "chan2",
+        },
+        Object {
+          "c": "锿",
+          "i": "5941",
+          "p": "ai1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        5976,
+        6225,
+      ],
+      "sample": Array [
+        Object {
+          "c": "皲",
+          "d": "to chap",
+          "i": "6122",
+          "p": "jun1",
+        },
+        Object {
+          "c": "桴",
+          "d": "beam/rafter",
+          "i": "6141",
+          "p": "fu2",
+        },
+        Object {
+          "c": "蓍",
+          "d": "Achillea sibirica",
+          "i": "6185",
+          "p": "shi1",
+        },
+        Object {
+          "c": "煺",
+          "i": "6025",
+          "p": "tui4",
+        },
+        Object {
+          "c": "撄",
+          "d": "oppose/to attack",
+          "i": "6139",
+          "p": "ying1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        6225,
+        6474,
+      ],
+      "sample": Array [
+        Object {
+          "c": "鲭",
+          "d": "mackerel/mullet",
+          "i": "6310",
+          "p": "qing1",
+        },
+        Object {
+          "c": "巯",
+          "i": "6242",
+          "p": "qiu2",
+        },
+        Object {
+          "c": "鸻",
+          "i": "6392",
+          "p": "heng2",
+        },
+        Object {
+          "c": "襞",
+          "d": "creases/folds or pleats in a garment",
+          "i": "6470",
+          "p": "bi4",
+        },
+        Object {
+          "c": "栊",
+          "d": "bar/cage/gratings",
+          "i": "6357",
+          "p": "long2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        6474,
+        6723,
+      ],
+      "sample": Array [
+        Object {
+          "c": "麥",
+          "i": "6665",
+          "p": "mai4",
+        },
+        Object {
+          "c": "垸",
+          "i": "6677",
+          "p": "yuan4",
+        },
+        Object {
+          "c": "蹁",
+          "d": "to limp",
+          "i": "6646",
+          "p": "pian2",
+        },
+        Object {
+          "c": "骙",
+          "i": "6594",
+          "p": "kui2",
+        },
+        Object {
+          "c": "骢",
+          "d": "buckskin horse",
+          "i": "6675",
+          "p": "cong1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        6723,
+        6972,
+      ],
+      "sample": Array [
+        Object {
+          "c": "謹",
+          "i": "6873",
+          "p": "jin3",
+        },
+        Object {
+          "c": "錄",
+          "i": "6920",
+          "p": "lu4",
+        },
+        Object {
+          "c": "釆",
+          "i": "6798",
+          "p": "bian3",
+        },
+        Object {
+          "c": "埴",
+          "d": "soil with large clay content",
+          "i": "6867",
+          "p": "zhi2",
+        },
+        Object {
+          "c": "蓥",
+          "i": "6756",
+          "p": "ying2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        6972,
+        7221,
+      ],
+      "sample": Array [
+        Object {
+          "c": "禍",
+          "i": "7050",
+          "p": "huo4",
+        },
+        Object {
+          "c": "課",
+          "i": "7010",
+          "p": "ke4",
+        },
+        Object {
+          "c": "赆",
+          "d": "farewell presents",
+          "i": "7105",
+          "p": "jin4",
+        },
+        Object {
+          "c": "鶎",
+          "i": "7217",
+          "p": "zun1",
+        },
+        Object {
+          "c": "訙",
+          "i": "7130",
+          "p": "xun4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        7221,
+        7470,
+      ],
+      "sample": Array [
+        Object {
+          "c": "腄",
+          "i": "7347",
+          "p": "hou2",
+        },
+        Object {
+          "c": "诐",
+          "i": "7349",
+          "p": "bi4",
+        },
+        Object {
+          "c": "鋼",
+          "i": "7394",
+          "p": "gang1",
+        },
+        Object {
+          "c": "箢",
+          "i": "7450",
+          "p": "yuan1",
+        },
+        Object {
+          "c": "鷃",
+          "i": "7412",
+          "p": "yan4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        7470,
+        7719,
+      ],
+      "sample": Array [
+        Object {
+          "c": "肅",
+          "i": "7538",
+          "p": "su4",
+        },
+        Object {
+          "c": "讕",
+          "i": "7512",
+          "p": "lan2",
+        },
+        Object {
+          "c": "霧",
+          "i": "7695",
+          "p": "wu4",
+        },
+        Object {
+          "c": "笇",
+          "i": "7499",
+          "p": "suan4",
+        },
+        Object {
+          "c": "竝",
+          "i": "7655",
+          "p": "bing4",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        7719,
+        7968,
+      ],
+      "sample": Array [
+        Object {
+          "c": "綿",
+          "i": "7721",
+          "p": "mian2",
+        },
+        Object {
+          "c": "箾",
+          "i": "7816",
+          "p": "xiao1",
+        },
+        Object {
+          "c": "颼",
+          "i": "7924",
+          "p": "sou1",
+        },
+        Object {
+          "c": "蝺",
+          "i": "7802",
+          "p": "yu3",
+        },
+        Object {
+          "c": "絫",
+          "i": "7798",
+          "p": "lei3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        7968,
+        8217,
+      ],
+      "sample": Array [
+        Object {
+          "c": "郵",
+          "i": "8061",
+          "p": "you2",
+        },
+        Object {
+          "c": "鉐",
+          "i": "8062",
+          "p": "shi2",
+        },
+        Object {
+          "c": "鷱",
+          "i": "8002",
+          "p": "gao1",
+        },
+        Object {
+          "c": "軈",
+          "i": "7984",
+          "p": "ying1",
+        },
+        Object {
+          "c": "襆",
+          "i": "7980",
+          "p": "pu2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        8217,
+        8466,
+      ],
+      "sample": Array [
+        Object {
+          "c": "豭",
+          "i": "8420",
+          "p": "jia1",
+        },
+        Object {
+          "c": "闕",
+          "i": "8389",
+          "p": "que4",
+        },
+        Object {
+          "c": "胑",
+          "i": "8269",
+          "p": "zhi1",
+        },
+        Object {
+          "c": "臞",
+          "i": "8463",
+          "p": "qu2",
+        },
+        Object {
+          "c": "蚈",
+          "i": "8341",
+          "p": "qian1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        8466,
+        8715,
+      ],
+      "sample": Array [
+        Object {
+          "c": "繞",
+          "i": "8617",
+          "p": "rao4",
+        },
+        Object {
+          "c": "襫",
+          "i": "8477",
+          "p": "shi4",
+        },
+        Object {
+          "c": "磭",
+          "i": "8525",
+          "p": "chuo4",
+        },
+        Object {
+          "c": "蠈",
+          "i": "8645",
+          "p": "zei2",
+        },
+        Object {
+          "c": "趷",
+          "i": "8543",
+          "p": "ke1",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        8715,
+        8964,
+      ],
+      "sample": Array [
+        Object {
+          "c": "饈",
+          "i": "8775",
+          "p": "xiu1",
+        },
+        Object {
+          "c": "縂",
+          "i": "8759",
+          "p": "zong3",
+        },
+        Object {
+          "c": "祘",
+          "i": "8846",
+          "p": "suan4",
+        },
+        Object {
+          "c": "鶆",
+          "i": "8739",
+          "p": "lai2",
+        },
+        Object {
+          "c": "鵟",
+          "i": "8832",
+          "p": "kuang2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        8964,
+        9213,
+      ],
+      "sample": Array [
+        Object {
+          "c": "薠",
+          "i": "9123",
+          "p": "fan2",
+        },
+        Object {
+          "c": "笍",
+          "i": "9079",
+          "p": "zhui4",
+        },
+        Object {
+          "c": "鲓",
+          "i": "9197",
+          "p": "kao4",
+        },
+        Object {
+          "c": "鯈",
+          "i": "9193",
+          "p": "tiao2",
+        },
+        Object {
+          "c": "鶠",
+          "i": "9200",
+          "p": "yan3",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        9213,
+        9462,
+      ],
+      "sample": Array [
+        Object {
+          "c": "鬉",
+          "i": "9336",
+          "p": "zong1",
+        },
+        Object {
+          "c": "騇",
+          "i": "9383",
+          "p": "she4",
+        },
+        Object {
+          "c": "綄",
+          "i": "9449",
+          "p": "huan2",
+        },
+        Object {
+          "c": "蜽",
+          "i": "9265",
+          "p": "liang3",
+        },
+        Object {
+          "c": "饝",
+          "i": "9382",
+          "p": "mo2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        9462,
+        9711,
+      ],
+      "sample": Array [
+        Object {
+          "c": "鰵",
+          "i": "9679",
+          "p": "min3",
+        },
+        Object {
+          "c": "芻",
+          "i": "9485",
+          "p": "chu2",
+        },
+        Object {
+          "c": "謸",
+          "i": "9555",
+          "p": "ao4",
+        },
+        Object {
+          "c": "鴳",
+          "i": "9688",
+          "p": "an1",
+        },
+        Object {
+          "c": "鄽",
+          "i": "9589",
+          "p": "chan2",
+        },
+      ],
+    },
+    Object {
+      "range": Array [
+        9711,
+        9934,
+      ],
+      "sample": Array [
+        Object {
+          "c": "縀",
+          "i": "9897",
+          "p": "xia2",
+        },
+        Object {
+          "c": "鵣",
+          "i": "9851",
+          "p": "lai4",
+        },
+        Object {
+          "c": "髧",
+          "i": "9741",
+          "p": "dan4",
+        },
+        Object {
+          "c": "羮",
+          "i": "9834",
+          "p": "lang2",
+        },
+        Object {
+          "c": "騊",
+          "i": "9918",
+          "p": "tao2",
+        },
+      ],
+    },
+  ],
+  "samplesPerBin": 5,
+  "seed": 99999,
+  "totalCharacters": 9934,
+}
+`;

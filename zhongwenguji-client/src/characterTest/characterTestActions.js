@@ -4,7 +4,7 @@ import {
   scoreStatistics
 } from './characterTestReducer';
 
-const DEFAULT_CHARACTER_SAMPLE_URL = 'http://localhost:3001/';
+const DEFAULT_CHARACTER_SAMPLE_URL = 'http://localhost:3001/getCharacterSample';
 const DEFAULT_TEST_SUBMIT_URL = 'http://localhost:3001/testSubmit';
 
 export const actionTypes = {
