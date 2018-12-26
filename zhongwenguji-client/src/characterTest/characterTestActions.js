@@ -70,8 +70,8 @@ const testSubmit = (url = DEFAULT_TEST_SUBMIT_URL) => (dispatch, getState) => {
     headers: { 'Content-type': 'application/json' }
   })
     .then(extractJson)
-    .then((data) => {
-      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, ...data });
+    .then((resultData) => {
+      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData });
     })
     .catch((error) => {
       dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_FAIL, error });

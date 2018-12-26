@@ -13,7 +13,7 @@ import {
   isShowDefinition,
   status,
   scoreStatistics,
-  curveParams
+  resultData
 } from './characterTestReducer';
 import keyHandler from '../util/keyHandler';
 import CharacterCard from './CharacterCard';
@@ -21,13 +21,16 @@ import './CharacterTest.css';
 
 const noop = () => {};
 
+const GRAPH_PADDING = 10;
+const GRAPH_BAR_WIDTH = 10;
+
 class CharacterTest extends Component {
   static propTypes = {
     currentCard: PropTypes.object,
     isShowDefinition: PropTypes.bool,
     status: PropTypes.string,
     scoreStatistics: PropTypes.object,
-    curveParams: PropTypes.object,
+    resultData: PropTypes.object,
 
     toggleDefinition: PropTypes.func,
     markCurrentKnown: PropTypes.func,
@@ -40,7 +43,7 @@ class CharacterTest extends Component {
     isShowDefinition: false,
     status: '',
     scoreStatistics: {},
-    curveParams: {},
+    resultData: {},
 
     toggleDefinition: noop,
     markCurrentKnown: noop,
@@ -82,19 +85,6 @@ class CharacterTest extends Component {
     const barWidth = 10;
     const { sectionStats = [] } = this.props.scoreStatistics;
 
-    const rangeWidth = sectionStats[0] ? sectionStats[0].range[1] - sectionStats[0].range[0] : 0;
-    const curveParams = this.props.curveParams || {};
-    const { amplitude = 0, decayStartX = 0, decayPeriod = 0 } = curveParams;
-    function curve(xi) {
-      const chari = rangeWidth * xi;
-      if (chari < decayStartX) {
-        return amplitude;
-      } else if (chari >= decayStartX + decayPeriod) {
-        return 0;
-      }
-      return amplitude / 2 * (1 + Math.cos((chari - decayStartX) * Math.PI / decayPeriod));
-    }
-
     return (
       <svg width="420" height="220">
         {sectionStats.map(({ isTested, knownPercent, range }, i) => (<g key={i}>
@@ -106,28 +96,69 @@ class CharacterTest extends Component {
               style={{fill: 'rgb(0,0,255)'}}
             />
           ) : null}
-          {(curveParams) ? (
-            <line
-              x1={padding + barWidth * i}
-              y1={padding + 100 - curve(i)}
-              x2={padding + barWidth * (i + 1)}
-              y2={padding + 100 - curve(i + 1)}
-              style={{stroke: 'rgb(0,0,255)', 'strokeWidth': '2'}}
-            />
-          ) : null}
         </g>))}
       </svg>
+    );
+  }
+
+  renderResults() {
+    // samplePoints: [[125, 0]],
+    //   curvePoints: [[0, 0], [250, 0]],
+    //   knownEstimate: 720,
+    //   knownEstimateUncertainty: 120
+    const {
+      resultData: {
+        samplePoints = [],
+        curvePoints = [],
+        knownEstimate = -1,
+        knownEstimateUncertainty = -1,
+      }
+    } = this.props;
+
+    return (
+      <div>
+        <div>You know {knownEstimate} 汉字 ± {knownEstimateUncertainty}</div>
+        <div>
+          <svg width={1000 + 2 * GRAPH_PADDING} height={100 + 2 * GRAPH_PADDING}>
+            <g>
+              {curvePoints.map(([x1, y1], i) => {
+                const next = curvePoints[i + 1];
+                if (next) {
+                  const [x2, y2] = next;
+                  return (
+                    <line
+                      key={x1}
+                      x1={GRAPH_PADDING + x1 / 10}
+                      y1={GRAPH_PADDING + 100 - y1}
+                      x2={GRAPH_PADDING + x2 / 10}
+                      y2={GRAPH_PADDING + 100 - y2}
+                      style={{stroke: 'rgb(255,0,0)', 'strokeWidth': 1}}
+                    />
+                  );
+                }
+                return null;
+              })}
+            </g>
+            <g>
+              {samplePoints.map(([x, y]) => (
+                <circle
+                  key={x}
+                  cx={GRAPH_PADDING + x / 10}
+                  cy={GRAPH_PADDING + 100 - y}
+                  r={3}
+                  style={{fill: 'rgb(0,0,255)'}}
+                />
+              ))}
+            </g>
+          </svg>
+        </div>
+      </div>
     );
   }
 
   render() {
     return (
       <>
-        <div>Test status: {this.props.status}</div>
-        <div>
-          Live Stats
-          {this.renderLiveStats()}
-        </div>
         <CSSTransitionGroup
           component="div"
           className="TestCardStack"
@@ -141,6 +172,9 @@ class CharacterTest extends Component {
             key={this.props.currentCard.index}
           />) : null}
         </CSSTransitionGroup>
+        <div>Test status: {this.props.status}</div>
+        {/*<div>Live Stats: {this.renderLiveStats()}</div>*/}
+        {this.props.resultData ? this.renderResults() : null}
       </>
     );
   }
@@ -158,7 +192,7 @@ export default connect(mapSelectors({
   isShowDefinition,
   status,
   scoreStatistics,
-  curveParams
+  resultData
 }), {
   toggleDefinition,
   markCurrentKnown,

@@ -136,14 +136,15 @@ describe('characterTestActions', () => {
     }
 
     it('sends the data to the server', () => {
+      const resultData = {
+        samplePoints: [[125, 0]],
+        curvePoints: [[0, 0], [250, 0]],
+        knownEstimate: 720,
+        knownEstimateUncertainty: 120
+      };
+
       fetchMock.postOnce('http://localhost:3001/submitTest', {
-        body: {
-          curveParams: {
-            amplitude: 100,
-            decayStartX: 600,
-            decayPeriod: 250,
-          }
-        },
+        body: resultData,
         headers: { 'Content-type': 'application/json' }
       });
 
@@ -165,14 +166,7 @@ describe('characterTestActions', () => {
             { type: actionTypes.TEST_CARD_MARK_KNOWN },
             { type: actionTypes.TEST_CARD_DISCARD },
             { type: actionTypes.TEST_RESULTS_SUBMIT_START },
-            {
-              type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS,
-              curveParams: {
-                amplitude: 100,
-                decayStartX: 600,
-                decayPeriod: 250
-              }
-            }
+            { type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData }
           ]);
         });
     });

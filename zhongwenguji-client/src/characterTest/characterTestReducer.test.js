@@ -10,7 +10,7 @@ describe('characterTestReducer', () => {
       state: 'READY',
       currentSectionIndex: 0,
       currentCardIndex: 0,
-      curveParams: null
+      resultData: null
     });
   });
 
@@ -245,6 +245,22 @@ describe('characterTestReducer', () => {
       });
     });
 
+    it('does not discard current when not testing', () => {
+      expect(characterTestReducer({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_DISCARD
+      })).toEqual({
+        bins: [{ sample: [{}, {}] }, { sample: [{}, {}] }],
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 0
+      });
+    });
+
     describe('the current section was not failed', () => {
       const bins = prepareBins(
         [1, 0, 0, 0, 0],
@@ -372,6 +388,28 @@ describe('characterTestReducer', () => {
   });
 
   describe('undoing', () => {
+    it('does not undo the previous mark when not testing', () => {
+      const bins = prepareBins(
+        [0, 0, 0, 0, 0],
+        [NaN, NaN, NaN, NaN, NaN],
+        [NaN, NaN, NaN, NaN, NaN]
+      );
+
+      expect(characterTestReducer({
+        bins,
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 2
+      }, {
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
+      })).toEqual({
+        bins,
+        state: 'COMPLETE',
+        currentSectionIndex: 0,
+        currentCardIndex: 2
+      });
+    });
+
     it('un-does the previous mark back to the previous card', () => {
       expect(characterTestReducer({
         bins: [
@@ -512,25 +550,24 @@ describe('characterTestReducer', () => {
         type: actionTypes.TEST_RESULTS_SUBMIT_START
       })).toEqual({
         state: 'LOADING_RESULTS',
-        curveParams: null
+        resultData: null
       });
     });
 
     it('receives the curve parameters', () => {
+      const resultData = {
+        samplePoints: [[125, 0]],
+        curvePoints: [[0, 0], [250, 0]],
+        knownEstimate: 720,
+        knownEstimateUncertainty: 120
+      };
+
       expect(characterTestReducer(null, {
         type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS,
-        curveParams: {
-          amplitude: 100,
-          decayStartX: 600,
-          decayPeriod: 250
-        }
+        resultData
       })).toEqual({
         state: 'RESULTS_READY',
-        curveParams: {
-          amplitude: 100,
-          decayStartX: 600,
-          decayPeriod: 250
-        }
+        resultData
       });
     });
 

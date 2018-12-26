@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
   state: 'READY',
   currentSectionIndex: 0,
   currentCardIndex: 0,
-  curveParams: null
+  resultData: null
 };
 
 function processTestComplete(state) {
@@ -183,13 +183,23 @@ export default (state = DEFAULT_STATE, action = {}) => {
       }
       break;
     case actionTypes.TEST_CARD_DISCARD:
-      return { ...processDiscard(state, action), isShowDefinition: false };
+      if (state.state === 'TESTING') {
+        return {...processDiscard(state, action), isShowDefinition: false};
+      }
+      break;
     case actionTypes.TEST_CARD_DISCARD_UNDO:
-      return { ...processUndoDiscard(state, action), isShowDefinition: false };
+      if (state.state === 'TESTING') {
+        return {...processUndoDiscard(state, action), isShowDefinition: false};
+      }
+      break;
     case actionTypes.TEST_RESULTS_SUBMIT_START:
-      return { ...state, state: 'LOADING_RESULTS', curveParams: null };
+      return { ...state, state: 'LOADING_RESULTS', resultData: null };
     case actionTypes.TEST_RESULTS_SUBMIT_SUCCESS:
-      return { ...state, state: 'RESULTS_READY', curveParams: action.curveParams };
+      return {
+        ...state,
+        state: 'RESULTS_READY',
+        resultData: action.resultData
+      };
     default:
       return state;
   }
@@ -211,4 +221,4 @@ export const currentCard = ({ characterTestReducer: { currentSectionIndex, curre
 
 export const scoreStatistics = rootState => calculateScoreStatistics(rootState.characterTestReducer);
 
-export const curveParams = rootState => rootState.characterTestReducer.curveParams;
+export const resultData = rootState => rootState.characterTestReducer.resultData;

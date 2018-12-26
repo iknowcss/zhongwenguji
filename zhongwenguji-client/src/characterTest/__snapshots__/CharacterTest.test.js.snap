@@ -2,19 +2,29 @@
 
 exports[`CharacterTest renders 1`] = `
 Array [
+  <div
+    className="TestCardStack"
+  />,
   <div>
     Test status: 
     
   </div>,
   <div>
-    Live Stats
-    <svg
-      height="220"
-      width="420"
-    />
+    <div>
+      You know 
+      -1
+       汉字 ± 
+      -1
+    </div>
+    <div>
+      <svg
+        height={120}
+        width={1020}
+      >
+        <g />
+        <g />
+      </svg>
+    </div>
   </div>,
-  <div
-    className="TestCardStack"
-  />,
 ]
 `;
