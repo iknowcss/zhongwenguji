@@ -79,6 +79,7 @@ class CharacterTest extends Component {
         {sectionStats.map(({ isTested, knownPercent }, i) => (
           (isTested && knownPercent >= 0) ? (
             <circle
+              key={i}
               cx={10 + 10 * i}
               cy={10 + 100 - knownPercent}
               r={3}
