@@ -5,7 +5,7 @@ import {
 } from './characterTestReducer';
 
 const DEFAULT_CHARACTER_SAMPLE_URL = 'http://localhost:3001/getCharacterSample';
-const DEFAULT_TEST_SUBMIT_URL = 'http://localhost:3001/testSubmit';
+const DEFAULT_TEST_SUBMIT_URL = 'http://localhost:3001/submitTest';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',
@@ -71,7 +71,7 @@ const testSubmit = (url = DEFAULT_TEST_SUBMIT_URL) => (dispatch, getState) => {
   })
     .then(extractJson)
     .then((data) => {
-      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, data });
+      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, ...data });
     })
     .catch((error) => {
       dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_FAIL, error });

@@ -136,8 +136,14 @@ describe('characterTestActions', () => {
     }
 
     it('sends the data to the server', () => {
-      fetchMock.postOnce('http://localhost:3001/testSubmit', {
-        body: { curveParams: {} },
+      fetchMock.postOnce('http://localhost:3001/submitTest', {
+        body: {
+          curveParams: {
+            amplitude: 100,
+            decayStartX: 600,
+            decayPeriod: 250,
+          }
+        },
         headers: { 'Content-type': 'application/json' }
       });
 
@@ -161,14 +167,18 @@ describe('characterTestActions', () => {
             { type: actionTypes.TEST_RESULTS_SUBMIT_START },
             {
               type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS,
-              data: { curveParams: {} }
+              curveParams: {
+                amplitude: 100,
+                decayStartX: 600,
+                decayPeriod: 250
+              }
             }
           ]);
         });
     });
 
     it('handles a server error', () => {
-      fetchMock.postOnce('http://localhost:3001/testSubmit', 500);
+      fetchMock.postOnce('http://localhost:3001/submitTest', 500);
 
       return store.dispatch(markCurrentKnown())
         .then(() => {

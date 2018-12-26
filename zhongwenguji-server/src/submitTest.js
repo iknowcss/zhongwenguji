@@ -35,20 +35,21 @@ function getCurveParameters(testData) {
     }
   });
 
-  const [amplitude, decayStartX, decayPeriod] = fminsearch(fun, [100, 500, 200], x, y);
+  const [amplitude, decayStartX, decayPeriod] = fminsearch(fun, [100, 1, 1000], x, y);
   return { amplitude, decayStartX, decayPeriod };
 }
 
 module.exports = () => {
   const router = Router();
   router.use(bodyParser.json());
-  router.use((req, res) => {
+  router.use('/', (req, res) => {
     const { testData } = req.body;
     try {
       res.json({
         curveParams: getCurveParameters(testData)
       });
     } catch (error) {
+      res.statusCode(500).json({ error: true });
       console.error('Could not calculate curve parameters', error);
     }
   });

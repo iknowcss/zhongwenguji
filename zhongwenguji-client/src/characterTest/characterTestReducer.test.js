@@ -3,14 +3,14 @@ import { actionTypes } from './characterTestActions';
 import characterTestReducer, { scoreStatistics } from './characterTestReducer';
 
 describe('characterTestReducer', () => {
-
   it('has defaults', () => {
     expect(characterTestReducer()).toEqual({
       bins: [],
       isShowDefinition: false,
       state: 'READY',
       currentSectionIndex: 0,
-      currentCardIndex: 0
+      currentCardIndex: 0,
+      curveParams: null
     });
   });
 
@@ -503,6 +503,43 @@ describe('characterTestReducer', () => {
         expect(results[2]).toBe(results[3]);
         expect(results[3]).not.toBe(results[4]);
       })
+    });
+  });
+
+  describe('test results', () => {
+    it('starts loading test results', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.TEST_RESULTS_SUBMIT_START
+      })).toEqual({
+        state: 'LOADING_RESULTS',
+        curveParams: null
+      });
+    });
+
+    it('receives the curve parameters', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS,
+        curveParams: {
+          amplitude: 100,
+          decayStartX: 600,
+          decayPeriod: 250
+        }
+      })).toEqual({
+        state: 'RESULTS_READY',
+        curveParams: {
+          amplitude: 100,
+          decayStartX: 600,
+          decayPeriod: 250
+        }
+      });
+    });
+
+    it('receives the curve parameters', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.TEST_RESULTS_SUBMIT_FAIL
+      })).toEqual({
+        state: 'ERROR'
+      });
     });
   });
 });

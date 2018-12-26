@@ -13,8 +13,8 @@ functions:
   app:
     handler: index.handler
     events:
-      - http: GET /
-      - http: 'GET {proxy+}'
+      - http: 'GET /getCharacterSample'
+      - http: 'POST /submitTest'
 
 plugins:
   - serverless-offline
