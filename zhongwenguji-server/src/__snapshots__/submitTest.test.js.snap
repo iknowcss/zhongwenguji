@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submitTest calculates curve parameters 1`] = `
+Object {
+  "amplitude": 99.99999998743786,
+  "decayPeriod": 207.5871400793618,
+  "decayStartX": 521.2064300719244,
+}
+`;
