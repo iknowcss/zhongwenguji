@@ -66,8 +66,8 @@ describe('formatPinyin', () => {
       expect(formatPinyin('nv3')).toEqual('nǚ');
     });
 
-    it('converts multiple pinyins', () => {
-      expect(formatPinyin('nu:3/nv nu:')).toEqual('nǚ, nü, nü');
+    it('converts multiple pinyins and deduplicates', () => {
+      expect(formatPinyin('nu:3/nv nu:')).toEqual('nǚ, nü');
     });
   });
 });

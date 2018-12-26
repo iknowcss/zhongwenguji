@@ -33,14 +33,15 @@
 .TestCard__definition {
   word-break: break-word;
   font-size: 1.5em;
-  margin: 0 0.5em;
+  margin: 0 5%;
+  flex-grow: 1;
+  /*background-color: rgba(255, 127, 127, 0.5);*/
 }
 
 .TestCard__pinyin {
   font-size: 2em;
-  min-height: 1.5em;
-  line-height: 1.5em;
-  margin: 0.2em 0;
+  margin: 0.2em 5%;
+  /*background-color: rgba(127, 127, 255, 0.5);*/
 }
 
 .cardSwipe-leave {
