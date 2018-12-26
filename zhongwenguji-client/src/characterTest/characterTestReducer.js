@@ -26,7 +26,7 @@ const calculateScoreStatistics = ({ bins }) => {
   let failedSectionCount = 0;
   let lastTestedSectionIndex = 0;
 
-  const sectionStats = bins.map(({ sample }, i) => {
+  const sectionStats = bins.map(({ sample, range }, i) => {
     const totalScore = sample.reduce((sum, { score }) => sum + score, 0);
     if (totalScore === 0) {
       failedSectionCount++;
@@ -36,7 +36,7 @@ const calculateScoreStatistics = ({ bins }) => {
     if (isTested) {
       lastTestedSectionIndex = i;
     }
-    return { isTested, knownPercent };
+    return { isTested, knownPercent, range };
   });
 
   const result = {

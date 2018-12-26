@@ -1,22 +1,20 @@
-import characterTestReducer, { scoreStatistics } from './characterTestReducer';
+import prepareBins from './prepareBins.testutil';
 import { actionTypes } from './characterTestActions';
+import characterTestReducer, { scoreStatistics } from './characterTestReducer';
 
 describe('characterTestReducer', () => {
-  const prepareBins = (...sections) => sections.map(section => ({
-    sample: section.map(score => ({ score }))
-  }));
+
+  it('has defaults', () => {
+    expect(characterTestReducer()).toEqual({
+      bins: [],
+      isShowDefinition: false,
+      state: 'READY',
+      currentSectionIndex: 0,
+      currentCardIndex: 0
+    });
+  });
 
   describe('loading', () => {
-    it('has defaults', () => {
-      expect(characterTestReducer()).toEqual({
-        bins: [],
-        isShowDefinition: false,
-        state: 'READY',
-        currentSectionIndex: 0,
-        currentCardIndex: 0
-      });
-    });
-
     it('starts loading character samples', () => {
       expect(characterTestReducer(null, {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START
@@ -30,41 +28,53 @@ describe('characterTestReducer', () => {
       expect(characterTestReducer(null, {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
         characters: [
-          { sample: [
-            { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
-            { i: 2, c: '一', p: 'yi1', d: 'one' },
-          ] },
-          { sample: [
-            { i: 3, c: '是', p: 'shi4', d: 'is' }
-          ] }
+          {
+            range: [0, 2],
+            sample: [
+              { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
+              { i: 2, c: '一', p: 'yi1', d: 'one' },
+            ]
+          },
+          {
+            range: [2, 3],
+            sample: [
+              { i: 3, c: '是', p: 'shi4', d: 'is' }
+            ]
+          }
         ]
       })).toEqual({
         bins: [
-          { sample: [
-            {
-              index: 1,
-              character: '的',
-              pinyin: 'de',
-              definition: '(possessive particle)',
-              score: NaN
-            },
-            {
-              index: 2,
-              character: '一',
-              pinyin: 'yi1',
-              definition: 'one',
-              score: NaN
-            },
-          ] },
-          { sample: [
-            {
-              index: 3,
-              character: '是',
-              pinyin: 'shi4',
-              definition: 'is',
-              score: NaN
-            }
-          ] }
+          {
+            range: [0, 2],
+            sample: [
+              {
+                index: 1,
+                character: '的',
+                pinyin: 'de',
+                definition: '(possessive particle)',
+                score: NaN
+              },
+              {
+                index: 2,
+                character: '一',
+                pinyin: 'yi1',
+                definition: 'one',
+                score: NaN
+              },
+            ]
+          },
+          {
+            range: [2, 3],
+            sample: [
+              {
+                index: 3,
+                character: '是',
+                pinyin: 'shi4',
+                definition: 'is',
+                score: NaN
+              }
+            ]
+          }
         ],
         state: 'TESTING'
       });
@@ -468,10 +478,10 @@ describe('characterTestReducer', () => {
           lastTestedSectionIndex: 3,
           failedSectionCount: 1,
           sectionStats: [
-            { isTested: true, knownPercent: 80 },
-            { isTested: false, knownPercent: NaN },
-            { isTested: true, knownPercent: 0 },
-            { isTested: true, knownPercent: NaN }
+            { range: [0, 5], isTested: true, knownPercent: 80 },
+            { range: [5, 10], isTested: false, knownPercent: NaN },
+            { range: [10, 15], isTested: true, knownPercent: 0 },
+            { range: [15, 20], isTested: true, knownPercent: NaN }
           ]
         });
       });

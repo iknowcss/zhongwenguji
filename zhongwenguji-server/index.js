@@ -38,7 +38,7 @@ function sampleCharacters({ seed, binCount, samplesPerBin }) {
   return Array
     .from({ length: binCount }, (x, i) => allCharacters.slice(i * binSize, (i + 1) * binSize))
     .map((bin, i) => ({
-      range: [i * binSize, (i + 1) * binSize - 1 ],
+      range: [i * binSize, i * binSize + bin.length],
       sample: sampler(bin)
     }));
 }

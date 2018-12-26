@@ -1,4 +1,4 @@
-import testData from './formatPinyin.test.json';
+import testData from './formatPinyin.testutil.json';
 import formatPinyin from './formatPinyin';
 
 describe('formatPinyin', () => {

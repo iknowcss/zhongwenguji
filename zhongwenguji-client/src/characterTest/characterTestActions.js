@@ -1,6 +1,11 @@
-import { isShowDefinition } from './characterTestReducer';
+import {
+  isShowDefinition,
+  status as characterTestStatus,
+  scoreStatistics
+} from './characterTestReducer';
 
 const DEFAULT_CHARACTER_SAMPLE_URL = 'http://localhost:3001/';
+const DEFAULT_TEST_SUBMIT_URL = 'http://localhost:3001/testSubmit';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',
@@ -12,7 +17,10 @@ export const actionTypes = {
   TEST_CARD_MARK_UNKNOWN: '@zwgj//testCard/markUnknown',
   TEST_CARD_MARK_CLEAR: '@zwgj//testCard/markClear',
   TEST_CARD_DISCARD_UNDO: '@zwgj//testCard/discardUndo',
-  TEST_CARD_DISCARD: '@zwgj//testCard/discard'
+  TEST_CARD_DISCARD: '@zwgj//testCard/discard',
+  TEST_RESULTS_SUBMIT_START: '@zwgj//testResults/submit/start',
+  TEST_RESULTS_SUBMIT_SUCCESS: '@zwgj//testResults/submit/success',
+  TEST_RESULTS_SUBMIT_FAIL: '@zwgj//testResults/submit/fail'
 };
 
 function extractJson(response) {
@@ -49,18 +57,43 @@ export const toggleDefinition = () => (dispatch, getState) => {
   }
 };
 
-export const discardCurrent = () => ({
-  type: actionTypes.TEST_CARD_DISCARD
-});
+const testSubmit = (url = DEFAULT_TEST_SUBMIT_URL) => (dispatch, getState) => {
+  dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
+
+  const body = {
+    testData: scoreStatistics(getState()).sectionStats
+  };
+
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Content-type': 'application/json' }
+  })
+    .then(extractJson)
+    .then((data) => {
+      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, data });
+    })
+    .catch((error) => {
+      dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_FAIL, error });
+    });
+};
+
+const discardCurrent = () => (dispatch, getState) => {
+  dispatch({ type: actionTypes.TEST_CARD_DISCARD });
+  if (characterTestStatus(getState()) === 'COMPLETE') {
+    return dispatch(testSubmit());
+  }
+  return Promise.resolve();
+};
 
 export const markCurrentUnknown = () => (dispatch) => {
   dispatch({ type: actionTypes.TEST_CARD_MARK_UNKNOWN });
-  dispatch({ type: actionTypes.TEST_CARD_DISCARD });
+  dispatch(discardCurrent());
 };
 
 export const markCurrentKnown = () => (dispatch) => {
   dispatch({ type: actionTypes.TEST_CARD_MARK_KNOWN });
-  dispatch({ type: actionTypes.TEST_CARD_DISCARD });
+  return dispatch(discardCurrent());
 };
 
 export const undoDiscard = () => (dispatch) => {
