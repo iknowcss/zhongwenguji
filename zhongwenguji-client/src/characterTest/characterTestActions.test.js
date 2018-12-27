@@ -51,7 +51,7 @@ describe('characterTestActions', () => {
           { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
           {
             type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-            mockData: true
+            sampleData: { mockData: true }
           }
         ]);
       });

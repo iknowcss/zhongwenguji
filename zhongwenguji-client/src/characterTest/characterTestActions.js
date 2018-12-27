@@ -37,7 +37,7 @@ export const loadSamples = (url = DEFAULT_CHARACTER_SAMPLE_URL) => (dispatch) =>
     .then((data) => {
       dispatch({
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        ...data
+        sampleData: data
       });
     })
     .catch((error) => {

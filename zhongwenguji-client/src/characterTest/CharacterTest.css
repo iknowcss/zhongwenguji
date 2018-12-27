@@ -15,7 +15,7 @@
   box-sizing: border-box;
   width: 12em;
   height: 15em;
-  border-radius: 3px;
+  border-radius: 6px;
   overflow-y: auto;
   background-color: white;
   position: absolute;

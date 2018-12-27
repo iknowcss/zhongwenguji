@@ -6,6 +6,7 @@ describe('characterTestReducer', () => {
   it('has defaults', () => {
     expect(characterTestReducer()).toEqual({
       bins: [],
+      seed: -1,
       isShowDefinition: false,
       state: 'READY',
       currentSectionIndex: 0,
@@ -27,22 +28,26 @@ describe('characterTestReducer', () => {
     it('successfully loads character samples and starts the test', () => {
       expect(characterTestReducer(null, {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        characters: [
-          {
-            range: [0, 2],
-            sample: [
-              { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
-              { i: 2, c: '一', p: 'yi1', d: 'one' },
-            ]
-          },
-          {
-            range: [2, 3],
-            sample: [
-              { i: 3, c: '是', p: 'shi4', d: 'is' }
-            ]
-          }
-        ]
+        sampleData: {
+          seed: 9999,
+          characters: [
+            {
+              range: [0, 2],
+              sample: [
+                { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
+                { i: 2, c: '一', p: 'yi1', d: 'one' },
+              ]
+            },
+            {
+              range: [2, 3],
+              sample: [
+                { i: 3, c: '是', p: 'shi4', d: 'is' }
+              ]
+            }
+          ]
+        }
       })).toEqual({
+        seed: 9999,
         bins: [
           {
             range: [0, 2],

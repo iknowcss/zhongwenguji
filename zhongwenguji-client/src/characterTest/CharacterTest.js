@@ -22,7 +22,6 @@ import './CharacterTest.css';
 const noop = () => {};
 
 const GRAPH_PADDING = 10;
-const GRAPH_BAR_WIDTH = 10;
 
 class CharacterTest extends Component {
   static propTypes = {
@@ -102,18 +101,12 @@ class CharacterTest extends Component {
   }
 
   renderResults() {
-    // samplePoints: [[125, 0]],
-    //   curvePoints: [[0, 0], [250, 0]],
-    //   knownEstimate: 720,
-    //   knownEstimateUncertainty: 120
     const {
-      resultData: {
-        samplePoints = [],
-        curvePoints = [],
-        knownEstimate = -1,
-        knownEstimateUncertainty = -1,
-      }
-    } = this.props;
+      curvePoints = [],
+      samplePoints = [],
+      knownEstimate = -1,
+      knownEstimateUncertainty = -1
+    } = this.props.resultData;
 
     return (
       <div>

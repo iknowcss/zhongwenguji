@@ -2,6 +2,7 @@ import { actionTypes } from './characterTestActions';
 
 const DEFAULT_STATE = {
   bins: [],
+  seed: -1,
   isShowDefinition: false,
   state: 'READY',
   currentSectionIndex: 0,
@@ -160,6 +161,14 @@ function processBins(characers) {
   }));
 }
 
+function processSampleData(state, sampleData) {
+  return {
+    ...state,
+    seed: sampleData.seed,
+    bins: processBins(sampleData.characters)
+  };
+}
+
 /// - State reducer --------------------------------------------------------------------------------
 
 export default (state = DEFAULT_STATE, action = {}) => {
@@ -167,7 +176,10 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START:
       return { ...state, state: 'LOADING', bins: [] };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS:
-      return { ...state, state: 'TESTING', bins: processBins(action.characters) };
+      return {
+        ...processSampleData(state, action.sampleData),
+        state: 'TESTING'
+      };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
     case actionTypes.TEST_RESULTS_SUBMIT_FAIL:
       return { ...state, state: 'ERROR' };
