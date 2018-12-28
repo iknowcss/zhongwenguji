@@ -1,13 +1,28 @@
 language: node_js
 node_js:
-- node
+  - node
+
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+
 cache:
   directories:
-  - node_modules
-script:
-- cd zhongwenguji-client
-- npm install
-- npm run build
-- cd ../zhongwenguji-server
-- npm install
-- ./node_modules/.bin/sls deploy
+    - zhongwenguji-client/node_modules
+    - zhongwenguji-server/node_modules
+
+before_install:
+  - pip install --user awscli
+
+jobs:
+  include:
+    - stage: install dependencies
+      script: cd zhongwenguji-client && npm install && cd ..
+    - stage: install dependencies
+      script: cd zhongwenguji-server && npm install && cd ..
+    - stage: build assets
+      script: cd zhongwenguji-client && npm run build && cd ..
+    - stage: deploy
+      script: cd zhongwenguji-client && aws s3 sync build/ s3://$DEPLOY_S3_BUCKET && cd ..
+    - stage: deploy
+      script: cd zhongwenguji-server && ./node_modules/.bin/sls deploy && cd ..

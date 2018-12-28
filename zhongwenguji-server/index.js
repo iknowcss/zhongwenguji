@@ -5,7 +5,15 @@ const submitTest = require('./src/submitTest');
 
 const app = express();
 
-app.get('/getCharacterSample', getCharacterSample());
-app.post('/submitTest', submitTest());
+const cors = (req, res, next) => {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+  });
+  next();
+};
+
+app.get('/getCharacterSample', cors, getCharacterSample());
+app.post('/submitTest', cors, submitTest());
 
 module.exports.handler = serverless(app);
