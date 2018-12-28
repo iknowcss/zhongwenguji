@@ -10,19 +10,25 @@ cache:
   directories:
     - zhongwenguji-client/node_modules
     - zhongwenguji-server/node_modules
+    - $HOME/.local/bin
 
-before_install:
-  - pip install --user awscli
-
-jobs:
-  include:
-    - stage: install dependencies
-      script: cd zhongwenguji-client && npm install && cd ..
-    - stage: install dependencies
-      script: cd zhongwenguji-server && npm install && cd ..
-    - stage: build assets
-      script: cd zhongwenguji-client && npm run build && cd ..
-    - stage: deploy
-      script: cd zhongwenguji-client && aws s3 sync build/ s3://$DEPLOY_S3_BUCKET && cd ..
-    - stage: deploy
-      script: cd zhongwenguji-server && ./node_modules/.bin/sls deploy && cd ..
+script:
+- echo "Install aws cli"
+- pip install --user awscli
+- echo "Build client"
+- cd zhongwenguji-client
+- npm install
+- npm run build
+- cd ..
+- echo "Build Server"
+- cd zhongwenguji-server
+- npm install
+- cd ..
+- echo "Deploy client"
+- cd zhongwenguji-client
+- aws s3 sync build/ s3://$DEPLOY_S3_BUCKET
+- cd ..
+- echo "Deploy server"
+- cd zhongwenguji-server
+- ./node_modules/.bin/sls deploy
+- cd ..
