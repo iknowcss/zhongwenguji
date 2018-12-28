@@ -4,8 +4,8 @@ import {
   scoreStatistics
 } from './characterTestReducer';
 
-const DEFAULT_CHARACTER_SAMPLE_URL = 'http://localhost:3001/getCharacterSample';
-const DEFAULT_TEST_SUBMIT_URL = 'http://localhost:3001/submitTest';
+const DEFAULT_CHARACTER_SAMPLE_URL = 'https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/getCharacterSample';
+const DEFAULT_TEST_SUBMIT_URL = 'https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',

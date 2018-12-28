@@ -5,6 +5,9 @@ cache:
   directories:
   - node_modules
 script:
-- npm install -g serverless
-- cd zhongwenguji-server
-- sls deploy
+- cd zhongwenguji-client
+- npm install
+- npm run build
+- cd ../zhongwenguji-server
+- npm install
+- ./node_modules/.bin/sls deploy

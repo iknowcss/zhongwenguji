@@ -18,6 +18,7 @@
     "express": "^4.16.4",
     "jest": "^23.6.0",
     "serverless-http": "^1.8.0",
+    "serverless-s3-sync": "^1.7.1",
     "supertest": "^3.3.0"
   }
 }
