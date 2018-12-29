@@ -24,13 +24,13 @@ jobs:
     script: ./platform/ci-server-validate.sh
   - stage: deploy
     name: Deploy client
-    if: branch = master AND type = push
+    if: branch = master AND type != pull_request
     install:
       - ./platform/ci-client-install.sh
       - pip install --user awscli
     script: ./platform/ci-client-deploy.sh
   - stage: deploy
     name: Deploy server
-    if: branch = master AND type = push
+    if: branch = master AND type != pull_request
     install: ./platform/ci-server-install.sh
     script: ./platform/ci-server-deploy.sh
