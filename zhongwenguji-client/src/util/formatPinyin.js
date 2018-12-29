@@ -40,10 +40,19 @@ function processPinyin(p) {
   return pron.replace(NUCLEUS_REGEXP, match => applyTone(match, tone));
 }
 
+function nonUnique() {
+  const m = {};
+  return (s) => {
+    if (m[s]) return false;
+    return m[s] = true;
+  }
+}
+
 const truthy = x => !!x;
 
 export default pinyin => pinyin
   .split(NON_PINYIN_REGEXP)
   .filter(truthy)
   .map(processPinyin)
+  .filter(nonUnique())
   .join(', ');

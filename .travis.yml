@@ -12,23 +12,10 @@ cache:
     - zhongwenguji-server/node_modules
     - $HOME/.local/bin
 
+install: ./platform/ci-install.sh
+
 script:
-- echo "Install aws cli"
-- pip install --user awscli
-- echo "Build client"
-- cd zhongwenguji-client
-- npm install
-- npm run build
-- cd ..
-- echo "Build Server"
-- cd zhongwenguji-server
-- npm install
-- cd ..
-- echo "Deploy client"
-- cd zhongwenguji-client
-- aws s3 sync build/ s3://$DEPLOY_S3_BUCKET
-- cd ..
-- echo "Deploy server"
-- cd zhongwenguji-server
-- ./node_modules/.bin/sls deploy
-- cd ..
+- ./platform/ci-client-build.sh
+- ./platform/ci-server-build.sh
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./platform/ci-client-deploy.sh; fi'
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./platform/ci-server-deploy.sh; fi'

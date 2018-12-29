@@ -143,7 +143,7 @@ describe('characterTestActions', () => {
         knownEstimateUncertainty: 120
       };
 
-      fetchMock.postOnce('http://localhost:3001/submitTest', {
+      fetchMock.postOnce('https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest', {
         body: resultData,
         headers: { 'Content-type': 'application/json' }
       });
@@ -172,7 +172,7 @@ describe('characterTestActions', () => {
     });
 
     it('handles a server error', () => {
-      fetchMock.postOnce('http://localhost:3001/submitTest', 500);
+      fetchMock.postOnce('https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest', 500);
 
       return store.dispatch(markCurrentKnown())
         .then(() => {
