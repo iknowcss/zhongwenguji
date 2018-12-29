@@ -12,10 +12,21 @@ cache:
     - zhongwenguji-server/node_modules
     - $HOME/.local/bin
 
-install: ./platform/ci-install.sh
-
-script:
-- ./platform/ci-client-build.sh
-- ./platform/ci-server-build.sh
-- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./platform/ci-client-deploy.sh; fi'
-- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./platform/ci-server-deploy.sh; fi'
+jobs:
+  include:
+  - stage: validate
+    install: ./platform/ci-client-install.sh
+    script: ./platform/ci-client-validate.sh
+  - stage: validate
+    install: ./platform/ci-server-install.sh
+    script: ./platform/ci-server-validate.sh
+  - stage: deploy
+    if: branch = master AND type = push
+    install:
+      - ./platform/ci-client-install.sh
+      - pip install --user awscli
+    script: ./platform/ci-client-deploy.sh
+  - stage: deploy
+    if: branch = master AND type = push
+    install: ./platform/ci-server-install.sh
+    script: ./platform/ci-server-deploy.sh

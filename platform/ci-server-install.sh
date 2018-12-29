@@ -7,9 +7,9 @@ if [[ -z "$projectRoot" ]]; then
     projectRoot='.'
 fi
 
-echo "Deploy client to S3..."
+echo "Install server dependencies..."
 (
   set -e
   cd $projectRoot/zhongwenguji-server
-  ./node_modules/.bin/sls deploy
+  npm install
 )
