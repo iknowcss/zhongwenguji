@@ -9,10 +9,12 @@ import {
   markCurrentKnown,
   undoDiscard
 } from './characterTestActions';
+import getConfig from '../getConfig';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('characterTestActions', () => {
+  const { getCharacterSampleUrl, submitTestUrl } = getConfig();
   const oldConsole = {};
   let store;
 
@@ -40,12 +42,12 @@ describe('characterTestActions', () => {
   });
 
   it('loads character samples', () => {
-    fetchMock.getOnce('http://example.com/characters/sample', {
+    fetchMock.getOnce(getCharacterSampleUrl, {
       body: { mockData: true },
       headers: { 'Content-type': 'application/json' }
     });
 
-    return store.dispatch(loadSamples('http://example.com/characters/sample'))
+    return store.dispatch(loadSamples(getCharacterSampleUrl))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
@@ -58,9 +60,9 @@ describe('characterTestActions', () => {
   });
 
   it('handles character sample load failure', () => {
-    fetchMock.getOnce('http://example.com/characters/sample', 500);
+    fetchMock.getOnce(getCharacterSampleUrl, 500);
 
-    return store.dispatch(loadSamples('http://example.com/characters/sample'))
+    return store.dispatch(loadSamples(getCharacterSampleUrl))
       .then(() => {
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error).toHaveBeenCalledWith(
@@ -143,7 +145,7 @@ describe('characterTestActions', () => {
         knownEstimateUncertainty: 120
       };
 
-      fetchMock.postOnce('https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest', {
+      fetchMock.postOnce(submitTestUrl, {
         body: resultData,
         headers: { 'Content-type': 'application/json' }
       });
@@ -172,7 +174,7 @@ describe('characterTestActions', () => {
     });
 
     it('handles a server error', () => {
-      fetchMock.postOnce('https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest', 500);
+      fetchMock.postOnce(submitTestUrl, 500);
 
       return store.dispatch(markCurrentKnown())
         .then(() => {

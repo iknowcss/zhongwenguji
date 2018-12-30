@@ -21,3 +21,7 @@ functions:
 
 plugins:
   - serverless-offline
+
+custom:
+  serverless-offline:
+    port: 3001

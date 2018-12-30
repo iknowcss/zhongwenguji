@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CSSTransitionGroup } from 'react-transition-group';
 import {
   toggleDefinition,
   markCurrentKnown,
@@ -15,8 +14,9 @@ import {
   scoreStatistics,
   resultData
 } from './characterTestReducer';
+import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
-import CharacterCard from './CharacterCard';
+import CardStackDesktop from '../card/CardStackDesktop';
 import './CharacterTest.css';
 
 const noop = () => {};
@@ -151,34 +151,18 @@ class CharacterTest extends Component {
 
   render() {
     return (
-      <>
-        <CSSTransitionGroup
-          component="div"
-          className="TestCardStack"
-          transitionName="cardSwipe"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
-          {this.props.currentCard ? (<CharacterCard
-            {...this.props.currentCard}
-            showDefinition={this.props.isShowDefinition}
-            key={this.props.currentCard.index}
-          />) : null}
-        </CSSTransitionGroup>
-        <div>Test status: {this.props.status}</div>
-        {/*<div>Live Stats: {this.renderLiveStats()}</div>*/}
+      <div className="CharacterTest__container">
+        <CardStackDesktop
+          currentCard={this.props.currentCard}
+          showDefinition={this.props.isShowDefinition}
+        />
         {this.props.resultData ? this.renderResults() : null}
-      </>
+      </div>
     );
   }
 }
 
 export { CharacterTest as Pure };
-
-const mapSelectors = (map) => (state) => Object.keys(map).reduce((props, key) => {
-  props[key] = map[key](state);
-  return props;
-}, {});
 
 export default connect(mapSelectors({
   currentCard,

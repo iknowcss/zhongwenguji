@@ -3,9 +3,7 @@ import {
   status as characterTestStatus,
   scoreStatistics
 } from './characterTestReducer';
-
-const DEFAULT_CHARACTER_SAMPLE_URL = 'https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/getCharacterSample';
-const DEFAULT_TEST_SUBMIT_URL = 'https://4xfh4cpvgd.execute-api.ap-southeast-2.amazonaws.com/dev/submitTest';
+import getConfig from '../getConfig';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',
@@ -30,9 +28,10 @@ function extractJson(response) {
   return response.json();
 }
 
-export const loadSamples = (url = DEFAULT_CHARACTER_SAMPLE_URL) => (dispatch) => {
+export const loadSamples = () => (dispatch) => {
+  const { getCharacterSampleUrl } = getConfig();
   dispatch({ type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START });
-  return fetch(url)
+  return fetch(getCharacterSampleUrl)
     .then(extractJson)
     .then((data) => {
       dispatch({
@@ -57,14 +56,15 @@ export const toggleDefinition = () => (dispatch, getState) => {
   }
 };
 
-const testSubmit = (url = DEFAULT_TEST_SUBMIT_URL) => (dispatch, getState) => {
+const testSubmit = () => (dispatch, getState) => {
+  const { submitTestUrl } = getConfig();
   dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
 
   const body = {
     testData: scoreStatistics(getState()).sectionStats
   };
 
-  return fetch(url, {
+  return fetch(submitTestUrl, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-type': 'application/json' }

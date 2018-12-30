@@ -1,3 +1,7 @@
+.CharacterTest__container {
+  margin-top: 1em;
+}
+
 .TestCardStack {
   display: flex;
   justify-content: center;

@@ -7,10 +7,6 @@ import App from './App';
 import { store } from './store';
 import * as serviceWorker from './serviceWorker';
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
-
 render(
   <Provider store={store}>
     <App />
