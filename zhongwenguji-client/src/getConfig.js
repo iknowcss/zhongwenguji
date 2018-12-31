@@ -1,4 +1,4 @@
-const stage = process.env.STAGE || 'development';
+const stage = 'production';
 
 const baseConfig = {
   getCharacterSampleUrl: 'http://localhost:3001/getCharacterSample',
