@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "fetch-mock": "^7.2.7",
     "node-fetch": "^2.3.0",
+    "node-sass": "^4.11.0",
     "react-test-renderer": "^16.7.0",
     "redux-mock-store": "^1.5.3"
   }

@@ -17,7 +17,7 @@ import {
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
 import CardStackDesktop from '../card/CardStackDesktop';
-import './CharacterTest.css';
+import style from './CharacterTest.module.scss';
 
 const noop = () => {};
 
@@ -151,7 +151,7 @@ class CharacterTest extends Component {
 
   render() {
     return (
-      <div className="CharacterTest__container">
+      <div className={style.container}>
         <CardStackDesktop
           currentCard={this.props.currentCard}
           showDefinition={this.props.isShowDefinition}

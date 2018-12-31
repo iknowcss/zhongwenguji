@@ -1,12 +1,14 @@
 import React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
-import CharacterCard from '../characterTest/CharacterCard';
+import CharacterCard from './CharacterCard';
+import style from './CardStackDesktop.module.scss';
+import characterCardStyle from './CharacterCard.module.scss'
 
 const CardStackDesktop = ({ currentCard, showDefinition }) => (
   <CSSTransitionGroup
     component="div"
-    className="TestCardStack"
-    transitionName="cardSwipe"
+    className={style.container}
+    transitionName={characterCardStyle}
     transitionEnterTimeout={300}
     transitionLeaveTimeout={300}
   >

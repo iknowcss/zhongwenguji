@@ -1,0 +1,87 @@
+.container {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotateZ(0);
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid black;
+  box-sizing: border-box;
+  width: 12em;
+  height: 15em;
+  border-radius: 6px;
+  overflow-y: auto;
+  background-color: white;
+  position: absolute;
+}
+
+.showDefinition {
+  justify-content: flex-start;
+}
+
+.character {
+  font-size: 8em;
+  align-self: center;
+}
+
+.definition {
+  word-break: break-word;
+  font-size: 1.5em;
+  margin: 0 5%;
+  flex-grow: 1;
+  /*background-color: rgba(255, 127, 127, 0.5);*/
+}
+
+.pinyin {
+  font-size: 2em;
+  margin: 0.2em 5%;
+  /*background-color: rgba(127, 127, 255, 0.5);*/
+}
+
+.leave {
+  transform: translateX(0);
+}
+
+.markedUnknown,
+.markedKnown {
+  &.leave {
+    opacity: 0.01;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+
+  &.enter {
+    opacity: 0.001;
+    z-index: 1;
+  }
+
+  &.enter.enterActive {
+    transition: transform 100ms ease-in, opacity 100ms ease-in;
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotateZ(0);
+  }
+}
+
+.markedUnknown {
+  &.leave.leaveActive {
+    background-color: #fee;
+    transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+  }
+
+  &.enter {
+    background-color: #fee;
+    transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+  }
+}
+
+.markedKnown {
+  &.leave.leaveActive {
+    background-color: #efe;
+    transform: translateX(150%) translateY(50%) rotateZ(10deg);
+  }
+
+  &.enter {
+    background-color: #efe;
+    transform: translateX(150%) translateY(50%) rotateZ(10deg);
+  }
+}
