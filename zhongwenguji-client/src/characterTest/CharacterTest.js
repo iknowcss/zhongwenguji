@@ -17,7 +17,7 @@ import {
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
 import CardStackMobile from '../card/CardStackMobile';
-import CardStackDesktop from '../card/CardStackDesktop';
+// import CardStackDesktop from '../card/CardStackDesktop';
 import style from './CharacterTest.module.scss';
 
 const noop = () => {};
@@ -78,6 +78,22 @@ class CharacterTest extends Component {
       default:
         break;
     }
+  };
+
+  handleDiscardLeft = () => {
+    this.props.markCurrentUnknown();
+  };
+
+  handleDiscardRight = () => {
+    this.props.markCurrentKnown();
+  };
+
+  handleUndo = () => {
+    this.props.undoDiscard();
+  };
+
+  handleDefinition = () => {
+    this.props.toggleDefinition();
   };
 
   renderLiveStats() {
@@ -154,9 +170,13 @@ class CharacterTest extends Component {
     return (
       <div className={style.container}>
         {this.props.resultData ? this.renderResults() : (
-          <CardStackDesktop
+          <CardStackMobile
             currentCard={this.props.currentCard}
             showDefinition={this.props.isShowDefinition}
+            onDiscardLeft={this.handleDiscardLeft}
+            onDiscardRight={this.handleDiscardRight}
+            onUndo={this.handleUndo}
+            onDefinition={this.handleDefinition}
           />
         )}
       </div>

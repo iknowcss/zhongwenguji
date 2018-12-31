@@ -4,9 +4,6 @@ exports[`CharacterTest renders 1`] = `
 <div
   className="container"
 >
-  <div
-    className="container"
-  />
   <div>
     <div>
       You know 

@@ -1,4 +1,45 @@
-.container {
+.cardContainer {
   display: flex;
   justify-content: center;
+  background-color: aliceblue;
+  overflow-x: hidden;
+  padding: 1em;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  font-size: .7em;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  margin: 0.5em;
+  outline: none;
+}
+
+.touchArea {
+  position: relative;
+  transition:
+    top cubic-bezier(.22,.98,.91,1.09) 100ms,
+    left cubic-bezier(.22,.98,.91,1.09) 100ms,
+    transform cubic-bezier(.22,.98,.91,1.09) 100ms;
+
+  &Snap {
+    transition: none;
+  }
+}
+
+.card {
+
+}
+
+.exit {
+  opacity: 1;
+
+  &Active {
+    opacity: 0.01;
+  }
 }
