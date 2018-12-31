@@ -16,6 +16,7 @@ import {
 } from './characterTestReducer';
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
+import CardStackMobile from '../card/CardStackMobile';
 import CardStackDesktop from '../card/CardStackDesktop';
 import style from './CharacterTest.module.scss';
 
@@ -152,11 +153,12 @@ class CharacterTest extends Component {
   render() {
     return (
       <div className={style.container}>
-        <CardStackDesktop
-          currentCard={this.props.currentCard}
-          showDefinition={this.props.isShowDefinition}
-        />
-        {this.props.resultData ? this.renderResults() : null}
+        {this.props.resultData ? this.renderResults() : (
+          <CardStackDesktop
+            currentCard={this.props.currentCard}
+            showDefinition={this.props.isShowDefinition}
+          />
+        )}
       </div>
     );
   }

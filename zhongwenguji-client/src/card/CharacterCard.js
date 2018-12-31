@@ -9,17 +9,18 @@ export default (props) => {
     character,
     pinyin,
     definition,
-    score
+    score,
+    className
   } = props;
 
-  const className = cx(style.container, {
+  const finalClassName = cx(style.container, {
     [style.showDefinition]: showDefinition,
     [style.markedUnknown]: score === 0,
     [style.markedKnown]: score === 1
-  });
+  }, className);
 
   return (
-    <span className={className}>
+    <span className={finalClassName}>
       {showDefinition ? (
         <>
           <span className={style.pinyin}>

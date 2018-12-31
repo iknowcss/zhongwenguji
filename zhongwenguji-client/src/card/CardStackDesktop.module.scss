@@ -2,3 +2,62 @@
   display: flex;
   justify-content: center;
 }
+
+.card {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotateZ(0);
+  position: absolute;
+}
+
+.leave {
+  transform: translateX(0);
+}
+
+.discardLeft,
+.discardRight {
+  &.leave {
+    opacity: 0.01;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+
+  &.enter {
+    opacity: 0.001;
+    z-index: 1;
+  }
+
+  &.enter.enterActive {
+    transition: transform 100ms ease-in, opacity 100ms ease-in;
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotateZ(0);
+  }
+}
+
+.discardLeft {
+  &.leave.leaveActive {
+    background-color: #fee;
+    transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+  }
+
+  &.enter.enterActive {
+    background-color: #fee;
+  }
+
+  &.enter {
+    transform: translateX(-150%) translateY(50%) rotateZ(-10deg);
+  }
+}
+
+.discardRight {
+  &.leave.leaveActive {
+    background-color: #efe;
+    transform: translateX(150%) translateY(50%) rotateZ(10deg);
+  }
+
+  &.enter.enterActive {
+    background-color: #efe;
+  }
+
+  &.enter {
+    transform: translateX(150%) translateY(50%) rotateZ(10deg);
+  }
+}
