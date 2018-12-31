@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CharacterTest renders 1`] = `
-Array [
+<div
+  className="container"
+>
   <div
-    className="TestCardStack"
-  />,
-  <div>
-    Test status: 
-    
-  </div>,
+    className="container"
+  />
   <div>
     <div>
       You know 
@@ -25,6 +23,6 @@ Array [
         <g />
       </svg>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;

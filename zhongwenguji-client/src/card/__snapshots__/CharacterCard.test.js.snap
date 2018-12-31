@@ -2,10 +2,10 @@
 
 exports[`CharacterCard renders the character 1`] = `
 <span
-  className="TestCard"
+  className="container"
 >
   <span
-    className="TestCard__character"
+    className="character"
   >
     科
   </span>
@@ -14,15 +14,15 @@ exports[`CharacterCard renders the character 1`] = `
 
 exports[`CharacterCard renders the definition 1`] = `
 <span
-  className="TestCard TestCard--showDefinition"
+  className="container showDefinition"
 >
   <span
-    className="TestCard__pinyin"
+    className="pinyin"
   >
     kē
   </span>
   <span
-    className="TestCard__definition"
+    className="definition"
   >
     branch of study
   </span>

@@ -28,7 +28,7 @@ describe('CharacterCard', () => {
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))
-      .toEqual(['TestCard', 'TestCard--showDefinition']);
+      .toEqual(['container', 'showDefinition']);
     expect(tree).toMatchSnapshot();
   });
 
@@ -37,7 +37,7 @@ describe('CharacterCard', () => {
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))
-      .toEqual(['TestCard', 'TestCard--markedUnknown']);
+      .toEqual(['container', 'markedUnknown']);
   });
 
   it('has a class for unknown marking', () => {
@@ -45,6 +45,6 @@ describe('CharacterCard', () => {
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))
-      .toEqual(['TestCard', 'TestCard--markedKnown']);
+      .toEqual(['container', 'markedKnown']);
   });
 });
