@@ -421,7 +421,7 @@ describe('characterTestReducer', () => {
           { sample: [
               { index: 1, score: 1 },
               { index: 2, score: 1 },
-              { index: 3, score: 0 }
+              { index: 3, score: NaN }
             ] },
           { sample: [
               { index: 4, score: NaN },
@@ -436,7 +436,7 @@ describe('characterTestReducer', () => {
         bins: [
           { sample: [
               { index: 1, score: 1 },
-              { index: 2, score: 1 },
+              { index: 2, score: NaN },
               { index: 3, score: NaN }
             ] },
           { sample: [
@@ -459,7 +459,7 @@ describe('characterTestReducer', () => {
             { index: 3, score: 0 }
           ] },
           { sample: [
-            { index: 4, score: 0 },
+            { index: 4, score: NaN },
             { index: 5, score: NaN },
           ] }
         ],
@@ -473,7 +473,7 @@ describe('characterTestReducer', () => {
           { sample: [
             { index: 1, score: 1 },
             { index: 2, score: 1 },
-            { index: 3, score: 0 }
+            { index: 3, score: NaN }
           ] },
           { sample: [
             { index: 4, score: NaN },

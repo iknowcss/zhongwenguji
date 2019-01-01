@@ -109,27 +109,26 @@ function processUndoDiscard(state) {
     return state;
   }
 
-  const bins = processBinScore(state.bins, {
-    sectionIndex: state.currentSectionIndex,
-    cardIndex: state.currentCardIndex,
-    score: NaN
-  });
+  let currentCardIndex = state.currentCardIndex;
+  let currentSectionIndex = state.currentSectionIndex;
 
-  if (state.currentCardIndex > 0) {
-    return {
-      ...state,
-      bins,
-      currentCardIndex: state.currentCardIndex - 1
-    };
+  if (currentCardIndex > 0) {
+    currentCardIndex--;
+  } else if (currentSectionIndex > 0) {
+    currentCardIndex = state.bins[currentSectionIndex - 1].sample.length - 1;
+    currentSectionIndex--;
   }
-  if (state.currentSectionIndex > 0) {
-    return {
-      ...state,
-      bins,
-      currentSectionIndex: state.currentSectionIndex - 1,
-      currentCardIndex: state.bins[state.currentSectionIndex - 1].sample.length - 1
-    };
-  }
+
+  return {
+    ...state,
+    currentCardIndex,
+    currentSectionIndex,
+    bins: processBinScore(state.bins, {
+      cardIndex: currentCardIndex,
+      sectionIndex: currentSectionIndex,
+      score: NaN
+    }),
+  };
 }
 
 function processMark(state, action) {
