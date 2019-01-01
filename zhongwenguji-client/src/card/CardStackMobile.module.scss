@@ -16,6 +16,7 @@
 }
 
 .button {
+  touch-action: manipulation;
   font-size: .7em;
   width: 64px;
   height: 64px;
