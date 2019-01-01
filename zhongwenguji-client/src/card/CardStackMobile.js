@@ -86,6 +86,7 @@ export default class CardStackMobile extends Component {
   componentDidMount() {
     document.addEventListener('touchstart', this.handleTouchStart, { passive: false });
     document.addEventListener('touchend', this.handleTouchEnd);
+    document.addEventListener('touchcancel', this.handleTouchEnd);
     document.addEventListener('touchmove', this.handleTouchMove);
   }
 
@@ -101,6 +102,7 @@ export default class CardStackMobile extends Component {
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleTouchStart);
     document.removeEventListener('touchend', this.handleTouchEnd);
+    document.removeEventListener('touchcancel', this.handleTouchEnd);
     document.removeEventListener('touchmove', this.handleTouchMove);
   }
 
