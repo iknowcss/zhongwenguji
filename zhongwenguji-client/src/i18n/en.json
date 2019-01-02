@@ -1,0 +1,8 @@
+{
+  "instructions.p1": "Take this test to estimate how many Chinese characters you know.",
+  "instructions.p2": "If you know a character, swipe it to the right.",
+  "instructions.p3": "If you don't know a character, swipe it to the left.",
+  "instructions.dismissButton": "Got it",
+  "cardStackMobile.undoButton": "Undo",
+  "cardStackMobile.definitionButton": "Def"
+}

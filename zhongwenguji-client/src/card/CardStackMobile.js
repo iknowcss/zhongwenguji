@@ -4,6 +4,8 @@ import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
 import Button from '../component/Button';
+import undoSvg from '../undo.svg';
+import searchSvg from '../search.svg';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;
@@ -19,6 +21,14 @@ function isAncestor(ancestor, child) {
   }
   return false;
 }
+
+const Icon = ({ className, viewBox, href }) => (
+  <span className={cx(style.iconSpan, className)}>
+    <svg viewBox={viewBox} className={style.iconSvg}>
+      <use xlinkHref={href}></use>
+    </svg>
+  </span>
+);
 
 export default class CardStackMobile extends Component {
   static propTypes = {
@@ -82,6 +92,16 @@ export default class CardStackMobile extends Component {
       }
       this.setState({ activeTouch: null });
     }
+  };
+
+  handleUndoClick = (event) => {
+    event.preventDefault();
+    this.props.onUndo();
+  };
+
+  handleDefinitionClick = (event) => {
+    event.preventDefault();
+    this.props.onDefinition();
   };
 
   componentDidMount() {
@@ -158,8 +178,18 @@ export default class CardStackMobile extends Component {
           </div>
         </div>
         <div className={style.buttonContainer}>
-          <Button className={style.button} onClick={() => this.props.onUndo() }>Undo</Button>
-          <Button className={style.button} onClick={() => this.props.onDefinition() }>Def</Button>
+          <Button
+            className={cx(style.button, style.undoButton)}
+            onClick={this.handleUndoClick}
+          >
+            <Icon viewBox="0 0 438.536 438.536" href={`${undoSvg}#main`} />
+          </Button>
+          <Button
+            className={style.button}
+            onClick={this.handleDefinitionClick}
+          >
+            <Icon viewBox="0 0 250.313 250.313" href={`${searchSvg}#main`} />
+          </Button>
         </div>
       </div>
     );

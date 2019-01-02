@@ -6,6 +6,7 @@ import { showInstructions } from './instructionsReducer';
 import { dismissInstructions } from './instructionsActions';
 import mapSelectors from '../util/mapSelectors';
 import Button from '../component/Button';
+import I18n from '../i18n/I18n';
 import style from './Instructions.module.scss'
 
 class Instructions extends Component {
@@ -26,21 +27,16 @@ class Instructions extends Component {
     return (
       <div className={style.container}>
         <section className={style.modal}>
-          <p className={style.paragraph}>
-            Take this test to estimate how many Chinese characters you
-            know.
-          </p>
-          <p className={style.paragraph}>
-            If you know a character, swipe it to the right.
-          </p>
-          <p className={style.paragraph}>
-            If you don't know a character, swipe it to the left.
-          </p>
+          <I18n component="p" className={style.paragraph} stringId={'instructions.p1'} />
+          <I18n component="p" className={style.paragraph} stringId={'instructions.p2'} />
+          <I18n component="p" className={style.paragraph} stringId={'instructions.p3'} />
 
-          <Button
+          <I18n
+            component={Button}
             className={style.button}
+            stringId={'instructions.dismissButton'}
             onClick={this.handleDismissClick}
-          >Dismiss</Button>
+          />
         </section>
       </div>
     );
