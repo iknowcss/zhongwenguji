@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
+import Button from '../component/Button';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;
@@ -157,8 +158,8 @@ export default class CardStackMobile extends Component {
           </div>
         </div>
         <div className={style.buttonContainer}>
-          <button className={style.button} onClick={() => this.props.onUndo() }>Undo</button>
-          <button className={style.button} onClick={() => this.props.onDefinition() }>Def</button>
+          <Button className={style.button} onClick={() => this.props.onUndo() }>Undo</Button>
+          <Button className={style.button} onClick={() => this.props.onDefinition() }>Def</Button>
         </div>
       </div>
     );
