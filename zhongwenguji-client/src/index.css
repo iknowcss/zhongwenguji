@@ -46,3 +46,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* Global styles */
+
+body {
+  font-size: 24px;
+}
+
+html, body, #root {
+  height: 100%;
+}
