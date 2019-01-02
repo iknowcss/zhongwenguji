@@ -5,6 +5,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import { showInstructions } from './instructionsReducer';
 import { dismissInstructions } from './instructionsActions';
 import mapSelectors from '../util/mapSelectors';
+import Button from '../component/Button';
 import style from './Instructions.module.scss'
 
 class Instructions extends Component {
@@ -36,10 +37,10 @@ class Instructions extends Component {
             If you don't know a character, swipe it to the left.
           </p>
 
-          <button
+          <Button
             className={style.button}
             onClick={this.handleDismissClick}
-          >Dismiss</button>
+          >Dismiss</Button>
         </section>
       </div>
     );

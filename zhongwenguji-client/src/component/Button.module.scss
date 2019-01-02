@@ -1,0 +1,12 @@
+.button {
+  font-size: 1rem;
+  line-height: 64px;
+  padding: 0 32px;
+  background-color: cornflowerblue;
+  border: none;
+  border-radius: 32px;
+  color: white;
+
+  touch-action: manipulation;
+  outline: none;
+}
