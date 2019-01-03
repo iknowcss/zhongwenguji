@@ -7,8 +7,6 @@ import { resultData, scoreStatistics } from '../characterTest/characterTestReduc
 import I18n from '../i18n/I18n';
 import style from './Results.module.scss';
 
-const GRAPH_PADDING = 10;
-
 class Results extends Component {
   static propTypes = {
     scoreStatistics: PropTypes.object,
@@ -30,8 +28,6 @@ class Results extends Component {
       curvePoints = [],
       samplePoints = []
     } = this.props.resultData;
-
-    // console.log(curvePoints)
 
     function datify(curvePoints, samplePoints) {
       let stopIndex = 0;
