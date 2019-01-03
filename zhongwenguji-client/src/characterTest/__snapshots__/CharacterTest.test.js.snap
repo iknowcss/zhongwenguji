@@ -3,23 +3,5 @@
 exports[`CharacterTest renders 1`] = `
 <div
   className="container"
->
-  <div>
-    <div>
-      You know 
-      -1
-       汉字 ± 
-      -1
-    </div>
-    <div>
-      <svg
-        height={120}
-        width={1020}
-      >
-        <g />
-        <g />
-      </svg>
-    </div>
-  </div>
-</div>
+/>
 `;

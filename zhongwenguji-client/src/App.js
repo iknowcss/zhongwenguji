@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loadSamples } from './characterTest/characterTestActions';
 import CharacterTest from './characterTest/CharacterTest';
 import Instructions from './instructions/Instructions';
+import Results from './results/Results';
 import style from './App.module.scss';
 
 const noop = () => {};
@@ -26,6 +27,7 @@ class App extends Component {
       <div className={style.container}>
         <CharacterTest />
         <Instructions />
+        <Results />
       </div>
     );
   }

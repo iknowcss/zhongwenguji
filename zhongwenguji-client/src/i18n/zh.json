@@ -2,5 +2,7 @@
   "instructions.p1": "现在来做这个测试来看看你知道多少个汉字。",
   "instructions.p2": "如果你认识这个字，往右滑。",
   "instructions.p3": "如果你不认识这个字，往左滑。",
-  "instructions.dismissButton": "好啊"
+  "instructions.dismissButton": "好啊",
+  "results.youKnow": "你知道",
+  "results.measure": "个汉子"
 }

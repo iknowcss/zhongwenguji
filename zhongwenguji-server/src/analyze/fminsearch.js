@@ -81,7 +81,7 @@ fminsearch.plot=function(x,y,yp,Parms){ // ploting results using <script type="t
   for (var i=0;i<n;i++){
     data.addRow([x[i],y[i],yp[i]]);
   };
-  //var chart = new google.visualization.ScatterChart(
+  //var results = new google.visualization.ScatterChart(
   var titulo='Model fitting';
   if(!!Parms){titulo='Model parameters: '+Parms};
   var chart = new google.visualization.ComboChart(
