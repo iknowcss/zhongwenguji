@@ -9,4 +9,12 @@
 
   touch-action: manipulation;
   outline: none;
+  box-shadow: rgba(0, 20, 40, .7) 0 2px 5px 0;
+
+  transition: transform ease-in-out 50ms, box-shadow ease-in-out 50ms;
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: rgba(0, 20, 40, .7) 0 0 1px 0;
+  }
 }

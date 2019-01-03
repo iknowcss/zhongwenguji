@@ -8,6 +8,8 @@
 
 .stackBase {
   position: relative;
+  width: 12rem;
+  height: 15rem;
 }
 
 .buttonContainer {
@@ -42,7 +44,6 @@
 }
 
 .enter {
-  position: absolute;
   transition: transform ease 300ms, opacity ease 300ms;
   opacity: 0.01;
   transform-origin: 50% 50%;
@@ -52,6 +53,10 @@
     opacity: 1;
     transform: scale(1, 1);
   }
+}
+
+.animationContainer {
+  position: absolute;
 }
 
 .leave {

@@ -17,7 +17,6 @@ import {
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
 import CardStackMobile from '../card/CardStackMobile';
-// import CardStackDesktop from '../card/CardStackDesktop';
 import style from './CharacterTest.module.scss';
 
 const noop = () => {};
