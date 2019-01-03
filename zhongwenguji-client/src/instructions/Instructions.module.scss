@@ -38,12 +38,31 @@
   border-radius: .5rem;
 }
 
-.paragraph {
+.paragraph, .iconParagraph {
   font-size: 1.2rem;
   font-family: Helvetica, sans-serif;
   line-height: 1.5;
+}
+
+.paragraph, .iconParagraphContainer {
   margin-bottom: 1rem;
   align-self: stretch;
+}
+
+.iconParagraph {
+  margin-left: .5rem;
+  text-align: right;
+
+  &Right {
+    margin-left: 0;
+    margin-right: .5rem;
+    text-align: left;
+  }
+
+  &Container {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .button {

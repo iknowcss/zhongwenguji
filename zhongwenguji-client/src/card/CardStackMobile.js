@@ -4,8 +4,7 @@ import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
 import Button from '../component/Button';
-import undoSvg from '../undo.svg';
-import searchSvg from '../search.svg';
+import { UndoIcon, SearchIcon } from '../component/Icon';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;
@@ -21,14 +20,6 @@ function isAncestor(ancestor, child) {
   }
   return false;
 }
-
-const Icon = ({ className, viewBox, href }) => (
-  <span className={cx(style.iconSpan, className)}>
-    <svg viewBox={viewBox} className={style.iconSvg}>
-      <use xlinkHref={href}></use>
-    </svg>
-  </span>
-);
 
 export default class CardStackMobile extends Component {
   static propTypes = {
@@ -182,13 +173,13 @@ export default class CardStackMobile extends Component {
             className={cx(style.button, style.undoButton)}
             onClick={this.handleUndoClick}
           >
-            <Icon viewBox="0 0 438.536 438.536" href={`${undoSvg}#main`} />
+            <UndoIcon className={style.buttonIcon} />
           </Button>
           <Button
             className={style.button}
             onClick={this.handleDefinitionClick}
           >
-            <Icon viewBox="0 0 250.313 250.313" href={`${searchSvg}#main`} />
+            <SearchIcon className={style.buttonIcon} />
           </Button>
         </div>
       </div>
