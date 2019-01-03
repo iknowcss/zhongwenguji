@@ -9,7 +9,7 @@ const language = ((navigator.languages
 
 const i18n = { en, zh };
 
-export default ({ component: C, stringId, ...props }) => (
+export default ({ component: C = 'span', stringId, ...props }) => (
   <C {...props}>
     {(i18n[language] || {})[stringId] || stringId}
   </C>

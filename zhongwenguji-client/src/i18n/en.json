@@ -3,6 +3,6 @@
   "instructions.p2": "If you know a character, swipe it to the right.",
   "instructions.p3": "If you don't know a character, swipe it to the left.",
   "instructions.dismissButton": "Got it",
-  "cardStackMobile.undoButton": "Undo",
-  "cardStackMobile.definitionButton": "Def"
+  "results.youKnow": "You know",
+  "results.measure": "Chinese characters"
 }
