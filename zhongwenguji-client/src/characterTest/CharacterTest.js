@@ -22,15 +22,11 @@ import style from './CharacterTest.module.scss';
 
 const noop = () => {};
 
-const GRAPH_PADDING = 10;
-
 class CharacterTest extends Component {
   static propTypes = {
     currentCard: PropTypes.object,
     isShowDefinition: PropTypes.bool,
     status: PropTypes.string,
-    scoreStatistics: PropTypes.object,
-    resultData: PropTypes.object,
 
     toggleDefinition: PropTypes.func,
     markCurrentKnown: PropTypes.func,
@@ -42,8 +38,6 @@ class CharacterTest extends Component {
     currentCard: null,
     isShowDefinition: false,
     status: '',
-    scoreStatistics: {},
-    resultData: {},
 
     toggleDefinition: noop,
     markCurrentKnown: noop,
@@ -96,80 +90,10 @@ class CharacterTest extends Component {
     this.props.toggleDefinition();
   };
 
-  renderLiveStats() {
-    const padding = 10;
-    const barWidth = 10;
-    const { sectionStats = [] } = this.props.scoreStatistics;
-
-    return (
-      <svg width="420" height="220">
-        {sectionStats.map(({ isTested, knownPercent, range }, i) => (<g key={i}>
-          {(isTested && knownPercent >= 0) ? (
-            <circle
-              cx={padding + barWidth * i}
-              cy={padding + 100 - knownPercent}
-              r={3}
-              style={{fill: 'rgb(0,0,255)'}}
-            />
-          ) : null}
-        </g>))}
-      </svg>
-    );
-  }
-
-  renderResults() {
-    const {
-      curvePoints = [],
-      samplePoints = [],
-      knownEstimate = -1,
-      knownEstimateUncertainty = -1
-    } = this.props.resultData;
-
-    return (
-      <div>
-        <div>You know {knownEstimate} 汉字 ± {knownEstimateUncertainty}</div>
-        <div>
-          <svg width={1000 + 2 * GRAPH_PADDING} height={100 + 2 * GRAPH_PADDING}>
-            <g>
-              {curvePoints.map(([x1, y1], i) => {
-                const next = curvePoints[i + 1];
-                if (next) {
-                  const [x2, y2] = next;
-                  return (
-                    <line
-                      key={x1}
-                      x1={GRAPH_PADDING + x1 / 10}
-                      y1={GRAPH_PADDING + 100 - y1}
-                      x2={GRAPH_PADDING + x2 / 10}
-                      y2={GRAPH_PADDING + 100 - y2}
-                      style={{stroke: 'rgb(255,0,0)', 'strokeWidth': 1}}
-                    />
-                  );
-                }
-                return null;
-              })}
-            </g>
-            <g>
-              {samplePoints.map(([x, y]) => (
-                <circle
-                  key={x}
-                  cx={GRAPH_PADDING + x / 10}
-                  cy={GRAPH_PADDING + 100 - y}
-                  r={3}
-                  style={{fill: 'rgb(0,0,255)'}}
-                />
-              ))}
-            </g>
-          </svg>
-        </div>
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className={style.container}>
-        {this.props.resultData ? this.renderResults() : (
+        {this.props.resultData ? null : (
           <CardStackMobile
             currentCard={this.props.currentCard}
             showDefinition={this.props.isShowDefinition}
