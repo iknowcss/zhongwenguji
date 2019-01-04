@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
 import Button from '../component/Button';
-import { UndoIcon, SearchIcon, CharIcon } from '../component/Icon';
+import { UndoIcon, SearchIcon } from '../component/Icon';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;

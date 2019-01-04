@@ -1,8 +1,10 @@
 {
-  "instructions.p1": "Take this test to estimate how many Chinese characters you know.",
-  "instructions.p2": "If you know a character, swipe it to the right.",
-  "instructions.p3": "If you don't know a character, swipe it to the left.",
-  "instructions.dismissButton": "Got it",
+  "instructions.overview": "Take this test to estimate how many Chinese characters you know.",
+  "instructions.swipeRight": "If you know a character, swipe it to the right.",
+  "instructions.swipeLeft": "If you don't know a character, swipe it to the left.",
+  "instructions.definition": "To check the definition, tap the magnifier button.",
+  "instructions.undo": "To undo the last swipe, tap the undo button.",
+  "instructions.dismissButton": "Start >",
   "results.youKnow": "You know",
   "results.measure": "Chinese characters"
 }

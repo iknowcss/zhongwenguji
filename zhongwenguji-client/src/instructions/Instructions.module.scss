@@ -33,13 +33,13 @@
   max-width: 20rem;
   display: flex;
   background-color: aliceblue;
-  padding: 1.5rem;
+  padding: 1rem;
   box-sizing: border-box;
   border-radius: .5rem;
 }
 
 .paragraph, .iconParagraph {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -50,18 +50,22 @@
 
 .iconParagraph {
   margin-left: .5rem;
-  text-align: right;
-
-  &Right {
-    margin-left: 0;
-    margin-right: .5rem;
-    text-align: left;
-  }
 
   &Container {
     display: flex;
     align-items: center;
   }
+}
+
+.fauxButton {
+  min-width: 40px;
+  height: 40px;
+  margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: cornflowerblue;
+  border-radius: 20px;
 }
 
 .button {

@@ -7,7 +7,7 @@ import { showInstructions } from './instructionsReducer';
 import { dismissInstructions } from './instructionsActions';
 import mapSelectors from '../util/mapSelectors';
 import Button from '../component/Button';
-import { SwipeLeftIcon, SwipeRightIcon } from '../component/Icon';
+import { SwipeLeftIcon, SwipeRightIcon, SearchIcon, UndoIcon } from '../component/Icon';
 import I18n from '../i18n/I18n';
 import style from './Instructions.module.scss'
 
@@ -29,16 +29,30 @@ class Instructions extends Component {
     return (
       <div className={style.container}>
         <section className={style.modal}>
-          <I18n component="p" className={style.paragraph} stringId={'instructions.p1'} />
+          <I18n component="p" className={style.paragraph} stringId={'instructions.overview'} />
 
           <div className={style.iconParagraphContainer}>
-            <I18n component="p" className={cx(style.iconParagraph, style.iconParagraphRight)} stringId={'instructions.p2'} />
             <SwipeRightIcon size="medium" className={style.iconParagraphIcon}/>
+            <I18n component="p" className={cx(style.iconParagraph)} stringId={'instructions.swipeRight'} />
           </div>
 
           <div className={style.iconParagraphContainer}>
             <SwipeLeftIcon size="medium" className={style.iconParagraphIcon}/>
-            <I18n component="p" className={style.iconParagraph} stringId={'instructions.p3'} />
+            <I18n component="p" className={style.iconParagraph} stringId={'instructions.swipeLeft'} />
+          </div>
+
+          <div className={style.iconParagraphContainer}>
+            <div className={style.fauxButton}>
+              <SearchIcon size="tiny" className={style.iconParagraphIcon}/>
+            </div>
+            <I18n component="p" className={style.iconParagraph} stringId={'instructions.definition'} />
+          </div>
+
+          <div className={style.iconParagraphContainer}>
+            <div className={style.fauxButton}>
+              <UndoIcon size="tiny" className={style.iconParagraphIcon}/>
+            </div>
+            <I18n component="p" className={style.iconParagraph} stringId={'instructions.undo'} />
           </div>
 
           <I18n

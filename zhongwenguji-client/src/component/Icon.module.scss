@@ -1,6 +1,15 @@
 .span {
   display: block;
 
+  &--tiny {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    font-size: 16px;
+  }
+
   &--small {
     width: 32px;
     height: 32px;
