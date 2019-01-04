@@ -9,6 +9,7 @@
 
   touch-action: manipulation;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
   box-shadow: rgba(0, 20, 40, .7) 0 2px 5px 0;
 
   transition: transform ease-in-out 50ms, box-shadow ease-in-out 50ms;
