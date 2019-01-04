@@ -46,3 +46,9 @@ export const SwipeRightIcon = iconClass({
   baseClassName: style.swipeRightIcon,
   viewBox: '0 0 397.233 397.233'
 });
+
+export const CharIcon = ({ className, size = 'small', character }) => (
+  <span className={cx(style.span, style[`span--${size}`], className)}>
+    {character}
+  </span>
+);

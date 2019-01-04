@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
 import Button from '../component/Button';
-import { UndoIcon, SearchIcon } from '../component/Icon';
+import { UndoIcon, SearchIcon, CharIcon } from '../component/Icon';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;
@@ -26,14 +26,16 @@ export default class CardStackMobile extends Component {
     onDiscardLeft: PropTypes.func,
     onDiscardRight: PropTypes.func,
     onUndo: PropTypes.func,
-    onDefinition: PropTypes.func
+    onDefinition: PropTypes.func,
+    showDefinition: PropTypes.bool
   };
 
   static defaultProps = {
     onDiscardLeft: noop,
     onDiscardRight: noop,
     onUndo: noop,
-    onDefinition: noop
+    onDefinition: noop,
+    showDefinition: false
   };
 
   constructor() {
@@ -176,7 +178,9 @@ export default class CardStackMobile extends Component {
             <UndoIcon className={style.buttonIcon} />
           </Button>
           <Button
-            className={style.button}
+            className={cx(style.button, {
+              [style.buttonActive]: showDefinition
+            })}
             onClick={this.handleDefinitionClick}
           >
             <SearchIcon className={style.buttonIcon} />

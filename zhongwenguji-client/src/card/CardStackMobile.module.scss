@@ -21,6 +21,14 @@
   margin: 1rem;
   height: 64px;
 
+  &Active {
+    background-color: #d2e2ff;
+  }
+
+  &Active &Icon svg {
+    fill: #333;
+  }
+
   &Icon {
     margin: 0 -16px;
   }
