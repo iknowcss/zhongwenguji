@@ -34,8 +34,12 @@ class App extends Component {
     loadSamples: noop
   };
 
-  componentDidUpdate(props) {
-    if (props.status === statusEnum.READY) {
+  componentDidMount() {
+    this.props.loadSamples();
+  }
+
+  componentDidUpdate() {
+    if (this.props.status === statusEnum.READY) {
       this.props.loadSamples();
     }
   }

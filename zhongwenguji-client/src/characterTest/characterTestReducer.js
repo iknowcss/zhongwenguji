@@ -33,7 +33,7 @@ function processTestComplete(state) {
 }
 
 const calculateScoreStatisticsMemo = {};
-const calculateScoreStatistics = ({ bins }) => {
+const calculateScoreStatistics = ({ bins, seed }) => {
   if (calculateScoreStatisticsMemo.bins === bins) {
     return calculateScoreStatisticsMemo.result;
   }
@@ -57,7 +57,8 @@ const calculateScoreStatistics = ({ bins }) => {
   const result = {
     lastTestedSectionIndex,
     failedSectionCount,
-    sectionStats
+    sectionStats,
+    seed
   };
 
   calculateScoreStatisticsMemo.bins = bins;

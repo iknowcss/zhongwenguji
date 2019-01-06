@@ -61,9 +61,8 @@ const testSubmit = () => (dispatch, getState) => {
   const { submitTestUrl } = getConfig();
   dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
 
-  const body = {
-    testData: scoreStatistics(getState()).sectionStats
-  };
+  const { sectionStats: testData, seed } = scoreStatistics(getState());
+  const body = { testData, seed };
 
   return fetch(submitTestUrl, {
     method: 'POST',
