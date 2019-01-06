@@ -34,3 +34,15 @@
 .startAgainContainer {
   margin-top: 1rem;
 }
+
+.feedbackBar {
+  position: fixed;
+  bottom: 2rem;
+  width: 100%;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #444;
+  line-height: 1.5;
+
+  a { color: cornflowerblue; }
+}

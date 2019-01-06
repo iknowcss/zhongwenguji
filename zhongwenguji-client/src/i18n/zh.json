@@ -11,5 +11,7 @@
   "instructions.dismissButton": "开始 ➡",
   "results.youKnow": "你知道",
   "results.measure": "个汉字",
-  "results.startAgain": "重新开始"
+  "results.startAgain": "重新开始",
+  "results.feedbackPreface": "你对这个测试有什么想法？",
+  "results.feedbackLinkText": "请在这里告诉我"
 }

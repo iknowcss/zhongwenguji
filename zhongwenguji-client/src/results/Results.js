@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import getConfig from '../getConfig';
 import mapSelectors from '../util/mapSelectors';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
@@ -11,6 +12,8 @@ import Button from '../component/Button';
 import I18n from '../i18n/I18n';
 
 const noop = () => {};
+
+const feedbackPrefillUrl = getConfig().feedbackPrefillUrl;
 
 class Results extends Component {
   static propTypes = {
@@ -45,6 +48,16 @@ class Results extends Component {
         />
         <div className={style.startAgainContainer}>
           <I18n component={Button} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
+        </div>
+        <div className={style.feedbackBar}>
+          <I18n component="div" stringId="results.feedbackPreface" />
+          <I18n
+            component="a"
+            stringId="results.feedbackLinkText"
+            href={`${feedbackPrefillUrl}${resultData.testId}`}
+            target="_blank"
+            rel="noopener"
+          />
         </div>
       </div>
     );

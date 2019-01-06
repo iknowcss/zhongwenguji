@@ -20,6 +20,7 @@
     "express": "^4.16.4",
     "jest": "^23.6.0",
     "serverless-http": "^1.8.0",
-    "supertest": "^3.3.0"
+    "supertest": "^3.3.0",
+    "uuid": "^3.3.2"
   }
 }

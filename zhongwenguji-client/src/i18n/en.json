@@ -11,5 +11,7 @@
   "instructions.dismissButton": "Start >",
   "results.youKnow": "You know",
   "results.measure": "Chinese characters",
-  "results.startAgain": "Start again"
+  "results.startAgain": "Start again",
+  "results.feedbackPreface": "How did you enjoy the test?",
+  "results.feedbackLinkText": "Let me know here"
 }

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
+const uuid = require('uuid/v4');
 const fminsearch = require('./analyze/fminsearch');
 
 function model([amplitude, decayStartX, decayPeriod], xi) {
@@ -55,6 +56,7 @@ module.exports = () => {
   router.use(bodyParser.json());
   router.use('/', (req, res) => {
     const { testData, seed } = req.body;
+    const testId = uuid();
     try {
       // Extract
       const samplePoints = testData
@@ -90,6 +92,7 @@ module.exports = () => {
       let curvePoints = curveXPoints.map(xi => [xi, curve(xi)]);
 
       const testResults = {
+        testId,
         samplePoints,
         curvePoints,
         knownEstimate: Math.round(curveArea / uncertainty) * uncertainty,
