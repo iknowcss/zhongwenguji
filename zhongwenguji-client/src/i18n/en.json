@@ -10,5 +10,6 @@
   "instructions.undoMouse": "To undo the last swipe, click the undo button.",
   "instructions.dismissButton": "Start >",
   "results.youKnow": "You know",
-  "results.measure": "Chinese characters"
+  "results.measure": "Chinese characters",
+  "results.startAgain": "Start again"
 }

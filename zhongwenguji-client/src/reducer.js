@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import characterTestReducer from './characterTest/characterTestReducer';
+import { actionTypes } from './characterTest/characterTestActions';
 import instructionsReducer from './instructions/instructionsReducer';
 
 const realReducer = combineReducers({
@@ -7,7 +8,17 @@ const realReducer = combineReducers({
   instructions: instructionsReducer
 });
 
-export default realReducer;
+export default (state, action) => {
+  let result;
+  if (action.type === actionTypes.TEST_RESET) {
+    result = realReducer(undefined, {});
+  } else {
+    result = realReducer(state, action);
+  }
+
+  console.log(result);
+  return result;
+}
 
 // let count = 0;
 // export default (state, action) => {

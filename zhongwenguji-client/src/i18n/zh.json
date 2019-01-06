@@ -10,5 +10,6 @@
   "instructions.undoMouse": "",
   "instructions.dismissButton": "开始 ➡",
   "results.youKnow": "你知道",
-  "results.measure": "个汉字"
+  "results.measure": "个汉字",
+  "results.startAgain": ""
 }

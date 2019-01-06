@@ -1,10 +1,23 @@
 import { actionTypes } from './characterTestActions';
 
+/// - Test state enum ------------------------------------------------------------------------------
+
+export const statusEnum = {
+  READY: 'READY',
+  LOADING: 'LOADING',
+  RESULTS_LOADING: 'LOADING_RESULTS',
+  RESULTS_READY: 'RESULTS_READY',
+  TESTING: 'TESTING',
+  ERROR: 'ERROR',
+};
+
+/// ------------------------------------------------------------------------------------------------
+
 const DEFAULT_STATE = {
   bins: [],
   seed: -1,
   isShowDefinition: false,
-  state: 'READY',
+  state: statusEnum.READY,
   currentSectionIndex: 0,
   currentCardIndex: 0,
   resultData: null
@@ -168,16 +181,6 @@ function processSampleData(state, sampleData) {
   };
 }
 
-/// - Test state enum ------------------------------------------------------------------------------
-
-export const statusEnum = {
-  LOADING: 'LOADING',
-  RESULTS_LOADING: 'LOADING_RESULTS',
-  RESULTS_READY: 'RESULTS_READY',
-  TESTING: 'TESTING',
-  ERROR: 'ERROR',
-};
-
 /// - State reducer --------------------------------------------------------------------------------
 
 export default (state = DEFAULT_STATE, action = {}) => {
@@ -221,6 +224,8 @@ export default (state = DEFAULT_STATE, action = {}) => {
         state: statusEnum.RESULTS_READY,
         resultData: action.resultData
       };
+    case actionTypes.TEST_RESET:
+      return DEFAULT_STATE;
     default:
       return state;
   }

@@ -18,7 +18,8 @@ export const actionTypes = {
   TEST_CARD_DISCARD: '@zwgj//testCard/discard',
   TEST_RESULTS_SUBMIT_START: '@zwgj//testResults/submit/start',
   TEST_RESULTS_SUBMIT_SUCCESS: '@zwgj//testResults/submit/success',
-  TEST_RESULTS_SUBMIT_FAIL: '@zwgj//testResults/submit/fail'
+  TEST_RESULTS_SUBMIT_FAIL: '@zwgj//testResults/submit/fail',
+  TEST_RESET: '@zwgj//test/reset',
 };
 
 function extractJson(response) {
@@ -100,3 +101,5 @@ export const undoDiscard = () => (dispatch) => {
   dispatch({ type: actionTypes.TEST_CARD_MARK_CLEAR });
   dispatch({ type: actionTypes.TEST_CARD_DISCARD_UNDO });
 };
+
+export const resetTest = () => ({ type: actionTypes.TEST_RESET });
