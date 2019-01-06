@@ -57,30 +57,28 @@
     100% {transform: rotate(360deg);}
   }
 
-  &:after, &:before {
+  span {
     content: '';
     display: block;
-    border: 3px solid cornflowerblue;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
     position: absolute;
+
+    &:nth-child(1) {
+      font-size: .2em;
+    }
+
+    &:nth-child(n+2) {
+      border-radius: 50%;
+      border: .05em solid cornflowerblue;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      animation-name: rotate;
+    }
+    &:nth-child(2) { animation-duration: 6400ms; width: 100%; height: 100%; }
+    &:nth-child(3) { animation-duration: 3200ms; width:  85%; height:  85%; }
+    &:nth-child(4) { animation-duration: 1600ms; width:  70%; height:  70%; }
+    &:nth-child(5) { animation-duration:  800ms; width:  55%; height:  55%; }
   }
 
-  &:before {
-    width: 90%;
-    height: 90%;
-    border-radius: 50%;
-    animation-name: rotate;
-  }
-
-  &:after {
-    width: 50%;
-    height: 50%;
-    border-radius: 50%;
-    animation-name: rotate;
-    animation-direction: reverse;
-  }
 }

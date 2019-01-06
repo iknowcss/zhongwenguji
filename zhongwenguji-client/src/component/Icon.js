@@ -48,7 +48,13 @@ export const SwipeRightIcon = iconClass({
 });
 
 export const LoadingIcon = ({ className, size = 'small' }) => (
-  <span className={cx(style.span, style[`span--${size}`], style.loadingIcon, className)} />
+  <span className={cx(style.span, style[`span--${size}`], style.loadingIcon, className)}>
+    <span>加载</span>
+    <span />
+    <span />
+    <span />
+    <span />
+  </span>
 );
 
 export const CharIcon = ({ className, size = 'small', character }) => (
