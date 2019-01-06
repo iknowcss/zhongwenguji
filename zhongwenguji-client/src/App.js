@@ -55,12 +55,12 @@ class App extends Component {
         transitionEnterTimeout={200}
         transitionLeaveTimeout={200}
       >
-        {status === statusEnum.TESTING ? <div className={style.container} key="characterTest"><CharacterTest /></div> : null}
-        {status === statusEnum.LOADING ? <div className={style.container} key="loadingPage1"><LoadingPage /></div> : null}
-        {showInstructions ? <div className={style.container} key="instructions"><Instructions touch={isTouch}/></div> : null}
-        {status === statusEnum.RESULTS_READY ? <div className={style.container} key="results"><Results /></div> : null}
-        {status === statusEnum.RESULTS_LOADING ? <div className={style.container} key="loadingPage2"><LoadingPage /></div> : null}
-        {!showInstructions && status === statusEnum.TESTING ? <div className={style.container} key="creditsBar"><CreditsBar /></div> : null}
+        {status === statusEnum.TESTING ? <div className={style.transitionElement} key="characterTest"><CharacterTest /></div> : null}
+        {status === statusEnum.LOADING ? <div className={style.transitionElement} key="loadingPage1"><LoadingPage /></div> : null}
+        {showInstructions ? <div className={style.transitionElement} key="instructions"><Instructions touch={isTouch}/></div> : null}
+        {status === statusEnum.RESULTS_READY ? <div className={style.transitionElement} key="results"><Results /></div> : null}
+        {status === statusEnum.RESULTS_LOADING ? <div className={style.transitionElement} key="loadingPage2"><LoadingPage /></div> : null}
+        {!showInstructions && status === statusEnum.TESTING ? <CreditsBar /> : null}
       </CSSTransitionGroup>
     );
   }
