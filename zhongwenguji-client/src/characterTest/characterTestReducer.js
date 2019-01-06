@@ -168,20 +168,30 @@ function processSampleData(state, sampleData) {
   };
 }
 
+/// - Test state enum ------------------------------------------------------------------------------
+
+export const statusEnum = {
+  LOADING: 'LOADING',
+  RESULTS_LOADING: 'LOADING_RESULTS',
+  RESULTS_READY: 'RESULTS_READY',
+  TESTING: 'TESTING',
+  ERROR: 'ERROR',
+};
+
 /// - State reducer --------------------------------------------------------------------------------
 
 export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START:
-      return { ...state, state: 'LOADING', bins: [] };
+      return { ...state, state: statusEnum.LOADING, bins: [] };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS:
       return {
         ...processSampleData(state, action.sampleData),
-        state: 'TESTING'
+        state: statusEnum.TESTING
       };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
     case actionTypes.TEST_RESULTS_SUBMIT_FAIL:
-      return { ...state, state: 'ERROR' };
+      return { ...state, state: statusEnum.ERROR };
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW:
       return { ...state, isShowDefinition: true };
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE:
@@ -189,26 +199,26 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
     case actionTypes.TEST_CARD_MARK_KNOWN:
     case actionTypes.TEST_CARD_MARK_CLEAR:
-      if (state.state === 'TESTING') {
+      if (state.state === statusEnum.TESTING) {
         return processMark(state, action);
       }
       break;
     case actionTypes.TEST_CARD_DISCARD:
-      if (state.state === 'TESTING') {
+      if (state.state === statusEnum.TESTING) {
         return {...processDiscard(state, action), isShowDefinition: false};
       }
       break;
     case actionTypes.TEST_CARD_DISCARD_UNDO:
-      if (state.state === 'TESTING') {
+      if (state.state === statusEnum.TESTING) {
         return {...processUndoDiscard(state, action), isShowDefinition: false};
       }
       break;
     case actionTypes.TEST_RESULTS_SUBMIT_START:
-      return { ...state, state: 'LOADING_RESULTS', resultData: null };
+      return { ...state, state: statusEnum.RESULTS_LOADING, resultData: null };
     case actionTypes.TEST_RESULTS_SUBMIT_SUCCESS:
       return {
         ...state,
-        state: 'RESULTS_READY',
+        state: statusEnum.RESULTS_READY,
         resultData: action.resultData
       };
     default:
@@ -224,7 +234,7 @@ export const status = rootState => rootState.characterTestReducer.state;
 export const isShowDefinition = rootState => rootState.characterTestReducer.isShowDefinition;
 
 export const currentCard = ({ characterTestReducer: { currentSectionIndex, currentCardIndex, bins, state } }) => {
-  if (state === 'TESTING') {
+  if (state === statusEnum.TESTING) {
     return bins[currentSectionIndex].sample[currentCardIndex];
   }
   return null;
