@@ -39,6 +39,8 @@ class App extends Component {
   }
 
   render() {
+    const isTouch = 'ontouchstart' in document.documentElement;
+
     return (
       <CSSTransitionGroup
         component="div"
@@ -48,7 +50,7 @@ class App extends Component {
       >
         {this.props.status === statusEnum.TESTING ? <div className={style.container} key="characterTest"><CharacterTest /></div> : null}
         {this.props.status === statusEnum.LOADING ? <div className={style.container} key="loadingPage1"><LoadingPage /></div> : null}
-        {this.props.showInstructions ? <div className={style.container} key="instructions"><Instructions /></div> : null}
+        {this.props.showInstructions ? <div className={style.container} key="instructions"><Instructions touch={isTouch}/></div> : null}
         {this.props.status === statusEnum.RESULTS_READY ? <div className={style.container} key="results"><Results /></div> : null}
         {this.props.status === statusEnum.RESULTS_LOADING ? <div className={style.container} key="loadingPage2"><LoadingPage /></div> : null}
       </CSSTransitionGroup>

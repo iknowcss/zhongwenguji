@@ -5,6 +5,8 @@ import undoSvg from './undo.svg';
 import searchSvg from './search.svg';
 import swipeLeftSvg from './swipeLeft.svg';
 import swipeRightSvg from './swipeRight.svg';
+import keyboardArrowLeftSvg from './keyboardArrowLeft.svg';
+import keyboardArrowRightSvg from './keyboardArrowRight.svg';
 
 const Icon = ({ className, viewBox, href, size = 'small' }) => (
   <span className={cx(style.span, style[`span--${size}`], className)}>
@@ -45,6 +47,18 @@ export const SwipeRightIcon = iconClass({
   href: `${swipeRightSvg}#main`,
   baseClassName: style.swipeRightIcon,
   viewBox: '0 0 397.233 397.233'
+});
+
+export const KeyboardArrowLeftIcon = iconClass({
+  href: `${keyboardArrowLeftSvg}#main`,
+  baseClassName: style.keyboardArrowLeftIcon,
+  viewBox: '0 0 377.338 377.338'
+});
+
+export const KeyboardArrowRightIcon = iconClass({
+  href: `${keyboardArrowRightSvg}#main`,
+  baseClassName: style.keyboardArrowRightIcon,
+  viewBox: '0 0 419.901 419.901'
 });
 
 export const LoadingIcon = ({ className, size = 'small' }) => (
