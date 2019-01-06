@@ -8,7 +8,7 @@ if [[ -z "$projectRoot" ]]; then
 fi
 
 # Make env variables available to react build
-REACT_APP_STAGE=$STAGE
+export REACT_APP_STAGE=$STAGE
 
 echo "Deploy client to S3..."
 (
