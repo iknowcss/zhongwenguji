@@ -187,7 +187,7 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS:
       return {
         ...processSampleData(state, action.sampleData),
-        state: statusEnum.TESTING
+        state: statusEnum.LOADING
       };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
     case actionTypes.TEST_RESULTS_SUBMIT_FAIL:

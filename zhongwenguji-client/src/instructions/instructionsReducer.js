@@ -1,7 +1,7 @@
 import { actionTypes } from './instructionsActions';
 
 const DEFAULT_STATE = {
-  showInstructions: true
+  showInstructions: false
 };
 
 export default (state = DEFAULT_STATE, action) => {
