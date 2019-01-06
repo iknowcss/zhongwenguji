@@ -26,7 +26,7 @@ const iconClass = ({ baseClassName, href, viewBox }) => ({ className, ...props }
 export const UndoIcon = iconClass({
   href: `${undoSvg}#main`,
   baseClassName: style.undoIcon,
-  viewBox: '0 0 438.536 438.536'
+  viewBox: '0 0 511.63 511.631'
 });
 
 export const SearchIcon = iconClass({
