@@ -10,6 +10,7 @@ import { status, statusEnum } from './characterTest/characterTestReducer';
 import { showInstructions } from './instructions/instructionsReducer';
 import Instructions from './instructions/Instructions';
 import Results from './results/Results';
+import CreditsBar from './CreditsBar';
 import mapSelectors from './util/mapSelectors'
 import style from './App.module.scss';
 
@@ -46,7 +47,7 @@ class App extends Component {
 
   render() {
     const isTouch = 'ontouchstart' in document.documentElement;
-
+    const { status, showInstructions } = this.props;
     return (
       <CSSTransitionGroup
         component="div"
@@ -54,11 +55,12 @@ class App extends Component {
         transitionEnterTimeout={200}
         transitionLeaveTimeout={200}
       >
-        {this.props.status === statusEnum.TESTING ? <div className={style.container} key="characterTest"><CharacterTest /></div> : null}
-        {this.props.status === statusEnum.LOADING ? <div className={style.container} key="loadingPage1"><LoadingPage /></div> : null}
-        {this.props.showInstructions ? <div className={style.container} key="instructions"><Instructions touch={isTouch}/></div> : null}
-        {this.props.status === statusEnum.RESULTS_READY ? <div className={style.container} key="results"><Results /></div> : null}
-        {this.props.status === statusEnum.RESULTS_LOADING ? <div className={style.container} key="loadingPage2"><LoadingPage /></div> : null}
+        {status === statusEnum.TESTING ? <div className={style.container} key="characterTest"><CharacterTest /></div> : null}
+        {status === statusEnum.LOADING ? <div className={style.container} key="loadingPage1"><LoadingPage /></div> : null}
+        {showInstructions ? <div className={style.container} key="instructions"><Instructions touch={isTouch}/></div> : null}
+        {status === statusEnum.RESULTS_READY ? <div className={style.container} key="results"><Results /></div> : null}
+        {status === statusEnum.RESULTS_LOADING ? <div className={style.container} key="loadingPage2"><LoadingPage /></div> : null}
+        {!showInstructions && status === statusEnum.TESTING ? <div className={style.container} key="creditsBar"><CreditsBar /></div> : null}
       </CSSTransitionGroup>
     );
   }

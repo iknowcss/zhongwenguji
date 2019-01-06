@@ -1,0 +1,19 @@
+.container {
+  position: fixed;
+  bottom: 1rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  left: 0;
+  width: 100%;
+  font-size: .6rem;
+  line-height: 1.5;
+  text-align: center;
+
+  span {
+    display: block;
+  }
+}
+
+.selfLink {
+  font-weight: bold;
+}
