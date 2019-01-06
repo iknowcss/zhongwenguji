@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
 import cx from 'classnames';
 import { showInstructions } from './instructionsReducer';
 import { dismissInstructions } from './instructionsActions';
@@ -25,9 +24,9 @@ class Instructions extends Component {
     this.props.dismissInstructions();
   };
 
-  renderInstructions() {
+  render() {
     return (
-      <div className={style.container}>
+      <div className={cx(style.container, this.props.className)}>
         <section className={style.modal}>
           <I18n component="p" className={style.paragraph} stringId={'instructions.overview'} />
 
@@ -63,19 +62,6 @@ class Instructions extends Component {
           />
         </section>
       </div>
-    );
-  }
-
-  render() {
-    return (
-      <CSSTransitionGroup
-        component="div"
-        transitionName={style}
-        transitionEnterTimeout={200}
-        transitionLeaveTimeout={200}
-      >
-        {this.props.showInstructions ? this.renderInstructions() : null}
-      </CSSTransitionGroup>
     );
   }
 }

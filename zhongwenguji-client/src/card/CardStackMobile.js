@@ -129,11 +129,15 @@ export default class CardStackMobile extends Component {
   }
 
   render() {
-    const { currentCard, showDefinition } = this.props;
+    const EMPTY_CARD = {
+      index: -1,
+      score: NaN
+    };
+
+    const { showDefinition } = this.props;
     const [ dx ] = this.state.offsetVector;
-    if (!currentCard) {
-      return null;
-    }
+
+    const currentCard = this.props.currentCard || EMPTY_CARD;
 
     return (
       <div className={style.container}>
@@ -148,8 +152,8 @@ export default class CardStackMobile extends Component {
               <div
                 key={currentCard.index}
                 className={cx(style.animationContainer, {
-                  [style.discardRight]: this.props.currentCard.score === 1,
-                  [style.discardLeft]: this.props.currentCard.score === 0
+                  [style.discardRight]: currentCard.score === 1,
+                  [style.discardLeft]: currentCard.score === 0
                 })}>
                 <div
                   className={cx(style.touchArea, {
@@ -157,6 +161,7 @@ export default class CardStackMobile extends Component {
                   })}
                   style={this.getPositionOffsetStyles()}
                 >
+                  {currentCard.index >= 0 ? (
                     <CharacterCard
                       {...currentCard}
                       className={cx(style.card, {
@@ -165,6 +170,7 @@ export default class CardStackMobile extends Component {
                       })}
                       showDefinition={showDefinition}
                     />
+                  ) : null}
                 </div>
               </div>
             </CSSTransitionGroup>

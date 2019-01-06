@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import {
   toggleDefinition,
   markCurrentKnown,
@@ -91,17 +92,15 @@ class CharacterTest extends Component {
 
   render() {
     return (
-      <div className={style.container}>
-        {this.props.resultData ? null : (
-          <CardStackMobile
-            currentCard={this.props.currentCard}
-            showDefinition={this.props.isShowDefinition}
-            onDiscardLeft={this.handleDiscardLeft}
-            onDiscardRight={this.handleDiscardRight}
-            onUndo={this.handleUndo}
-            onDefinition={this.handleDefinition}
-          />
-        )}
+      <div className={cx(style.container, this.props.className)}>
+        <CardStackMobile
+          currentCard={this.props.currentCard}
+          showDefinition={this.props.isShowDefinition}
+          onDiscardLeft={this.handleDiscardLeft}
+          onDiscardRight={this.handleDiscardRight}
+          onUndo={this.handleUndo}
+          onDefinition={this.handleDefinition}
+        />
       </div>
     );
   }

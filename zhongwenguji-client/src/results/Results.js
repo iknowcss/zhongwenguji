@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import mapSelectors from '../util/mapSelectors';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
@@ -21,18 +22,14 @@ class Results extends Component {
   render() {
     return (
       <div className={style.container}>
-        {this.props.resultData ? (
-          <>
-            <ResultsDisplay
-              estimate={this.props.resultData.knownEstimate}
-              uncertainty={this.props.resultData.knownEstimateUncertainty}
-            />
-            <ResultsChart
-              curvePoints={this.props.resultData.curvePoints}
-              samplePoints={this.props.resultData.samplePoints}
-            />
-          </>
-        ): null}
+        <ResultsDisplay
+          estimate={this.props.resultData.knownEstimate}
+          uncertainty={this.props.resultData.knownEstimateUncertainty}
+        />
+        <ResultsChart
+          curvePoints={this.props.resultData.curvePoints}
+          samplePoints={this.props.resultData.samplePoints}
+        />
       </div>
     );
   }

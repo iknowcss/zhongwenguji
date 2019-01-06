@@ -22,8 +22,10 @@ describe('CharacterTest', () => {
   let component;
 
   function setup(props) {
+    const currentCard = { index: 1, score: NaN };
+
     component = renderer.create(
-      <CharacterTest {...props} />
+      <CharacterTest currentCard={currentCard} {...props} />
     );
   }
 
