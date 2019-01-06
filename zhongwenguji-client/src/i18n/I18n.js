@@ -11,6 +11,6 @@ const i18n = { en, zh };
 
 export default ({ component: C = 'span', stringId, ...props }) => (
   <C {...props}>
-    {(i18n[language] || {})[stringId] || stringId}
+    {(i18n[language] || en)[stringId] || stringId}
   </C>
 );
