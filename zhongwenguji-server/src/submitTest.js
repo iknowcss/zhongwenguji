@@ -54,7 +54,7 @@ module.exports = () => {
   const router = Router();
   router.use(bodyParser.json());
   router.use('/', (req, res) => {
-    const { testData } = req.body;
+    const { testData, seed } = req.body;
     try {
       // Extract
       const samplePoints = testData
@@ -89,12 +89,16 @@ module.exports = () => {
       const curveXPoints = [testData[0].range[0]].concat(testData.map(({ range }) => range[1]));
       let curvePoints = curveXPoints.map(xi => [xi, curve(xi)]);
 
-      res.json({
+      const testResults = {
         samplePoints,
         curvePoints,
         knownEstimate: Math.round(curveArea / uncertainty) * uncertainty,
         knownEstimateUncertainty: uncertainty
-      });
+      };
+
+      console.log(JSON.stringify({ testResults, seed }));
+
+      res.json(testResults);
     } catch (error) {
       res.statusCode(500).json({ error: true });
       console.error('Could not calculate curve parameters', error);
