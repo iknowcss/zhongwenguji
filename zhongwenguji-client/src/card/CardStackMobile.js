@@ -56,7 +56,10 @@ export default class CardStackMobile extends Component {
   }
 
   handleTouchStart = (event) => {
-    if (!this.state.activeTouch && isAncestor(this.touchAreaRef.current, event.target)) {
+    const isTouchArea = isAncestor(this.touchAreaRef.current, event.target);
+    const isNewFirstTouch = event.touches.length === 1;
+    const isTouchActive = !!this.state.activeTouch;
+    if (isTouchArea && (!isTouchActive || (isTouchActive && isNewFirstTouch))) {
       event.preventDefault();
       const { identifier, clientX, clientY } = event.changedTouches[0];
       this.setState({ activeTouch: { identifier, clientX, clientY } });
