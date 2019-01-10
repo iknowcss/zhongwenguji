@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CharacterCard from './CharacterCard';
 import style from './CardStackDisplay.module.scss';
-import PropTypes from "prop-types";
-import noop from "../util/noop";
+import noop from '../util/noop';
 
 function isAncestor(ancestor, child) {
   let check = child;
@@ -112,7 +112,7 @@ export default class CardStackDisplay extends Component {
     };
   }
 
-  renderX() {
+  renderTouchableCard() {
     const { card, showDefinition, discardThreshold } = this.props;
     const { disableTransition } = this.state;
     const touchActive = !!this.state.activeTouch;
@@ -123,16 +123,14 @@ export default class CardStackDisplay extends Component {
         className={cx(style.touchArea, { [style.touchAreaSnap]: disableTransition || touchActive })}
         style={this.getPositionOffsetStyles()}
       >
-        {card.index >= 0 ? (
-          <CharacterCard
-            {...card}
-            className={cx(style.card, {
-              [style.predictDiscardRight]: dx > discardThreshold,
-              [style.predictDiscardLeft]: dx < -discardThreshold
-            })}
-            showDefinition={showDefinition}
-          />
-        ) : null}
+        <CharacterCard
+          {...card}
+          className={cx(style.card, {
+            [style.predictDiscardRight]: dx > discardThreshold,
+            [style.predictDiscardLeft]: dx < -discardThreshold
+          })}
+          showDefinition={showDefinition}
+        />
       </div>
     );
   }
@@ -148,14 +146,14 @@ export default class CardStackDisplay extends Component {
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
           >
-            {card ? (
+            {(card && card.index > 0) ? (
               <div
                 key={card.index}
                 className={cx(style.animationContainer, {
                   [style.discardRight]: card.score === 1,
                   [style.discardLeft]: card.score === 0
                 })}>
-                {this.renderX()}
+                {this.renderTouchableCard()}
               </div>
             ) : null}
           </CSSTransitionGroup>
