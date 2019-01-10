@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Button from '../component/Button';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Button from '../component/Button';
 import { SearchIcon, UndoIcon } from '../component/Icon';
 import style from './CardStackButtons.module.scss';
-import PropTypes from "prop-types";
-import noop from "../util/noop";
+import noop from '../util/noop';
 
 export default class CardStackButtons extends Component {
   static propTypes = {
@@ -30,8 +30,6 @@ export default class CardStackButtons extends Component {
   };
 
   render() {
-    const { showDefinition } = this.props;
-
     return (
       <div className={style.buttonContainer}>
         <Button
@@ -41,7 +39,7 @@ export default class CardStackButtons extends Component {
           <UndoIcon className={style.buttonIcon} />
         </Button>
         <Button
-          className={cx(style.button, { [style.buttonActive]: showDefinition })}
+          className={cx(style.button, { [style.buttonActive]: this.props.showDefinition })}
           onClick={this.handleDefinitionClick}
         >
           <SearchIcon className={style.buttonIcon} />
