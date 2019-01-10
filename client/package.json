@@ -26,6 +26,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "coverageReporters": ["text", "html"]
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
