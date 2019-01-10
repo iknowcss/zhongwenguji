@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
-import CharacterCard from './CharacterCard';
-import Button from '../component/Button';
-import { UndoIcon, SearchIcon } from '../component/Icon';
+import noop from '../util/noop';
+import CardStackButtons from './CardStackButtons';
+import CardStackDisplay from './CardStackDisplay';
 import style from './CardStackMobile.module.scss';
 
 const DISCARD_THRESHOLD = 50;
-const noop = () => {};
 
 function isAncestor(ancestor, child) {
   let check = child;
@@ -152,49 +150,25 @@ export default class CardStackMobile extends Component {
               transitionEnterTimeout={300}
               transitionLeaveTimeout={300}
             >
-              <div
+              <CardStackDisplay
                 key={currentCard.index}
-                className={cx(style.animationContainer, {
-                  [style.discardRight]: currentCard.score === 1,
-                  [style.discardLeft]: currentCard.score === 0
-                })}>
-                <div
-                  className={cx(style.touchArea, {
-                    [style.touchAreaSnap]: this.state.disableTransition || !!this.state.activeTouch
-                  })}
-                  style={this.getPositionOffsetStyles()}
-                >
-                  {currentCard.index >= 0 ? (
-                    <CharacterCard
-                      {...currentCard}
-                      className={cx(style.card, {
-                        [style.predictDiscardRight]: dx > DISCARD_THRESHOLD,
-                        [style.predictDiscardLeft]: dx < -DISCARD_THRESHOLD
-                      })}
-                      showDefinition={showDefinition}
-                    />
-                  ) : null}
-                </div>
-              </div>
+                card={currentCard}
+                disableTransition={this.state.disableTransition}
+                touchActive={!!this.state.activeTouch}
+                dx={dx}
+                showDefinition={showDefinition}
+                positionOffsetStyles={this.getPositionOffsetStyles()}
+                discardThreshold={DISCARD_THRESHOLD}
+              />
             </CSSTransitionGroup>
           </div>
         </div>
-        <div className={style.buttonContainer}>
-          <Button
-            className={cx(style.button, style.undoButton)}
-            onClick={this.handleUndoClick}
-          >
-            <UndoIcon className={style.buttonIcon} />
-          </Button>
-          <Button
-            className={cx(style.button, {
-              [style.buttonActive]: showDefinition
-            })}
-            onClick={this.handleDefinitionClick}
-          >
-            <SearchIcon className={style.buttonIcon} />
-          </Button>
-        </div>
+
+        <CardStackButtons
+          onUndoClick={this.handleUndoClick}
+          onDefinitionClick={this.handleDefinitionClick}
+          showDefinition={showDefinition}
+        />
       </div>
     );
   }
