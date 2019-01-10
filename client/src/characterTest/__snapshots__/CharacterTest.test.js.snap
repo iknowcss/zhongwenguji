@@ -5,78 +5,74 @@ exports[`CharacterTest renders 1`] = `
   className="container"
 >
   <div
-    className="container"
+    className="cardContainer"
   >
     <div
-      className="cardContainer"
+      className="stackBase"
     >
-      <div
-        className="stackBase"
-      >
-        <div>
+      <div>
+        <div
+          className="animationContainer"
+        >
           <div
-            className="animationContainer"
-          >
-            <div
-              className="touchArea"
-              style={
-                Object {
-                  "left": "0px",
-                  "top": "0px",
-                  "transform": "rotate(0deg)",
-                }
+            className="touchArea"
+            style={
+              Object {
+                "left": "0px",
+                "top": "0px",
+                "transform": "rotate(0deg)",
               }
+            }
+          >
+            <span
+              className="container card"
             >
               <span
-                className="container card"
-              >
-                <span
-                  className="character"
-                />
-              </span>
-            </div>
+                className="character"
+              />
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div
-      className="buttonContainer"
+  </div>
+  <div
+    className="buttonContainer"
+  >
+    <button
+      className="button button undoButton"
+      onClick={[Function]}
     >
-      <button
-        className="button button undoButton"
-        onClick={[Function]}
+      <span
+        className="span span--small undoIcon buttonIcon"
       >
-        <span
-          className="span span--small undoIcon buttonIcon"
+        <svg
+          className="svg"
+          viewBox="0 0 511.63 511.631"
         >
-          <svg
-            className="svg"
-            viewBox="0 0 511.63 511.631"
-          >
-            <use
-              xlinkHref="undo.svg#main"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        className="button button"
-        onClick={[Function]}
+          <use
+            xlinkHref="undo.svg#main"
+          />
+        </svg>
+      </span>
+    </button>
+    <button
+      className="button button"
+      onClick={[Function]}
+    >
+      <span
+        className="span span--small searchIcon buttonIcon"
       >
-        <span
-          className="span span--small searchIcon buttonIcon"
+        <svg
+          className="svg"
+          viewBox="0 0 250.313 250.313"
         >
-          <svg
-            className="svg"
-            viewBox="0 0 250.313 250.313"
-          >
-            <use
-              xlinkHref="search.svg#main"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
+          <use
+            xlinkHref="search.svg#main"
+          />
+        </svg>
+      </span>
+    </button>
   </div>
 </div>
 `;

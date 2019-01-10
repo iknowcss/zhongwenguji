@@ -17,10 +17,13 @@ import {
 } from './characterTestReducer';
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
-import CardStackMobile from '../card/CardStackMobile';
+import noop from '../util/noop';
 import style from './CharacterTest.module.scss';
+import CardStackDisplay from '../card/CardStackDisplay';
+import CardStackButtons from '../card/CardStackButtons';
 
-const noop = () => {};
+const DISCARD_THRESHOLD = 50;
+const EMPTY_CARD = { index: -1, score: NaN };
 
 class CharacterTest extends Component {
   static propTypes = {
@@ -91,15 +94,24 @@ class CharacterTest extends Component {
   };
 
   render() {
+    const {
+      currentCard = EMPTY_CARD,
+      isShowDefinition
+    } = this.props;
+
     return (
       <div className={cx(style.container, this.props.className)}>
-        <CardStackMobile
-          currentCard={this.props.currentCard}
-          showDefinition={this.props.isShowDefinition}
+        <CardStackDisplay
+          card={currentCard}
+          showDefinition={isShowDefinition}
+          discardThreshold={DISCARD_THRESHOLD}
           onDiscardLeft={this.handleDiscardLeft}
           onDiscardRight={this.handleDiscardRight}
+        />
+        <CardStackButtons
           onUndo={this.handleUndo}
           onDefinition={this.handleDefinition}
+          showDefinition={isShowDefinition}
         />
       </div>
     );

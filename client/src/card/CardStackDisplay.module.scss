@@ -1,3 +1,7 @@
+.card {
+
+}
+
 .cardContainer {
   display: flex;
   justify-content: center;
@@ -12,43 +16,25 @@
   height: 15rem;
 }
 
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.button {
-  margin: 1rem;
-  height: 64px;
-
-  &Active {
-    background-color: #d2e2ff;
-  }
-
-  &Active &Icon svg {
-    fill: #333;
-  }
-
-  &Icon {
-    margin: 0 -16px;
-  }
-}
-
-.touchArea {
-  position: relative;
-  transition:
-    top cubic-bezier(.22,.98,.91,1.09) 100ms,
-    left cubic-bezier(.22,.98,.91,1.09) 100ms,
-    transform cubic-bezier(.22,.98,.91,1.09) 100ms;
-
-  &Snap {
-    transition: none;
-  }
+.animationContainer {
+  position: absolute;
 }
 
 .predictDiscard {
   &Right { background-color: #efe; }
   &Left { background-color: #fee; }
+}
+
+.touchArea {
+  position: relative;
+  transition:
+          top cubic-bezier(.22,.98,.91,1.09) 100ms,
+          left cubic-bezier(.22,.98,.91,1.09) 100ms,
+          transform cubic-bezier(.22,.98,.91,1.09) 100ms;
+
+  &Snap {
+    transition: none;
+  }
 }
 
 .enter {
@@ -61,10 +47,6 @@
     opacity: 1;
     transform: scale(1, 1);
   }
-}
-
-.animationContainer {
-  position: absolute;
 }
 
 .leave {
