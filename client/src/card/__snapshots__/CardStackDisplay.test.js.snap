@@ -34,3 +34,15 @@ exports[`CardStackDisplay renders 1`] = `
   </div>
 </div>
 `;
+
+exports[`CardStackDisplay renders without a card 1`] = `
+<div
+  className="cardContainer"
+>
+  <div
+    className="stackBase"
+  >
+    <div />
+  </div>
+</div>
+`;

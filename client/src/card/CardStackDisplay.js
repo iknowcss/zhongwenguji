@@ -21,11 +21,13 @@ export default class CardStackDisplay extends Component {
   static propTypes = {
     onDiscardLeft: PropTypes.func,
     onDiscardRight: PropTypes.func,
+    transitionTimeout: PropTypes.number
   };
 
   static defaultProps = {
     onDiscardLeft: noop,
-    onDiscardRight: noop
+    onDiscardRight: noop,
+    transitionTimeout: 300
   };
 
   constructor() {
@@ -38,11 +40,8 @@ export default class CardStackDisplay extends Component {
     return this.state.activeTouch && [].find.call(event.changedTouches, touch => touch.identifier === this.state.activeTouch.identifier);
   };
 
-  setOffsetVector(offsetVector, disableTransition = false) {
-    this.setState({ offsetVector, disableTransition });
-    if (disableTransition) {
-      setTimeout(() => this.setState({ disableTransition: false }), 50);
-    }
+  setOffsetVector(offsetVector) {
+    this.setState({ offsetVector });
   }
 
   handleTouchStart = (event) => {
@@ -67,9 +66,10 @@ export default class CardStackDisplay extends Component {
   };
 
   handleTouchEnd = (event) => {
-    if (this.getActiveTouch(event)) {
+    const activeTouch = this.getActiveTouch(event);
+    if (activeTouch) {
       const { discardThreshold } = this.props;
-      const [ dx ] = this.state.offsetVector;
+      const dx = activeTouch.clientX - this.state.activeTouch.clientX;
       if (dx > discardThreshold) {
         this.props.onDiscardRight();
       } else if (-dx > discardThreshold) {
@@ -89,10 +89,7 @@ export default class CardStackDisplay extends Component {
   }
 
   componentWillUpdate(newProps) {
-    if (this.props.card
-      && newProps.card
-      && this.props.card.index !== newProps.card.index
-    ) {
+    if (this.props.card && newProps.card && this.props.card.index !== newProps.card.index) {
       this.setOffsetVector([0, 0, 0]);
     }
   }
@@ -114,13 +111,12 @@ export default class CardStackDisplay extends Component {
 
   renderTouchableCard() {
     const { card, showDefinition, discardThreshold } = this.props;
-    const { disableTransition } = this.state;
     const touchActive = !!this.state.activeTouch;
     const [ dx ] = this.state.offsetVector;
 
     return (
       <div
-        className={cx(style.touchArea, { [style.touchAreaSnap]: disableTransition || touchActive })}
+        className={cx(style.touchArea, { [style.touchAreaSnap]: touchActive })}
         style={this.getPositionOffsetStyles()}
       >
         <CharacterCard
@@ -136,15 +132,15 @@ export default class CardStackDisplay extends Component {
   }
 
   render() {
-    const { card } = this.props;
+    const { card, transitionTimeout } = this.props;
     return (
       <div className={style.cardContainer}>
         <div className={style.stackBase} ref={this.touchAreaRef}>
           <CSSTransitionGroup
             component="div"
             transitionName={style}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
+            transitionEnterTimeout={transitionTimeout}
+            transitionLeaveTimeout={transitionTimeout}
           >
             {(card && card.index > 0) ? (
               <div
