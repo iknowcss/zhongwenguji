@@ -28,3 +28,20 @@ exports[`CharacterCard renders the definition 1`] = `
   </span>
 </span>
 `;
+
+exports[`CharacterCard renders the fallback definition 1`] = `
+<span
+  className="container showDefinition"
+>
+  <span
+    className="pinyin"
+  >
+    kē
+  </span>
+  <span
+    className="definition"
+  >
+    (No definition available)
+  </span>
+</span>
+`;

@@ -32,6 +32,15 @@ describe('CharacterCard', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('renders the fallback definition', () => {
+    setup({ showDefinition: true, definition: undefined });
+    const tree = component.toJSON();
+
+    expect(tree.props.className.trim().split(/\s+/))
+      .toEqual(['container', 'showDefinition']);
+    expect(tree).toMatchSnapshot();
+  });
+
   it('has a class for unknown marking', () => {
     setup({ score: 0 });
     const tree = component.toJSON();
