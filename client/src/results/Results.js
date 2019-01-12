@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getConfig from '../getConfig';
 import mapSelectors from '../util/mapSelectors';
+import noop from '../util/noop';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
 import { resultData, scoreStatistics } from '../characterTest/characterTestReducer';
 import { resetTest } from '../characterTest/characterTestActions';
-import style from './Results.module.scss';
 import Button from '../component/Button';
 import I18n from '../i18n/I18n';
-
-const noop = () => {};
+import style from './Results.module.scss';
 
 const feedbackPrefillUrl = getConfig().feedbackPrefillUrl;
 

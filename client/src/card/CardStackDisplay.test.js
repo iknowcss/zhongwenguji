@@ -4,18 +4,7 @@ import { mount } from 'enzyme';
 import { JSDOM } from 'jsdom';
 import CharacterCard from './CharacterCard';
 import CardStackDisplay from './CardStackDisplay';
-
-const classNames = (element) => {
-  if (!element || !element.props) {
-    throw new Error('A valid element was not provided');
-  }
-  return ((
-    typeof element.props === 'function'
-      ? element.props().className
-      : element.props.className
-  ) || '').split(/\s+/);
-};
-const hasClassName = className => (element) => classNames(element).indexOf(className) >= 0;
+import { classNames, hasClassName } from '../util/asdf.testutil';
 
 const BASE_CARD = { index: 1, score: NaN };
 const DISCARD_THRESHOLD = 50;
