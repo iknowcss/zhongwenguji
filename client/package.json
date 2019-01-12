@@ -36,8 +36,18 @@
       "!src/index.js",
       "!src/reducer.js",
       "!src/store.js",
-      "!src/serviceWorker.js"
-    ]
+      "!src/serviceWorker.js",
+      "!src/i18n/getNavigatorLanguage.js",
+      "!src/util/noop.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   },
   "browserslist": [
     ">0.2%",
