@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Instructions renders keyboard instructions 1`] = `
+<div
+  className="container"
+>
+  <section
+    className="modal"
+  >
+    <p
+      className="paragraph"
+    >
+      instructions.overview
+    </p>
+    <div
+      className="iconParagraphContainer"
+    >
+      <span
+        className="span span--medium swipeRightIcon iconParagraphIcon"
+      >
+        <svg
+          className="svg"
+          viewBox="0 0 397.233 397.233"
+        >
+          <use
+            xlinkHref="swipeRight.svg#main"
+          />
+        </svg>
+      </span>
+      <p
+        className="iconParagraph"
+      >
+        instructions.swipeRight
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <span
+        className="span span--medium swipeLeftIcon iconParagraphIcon"
+      >
+        <svg
+          className="svg"
+          viewBox="0 0 397.232 397.232"
+        >
+          <use
+            xlinkHref="swipeLeft.svg#main"
+          />
+        </svg>
+      </span>
+      <p
+        className="iconParagraph"
+      >
+        instructions.swipeLeft
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <div
+        className="fauxButton"
+      >
+        <span
+          className="span span--tiny searchIcon iconParagraphIcon"
+        >
+          <svg
+            className="svg"
+            viewBox="0 0 250.313 250.313"
+          >
+            <use
+              xlinkHref="search.svg#main"
+            />
+          </svg>
+        </span>
+      </div>
+      <p
+        className="iconParagraph"
+      >
+        instructions.definitionTouch
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <div
+        className="fauxButton"
+      >
+        <span
+          className="span span--tiny undoIcon iconParagraphIcon"
+        >
+          <svg
+            className="svg"
+            viewBox="0 0 511.63 511.631"
+          >
+            <use
+              xlinkHref="undo.svg#main"
+            />
+          </svg>
+        </span>
+      </div>
+      <p
+        className="iconParagraph"
+      >
+        instructions.undoTouch
+      </p>
+    </div>
+    <button
+      className="button button"
+      onClick={[Function]}
+    >
+      instructions.dismissButton
+    </button>
+  </section>
+</div>
+`;
+
+exports[`Instructions renders touch instructions 1`] = `
+<div
+  className="container"
+>
+  <section
+    className="modal"
+  >
+    <p
+      className="paragraph"
+    >
+      instructions.overview
+    </p>
+    <div
+      className="iconParagraphContainer"
+    >
+      <span
+        className="span span--medium swipeRightIcon iconParagraphIcon"
+      >
+        <svg
+          className="svg"
+          viewBox="0 0 397.233 397.233"
+        >
+          <use
+            xlinkHref="swipeRight.svg#main"
+          />
+        </svg>
+      </span>
+      <p
+        className="iconParagraph"
+      >
+        instructions.swipeRight
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <span
+        className="span span--medium swipeLeftIcon iconParagraphIcon"
+      >
+        <svg
+          className="svg"
+          viewBox="0 0 397.232 397.232"
+        >
+          <use
+            xlinkHref="swipeLeft.svg#main"
+          />
+        </svg>
+      </span>
+      <p
+        className="iconParagraph"
+      >
+        instructions.swipeLeft
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <div
+        className="fauxButton"
+      >
+        <span
+          className="span span--tiny searchIcon iconParagraphIcon"
+        >
+          <svg
+            className="svg"
+            viewBox="0 0 250.313 250.313"
+          >
+            <use
+              xlinkHref="search.svg#main"
+            />
+          </svg>
+        </span>
+      </div>
+      <p
+        className="iconParagraph"
+      >
+        instructions.definitionTouch
+      </p>
+    </div>
+    <div
+      className="iconParagraphContainer"
+    >
+      <div
+        className="fauxButton"
+      >
+        <span
+          className="span span--tiny undoIcon iconParagraphIcon"
+        >
+          <svg
+            className="svg"
+            viewBox="0 0 511.63 511.631"
+          >
+            <use
+              xlinkHref="undo.svg#main"
+            />
+          </svg>
+        </span>
+      </div>
+      <p
+        className="iconParagraph"
+      >
+        instructions.undoTouch
+      </p>
+    </div>
+    <button
+      className="button button"
+      onClick={[Function]}
+    >
+      instructions.dismissButton
+    </button>
+  </section>
+</div>
+`;

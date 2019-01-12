@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { showInstructions } from './instructionsReducer';
 import { dismissInstructions } from './instructionsActions';
-import mapSelectors from '../util/mapSelectors';
 import Button from '../component/Button';
 import {
   SwipeLeftIcon,
@@ -15,17 +13,18 @@ import {
   UndoIcon
 } from '../component/Icon';
 import I18n from '../i18n/I18n';
+import noop from '../util/noop';
 import style from './Instructions.module.scss'
 
 class Instructions extends Component {
   static propTypes = {
-    showInstructions: PropTypes.bool,
     isTouch: PropTypes.bool,
+    dismissInstructions: PropTypes.func
   };
 
   static defaultProps = {
-    showInstructions: false,
-    touch: true
+    touch: true,
+    dismissInstructions: noop
   };
 
   handleDismissClick = (event) => {
@@ -88,10 +87,6 @@ class Instructions extends Component {
   }
 }
 
-export default connect(
-  mapSelectors({ showInstructions }),
-  { dismissInstructions }
-)(Instructions);
-
 export { Instructions as Pure };
 
+export default connect(null, { dismissInstructions })(Instructions);
