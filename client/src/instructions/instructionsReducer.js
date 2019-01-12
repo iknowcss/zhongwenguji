@@ -4,7 +4,7 @@ const DEFAULT_STATE = {
   showInstructions: true
 };
 
-export default (state = DEFAULT_STATE, action) => {
+export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
     case actionTypes.INSTRUCTIONS_DISMISS:
       return { ...state, showInstructions: false };
