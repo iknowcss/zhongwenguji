@@ -4,12 +4,6 @@ import zh from './zh.json';
 
 export const I18nContext = React.createContext({});
 
-// const navigatorLanguage = (
-//   navigator.languages
-//     ? navigator.languages[0]
-//     : (navigator.language || navigator.userLanguage)
-// );
-
 const languages = { en, zh };
 
 class I18n extends Component {

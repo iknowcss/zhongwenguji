@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import characterTestReducer from './characterTest/characterTestReducer';
 import instructionsReducer from './instructions/instructionsReducer';
+import i18nReducer from './i18n/i18nReducer';
 
 const realReducer = combineReducers({
   characterTestReducer,
-  instructions: instructionsReducer
+  instructions: instructionsReducer,
+  i18n: i18nReducer
 });
 
 export default realReducer;

@@ -72,7 +72,8 @@ describe('App', () => {
       const renderer = new ShallowRenderer();
       renderer.render(<App {...props} />);
 
-      const transitionGroup = renderer.getRenderOutput();
+      const i18nContext = renderer.getRenderOutput();
+      const transitionGroup = i18nContext.props.children;
       children = transitionGroup.props.children.filter(x => x);
     }
 
