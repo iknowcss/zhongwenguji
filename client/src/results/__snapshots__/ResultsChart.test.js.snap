@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsChart initalises the chart 1`] = `
+Array [
+  Object {
+    "canvas": "mock",
+  },
+  Object {
+    "data": Object {
+      "datasets": Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "red",
+          "borderWidth": 2,
+          "data": Array [
+            Object {
+              "x": 124.5,
+              "y": 60,
+            },
+            Object {
+              "x": 373.5,
+              "y": 40,
+            },
+            Object {
+              "x": 622.5,
+              "y": 60,
+            },
+          ],
+          "pointRadius": 2,
+          "showLine": false,
+        },
+        Object {
+          "backgroundColor": "rgb(240, 248, 255, .5)",
+          "borderColor": "cornflowerblue",
+          "borderWidth": 2,
+          "data": Array [
+            Object {
+              "x": 0,
+              "y": 53,
+            },
+            Object {
+              "x": 249,
+              "y": 53,
+            },
+            Object {
+              "x": 498,
+              "y": 53,
+            },
+          ],
+          "pointRadius": 0,
+          "showLine": true,
+        },
+      ],
+    },
+    "options": Object {
+      "legend": Object {
+        "display": false,
+      },
+      "scales": Object {
+        "xAxes": Array [
+          Object {
+            "ticks": Object {
+              "callback": [Function],
+              "maxTicksLimit": 5,
+              "startAtZero": true,
+            },
+          },
+        ],
+        "yAxes": Array [
+          Object {
+            "ticks": Object {
+              "beginAtZero": true,
+              "callback": [Function],
+              "max": 120,
+            },
+          },
+        ],
+      },
+    },
+    "responsive": true,
+    "type": "scatter",
+  },
+]
+`;

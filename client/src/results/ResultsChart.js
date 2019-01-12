@@ -30,6 +30,10 @@ function datify(curvePoints, samplePoints) {
   };
 }
 
+export const renderXTick = x => Math.round(x / 100) * 100;
+
+export const renderYTick = y => y === 100 ? '100%' : y < 100 ? `${y}` : '';
+
 export default class ResultsChart extends Component {
   static propTypes = {
     curvePoints: PropTypes.array,
@@ -67,14 +71,14 @@ export default class ResultsChart extends Component {
         scales: {
           xAxes: [{
             ticks: {
-              callback: x => Math.round(x / 100) * 100,
+              callback: renderXTick,
               maxTicksLimit: 5,
               startAtZero: true
             }
           }],
           yAxes: [{
             ticks: {
-              callback: y => y === 100 ? '100%' : y < 100 ? y : '',
+              callback: renderYTick,
               beginAtZero: true,
               max: 120
             }

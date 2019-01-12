@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsDisplay renders 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="youKnow"
+  >
+    results.youKnow
+  </div>
+  <div
+    className="estimate"
+  >
+    <span
+      className="mean"
+    >
+      1500
+    </span>
+    <span
+      className="plusMinus"
+    >
+      ±
+    </span>
+    <span
+      className="std"
+    >
+      200
+    </span>
+  </div>
+  <div
+    className="measure"
+  >
+    results.measure
+  </div>
+</div>
+`;
