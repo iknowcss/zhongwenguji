@@ -1,0 +1,63 @@
+.card {
+
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  background-color: aliceblue;
+  overflow: hidden;
+  padding: 1em;
+}
+
+.stackBase {
+  position: relative;
+  width: 12rem;
+  height: 15rem;
+}
+
+.animationContainer {
+  position: absolute;
+}
+
+.predictDiscard {
+  &Right { background-color: #efe; }
+  &Left { background-color: #fee; }
+}
+
+.touchArea {
+  position: relative;
+  transition:
+          top cubic-bezier(.22,.98,.91,1.09) 100ms,
+          left cubic-bezier(.22,.98,.91,1.09) 100ms,
+          transform cubic-bezier(.22,.98,.91,1.09) 100ms;
+
+  &Snap {
+    transition: none;
+  }
+}
+
+.enter {
+  transition: transform ease 300ms, opacity ease 300ms;
+  opacity: 0.01;
+  transform-origin: 50% 50%;
+  transform: scale(.5, .5);
+
+  &Active {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+
+.leave {
+  transition: transform ease 300ms, opacity ease 300ms;
+  transform: translate(0, 0);
+  opacity: 1;
+
+  &Active {
+    opacity: 0.01;
+
+    &.discardRight { transform: translate(150px, 20px) rotate(7deg); }
+    &.discardLeft { transform: translate(-150px, 20px) rotate(-7deg); }
+  }
+}

@@ -10,6 +10,6 @@ fi
 echo "Install client dependencies..."
 (
   set -e
-  cd $projectRoot/zhongwenguji-client
+  cd $projectRoot/client
   npm install
 )

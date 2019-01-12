@@ -1,0 +1,30 @@
+
+.transitionElement {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.enter, .leave {
+  transition: opacity ease-in-out 200ms, transform ease-in-out 200ms;
+}
+
+.enter {
+  opacity: 0.01;
+  transform: scale(.95) translate3d(0, 0, 0);
+
+  &Active {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.leave {
+  opacity: 1;
+  transform: scale(1) translate3d(0, 0, 0);
+
+  &Active {
+    opacity: 0.01;
+    transform: scale(.95) translate3d(0, 0, 0);
+  }
+}

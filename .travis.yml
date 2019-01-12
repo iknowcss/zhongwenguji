@@ -8,8 +8,8 @@ env:
 
 cache:
   directories:
-    - zhongwenguji-client/node_modules
-    - zhongwenguji-server/node_modules
+    - client/node_modules
+    - server/node_modules
     - $HOME/.local/bin
 
 jobs:

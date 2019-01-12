@@ -10,6 +10,6 @@ fi
 echo "Run client tests..."
 (
   set -e
-  cd $projectRoot/zhongwenguji-client
+  cd $projectRoot/client
   npm run ci:test
 )

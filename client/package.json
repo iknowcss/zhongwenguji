@@ -1,0 +1,68 @@
+{
+  "name": "@hanzishan/client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "chart.js": "^2.7.3",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-scripts": "^2.1.3",
+    "react-transition-group": "^1.2.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "ci:test": "CI=true npm run test -- --coverage",
+    "ci:build": "CI=true npm run build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js",
+      "!src/reducer.js",
+      "!src/store.js",
+      "!src/serviceWorker.js",
+      "!src/i18n/getNavigatorLanguage.js",
+      "!src/util/noop.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "fetch-mock": "^7.2.7",
+    "lodash": "^4.17.11",
+    "node-fetch": "^2.3.0",
+    "node-sass": "^4.11.0",
+    "react-test-renderer": "^16.7.0",
+    "redux-mock-store": "^1.5.3"
+  }
+}

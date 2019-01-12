@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardStackButtons renders 1`] = `
+<div
+  className="buttonContainer"
+>
+  <button
+    className="button button undoButton"
+    onClick={[Function]}
+  >
+    <span
+      className="span span--small undoIcon buttonIcon"
+    >
+      <svg
+        className="svg"
+        viewBox="0 0 511.63 511.631"
+      >
+        <use
+          xlinkHref="undo.svg#main"
+        />
+      </svg>
+    </span>
+  </button>
+  <button
+    className="button button"
+    onClick={[Function]}
+  >
+    <span
+      className="span span--small searchIcon buttonIcon"
+    >
+      <svg
+        className="svg"
+        viewBox="0 0 250.313 250.313"
+      >
+        <use
+          xlinkHref="search.svg#main"
+        />
+      </svg>
+    </span>
+  </button>
+</div>
+`;

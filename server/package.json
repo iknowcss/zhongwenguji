@@ -1,0 +1,26 @@
+{
+  "name": "@hanzishan/server",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "start": "sls offline start",
+    "ci:test": "jest --ci --no-colors",
+    "ci:build": "echo \"Nothing to build\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^1.35.1",
+    "serverless-offline": "^3.31.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "serverless-http": "^1.8.0",
+    "supertest": "^3.3.0",
+    "uuid": "^3.3.2"
+  }
+}

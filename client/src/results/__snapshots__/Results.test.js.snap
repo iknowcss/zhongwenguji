@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results renders 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="ResultsDisplay"
+  />
+  <div
+    className="ResultsChart"
+  />
+  <div
+    className="startAgainContainer"
+  >
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      results.startAgain
+    </button>
+  </div>
+  <div
+    className="feedbackBar"
+  >
+    <div>
+      results.feedbackPreface
+    </div>
+    <a
+      href="https://docs.google.com/forms/d/e/1FAIpQLSemOEF67ARiyZirKh5qB4e9Uj3roNyaVf0XzrIjIeG44UIkbg/viewform?usp=pp_url&entry.1889314490=undefined"
+      rel="noopener"
+      target="_blank"
+    >
+      results.feedbackLinkText
+    </a>
+  </div>
+</div>
+`;

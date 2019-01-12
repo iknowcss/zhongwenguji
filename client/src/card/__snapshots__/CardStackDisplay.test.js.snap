@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardStackDisplay renders 1`] = `
+<div
+  className="cardContainer"
+>
+  <div
+    className="stackBase"
+  >
+    <div>
+      <div
+        className="animationContainer"
+      >
+        <div
+          className="touchArea"
+          style={
+            Object {
+              "left": "0px",
+              "top": "0px",
+              "transform": "rotate(0deg)",
+            }
+          }
+        >
+          <span
+            className="container card"
+          >
+            <span
+              className="character"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStackDisplay renders without a card 1`] = `
+<div
+  className="cardContainer"
+>
+  <div
+    className="stackBase"
+  >
+    <div />
+  </div>
+</div>
+`;
