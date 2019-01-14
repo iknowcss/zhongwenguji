@@ -51,7 +51,7 @@ table {
 
 body {
   font-size: 24px;
-  font-family: Helvetica, sans-serif;
+  font-family: "Helvetica Neue","Helvetica","Arial","Lucida Grande","KaiTi","楷体","STKaiti","华文楷体",sans-serif;
 }
 
 html, body, #root {

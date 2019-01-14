@@ -18,8 +18,9 @@
 }
 
 .character {
-  font-size: 8em;
+  font-size: 10em;
   align-self: center;
+  transform: translate3d(0, -.08em, 0);
 }
 
 .definition {
