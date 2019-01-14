@@ -8,7 +8,11 @@
   color: white;
 
   touch-action: manipulation;
-  outline: none;
+  outline: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
   box-shadow: rgba(0, 20, 40, .7) 0 2px 5px 0;
 
