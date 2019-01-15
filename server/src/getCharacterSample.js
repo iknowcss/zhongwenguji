@@ -1,5 +1,7 @@
+const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
+const sqlite3 = require('sqlite3');
 
 const DEFAULT_BIN_COUNT = 40;
 const DEFAULT_SAMPLES_PER_BIN = 5;

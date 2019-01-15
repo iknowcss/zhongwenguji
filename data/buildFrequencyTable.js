@@ -2,8 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const sqlite3 = require('sqlite3');
+const TableManager = require('./ensureTable');
 
 const DB_FILE_PATH = './characters.sqlite';
+const CHARACTER_FREQUENCY_FILE_PATH = path.join(__dirname, '../server/all-characters.txt');
 
 if (!fs.existsSync(DB_FILE_PATH)) {
   console.info('Database does not exist!');
@@ -12,76 +14,109 @@ if (!fs.existsSync(DB_FILE_PATH)) {
 
 console.info('Connect to database');
 const db = new sqlite3.Database(DB_FILE_PATH);
+const isRebuild = process.argv.indexOf('--rebuild') >= 0;
 
 db.serialize(async () => {
-  const dbrun = promisify(db.run.bind(db));
+  const table = new TableManager(db, 'simpFrequency');
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /// - Ensure table exists ------------------------------------------------------------------------
 
-  console.info('Create table simpFrequency');
-  await dbrun(`
-    CREATE TABLE simpFrequency (
-      id INTEGER PRIMARY KEY,
-      freq BIGINT,
-      char NCHAR(1),
-      pinyin VARCHAR(255),
-      def TEXT
-    )
-  `);
+  if (isRebuild && await table.isExists()) {
+    try {
+      console.info('Drop table simpFrequency');
+      await table.drop();
+    } catch (error) {
+      console.error('Failed to drop table simpFrequency', error);
+      process.exit(1);
+    }
+  }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
+  if (!(await table.isExists())) {
+    console.info('Create table simpFrequency');
+    try {
+      await table.create(`
+        id INTEGER PRIMARY KEY,
+        freq BIGINT,
+        char NCHAR(1),
+        pinyin VARCHAR(255),
+        def TEXT
+      `);
+    } catch (error) {
+      console.error('Failed to create table simpFrequency', error);
+      process.exit(1);
+    }
+  } else {
+    console.info('Table simpFrequency already exists');
+  }
 
-  console.info('Compose and add entries from freq list');
+  /// - Abort operation if data already exists -----------------------------------------------------
+
+  if (await table.hasRows()) {
+    console.warn('There is already data in table simpFrequency - exit');
+    process.exit(1);
+  }
+
+  /// - Abort operation if data already exists -----------------------------------------------------
+
   const selectByTradStatement = db.prepare('SELECT * FROM character WHERE trad = ?');
   const selectBySimpStatement = db.prepare('SELECT * FROM character WHERE simp = ?');
-
   const selectByTrad = promisify(selectByTradStatement.all.bind(selectByTradStatement));
   const selectBySimp = promisify(selectBySimpStatement.all.bind(selectBySimpStatement));
 
+  console.info('Load character frequency data from', CHARACTER_FREQUENCY_FILE_PATH);
   const allCharacters = fs
-    .readFileSync(path.join(__dirname, '../server/all-characters.txt'))
+    .readFileSync(CHARACTER_FREQUENCY_FILE_PATH)
     .toString()
     .split('\n')
     .map(x => {
-      const [id, char, freq] = x.split('\t');
-      return { id, char, freq };
+      const [id, char, freq, , pinyin, def] = x.split('\t');
+      return { id, char, freq, pinyin, def };
     });
 
+  console.info('Compose with frequency list and insert to simpFrequency');
   const allCharLength = allCharacters.length;
+  const stmt = db.prepare('INSERT INTO simpFrequency VALUES (?, ?, ?, ?, ?)');
+  const insertValues = promisify(stmt.run.bind(stmt));
+
   for (let i = 0; i < allCharLength; i++) {
-    const { id, char, freq } = allCharacters[i];
+    const { id, char, freq, pinyin, def } = allCharacters[i];
     if (!char) {
-      console.debug('Skip entry missing character', id);
+      console.debug('Frequency list entry missing character - skip ');
       continue;
     }
     let cedictEntry = await selectByTrad(char);
     if (cedictEntry.length === 0) {
       cedictEntry = await selectBySimp(char);
     }
-    if (cedictEntry.length === 0) {
-      console.debug(`Skip entry with unknown character "${char}"`, id);
-      continue;
-    }
 
-    const insertStatement = db.prepare('INSERT INTO simpFrequency VALUES (?, ?, ?, ?, ?)');
-    const values = [
-      id,
-      freq,
-      cedictEntry[0].simp,
-      cedictEntry.reduce((result, { pinyin }) => {
+    const values = [id, freq];
+    if (cedictEntry.length === 0) {
+      console.info(`  ! No entry in CEDICT for character "${char}"`);
+      if (pinyin && def) {
+        console.info('  * Use frequency list entry as fallback');
+        values.push(char);
+        values.push(pinyin);
+        values.push(def);
+      } else {
+        console.info('  x Cannot use frequency entry as fallback - skip');
+        continue;
+      }
+    } else {
+      values.push(cedictEntry[0].simp);
+      values.push(cedictEntry.reduce((result, { pinyin }) => {
         result.push(pinyin);
         return result;
-      }, []).join('/'),
-      cedictEntry.reduce((result, { def }) => {
+      }, []).join('/'));
+      values.push(cedictEntry.reduce((result, { def }) => {
         result.push(def);
         return result;
-      }, []).join('/')
-    ];
-    insertStatement.run(values);
+      }, []).join('/'));
+    }
 
-    if ((i + 1) % 100 === 0 || i + 1 === allCharLength) {
-      console.info('Finalize', i + 1);
-      await promisify(insertStatement.finalize.bind(insertStatement))();
+    const insertPromise = insertValues(values);
+    if ((i + 1) % 250 === 0 || i + 1 === allCharLength) {
+      console.info('Insert', i + 1);
+      await insertPromise;
     }
   }
 });
