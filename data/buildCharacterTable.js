@@ -1,11 +1,11 @@
 const fs = require('fs');
-const { promisify } = require('util');
 const sqlite3 = require('sqlite3');
 const TableManager = require('./TableManager');
-const Estimator = require('./Estimator');
 
 const CC_CEDICT_FILE_PATH = './cedict_ts.u8';
 const DB_FILE_PATH = './characters.sqlite';
+const ASDF_REGEXP = /^(\S+)\s+(\S+)\s+\[([^\]]+)]\s+\/(.+)\/$/;
+const IGNORE_LINE_REGEXP = /^[a-zA-Z0-9#%]|Japanese variant of|\[xx/;
 
 if (!fs.existsSync(DB_FILE_PATH)) {
   console.info('Database does not exist!');
@@ -18,6 +18,9 @@ console.info('Connect to database');
 const db = new sqlite3.Database(DB_FILE_PATH);
 
 db.serialize(async () => {
+
+  /// - Create character table ------------------------------------------------
+
   const characterTable = new TableManager(db, 'character');
 
   if (isRebuild) {
@@ -39,39 +42,40 @@ db.serialize(async () => {
     CREATE INDEX character_simp ON character (simp);
   `);
 
-  const ASDF_REGEXP = /^(\S+)\s+(\S+)\s+\[([^\]]+)]\s+\/(.+)\/$/;
-  const IGNORE_LINE_REGEXP = /^[a-zA-Z0-9#%]|Japanese variant of|\[xx/;
+  /// - Read CEDICT entries into insert values --------------------------------
 
-  let addCount = 0;
   const allRows = fs.readFileSync(CC_CEDICT_FILE_PATH).toString().split(/\r?\n/);
-  const totalRowCount = allRows.length;
+  console.info(`Process CEDICT file - ${allRows.length} entries`, );
 
-  console.info('Process file rows', totalRowCount);
-  const stepIncrement = 250;
-  const progressEstimator = new Estimator(stepIncrement, totalRowCount);
-  let insertCharacterStatement;
-  let insertCharacter;
-  for (let i = 0; i < totalRowCount; i++) {
-    const row = allRows[i];
-    if (IGNORE_LINE_REGEXP.test(row)) continue;
-    if (ASDF_REGEXP.test(row)) {
-      if (!insertCharacterStatement || !insertCharacter) {
-        insertCharacterStatement = db.prepare(`
-          INSERT INTO character 
-          (id, trad, simp, pinyin, def) 
-          VALUES 
-          (?, ?, ?, ?, ?)
-        `);
-        insertCharacter = promisify(insertCharacterStatement.run.bind(insertCharacterStatement));
-      }
-      insertCharacter([addCount + 1].concat(row.match(ASDF_REGEXP).slice(1)));
-      if ((addCount + 1) % stepIncrement === 0) {
-        await promisify(insertCharacterStatement.finalize.bind(insertCharacterStatement))();
-        console.info(`Time remaining ~ ${progressEstimator.estimateTime(addCount + 1)}`);
-        insertCharacterStatement = null;
-      }
-      addCount++;
-    }
+  const insertValues = [];
+  let addCount = 0;
+  allRows.forEach((row) => {
+    if (IGNORE_LINE_REGEXP.test(row)) return;
+    if (!ASDF_REGEXP.test(row)) return;
+    insertValues.push([++addCount].concat(row.match(ASDF_REGEXP).slice(1)));
+  });
+
+  /// - Insert CEDICT character data into characters table --------------------
+
+  console.info(`Insert into characters table - ${addCount} rows`);
+
+  // Insert in transaction chunks for speed
+  // 100 to start, then chunks of 5000
+  let stepIncrement = 100;
+  let chunk;
+  while ((chunk = insertValues.splice(0, stepIncrement)).length) {
+    console.log('Remaining chars:', insertValues.length);
+    stepIncrement = 5000;
+    await new Promise((resolve, reject) => {
+      let transaction = db.exec('BEGIN TRANSACTION');
+      chunk.forEach(entry => transaction = transaction.run(`
+        INSERT INTO character
+        (id, trad, simp, pinyin, def)
+        VALUES
+        (?, ?, ?, ?, ?)
+      `, entry));
+      transaction.exec('COMMIT', (err) => { err ? reject(err) : resolve(); });
+    });
   }
 
   console.info(`Finished adding ${addCount} characters`);
