@@ -19,42 +19,43 @@ console.info('Connect to database');
 const db = new sqlite3.Database(DB_FILE_PATH);
 
 db.serialize(async () => {
-  const table = new TableManager(db, 'simpFrequency');
+  const table = new TableManager(db, 'frequency');
 
   /// - Ensure table exists ------------------------------------------------------------------------
 
   if (isRebuild && await table.isExists()) {
     try {
-      console.info('Drop table simpFrequency');
+      console.info('Drop table frequency');
       await table.drop();
     } catch (error) {
-      console.error('Failed to drop table simpFrequency', error);
+      console.error('Failed to drop table frequency', error);
       process.exit(1);
     }
   }
 
   if (!(await table.isExists())) {
-    console.info('Create table simpFrequency');
+    console.info('Create table frequency');
     try {
       await table.create(`
         id INTEGER PRIMARY KEY,
         freq BIGINT,
-        char NCHAR(1),
+        simp NCHAR(1),
+        trad NCHAR(1),
         pinyin VARCHAR(255),
         def TEXT
       `);
     } catch (error) {
-      console.error('Failed to create table simpFrequency', error);
+      console.error('Failed to create table frequency', error);
       process.exit(1);
     }
   } else {
-    console.info('Table simpFrequency already exists');
+    console.info('Table frequency already exists');
   }
 
   /// - Abort operation if data already exists -----------------------------------------------------
 
   if (await table.hasRows()) {
-    console.warn('There is already data in table simpFrequency - exit');
+    console.warn('There is already data in table frequency - exit');
     process.exit(1);
   }
 
@@ -75,13 +76,13 @@ db.serialize(async () => {
       return { id, char, freq, pinyin, def };
     });
 
-  console.info('Compose with frequency list and insert to simpFrequency');
+  console.info('Compose with frequency list and insert to frequency');
   const allCharLength = allCharacters.length;
 
   const stepIncrement = 250;
   const progressEstimator = new Estimator(stepIncrement, allCharLength);
 
-  const stmt = db.prepare('INSERT INTO simpFrequency VALUES (?, ?, ?, ?, ?)');
+  const stmt = db.prepare('INSERT INTO frequency VALUES (?, ?, ?, ?, ?, ?)');
   const insertValues = promisify(stmt.run.bind(stmt));
 
   for (let i = 0; i < allCharLength; i++) {
@@ -109,6 +110,7 @@ db.serialize(async () => {
       }
     } else {
       values.push(cedictEntry[0].simp);
+      values.push(cedictEntry[0].trad);
       values.push(cedictEntry.reduce((result, { pinyin }) => {
         result.push(pinyin);
         return result;
@@ -121,10 +123,11 @@ db.serialize(async () => {
 
     const insertPromise = insertValues(values);
     if ((i + 1) % stepIncrement === 0 || i + 1 === allCharLength) {
-      console.info(`Time remaining ~ ${progressEstimator.estimateTime(i + 1)}`);
+      progressEstimator.printEstimateTime(i + 1);
       await insertPromise;
     }
   }
 
-  console.info('Progress ~ 100%');
+  console.info('');
+  console.info('Done');
 });

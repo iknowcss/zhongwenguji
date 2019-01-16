@@ -1,6 +1,7 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
 const TableManager = require('./TableManager');
+const Estimator = require('./Estimator');
 
 const CC_CEDICT_FILE_PATH = './cedict_ts.u8';
 const DB_FILE_PATH = './characters.sqlite';
@@ -58,13 +59,16 @@ db.serialize(async () => {
   /// - Insert CEDICT character data into characters table --------------------
 
   console.info(`Insert into characters table - ${addCount} rows`);
+  const estimator = new Estimator(5000, insertValues.length);
 
   // Insert in transaction chunks for speed
   // 100 to start, then chunks of 5000
   let stepIncrement = 100;
   let chunk;
   while ((chunk = insertValues.splice(0, stepIncrement)).length) {
-    console.log('Remaining chars:', insertValues.length);
+    if (stepIncrement > 100) {
+      estimator.printEstimateTime(addCount - insertValues.length);
+    }
     stepIncrement = 5000;
     await new Promise((resolve, reject) => {
       let transaction = db.exec('BEGIN TRANSACTION');
@@ -78,5 +82,6 @@ db.serialize(async () => {
     });
   }
 
+  console.info('');
   console.info(`Finished adding ${addCount} characters`);
 });
