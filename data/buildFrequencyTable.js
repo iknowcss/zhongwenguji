@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const sqlite3 = require('sqlite3');
-const TableManager = require('./ensureTable');
+const TableManager = require('./TableManager');
+const Estimator = require('./Estimator');
 
 const DB_FILE_PATH = './characters.sqlite';
 const CHARACTER_FREQUENCY_FILE_PATH = path.join(__dirname, '../server/all-characters.txt');
@@ -12,9 +13,10 @@ if (!fs.existsSync(DB_FILE_PATH)) {
   process.exit(1);
 }
 
+const isRebuild = process.argv.indexOf('--rebuild') >= 0;
+
 console.info('Connect to database');
 const db = new sqlite3.Database(DB_FILE_PATH);
-const isRebuild = process.argv.indexOf('--rebuild') >= 0;
 
 db.serialize(async () => {
   const table = new TableManager(db, 'simpFrequency');
@@ -75,6 +77,10 @@ db.serialize(async () => {
 
   console.info('Compose with frequency list and insert to simpFrequency');
   const allCharLength = allCharacters.length;
+
+  const stepIncrement = 250;
+  const progressEstimator = new Estimator(stepIncrement, allCharLength);
+
   const stmt = db.prepare('INSERT INTO simpFrequency VALUES (?, ?, ?, ?, ?)');
   const insertValues = promisify(stmt.run.bind(stmt));
 
@@ -91,14 +97,14 @@ db.serialize(async () => {
 
     const values = [id, freq];
     if (cedictEntry.length === 0) {
-      console.info(`  ! No entry in CEDICT for character "${char}"`);
+      console.debug(`  ! No entry in CEDICT for character "${char}"`);
       if (pinyin && def) {
-        console.info('  * Use frequency list entry as fallback');
+        console.debug('  * Use frequency list entry as fallback');
         values.push(char);
         values.push(pinyin);
         values.push(def);
       } else {
-        console.info('  x Cannot use frequency entry as fallback - skip');
+        console.debug('  x Cannot use frequency entry as fallback - skip');
         continue;
       }
     } else {
@@ -114,9 +120,11 @@ db.serialize(async () => {
     }
 
     const insertPromise = insertValues(values);
-    if ((i + 1) % 250 === 0 || i + 1 === allCharLength) {
-      console.info('Insert', i + 1);
+    if ((i + 1) % stepIncrement === 0 || i + 1 === allCharLength) {
+      console.info(`Time remaining ~ ${progressEstimator.estimateTime(i + 1)}`);
       await insertPromise;
     }
   }
+
+  console.info('Progress ~ 100%');
 });

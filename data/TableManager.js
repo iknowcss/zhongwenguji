@@ -1,6 +1,6 @@
 const { promisify } = require('util');
 
-class EnsureTable {
+class TableManager {
   constructor(db, tableName) {
     this.db = db;
     this.tableName = tableName;
@@ -20,8 +20,24 @@ class EnsureTable {
     await promisify(this.db.run.bind(this.db))(`DROP TABLE ${this.tableName}`);
   }
 
+  async dropIfExists() {
+    if (await this.isExists()) {
+      await this.drop();
+    }
+  }
+
   async create(columnDef) {
-    await promisify(this.db.run.bind(this.db))(`CREATE TABLE ${this.tableName} (${columnDef})`);
+    const query = typeof columnDef === 'function'
+      ? columnDef({ tableName: this.tableName })
+      : `CREATE TABLE ${this.tableName} (${columnDef})`;
+
+    await promisify(this.db.run.bind(this.db))(query);
+  }
+
+  async createIfNotExists(columnDef) {
+    if (!(await this.isExists())) {
+      await this.create(columnDef);
+    }
   }
 
   async hasRows() {
@@ -30,4 +46,4 @@ class EnsureTable {
   }
 }
 
-module.exports = EnsureTable;
+module.exports = TableManager;
