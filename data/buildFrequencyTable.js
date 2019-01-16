@@ -7,6 +7,28 @@ const Estimator = require('./Estimator');
 
 const DB_FILE_PATH = './characters.sqlite';
 const CHARACTER_FREQUENCY_FILE_PATH = path.join(__dirname, '../server/all-characters.txt');
+const PROPER_NOUN_PINYIN_REGEXP = /^[A-Z]/;
+
+function collectCedict(cedictEntry) {
+  const properPinyin = [];
+  const properDef = [];
+  const simplePinyin = [];
+  const simpleDef = [];
+  cedictEntry.forEach(({ pinyin, def }) => {
+    if (PROPER_NOUN_PINYIN_REGEXP.test(pinyin)) {
+      properPinyin.push(pinyin);
+      properDef.push(def);
+    } else {
+      simplePinyin.push(pinyin);
+      simpleDef.push(def);
+    }
+  });
+
+  return {
+    pinyin: simplePinyin.concat(properPinyin).join('/'),
+    def: simpleDef.concat(properDef).join('/')
+  };
+}
 
 if (!fs.existsSync(DB_FILE_PATH)) {
   console.info('Database does not exist!');
@@ -109,16 +131,11 @@ db.serialize(async () => {
         continue;
       }
     } else {
+      const collected = collectCedict(cedictEntry);
       values.push(cedictEntry[0].simp);
       values.push(cedictEntry[0].trad);
-      values.push(cedictEntry.reduce((result, { pinyin }) => {
-        result.push(pinyin);
-        return result;
-      }, []).join('/'));
-      values.push(cedictEntry.reduce((result, { def }) => {
-        result.push(def);
-        return result;
-      }, []).join('/'));
+      values.push(collected.pinyin);
+      values.push(collected.def);
     }
 
     const insertPromise = insertValues(values);
