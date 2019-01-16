@@ -1,10 +1,35 @@
 const { promisify } = require('util');
-const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3');
 
 const DEFAULT_BIN_COUNT = 40;
 const DEFAULT_SAMPLES_PER_BIN = 5;
+const DB_FILE_PATH = path.join(__dirname, '../characters.sqlite');
+
+const db = new sqlite3.Database(DB_FILE_PATH);
+
+let allCharacters;
+async function getAllCharacters() {
+  if (!allCharacters) {
+    allCharacters = await new Promise((resolve, reject) => {
+      db.serialize(async () => {
+        try {
+          resolve(await promisify(db.all.bind(db))(`
+            SELECT
+              id AS i,
+              simp AS c,
+              pinyin AS p,
+              def AS d
+            FROM frequency
+          `));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  }
+  return allCharacters;
+}
 
 function extractSeed({ query }) {
   if (query.seed) {
@@ -33,11 +58,21 @@ const characterSampler = ({ seed, samplesPerBin }) => {
   }
 };
 
-function sampleCharacters(allCharacters, { seed, binCount, samplesPerBin }) {
-  const binSize = Math.ceil(allCharacters.length / binCount);
+function sampleCharacters(allCharacters, { seed, totalCharacters, binCount, samplesPerBin }) {
+  const binSize = Math.ceil(totalCharacters / binCount);
   const sampler = characterSampler({ seed, samplesPerBin });
+  let i = 0;
+  const acl = allCharacters.length;
   return Array
-    .from({ length: binCount }, (x, i) => allCharacters.slice(i * binSize, (i + 1) * binSize))
+    .from({ length: binCount }, (_, binNumber) => {
+      const bin = [];
+      let char;
+      while (i < acl && (char = allCharacters[i]).i < (binNumber + 1) * binSize + 1) {
+        bin.push(char);
+        i++;
+      }
+      return bin;
+    })
     .map((bin, i) => ({
       range: [i * binSize, i * binSize + bin.length],
       sample: sampler(bin)
@@ -51,22 +86,15 @@ module.exports = (configOverride) => {
     ...configOverride
   };
 
-  const allCharacters = fs
-    .readFileSync(path.join(__dirname, '../all-characters.txt'))
-    .toString()
-    .split('\n')
-    .map(x => {
-      const [i, c, , , p, d] = x.split('\t');
-      return { i, c, p, d };
-    });
-
-  return (req, res) => {
+  return async (req, res) => {
+    const allCharacters = await getAllCharacters();
+    const totalCharacters = allCharacters[allCharacters.length - 1].i;
     const seed = extractSeed(req);
     res.json({
       ...config,
       seed,
-      totalCharacters: allCharacters.length,
-      characters: sampleCharacters(allCharacters, { ...config, seed })
+      totalCharacters,
+      characters: sampleCharacters(allCharacters, { ...config, totalCharacters, seed })
     });
   };
 };
