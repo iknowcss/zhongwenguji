@@ -30,7 +30,7 @@
 }
 
 .paragraph, .iconParagraphContainer {
-  margin-bottom: 1rem;
+  margin-bottom: .7rem;
   align-self: stretch;
 }
 
@@ -58,6 +58,19 @@
   align-items: center;
   background-color: cornflowerblue;
   border-radius: 20px;
+}
+
+.characterSetContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  input[type="checkbox"] {
+    width: 32px;
+    height: 32px;
+    margin-right: .5rem;
+  }
 }
 
 .button {

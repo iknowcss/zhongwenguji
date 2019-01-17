@@ -11,6 +11,11 @@ export const statusEnum = {
   ERROR: 'ERROR',
 };
 
+export const characterSetEnum = {
+  SIMPLIFIED: 'SIMPLIFIED',
+  TRADITIONAL: 'TRADITIONAL'
+};
+
 /// ------------------------------------------------------------------------------------------------
 
 const DEFAULT_STATE = {
@@ -20,7 +25,8 @@ const DEFAULT_STATE = {
   state: statusEnum.READY,
   currentSectionIndex: 0,
   currentCardIndex: 0,
-  resultData: null
+  resultData: null,
+  characterSet: characterSetEnum.SIMPLIFIED
 };
 
 function processTestComplete(state) {
@@ -164,9 +170,10 @@ function processMark(state, action) {
 function processBins(characers) {
   return characers.map(section => ({
     ...section,
-    sample: section.sample.map(({ i, c, p, d }) => ({
+    sample: section.sample.map(({ i, cs, ct, p, d }) => ({
       index: i,
-      character: c,
+      simplified: cs,
+      traditional: ct,
       pinyin: p,
       definition: d,
       score: NaN
@@ -193,6 +200,10 @@ export default (state = DEFAULT_STATE, action = {}) => {
         ...processSampleData(state, action.sampleData),
         state: statusEnum.TESTING
       };
+    case actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED:
+      return { ...state, characterSet: characterSetEnum.SIMPLIFIED };
+    case actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL:
+      return { ...state, characterSet: characterSetEnum.TRADITIONAL };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
     case actionTypes.TEST_RESULTS_SUBMIT_FAIL:
       return { ...state, state: statusEnum.ERROR };
@@ -239,9 +250,16 @@ export const status = rootState => rootState.characterTestReducer.state;
 
 export const isShowDefinition = rootState => rootState.characterTestReducer.isShowDefinition;
 
-export const currentCard = ({ characterTestReducer: { currentSectionIndex, currentCardIndex, bins, state } }) => {
+export const currentCard = ({ characterTestReducer: { currentSectionIndex, currentCardIndex, bins, state, characterSet } }) => {
   if (state === statusEnum.TESTING) {
-    return bins[currentSectionIndex].sample[currentCardIndex];
+    const {
+      traditional,
+      simplified,
+      ...card
+    } = bins[currentSectionIndex].sample[currentCardIndex];
+    return Object.assign(card, {
+      character: characterSet === characterSetEnum.TRADITIONAL ? traditional : simplified
+    });
   }
   return null;
 };

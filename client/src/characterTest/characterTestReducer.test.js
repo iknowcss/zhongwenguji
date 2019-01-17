@@ -1,6 +1,11 @@
 import prepareBins from './prepareBins.testutil';
 import { actionTypes } from './characterTestActions';
-import characterTestReducer, { scoreStatistics } from './characterTestReducer';
+import characterTestReducer, {
+  scoreStatistics,
+  currentCard,
+  statusEnum,
+  characterSetEnum
+} from './characterTestReducer';
 
 describe('characterTestReducer', () => {
   it('has defaults', () => {
@@ -11,7 +16,8 @@ describe('characterTestReducer', () => {
       state: 'READY',
       currentSectionIndex: 0,
       currentCardIndex: 0,
-      resultData: null
+      resultData: null,
+      characterSet: 'SIMPLIFIED'
     });
   });
 
@@ -34,14 +40,14 @@ describe('characterTestReducer', () => {
             {
               range: [0, 2],
               sample: [
-                { i: 1, c: '的', p: 'de', d: '(possessive particle)' },
-                { i: 2, c: '一', p: 'yi1', d: 'one' },
+                { i: 1, cs: '的', ct: '的', p: 'de', d: '(possessive particle)' },
+                { i: 2, cs: '一', ct: '一', p: 'yi1', d: 'one' },
               ]
             },
             {
               range: [2, 3],
               sample: [
-                { i: 3, c: '是', p: 'shi4', d: 'is' }
+                { i: 3, cs: '从', ct: '從', p: 'cong2', d: 'from' }
               ]
             }
           ]
@@ -54,14 +60,16 @@ describe('characterTestReducer', () => {
             sample: [
               {
                 index: 1,
-                character: '的',
+                simplified: '的',
+                traditional: '的',
                 pinyin: 'de',
                 definition: '(possessive particle)',
                 score: NaN
               },
               {
                 index: 2,
-                character: '一',
+                simplified: '一',
+                traditional: '一',
                 pinyin: 'yi1',
                 definition: 'one',
                 score: NaN
@@ -73,9 +81,10 @@ describe('characterTestReducer', () => {
             sample: [
               {
                 index: 3,
-                character: '是',
-                pinyin: 'shi4',
-                definition: 'is',
+                simplified: '从',
+                traditional: '從',
+                pinyin: 'cong2' ,
+                definition: 'from',
                 score: NaN
               }
             ]
@@ -505,6 +514,28 @@ describe('characterTestReducer', () => {
     });
   });
 
+  describe('character set', () => {
+    it('sets the character set to "simplified"', () => {
+      expect(characterTestReducer({
+        characterSet: characterSetEnum.TRADITIONAL
+      }, {
+        type: actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED
+      })).toEqual({
+        characterSet: characterSetEnum.SIMPLIFIED
+      })
+    });
+
+    it('sets the character set to "traditional"', () => {
+      expect(characterTestReducer({
+        characterSet: characterSetEnum.SIMPLIFIED
+      }, {
+        type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL
+      })).toEqual({
+        characterSet: characterSetEnum.TRADITIONAL
+      })
+    });
+  });
+
   describe('selectors', () => {
     describe('scoreStatistics', () => {
       it('calculates the current statistics', () => {
@@ -546,6 +577,43 @@ describe('characterTestReducer', () => {
         expect(results[2]).toBe(results[3]);
         expect(results[3]).not.toBe(results[4]);
       })
+    });
+
+    describe('currentCard', () => {
+      function exampleState({ state = statusEnum.TESTING, characterSet } = {}) {
+        return {
+          characterTestReducer: {
+            state,
+            characterSet,
+            currentSectionIndex: 1,
+            currentCardIndex: 1,
+            bins: [{}, {
+              sample: [{}, {
+                simplified: '从',
+                traditional: '從'
+              }]
+            }]
+          }
+        };
+      }
+
+      it('returns null when not testing', () => {
+        expect(currentCard(exampleState({
+          state: statusEnum.RESULTS_READY
+        }))).toEqual(null)
+      });
+
+      it('returns the simplified card (default)', () => {
+        expect(currentCard(exampleState()))
+          .toEqual({ character: '从' })
+      });
+
+      it('returns the simplified card (default)', () => {
+        expect(currentCard(exampleState({
+          characterSet: characterSetEnum.TRADITIONAL
+        })))
+          .toEqual({ character: '從' })
+      });
     });
   });
 

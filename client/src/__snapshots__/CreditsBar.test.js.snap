@@ -25,6 +25,25 @@ exports[`CreditsBar renders 1`] = `
     </a>
   </span>
   <span>
+    Definitions, characters, and pinyin from 
+    <a
+      href="https://cc-cedict.org"
+      rel="noopener"
+      target="_blank"
+    >
+      CC-CEDICT
+    </a>
+     (
+    <a
+      href="https://creativecommons.org/licenses/by-sa/3.0/legalcode"
+      rel="noopener"
+      target="_blank"
+    >
+      CC BY-SA 3.0
+    </a>
+    )
+  </span>
+  <span>
     Icons by 
     <a
       href="https://www.flaticon.com/authors/egor-rumyantsev"
