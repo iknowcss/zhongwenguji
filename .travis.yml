@@ -12,25 +12,43 @@ cache:
     - server/node_modules
     - $HOME/.local/bin
 
+stages:
+  - validate
+  - name: deploy-staging
+    if: type != pull_request AND branch = staging
+  - name: deploy-production
+    if: type != pull_request AND branch = master
+
 jobs:
   include:
   - stage: validate
     name: Validate client
     install: ./platform/ci-client-install.sh
     script: ./platform/ci-client-validate.sh
-  - stage: validate
-    name: Validate server
+  - name: Validate server
     install: ./platform/ci-server-install.sh
     script: ./platform/ci-server-validate.sh
-  - stage: deploy
+
+  - stage: deploy-staging
     name: Deploy client
-    if: branch = master AND type != pull_request
+    env: STAGE=staging
     install:
       - ./platform/ci-client-install.sh
       - pip install --user awscli
     script: ./platform/ci-client-deploy.sh
-  - stage: deploy
-    name: Deploy server
-    if: branch = master AND type != pull_request
+  - name: Deploy server
+    env: STAGE=staging
+    install: ./platform/ci-server-install.sh
+    script: ./platform/ci-server-deploy.sh
+
+  - stage: deploy-production
+    name: Deploy client
+    env: STAGE=production
+    install:
+      - ./platform/ci-client-install.sh
+      - pip install --user awscli
+    script: ./platform/ci-client-deploy.sh
+  - name: Deploy server
+    env: STAGE=production
     install: ./platform/ci-server-install.sh
     script: ./platform/ci-server-deploy.sh

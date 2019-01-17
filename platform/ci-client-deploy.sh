@@ -8,7 +8,11 @@ if [[ -z "$projectRoot" ]]; then
 fi
 
 # Make env variables available to react build
+export PUBLIC_URL="/"
 export REACT_APP_STAGE=$STAGE
+
+[ "$STAGE" = "staging" ] && DEPLOY_S3_BUCKET=staging.hanzishan.com
+[ "$STAGE" = "production" ] && DEPLOY_S3_BUCKET=hanzishan.com
 
 echo "Deploy client to S3..."
 (
