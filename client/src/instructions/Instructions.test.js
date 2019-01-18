@@ -24,8 +24,8 @@ describe('Instructions', () => {
     const component = Renderer.create(
       <Instructions dismissInstructions={dismissInstructions} />
     );
-    const dismissButton = component.root.findAllByType(Button)[0];
-    dismissButton.props.onClick({ preventDefault });
+    const startSimplifiedButton = component.root.findAllByType(Button)[0];
+    startSimplifiedButton.props.onClick({ preventDefault });
 
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(dismissInstructions).toHaveBeenCalledTimes(1);

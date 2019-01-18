@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { dismissInstructions } from './instructionsActions';
+import { setCharacterSetSimplified, setCharacterSetTraditional } from '../characterTest/characterTestActions';
 import Button from '../component/Button';
 import {
   SwipeLeftIcon,
@@ -19,15 +20,27 @@ import style from './Instructions.module.scss'
 class Instructions extends Component {
   static propTypes = {
     isTouch: PropTypes.bool,
-    dismissInstructions: PropTypes.func
+    dismissInstructions: PropTypes.func,
+    setCharacterSetSimplified: PropTypes.func,
+    setCharacterSetTraditional: PropTypes.func
   };
 
   static defaultProps = {
     touch: true,
-    dismissInstructions: noop
+    dismissInstructions: noop,
+    setCharacterSetSimplified: noop,
+    setCharacterSetTraditional: noop,
   };
 
-  handleDismissClick = (event) => {
+  handleCharacterSetToggle = (event) => {
+    if (event.target.checked) {
+      this.props.setCharacterSetTraditional();
+    } else {
+      this.props.setCharacterSetSimplified();
+    }
+  };
+
+  handleStartClick = (event) => {
     event.preventDefault();
     this.props.dismissInstructions();
   };
@@ -75,11 +88,15 @@ class Instructions extends Component {
             <I18n component="p" className={style.iconParagraph} stringId={`instructions.undo${touch ? 'Touch' : 'Mouse'}`} />
           </div>
 
+          <div className={style.characterSetContainer}>
+            <input type="checkbox" id="traditionalCheckbox" onChange={this.handleCharacterSetToggle}/> <label htmlFor="traditionalCheckbox">Traditional</label>
+          </div>
+
           <I18n
             component={Button}
             className={style.button}
-            stringId={'instructions.dismissButton'}
-            onClick={this.handleDismissClick}
+            stringId={'instructions.startTestButton'}
+            onClick={this.handleStartClick}
           />
         </section>
       </div>
@@ -89,4 +106,8 @@ class Instructions extends Component {
 
 export { Instructions as Pure };
 
-export default connect(null, { dismissInstructions })(Instructions);
+export default connect(null, {
+  dismissInstructions,
+  setCharacterSetSimplified,
+  setCharacterSetTraditional,
+})(Instructions);

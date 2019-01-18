@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const allCharacters = require('../all-characters.json');
 
 const DEFAULT_BIN_COUNT = 40;
 const DEFAULT_SAMPLES_PER_BIN = 5;
@@ -31,11 +30,21 @@ const characterSampler = ({ seed, samplesPerBin }) => {
   }
 };
 
-function sampleCharacters(allCharacters, { seed, binCount, samplesPerBin }) {
-  const binSize = Math.ceil(allCharacters.length / binCount);
+function sampleCharacters(characters, { seed, totalCharacters, binCount, samplesPerBin }) {
+  const binSize = Math.ceil(totalCharacters / binCount);
   const sampler = characterSampler({ seed, samplesPerBin });
+  let i = 0;
+  const acl = characters.length;
   return Array
-    .from({ length: binCount }, (x, i) => allCharacters.slice(i * binSize, (i + 1) * binSize))
+    .from({ length: binCount }, (_, binNumber) => {
+      const bin = [];
+      let char;
+      while (i < acl && (char = characters[i]).i < (binNumber + 1) * binSize + 1) {
+        bin.push(char);
+        i++;
+      }
+      return bin;
+    })
     .map((bin, i) => ({
       range: [i * binSize, i * binSize + bin.length],
       sample: sampler(bin)
@@ -48,23 +57,15 @@ module.exports = (configOverride) => {
     samplesPerBin: DEFAULT_SAMPLES_PER_BIN,
     ...configOverride
   };
-
-  const allCharacters = fs
-    .readFileSync(path.join(__dirname, '../all-characters.txt'))
-    .toString()
-    .split('\n')
-    .map(x => {
-      const [i, c, , , p, d] = x.split('\t');
-      return { i, c, p, d };
-    });
-
+  const { characters } = allCharacters;
   return (req, res) => {
+    const totalCharacters = characters[characters.length - 1].i;
     const seed = extractSeed(req);
     res.json({
       ...config,
       seed,
-      totalCharacters: allCharacters.length,
-      characters: sampleCharacters(allCharacters, { ...config, seed })
+      totalCharacters,
+      characters: sampleCharacters(characters, { ...config, totalCharacters, seed })
     });
   };
 };

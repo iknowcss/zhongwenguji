@@ -7,11 +7,12 @@ const config = Object.assign({
   // Stage overrides
   staging: {
     getCharacterSampleUrl: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/getCharacterSample',
-    submitTestUrl: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/submitTest',
+    submitTestUrl: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/submitTest'
   },
   production: {
     getCharacterSampleUrl: 'https://shwhby0nv7.execute-api.ap-southeast-2.amazonaws.com/production/getCharacterSample',
     submitTestUrl: 'https://shwhby0nv7.execute-api.ap-southeast-2.amazonaws.com/production/submitTest',
+    enableGA: true
   }
 }[process.env.REACT_APP_STAGE]);
 

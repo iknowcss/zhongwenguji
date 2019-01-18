@@ -104,11 +104,26 @@ exports[`Instructions renders keyboard instructions 1`] = `
         instructions.undoTouch
       </p>
     </div>
+    <div
+      className="characterSetContainer"
+    >
+      <input
+        id="traditionalCheckbox"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      <label
+        htmlFor="traditionalCheckbox"
+      >
+        Traditional
+      </label>
+    </div>
     <button
       className="button button"
       onClick={[Function]}
     >
-      instructions.dismissButton
+      instructions.startTestButton
     </button>
   </section>
 </div>
@@ -218,11 +233,26 @@ exports[`Instructions renders touch instructions 1`] = `
         instructions.undoTouch
       </p>
     </div>
+    <div
+      className="characterSetContainer"
+    >
+      <input
+        id="traditionalCheckbox"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      <label
+        htmlFor="traditionalCheckbox"
+      >
+        Traditional
+      </label>
+    </div>
     <button
       className="button button"
       onClick={[Function]}
     >
-      instructions.dismissButton
+      instructions.startTestButton
     </button>
   </section>
 </div>

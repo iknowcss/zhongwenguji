@@ -3,7 +3,7 @@ const supertest = require('supertest');
 const getCharacterSample = require('./getCharacterSample');
 
 describe('getCharacterSample', () => {
-  it('returns', () => {
+  it('returns simplified characters', () => {
     const app = express();
     app.get('/', getCharacterSample());
     return supertest(app)
