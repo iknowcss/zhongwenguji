@@ -1,4 +1,4 @@
-# 汉字山 - Hanzi Mountain
+# 汉字山 - Hanzi Mountain · [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE)
 
 # Credits
 
@@ -31,3 +31,6 @@ Icons made by:
 | `PUBLIC_URL`            | `/`             |
 | `STAGE`                 | `production`    |
 
+# License
+
+Hanzi Shan is licensed under [GPLv3](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE).
