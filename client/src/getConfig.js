@@ -2,7 +2,7 @@ const config = Object.assign({
   // Base config
   getCharacterSampleUrl: 'http://localhost:3001/getCharacterSample',
   submitTestUrl: 'http://localhost:3001/submitTest',
-  feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSemOEF67ARiyZirKh5qB4e9Uj3roNyaVf0XzrIjIeG44UIkbg/viewform?usp=pp_url&entry.1889314490='
+  feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490='
 }, {
   // Stage overrides
   staging: {
