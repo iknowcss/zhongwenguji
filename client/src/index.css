@@ -49,10 +49,17 @@ table {
 
 /* Global styles */
 
-body {
-  font-size: 24px;
+html {
   font-family: "Helvetica Neue","Helvetica","Arial","Lucida Grande","KaiTi","楷体","STKaiti","华文楷体",sans-serif;
+  font-size: 3vh;
 }
+
+/* Let's use vh instead of media queries */
+/*@media screen and (min-height: 640px) { html { font-size: 20px; } }*/
+/*@media screen and (min-height: 730px) { html { font-size: 22px; } }*/
+/*@media screen and (min-height: 900px) { html { font-size: 28px; } }*/
+/*@media screen and (min-height: 1000px) { html { font-size: 30px; } }*/
+/*@media screen and (min-height: 1200px) { html { font-size: 40px; } }*/
 
 html, body, #root {
   height: 100%;

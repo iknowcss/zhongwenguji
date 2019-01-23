@@ -1,5 +1,23 @@
 .container {
   position: relative;
-  width: 100%;
   color: aliceblue;
+
+  width: 100%;
+  max-width: 100%;
+
+  @media screen and (min-aspect-ratio: 15/16) {
+    width: 75vw;
+  }
+
+  @media screen and (min-aspect-ratio: 18/16) {
+    width: 65vw;
+  }
+
+  @media screen and (min-aspect-ratio: 22/16) {
+    width: 50vw;
+  }
+
+  @media screen and (min-aspect-ratio: 26/16) {
+    width: 28rem;
+  }
 }

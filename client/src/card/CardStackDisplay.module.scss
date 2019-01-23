@@ -57,7 +57,7 @@
   &Active {
     opacity: 0.01;
 
-    &.discardRight { transform: translate(150px, 20px) rotate(7deg); }
-    &.discardLeft { transform: translate(-150px, 20px) rotate(-7deg); }
+    &.discardRight { transform: translate(7rem, .9rem) rotate(7deg); }
+    &.discardLeft { transform: translate(-7rem, .9rem) rotate(-7deg); }
   }
 }

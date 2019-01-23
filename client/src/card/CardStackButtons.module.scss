@@ -5,7 +5,7 @@
 
 .button {
   margin: 1rem;
-  height: 64px;
+  height: 3rem;
 
   &Active {
     background-color: #d2e2ff;
@@ -16,6 +16,6 @@
   }
 
   &Icon {
-    margin: 0 -16px;
+    margin: 0 -.75rem;
   }
 }
