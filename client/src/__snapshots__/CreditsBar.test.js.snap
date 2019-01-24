@@ -25,7 +25,7 @@ exports[`CreditsBar renders 1`] = `
     </a>
   </span>
   <span>
-    Definitions, characters, and pinyin from 
+    Definitions & pinyin from 
     <a
       href="https://cc-cedict.org"
       rel="noopener"
@@ -60,7 +60,7 @@ exports[`CreditsBar renders 1`] = `
     >
       Dave Gandy
     </a>
-     and 
+     & 
     <a
       href="https://www.freepik.com/"
       rel="noopener"

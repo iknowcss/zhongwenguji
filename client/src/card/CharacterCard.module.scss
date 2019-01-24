@@ -1,14 +1,14 @@
 .container {
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 3px solid black;
+  border: .2rem solid #666;
   box-sizing: border-box;
   width: 12rem;
   height: 15rem;
-  border-radius: 6px;
+  border-radius: .4rem;
   overflow-y: auto;
   background-color: white;
 }

@@ -1,10 +1,10 @@
 .button {
   font-size: 1rem;
-  line-height: 64px;
-  padding: 0 32px;
+  line-height: 3rem;
+  padding: 0 1.5rem;
   background-color: cornflowerblue;
   border: none;
-  border-radius: 32px;
+  border-radius: 1.5rem;
   color: white;
 
   touch-action: manipulation;
@@ -14,12 +14,12 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: rgba(0, 20, 40, .7) 0 2px 5px 0;
+  box-shadow: rgba(0, 20, 40, .7) 0 .08rem .2rem 0;
 
   transition: transform ease-in-out 50ms, box-shadow ease-in-out 50ms;
 
   &:active {
-    transform: translateY(2px);
-    box-shadow: rgba(0, 20, 40, .7) 0 0 1px 0;
+    transform: translateY(.08rem);
+    box-shadow: rgba(0, 20, 40, .7) 0 0 0.05rem 0;
   }
 }
