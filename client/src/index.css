@@ -54,6 +54,10 @@ html {
   font-size: 3vh;
 }
 
+body {
+  -webkit-text-size-adjust: none;
+}
+
 /* Let's use vh instead of media queries */
 /*@media screen and (min-height: 640px) { html { font-size: 20px; } }*/
 /*@media screen and (min-height: 730px) { html { font-size: 22px; } }*/
