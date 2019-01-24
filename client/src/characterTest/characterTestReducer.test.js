@@ -461,39 +461,56 @@ describe('characterTestReducer', () => {
 
     it('un-does the previous mark back to the previous section', () => {
       expect(characterTestReducer({
-        bins: [
-          { sample: [
-            { index: 1, score: 1 },
-            { index: 2, score: 1 },
-            { index: 3, score: 0 }
-          ] },
-          { sample: [
-            { index: 4, score: NaN },
-            { index: 5, score: NaN },
-          ] }
-        ],
+        bins: prepareBins(
+          [1, 1, 0],
+          [NaN, NaN],
+        ),
         state: 'TESTING',
         currentSectionIndex: 1,
         currentCardIndex: 0
       }, {
         type: actionTypes.TEST_CARD_DISCARD_UNDO
       })).toEqual({
-        bins: [
-          { sample: [
-            { index: 1, score: 1 },
-            { index: 2, score: 1 },
-            { index: 3, score: NaN }
-          ] },
-          { sample: [
-            { index: 4, score: NaN },
-            { index: 5, score: NaN },
-          ] }
-        ],
+        bins: prepareBins(
+          [1, 1, NaN],
+          [NaN, NaN],
+        ),
         state: 'TESTING',
         currentSectionIndex: 0,
         currentCardIndex: 2,
         isShowDefinition: false
       });
+    });
+
+    it('un-does the previous mark back to the last scored section', () => {
+      const { bins: resultBins, ...result } = characterTestReducer({
+        bins: prepareBins(
+          [1, 1, 1],
+          [1, 1, 1],
+          [NaN, NaN, NaN],
+          [NaN, NaN, NaN],
+          [NaN, NaN, NaN]
+        ),
+        state: 'TESTING',
+        currentSectionIndex: 4,
+        currentCardIndex: 0
+      }, {
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
+      });
+
+      expect(result).toEqual({
+        state: 'TESTING',
+        currentSectionIndex: 1,
+        currentCardIndex: 2,
+        isShowDefinition: false
+      });
+      expect(resultBins).toEqual(prepareBins(
+        [1, 1, 1],
+        [1, 1, NaN],
+        [NaN, NaN, NaN],
+        [NaN, NaN, NaN],
+        [NaN, NaN, NaN]
+      ));
     });
 
     it('does not undo beyond the first card', () => {

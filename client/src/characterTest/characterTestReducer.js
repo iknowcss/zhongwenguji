@@ -124,6 +124,10 @@ function processBinScore(bins, { sectionIndex, cardIndex, score }) {
   });
 }
 
+function binHasScore(bin) {
+  return !isNaN(bin.sample[bin.sample.length - 1].score);
+}
+
 function processUndoDiscard(state) {
   if (state.currentCardIndex <= 0 && state.currentSectionIndex <= 0) {
     return state;
@@ -134,9 +138,14 @@ function processUndoDiscard(state) {
 
   if (currentCardIndex > 0) {
     currentCardIndex--;
-  } else if (currentSectionIndex > 0) {
-    currentCardIndex = state.bins[currentSectionIndex - 1].sample.length - 1;
-    currentSectionIndex--;
+  } else {
+    while (currentSectionIndex > 0) {
+      currentSectionIndex--;
+      if (binHasScore(state.bins[currentSectionIndex])) {
+        currentCardIndex = state.bins[currentSectionIndex].sample.length - 1;
+        break;
+      }
+    }
   }
 
   return {
