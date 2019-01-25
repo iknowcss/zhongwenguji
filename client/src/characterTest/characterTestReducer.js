@@ -255,6 +255,18 @@ export default (state = DEFAULT_STATE, action = {}) => {
 
 /// - Root state selectors -------------------------------------------------------------------------
 
+function flatten(parentArray) {
+  const result = [];
+  parentArray.forEach(array => {
+    if (Array.isArray(array)) {
+      array.forEach(a => result.push(a));
+    } else {
+      result.push(array);
+    }
+  });
+  return result;
+}
+
 export const status = rootState => rootState.characterTestReducer.state;
 
 export const isShowDefinition = rootState => rootState.characterTestReducer.isShowDefinition;
@@ -276,3 +288,14 @@ export const currentCard = ({ characterTestReducer: { currentSectionIndex, curre
 export const scoreStatistics = rootState => calculateScoreStatistics(rootState.characterTestReducer);
 
 export const resultData = rootState => rootState.characterTestReducer.resultData;
+
+export const missedCards = ({ characterTestReducer: { bins, characterSet } }) => flatten(
+  bins
+    .map(({ sample }) => sample
+      .filter(({ score }) => score === 0)
+      .map(({ traditional, simplified, ...card }) => ({
+        ...card,
+        character: characterSet === characterSetEnum.TRADITIONAL ? traditional : simplified
+      }))
+    )
+);

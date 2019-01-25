@@ -4,7 +4,8 @@ import characterTestReducer, {
   scoreStatistics,
   currentCard,
   statusEnum,
-  characterSetEnum
+  characterSetEnum,
+  missedCards
 } from './characterTestReducer';
 
 describe('characterTestReducer', () => {
@@ -630,6 +631,15 @@ describe('characterTestReducer', () => {
           characterSet: characterSetEnum.TRADITIONAL
         })))
           .toEqual({ character: '從' })
+      });
+    });
+
+    describe('missedCards', () => {
+      const { bins, missedCardsResult } = require('./__testdata__/characterTestReducer_missedCards.testutil');
+
+      it('returns a list of cards which were missed', () => {
+        expect(missedCards({ characterTestReducer: { bins } }))
+          .toEqual(missedCardsResult);
       });
     });
   });

@@ -6,7 +6,8 @@ import mapSelectors from '../util/mapSelectors';
 import noop from '../util/noop';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
-import { resultData, scoreStatistics } from '../characterTest/characterTestReducer';
+import MissedCards from './MissedCards';
+import { resultData, scoreStatistics, missedCards } from '../characterTest/characterTestReducer';
 import { resetTest } from '../characterTest/characterTestActions';
 import Button from '../component/Button';
 import I18n from '../i18n/I18n';
@@ -48,6 +49,9 @@ class Results extends Component {
         <div className={style.startAgainContainer}>
           <I18n component={Button} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
         </div>
+        <div className={style.missedCardsContainer}>
+          <MissedCards cards={this.props.missedCards} />
+        </div>
         <div className={style.feedbackBar}>
           <I18n component="div" stringId="results.feedbackPreface" />
           <I18n
@@ -67,5 +71,6 @@ export { Results as Pure };
 
 export default connect(mapSelectors({
   scoreStatistics,
-  resultData
+  resultData,
+  missedCards
 }), { resetTest })(Results);
