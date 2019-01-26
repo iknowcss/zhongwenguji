@@ -24,16 +24,16 @@ function datify(curvePoints, samplePoints) {
       {
         data: Array.from(samplePoints, ([x, y]) => ({x, y})),
         backgroundColor: 'transparent',
-        borderColor: colors.accent,
+        borderColor: colors.primary,
         showLine: false,
         borderWidth: 2,
-        pointRadius: 2
+        pointRadius: 4
       },
       {
         showLine: true,
         data: Array.from(curvePoints.slice(0, stopIndex), ([x, y]) => ({x, y})),
         backgroundColor: lightTransparent,
-        borderColor: colors.primary,
+        borderColor: colors.secondary,
         borderWidth: 2,
         pointRadius: 0
       }

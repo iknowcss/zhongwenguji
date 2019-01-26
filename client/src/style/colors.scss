@@ -1,19 +1,17 @@
-$color-primary: #6495ED;
-$color-light: #d7eaff;
-$color-dark: #414656;
-$color-black: #101010;
-$color-neutral: #ebdfb6;
-$color-secondary: #E86F87;
-$color-accent: #f34082;
+$color-primary: #b90008;
+$color-secondary: #ffc86f;
+$color-light: #ffefd5;
+$color-dark: #3c495d;
+$color-light-grey: #cfcfcf;
+$color-medium-grey: #afafaf;
 $color-white: #fefefe;
+$color-black: #101010;
 
 :export {
   primary: $color-primary;
+  secondary: $color-secondary;
   light: $color-light;
   dark: $color-dark;
-  black: $color-black;
-  neutral: $color-neutral;
-  secondary: $color-secondary;
-  accent: $color-accent;
   white: $color-white;
+  black: $color-black;
 }

@@ -49,8 +49,8 @@ class Results extends Component {
           samplePoints={resultData.samplePoints}
         />
         <div className={style.actionContainer}>
-          <I18n component={Button} className={style.action} stringId="results.reviewMissedCharacters" />
-          <I18n component={Button} className={style.action} accent stringId="results.startAgain" onClick={this.handleStartAgainClick} />
+          <I18n component={Button} className={style.action} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
+          <I18n component={Button} className={style.action} secondary stringId="results.reviewMissedCharacters" />
           <div className={cx(style.action, style.feedbackBar)}>
             <I18n component="div" stringId="results.feedbackPreface" />
             <I18n

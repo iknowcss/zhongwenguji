@@ -3,12 +3,13 @@
 .button {
   font-size: 1rem;
   line-height: 3rem;
-  padding: 0 1.5rem;
+  padding: 0 1.3rem;
   background-color: $color-primary;
-  border: none;
-  border-radius: 1.5rem;
+  border: .2rem solid darken($color-primary, 5%);
+  border-radius: 1.7rem;
   color: $color-white;
   cursor: pointer;
+  box-sizing: border-box;
 
   touch-action: manipulation;
   outline: 0;
@@ -17,12 +18,13 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: rgba(0, 20, 40, .7) 0 .08rem .2rem 0;
+  box-shadow: rgba(70, 20, 0, .6) 0 .1rem .4rem 0;
 
   transition:
     transform ease-in-out 50ms,
     box-shadow ease-in-out 50ms,
-    background-color ease-in-out 200ms;
+    background-color ease-in-out 100ms,
+    border-color ease-in-out 100ms;
 
   &:active {
     transform: translateY(.08rem);
@@ -30,23 +32,35 @@
   }
 
   &:hover {
-    background-color: lighten($color-primary, 10%);
+    background-color: lighten($color-primary, 5%);
+  }
+
+  svg {
+    transition: fill ease-in-out 100ms;
   }
 }
 
 .secondary {
-  background-color: lighten($color-primary, 25%);
-  color: $color-dark;
+  background-color: $color-secondary;
+  color: darken($color-secondary, 40%);
+  border-color: lighten($color-secondary, 10%);
 
   &:hover {
-    background-color: lighten(lighten($color-primary, 25%), 35%);
+    background-color: lighten($color-secondary, 5%);
+  }
+
+  svg {
+    fill: darken($color-secondary, 40%) !important;
   }
 }
 
-.accent {
-  background-color: $color-accent;
+.disabled, .disabled:hover {
+  box-shadow: none;
+  background-color: $color-light-grey;
+  color: $color-medium-grey;
+  border-color: $color-medium-grey;
 
-  &:hover {
-    background-color: lighten($color-accent, 10%);
+  svg {
+    fill: $color-medium-grey !important;
   }
 }

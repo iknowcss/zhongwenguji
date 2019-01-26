@@ -22,8 +22,7 @@ jest.mock('chart.js', () => ({
 
 jest.mock('../style/colors.scss', () => ({
   primary: '#0000ff',
-  light: '#00ffff',
-  accent: '#ff0000',
+  light: '#00ffff'
 }));
 
 describe('ResultsChart', () => {
