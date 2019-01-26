@@ -4,7 +4,15 @@ import { Chart } from 'chart.js';
 import style from './ResultsChart.module.scss';
 import colors from '../style/colors.scss';
 
-const lightTransparent = 'rgba(' + [].slice.call(colors.light.match(/^#?(..)(..)(..)$/), 1, 4).map(n => parseInt(n, 16)).join(',') + ',.5)';
+const HEX_COLOR_REGEXP = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i;
+function transparentize(color, transparency) {
+  if (HEX_COLOR_REGEXP.test(color)) {
+    const rgb = [].slice.call(color.match(HEX_COLOR_REGEXP), 1, 4).map(n => parseInt(n, 16));
+    return `rgba(${rgb.join(',')},${transparency})`;
+  }
+  return color;
+}
+const lightTransparent = transparentize(colors.light, .5);
 
 function datify(curvePoints, samplePoints) {
   let stopIndex = 0;
