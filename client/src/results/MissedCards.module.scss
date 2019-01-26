@@ -1,18 +1,79 @@
 @import '../style/colors';
 
 .container {
-  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: .5em;
+
+  font-size: 6vw;
 }
 
-.container ul {
-  height: 100%;
-  margin: 0;
-  background-color: $color-light;
-}
+.card {
+  &Row {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    box-sizing: border-box;
+    border: .1em solid $color-secondary;
+    background-color: $color-light;
+    margin-bottom: .5em;
+  }
 
-.listItem {
-  word-break: break-word;
-  //margin: .5em;
+  &CharacterColumn {
+    width: 25%;
+    font-size: 2em;
 
+    span {
+      display: inline-block;
+      margin: .25em;
+      border: .05em solid $color-dark;
+      border-radius: .1em;
+      line-height: 1.2;
+      background-color: $color-white;
+    }
+  }
 
+  &PinyinDefColumn {
+    width: 75%;
+  }
+
+  &PinyinDefRow {
+    display: flex;
+  }
+
+  &PinyinColumn {
+    width: 30%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    span {
+      display: inline-block;
+      margin: .5em 0;
+    }
+  }
+
+  &DefColumn {
+    width: 70%;
+
+    span {
+      display: inline-block;
+      margin: .5em .5em 0 0;
+      line-height: 1.2;
+      overflow-y: hidden;
+      max-height: 3.5em;
+      text-overflow: ellipsis;
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 1.6em;
+        top: 2em;
+        background: linear-gradient(transparentize($color-light, .99), $color-light);
+      }
+    }
+  }
 }
