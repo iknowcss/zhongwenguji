@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import getConfig from '../getConfig';
 import mapSelectors from '../util/mapSelectors';
 import noop from '../util/noop';
@@ -39,6 +40,7 @@ class Results extends Component {
     return (
       <div className={style.container}>
         <ResultsDisplay
+          className={style.resultsDisplay}
           estimate={resultData.knownEstimate}
           uncertainty={resultData.knownEstimateUncertainty}
         />
@@ -46,21 +48,19 @@ class Results extends Component {
           curvePoints={resultData.curvePoints}
           samplePoints={resultData.samplePoints}
         />
-        <div className={style.startAgainContainer}>
-          <I18n component={Button} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
-        </div>
-        <div className={style.missedCardsContainer}>
-          <MissedCards cards={this.props.missedCards} />
-        </div>
-        <div className={style.feedbackBar}>
-          <I18n component="div" stringId="results.feedbackPreface" />
-          <I18n
-            component="a"
-            stringId="results.feedbackLinkText"
-            href={`${feedbackPrefillUrl}${resultData.testId}`}
-            target="_blank"
-            rel="noopener"
-          />
+        <div className={style.actionContainer}>
+          <I18n component={Button} className={style.action} stringId="results.reviewMissedCharacters" />
+          <I18n component={Button} className={style.action} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
+          <div className={cx(style.action, style.feedbackBar)}>
+            <I18n component="div" stringId="results.feedbackPreface" />
+            <I18n
+              component="a"
+              stringId="results.feedbackLinkText"
+              href={`${feedbackPrefillUrl}${resultData.testId}`}
+              target="_blank"
+              rel="noopener"
+            />
+          </div>
         </div>
       </div>
     );

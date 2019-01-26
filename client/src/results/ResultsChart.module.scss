@@ -1,6 +1,8 @@
+@import '../style/colors';
+
 .container {
   position: relative;
-  color: aliceblue;
+  color: $color-primary;
 
   width: 100%;
   max-width: 100%;

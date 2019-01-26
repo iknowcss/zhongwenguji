@@ -1,6 +1,7 @@
+@import '../style/colors';
+
 .container {
-  //font-size: .9rem;
-  background-color: rgba(255, 255, 255, .9);
+  background-color: transparentize($color-white, 0.1);
   position: absolute;
   top: 0;
   left: 0;
@@ -19,7 +20,7 @@
   width: 90%;
   max-width: 20rem;
   display: flex;
-  background-color: aliceblue;
+  background-color: $color-light;
   padding: 1rem;
   box-sizing: border-box;
   border-radius: .5rem;
@@ -57,7 +58,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: cornflowerblue;
+  background-color: $color-primary;
   border-radius: .9rem;
 }
 

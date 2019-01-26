@@ -5,7 +5,7 @@ const Estimator = require('./Estimator');
 
 const CC_CEDICT_FILE_PATH = './cedict_ts.u8';
 const DB_FILE_PATH = './characters.sqlite';
-const ASDF_REGEXP = /^(\S+)\s+(\S+)\s+\[([^\]]+)]\s+\/(.+)\/$/;
+const FREQUENCY_ROW_REGEXP = /^(\S+)\s+(\S+)\s+\[([^\]]+)]\s+\/(.+)\/$/;
 const IGNORE_LINE_REGEXP = /^[a-zA-Z0-9#%]|Japanese variant of|\[xx/;
 
 if (!fs.existsSync(DB_FILE_PATH)) {
@@ -59,8 +59,8 @@ db.serialize(async () => {
   let addCount = 0;
   allRows.forEach((row) => {
     if (IGNORE_LINE_REGEXP.test(row)) return;
-    if (!ASDF_REGEXP.test(row)) return;
-    insertValues.push([++addCount].concat(row.match(ASDF_REGEXP).slice(1)));
+    if (!FREQUENCY_ROW_REGEXP.test(row)) return;
+    insertValues.push([++addCount].concat(row.match(FREQUENCY_ROW_REGEXP).slice(1)));
   });
 
   /// - Insert CEDICT character data into characters table --------------------

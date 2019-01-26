@@ -1,16 +1,18 @@
+@import '../style/colors';
+
 .container {
   font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: .2rem solid #666;
+  border: .2rem solid $color-dark;
   box-sizing: border-box;
   width: 12rem;
   height: 15rem;
   border-radius: .4rem;
   overflow-y: auto;
-  background-color: white;
+  background-color: $color-white;
 }
 
 .showDefinition {

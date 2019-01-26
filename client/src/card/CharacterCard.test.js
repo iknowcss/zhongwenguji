@@ -8,8 +8,8 @@ describe('CharacterCard', () => {
   function setup(overrides) {
     const props = {
       character: '科',
-      pinyin: 'ke1',
-      definition: 'branch of study'
+      pinyin: ['ke1'],
+      definition: ['branch of study']
     };
 
     component = renderer.create(

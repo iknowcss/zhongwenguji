@@ -5,7 +5,7 @@ export default ({ cards }) => (
   <div className={style.container}>
     <ul>
       {cards.map(({ index, character, definition }) => (
-        <li className={style.listItem} key={index}>{character} - {definition}</li>
+        <li className={style.listItem} key={index}>{character} - {definition.join('***')}</li>
       ))}
     </ul>
   </div>

@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 
 const DB_FILE_PATH = './characters.sqlite';
 const ALL_CHARACTERS_FILE_PATH = '../server/all-characters.json';
+const RECORD_SEPARATOR = String.fromCharCode(30);
 
 if (!fs.existsSync(DB_FILE_PATH)) {
   console.info('Database does not exist!');
@@ -15,15 +16,18 @@ const db = new sqlite3.Database(DB_FILE_PATH);
 
 db.serialize(async () => {
   console.info('Select characters from frequency table');
-  const characters = await promisify(db.all.bind(db))(`
-      SELECT
-      id AS i,
-      simp AS cs,
-      trad AS ct,
-      pinyin AS p,
-      def AS d
+  const characters = (await promisify(db.all.bind(db))(`
+    SELECT
+      id, simp, trad, pinyin, def
     FROM frequency
-  `);
+  `))
+    .map((entry) => ({
+      i: entry.id,
+      cs: entry.simp,
+      ct: entry.trad,
+      p: entry.pinyin.split(RECORD_SEPARATOR),
+      d: entry.def.split(RECORD_SEPARATOR)
+    }));
 
   console.info('Write JSON to file',  ALL_CHARACTERS_FILE_PATH);
   const output = {
