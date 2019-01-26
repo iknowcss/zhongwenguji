@@ -21,7 +21,8 @@ export const actionTypes = {
   TEST_RESULTS_SUBMIT_FAIL: '@zwgj//testResults/submit/fail',
   TEST_RESET: '@zwgj//test/reset',
   TEST_SET_CHARACTER_SET_SIMPLIFIED: '@zwgj//test/characterSet/setSimplified',
-  TEST_SET_CHARACTER_SET_TRADITIONAL: '@zwgj//test/characterSet/setTraditional'
+  TEST_SET_CHARACTER_SET_TRADITIONAL: '@zwgj//test/characterSet/setTraditional',
+  REVIEW_MISSED_START: '@zwgj//reviewMissed/start'
 };
 
 function extractJson(response) {
@@ -108,3 +109,5 @@ export const resetTest = () => ({ type: actionTypes.TEST_RESET });
 export const setCharacterSetSimplified = () => ({ type: actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED });
 
 export const setCharacterSetTraditional = () => ({ type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL });
+
+export const reviewMissed = () => ({ type: actionTypes.REVIEW_MISSED_START });

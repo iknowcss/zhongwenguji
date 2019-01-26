@@ -7,9 +7,8 @@ import mapSelectors from '../util/mapSelectors';
 import noop from '../util/noop';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
-import MissedCards from './MissedCards';
 import { resultData, scoreStatistics, missedCards } from '../characterTest/characterTestReducer';
-import { resetTest } from '../characterTest/characterTestActions';
+import { resetTest, reviewMissed } from '../characterTest/characterTestActions';
 import Button from '../component/Button';
 import I18n from '../i18n/I18n';
 import style from './Results.module.scss';
@@ -20,18 +19,25 @@ class Results extends Component {
   static propTypes = {
     scoreStatistics: PropTypes.object,
     resultData: PropTypes.object,
-    resetTest: PropTypes.func
+    resetTest: PropTypes.func,
+    reviewMissed: PropTypes.func
   };
 
   static defaultProps = {
     scoreStatistics: {},
     resultData: {},
-    resetTest: noop
+    resetTest: noop,
+    reviewMissed: noop
   };
 
   handleStartAgainClick = (event) => {
     event.preventDefault();
     this.props.resetTest();
+  };
+
+  handleReviewClick = (event) => {
+    event.preventDefault();
+    this.props.reviewMissed();
   };
 
   render() {
@@ -50,7 +56,7 @@ class Results extends Component {
         />
         <div className={style.actionContainer}>
           <I18n component={Button} className={style.action} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
-          <I18n component={Button} className={style.action} secondary stringId="results.reviewMissedCharacters" />
+          <I18n component={Button} className={style.action} secondary stringId="results.reviewMissedCharacters" onClick={this.handleReviewClick} />
           <div className={cx(style.action, style.feedbackBar)}>
             <I18n component="div" stringId="results.feedbackPreface" />
             <I18n
@@ -73,4 +79,4 @@ export default connect(mapSelectors({
   scoreStatistics,
   resultData,
   missedCards
-}), { resetTest })(Results);
+}), { resetTest, reviewMissed })(Results);

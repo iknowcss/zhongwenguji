@@ -679,4 +679,14 @@ describe('characterTestReducer', () => {
       });
     });
   });
+
+  describe('review missed characters', () => {
+    it('starts loading character samples', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.REVIEW_MISSED_START
+      })).toEqual({
+        state: statusEnum.REVIEW
+      });
+    });
+  });
 });

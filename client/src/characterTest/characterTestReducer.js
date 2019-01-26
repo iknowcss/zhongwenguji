@@ -8,6 +8,7 @@ export const statusEnum = {
   RESULTS_LOADING: 'LOADING_RESULTS',
   RESULTS_READY: 'RESULTS_READY',
   TESTING: 'TESTING',
+  REVIEW: 'REVIEW',
   ERROR: 'ERROR',
 };
 
@@ -245,6 +246,8 @@ export default (state = DEFAULT_STATE, action = {}) => {
         state: statusEnum.RESULTS_READY,
         resultData: action.resultData
       };
+    case actionTypes.REVIEW_MISSED_START:
+      return { ...state, state: statusEnum.REVIEW };
     case actionTypes.TEST_RESET:
       return DEFAULT_STATE;
     default:

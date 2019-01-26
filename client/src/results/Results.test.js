@@ -45,4 +45,14 @@ describe('Results', () => {
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(resetTest).toHaveBeenCalledTimes(1);
   });
+
+  it('reviews missed characters', () => {
+    const preventDefault = jest.fn();
+    const reviewMissed = jest.fn();
+    const component = Renderer.create(<Results reviewMissed={reviewMissed} />);
+    const reviewMissedButton = component.root.findByProps({ stringId: 'results.reviewMissedCharacters' });
+    reviewMissedButton.props.onClick({ preventDefault });
+    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expect(reviewMissed).toHaveBeenCalledTimes(1);
+  });
 });

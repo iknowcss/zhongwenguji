@@ -15,14 +15,15 @@ exports[`Results renders 1`] = `
   >
     <button
       className="button action"
-    >
-      results.reviewMissedCharacters
-    </button>
-    <button
-      className="button accent action"
       onClick={[Function]}
     >
       results.startAgain
+    </button>
+    <button
+      className="button secondary action"
+      onClick={[Function]}
+    >
+      results.reviewMissedCharacters
     </button>
     <div
       className="action feedbackBar"

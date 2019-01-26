@@ -1,16 +1,18 @@
+@import '../style/colors';
+
 .container {
-  background-color: #eee;
-  overflow-y: scroll;
-  height: 6em;
+  height: 100%;
 }
 
 .container ul {
+  height: 100%;
   margin: 0;
+  background-color: $color-light;
 }
 
 .listItem {
   word-break: break-word;
-  margin: .5em;
+  //margin: .5em;
 
 
 }
