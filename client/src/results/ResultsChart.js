@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'chart.js';
 import style from './ResultsChart.module.scss';
+import colors from '../style/colors.scss';
+
+const lightTransparent = 'rgba(' + [].slice.call(colors.light.match(/^#?(..)(..)(..)$/), 1, 4).map(n => parseInt(n, 16)).join(',') + ',.5)';
 
 function datify(curvePoints, samplePoints) {
   let stopIndex = 0;
@@ -13,7 +16,7 @@ function datify(curvePoints, samplePoints) {
       {
         data: Array.from(samplePoints, ([x, y]) => ({x, y})),
         backgroundColor: 'transparent',
-        borderColor: 'red',
+        borderColor: colors.accent,
         showLine: false,
         borderWidth: 2,
         pointRadius: 2
@@ -21,8 +24,8 @@ function datify(curvePoints, samplePoints) {
       {
         showLine: true,
         data: Array.from(curvePoints.slice(0, stopIndex), ([x, y]) => ({x, y})),
-        backgroundColor: 'rgb(240, 248, 255, .5)',
-        borderColor: 'cornflowerblue',
+        backgroundColor: lightTransparent,
+        borderColor: colors.primary,
         borderWidth: 2,
         pointRadius: 0
       }

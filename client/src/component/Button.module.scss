@@ -8,6 +8,7 @@
   border: none;
   border-radius: 1.5rem;
   color: $color-white;
+  cursor: pointer;
 
   touch-action: manipulation;
   outline: 0;
@@ -18,10 +19,34 @@
   -webkit-tap-highlight-color: transparent;
   box-shadow: rgba(0, 20, 40, .7) 0 .08rem .2rem 0;
 
-  transition: transform ease-in-out 50ms, box-shadow ease-in-out 50ms;
+  transition:
+    transform ease-in-out 50ms,
+    box-shadow ease-in-out 50ms,
+    background-color ease-in-out 200ms;
 
   &:active {
     transform: translateY(.08rem);
     box-shadow: rgba(0, 20, 40, .7) 0 0 0.05rem 0;
+  }
+
+  &:hover {
+    background-color: lighten($color-primary, 10%);
+  }
+}
+
+.secondary {
+  background-color: lighten($color-primary, 25%);
+  color: $color-dark;
+
+  &:hover {
+    background-color: lighten(lighten($color-primary, 25%), 35%);
+  }
+}
+
+.accent {
+  background-color: $color-accent;
+
+  &:hover {
+    background-color: lighten($color-accent, 10%);
   }
 }

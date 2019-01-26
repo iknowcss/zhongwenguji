@@ -94,6 +94,7 @@ class Instructions extends Component {
 
           <I18n
             component={Button}
+            accent
             className={style.button}
             stringId={'instructions.startTestButton'}
             onClick={this.handleStartClick}

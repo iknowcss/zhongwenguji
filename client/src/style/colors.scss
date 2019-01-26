@@ -1,8 +1,19 @@
 $color-primary: #6495ED;
-$color-light: aliceblue;
+$color-light: #d7eaff;
 $color-dark: #414656;
 $color-black: #101010;
 $color-neutral: #ebdfb6;
 $color-secondary: #E86F87;
-$color-accent: #c91f49;
+$color-accent: #f34082;
 $color-white: #fefefe;
+
+:export {
+  primary: $color-primary;
+  light: $color-light;
+  dark: $color-dark;
+  black: $color-black;
+  neutral: $color-neutral;
+  secondary: $color-secondary;
+  accent: $color-accent;
+  white: $color-white;
+}

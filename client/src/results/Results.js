@@ -50,7 +50,7 @@ class Results extends Component {
         />
         <div className={style.actionContainer}>
           <I18n component={Button} className={style.action} stringId="results.reviewMissedCharacters" />
-          <I18n component={Button} className={style.action} stringId="results.startAgain" onClick={this.handleStartAgainClick} />
+          <I18n component={Button} className={style.action} accent stringId="results.startAgain" onClick={this.handleStartAgainClick} />
           <div className={cx(style.action, style.feedbackBar)}>
             <I18n component="div" stringId="results.feedbackPreface" />
             <I18n
