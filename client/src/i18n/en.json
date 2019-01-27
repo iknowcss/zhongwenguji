@@ -13,7 +13,9 @@
   "instructions.startTestButton": "Start test",
   "results.youKnow": "You know",
   "results.measure": "Chinese characters",
-  "results.startAgain": "Start again",
+  "results.reviewMissedCharacters": "Review missed characters",
+  "results.startAgain": "Test again",
   "results.feedbackPreface": "How did you enjoy the test?",
-  "results.feedbackLinkText": "Let me know here"
+  "results.feedbackLinkText": "Let me know here",
+  "reviewMissed.backButton": "Back"
 }

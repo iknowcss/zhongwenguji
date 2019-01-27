@@ -4,7 +4,8 @@ import characterTestReducer, {
   scoreStatistics,
   currentCard,
   statusEnum,
-  characterSetEnum
+  characterSetEnum,
+  missedCards
 } from './characterTestReducer';
 
 describe('characterTestReducer', () => {
@@ -632,6 +633,15 @@ describe('characterTestReducer', () => {
           .toEqual({ character: '從' })
       });
     });
+
+    describe('missedCards', () => {
+      const { bins, missedCardsResult } = require('./__testdata__/characterTestReducer_missedCards.testutil');
+
+      it('returns a list of cards which were missed', () => {
+        expect(missedCards({ characterTestReducer: { bins } }))
+          .toEqual(missedCardsResult);
+      });
+    });
   });
 
   describe('test results', () => {
@@ -666,6 +676,24 @@ describe('characterTestReducer', () => {
         type: actionTypes.TEST_RESULTS_SUBMIT_FAIL
       })).toEqual({
         state: 'ERROR'
+      });
+    });
+
+    it('shows existing test results', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.TEST_RESULTS_SHOW
+      })).toEqual({
+        state: statusEnum.RESULTS_READY
+      });
+    });
+  });
+
+  describe('review missed characters', () => {
+    it('starts loading character samples', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.REVIEW_MISSED_START
+      })).toEqual({
+        state: statusEnum.REVIEW
       });
     });
   });

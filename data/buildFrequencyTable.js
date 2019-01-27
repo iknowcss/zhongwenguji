@@ -6,8 +6,9 @@ const TableManager = require('./TableManager');
 const Estimator = require('./Estimator');
 
 const DB_FILE_PATH = './characters.sqlite';
-const CHARACTER_FREQUENCY_FILE_PATH = path.join(__dirname, '../server/all-characters.txt');
+const CHARACTER_FREQUENCY_FILE_PATH = path.join(__dirname, 'da-frequency.txt');
 const PROPER_NOUN_PINYIN_REGEXP = /^[A-Z]/;
+const RECORD_SEPARATOR = String.fromCharCode(30);
 
 function collectCedict(cedictEntry) {
   const properPinyin = [];
@@ -25,8 +26,8 @@ function collectCedict(cedictEntry) {
   });
 
   return {
-    pinyin: simplePinyin.concat(properPinyin).join('/'),
-    def: simpleDef.concat(properDef).join('/')
+    pinyin: simplePinyin.concat(properPinyin).join(RECORD_SEPARATOR),
+    def: simpleDef.concat(properDef).join(RECORD_SEPARATOR)
   };
 }
 

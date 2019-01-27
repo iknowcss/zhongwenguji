@@ -20,6 +20,12 @@ jest.mock('chart.js', () => ({
   }
 }));
 
+jest.mock('../style/colors.scss', () => ({
+    brandColor: '#0000ff',
+    lightShades: '#fefefe',
+    lightAccent: '#ffaaaa'
+}));
+
 describe('ResultsChart', () => {
   beforeAll(() => {
     chartClassConstructorMock.mockClear();

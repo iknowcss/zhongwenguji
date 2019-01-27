@@ -20,8 +20,9 @@ describe('CardStackButtons', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('adds the "buttonActive" class when showDefinition is true', () => {
+  it('updates the buttons when showDefinition is true', () => {
     setup({ showDefinition: true });
+    expect(undoButton.props.disabled).toEqual(true);
     expect(definitionButton.props.className.split(/\s+/)).toEqual(
       expect.arrayContaining(['buttonActive'])
     );

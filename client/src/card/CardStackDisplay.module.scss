@@ -1,11 +1,16 @@
-.card {
+@import '../style/colors';
 
+.card {
+  transition:
+    background-color ease-in-out 50ms,
+    color ease-in-out 50ms,
+    border-color ease-in-out 50ms;
 }
 
 .cardContainer {
   display: flex;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: $color-light-shades;
   overflow: hidden;
   padding: 1em;
 }
@@ -21,8 +26,16 @@
 }
 
 .predictDiscard {
-  &Right { background-color: #efe; }
-  &Left { background-color: #fee; }
+  &Right {
+    border-color: darken($color-success, 25%);
+    color: darken($color-success, 20%);
+    background-color: lighten($color-success, 40%);
+  }
+  &Left {
+    border-color: darken($color-danger, 35%);
+    color: darken($color-danger, 30%);
+    background-color: lighten($color-danger, 30%);
+  }
 }
 
 .touchArea {

@@ -41,10 +41,11 @@ exports[`CharacterTest renders 1`] = `
   >
     <button
       className="button button undoButton"
+      disabled={false}
       onClick={[Function]}
     >
       <span
-        className="span span--small undoIcon buttonIcon"
+        className="span span--medium undoIcon buttonIcon"
       >
         <svg
           className="svg"
@@ -61,7 +62,7 @@ exports[`CharacterTest renders 1`] = `
       onClick={[Function]}
     >
       <span
-        className="span span--small searchIcon buttonIcon"
+        className="span span--medium searchIcon buttonIcon"
       >
         <svg
           className="svg"
@@ -95,10 +96,11 @@ exports[`CharacterTest renders an empty card 1`] = `
   >
     <button
       className="button button undoButton"
+      disabled={false}
       onClick={[Function]}
     >
       <span
-        className="span span--small undoIcon buttonIcon"
+        className="span span--medium undoIcon buttonIcon"
       >
         <svg
           className="svg"
@@ -115,7 +117,7 @@ exports[`CharacterTest renders an empty card 1`] = `
       onClick={[Function]}
     >
       <span
-        className="span span--small searchIcon buttonIcon"
+        className="span span--medium searchIcon buttonIcon"
       >
         <svg
           className="svg"

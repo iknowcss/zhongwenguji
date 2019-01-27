@@ -1,21 +1,30 @@
+@import '../style/colors';
+
 .buttonContainer {
   display: flex;
   justify-content: center;
 }
 
 .button {
-  margin: 1rem;
-  height: 3rem;
+  font-size: 1rem;
+  margin: 1em .7em;
+  height: 4.5em;
+  border-radius: 2.25em;
 
   &Active {
-    background-color: #d2e2ff;
+    $active-color: lighten($color-danger, 20%);
+    background-color: $active-color;
+
+    &:hover {
+      background-color: lighten($active-color, 5%);
+    }
   }
 
   &Active &Icon svg {
-    fill: #333;
+    fill: $color-black;
   }
 
   &Icon {
-    margin: 0 -.75rem;
+    margin: 0 -.2em;
   }
 }

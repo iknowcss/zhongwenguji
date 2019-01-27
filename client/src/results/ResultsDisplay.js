@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import I18n from '../i18n/I18n';
 import style from './ResultsDisplay.module.scss';
 
-const ResultsDisplay = ({ estimate, uncertainty }) => (
-  <div className={style.container}>
+const ResultsDisplay = ({ estimate, uncertainty, className }) => (
+  <div className={cx(style.container, className)}>
     <I18n
       component="div"
       stringId="results.youKnow"

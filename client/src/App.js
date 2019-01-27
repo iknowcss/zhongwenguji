@@ -15,6 +15,7 @@ import CreditsBar from './CreditsBar';
 import mapSelectors from './util/mapSelectors'
 import style from './App.module.scss';
 import noop from './util/noop';
+import MissedCards from './results/MissedCards';
 
 class App extends Component {
   static propTypes = {
@@ -48,6 +49,7 @@ class App extends Component {
       <I18nContext.Provider value={this.props.language}>
         <CSSTransitionGroup
           component="div"
+          className={style.transitionContainer}
           transitionName={style}
           transitionEnterTimeout={200}
           transitionLeaveTimeout={200}
@@ -84,6 +86,10 @@ class App extends Component {
 
           {!showInstructions && status === statusEnum.TESTING ? (
             <CreditsBar />
+          ): null}
+
+          {!showInstructions && status === statusEnum.REVIEW ? (
+            <MissedCards />
           ): null}
         </CSSTransitionGroup>
       </I18nContext.Provider>

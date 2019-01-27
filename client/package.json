@@ -33,6 +33,7 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js",
+      "!src/**/*.testutil.js",
       "!src/index.js",
       "!src/reducer.js",
       "!src/store.js",

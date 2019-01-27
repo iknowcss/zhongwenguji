@@ -33,16 +33,19 @@ export default class CardStackButtons extends Component {
     return (
       <div className={style.buttonContainer}>
         <Button
+          disabled={this.props.showDefinition}
           className={cx(style.button, style.undoButton)}
           onClick={this.handleUndoClick}
         >
-          <UndoIcon className={style.buttonIcon} />
+          <UndoIcon size="medium" className={style.buttonIcon} />
         </Button>
         <Button
-          className={cx(style.button, { [style.buttonActive]: this.props.showDefinition })}
+          className={cx(style.button, {
+            [style.buttonActive]: this.props.showDefinition
+          })}
           onClick={this.handleDefinitionClick}
         >
-          <SearchIcon className={style.buttonIcon} />
+          <SearchIcon size="medium" className={style.buttonIcon} />
         </Button>
       </div>
     );

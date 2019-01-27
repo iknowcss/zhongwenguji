@@ -10,7 +10,7 @@ Array [
       "datasets": Array [
         Object {
           "backgroundColor": "transparent",
-          "borderColor": "red",
+          "borderColor": "#0000ff",
           "borderWidth": 2,
           "data": Array [
             Object {
@@ -26,12 +26,12 @@ Array [
               "y": 60,
             },
           ],
-          "pointRadius": 2,
+          "pointRadius": 4,
           "showLine": false,
         },
         Object {
-          "backgroundColor": "rgb(240, 248, 255, .5)",
-          "borderColor": "cornflowerblue",
+          "backgroundColor": "rgba(254,254,254,0.5)",
+          "borderColor": "#ffaaaa",
           "borderWidth": 2,
           "data": Array [
             Object {

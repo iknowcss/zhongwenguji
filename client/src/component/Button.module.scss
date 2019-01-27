@@ -1,11 +1,20 @@
+@import '../style/colors';
+
 .button {
   font-size: 1rem;
-  line-height: 3rem;
-  padding: 0 1.5rem;
-  background-color: cornflowerblue;
+
+  @media screen and (max-aspect-ratio: 1/2) {
+    font-size: .8rem;
+  }
+
+  line-height: 3em;
+  padding: 0 1.5em;
+  background-color: $color-brand-color;
   border: none;
-  border-radius: 1.5rem;
-  color: white;
+  border-radius: 1.7em;
+  color: $color-white;
+  cursor: pointer;
+  box-sizing: border-box;
 
   touch-action: manipulation;
   outline: 0;
@@ -14,12 +23,47 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: rgba(0, 20, 40, .7) 0 .08rem .2rem 0;
+  box-shadow: rgba(0, 20, 70, .6) 0 .1em .4em 0;
 
-  transition: transform ease-in-out 50ms, box-shadow ease-in-out 50ms;
+  transition:
+    transform ease-in-out 50ms,
+    box-shadow ease-in-out 50ms,
+    background-color ease-in-out 100ms;
 
   &:active {
-    transform: translateY(.08rem);
-    box-shadow: rgba(0, 20, 40, .7) 0 0 0.05rem 0;
+    transform: translateY(.08em);
+    box-shadow: rgba(0, 20, 40, .7) 0 0 0.05em 0;
+  }
+
+  &:hover {
+    background-color: lighten($color-brand-color, 5%);
+  }
+
+  svg {
+    transition: fill ease-in-out 100ms;
+  }
+}
+
+.secondary {
+  background-color: $color-light-shades;
+  color: $color-dark-shades;
+
+  &:hover {
+    background-color: lighten($color-light-shades, 5%);
+  }
+
+  svg {
+    fill: $color-white !important;
+  }
+}
+
+.disabled, .disabled:hover, .disabled:active {
+  box-shadow: none;
+  background-color: $color-light-grey;
+  color: $color-medium-grey;
+  transform: none;
+
+  svg {
+    fill: $color-medium-grey !important;
   }
 }

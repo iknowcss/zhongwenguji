@@ -3,6 +3,19 @@ import cx from 'classnames';
 import formatPinyin from '../util/formatPinyin';
 import style from './CharacterCard.module.scss'
 
+const WIDEN_SLASH_REGEX = /\//g;
+
+function formatPinyinArray(pinyin) {
+  return pinyin.map(formatPinyin).join(', ');
+}
+
+function formatDefinitionArray(definition) {
+  if (!definition || definition.length === 0) {
+    return '(No definition available)';
+  }
+  return definition.map(d => d.replace(WIDEN_SLASH_REGEX, ' / ')).join(' / ');
+}
+
 export default (props) => {
   const {
     showDefinition,
@@ -24,10 +37,10 @@ export default (props) => {
       {showDefinition ? (
         <>
           <span className={style.pinyin}>
-            {formatPinyin(pinyin)}
+            {formatPinyinArray(pinyin)}
           </span>
           <span className={style.definition}>
-            {(definition || '(No definition available)').replace(/\//g, ' / ')}
+            {formatDefinitionArray(definition)}
           </span>
         </>
       ) : (

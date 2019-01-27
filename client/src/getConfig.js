@@ -4,7 +4,9 @@ const config = Object.assign({
   submitTestUrl: 'http://localhost:3001/submitTest',
   feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490='
 }, {
-  // Stage overrides
+  local: {
+    enableReduxDevTools: true
+  },
   staging: {
     getCharacterSampleUrl: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/getCharacterSample',
     submitTestUrl: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/submitTest'
@@ -14,6 +16,6 @@ const config = Object.assign({
     submitTestUrl: 'https://shwhby0nv7.execute-api.ap-southeast-2.amazonaws.com/production/submitTest',
     enableGA: true
   }
-}[process.env.REACT_APP_STAGE]);
+}[process.env.REACT_APP_STAGE || 'local']);
 
 export default () => config;

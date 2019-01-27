@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'chart.js';
 import style from './ResultsChart.module.scss';
+import colors from '../style/colors.scss';
+
+const HEX_COLOR_REGEXP = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i;
+function transparentize(color, transparency) {
+  if (HEX_COLOR_REGEXP.test(color)) {
+    const rgb = [].slice.call(color.match(HEX_COLOR_REGEXP), 1, 4).map(n => parseInt(n, 16));
+    return `rgba(${rgb.join(',')},${transparency})`;
+  }
+  return color;
+}
 
 function datify(curvePoints, samplePoints) {
   let stopIndex = 0;
@@ -13,16 +23,16 @@ function datify(curvePoints, samplePoints) {
       {
         data: Array.from(samplePoints, ([x, y]) => ({x, y})),
         backgroundColor: 'transparent',
-        borderColor: 'red',
+        borderColor: colors.brandColor,
         showLine: false,
         borderWidth: 2,
-        pointRadius: 2
+        pointRadius: 4
       },
       {
         showLine: true,
         data: Array.from(curvePoints.slice(0, stopIndex), ([x, y]) => ({x, y})),
-        backgroundColor: 'rgb(240, 248, 255, .5)',
-        borderColor: 'cornflowerblue',
+        backgroundColor: transparentize(colors.lightShades, .5),
+        borderColor: colors.lightAccent,
         borderWidth: 2,
         pointRadius: 0
       }

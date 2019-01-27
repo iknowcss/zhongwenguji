@@ -116,7 +116,7 @@ exports[`Instructions renders keyboard instructions 1`] = `
       <label
         htmlFor="traditionalCheckbox"
       >
-        Traditional
+        instructions.traditionalLabel
       </label>
     </div>
     <button
@@ -245,7 +245,7 @@ exports[`Instructions renders touch instructions 1`] = `
       <label
         htmlFor="traditionalCheckbox"
       >
-        Traditional
+        instructions.traditionalLabel
       </label>
     </div>
     <button

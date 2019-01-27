@@ -89,7 +89,7 @@ class Instructions extends Component {
           </div>
 
           <div className={style.characterSetContainer}>
-            <input type="checkbox" id="traditionalCheckbox" onChange={this.handleCharacterSetToggle}/> <label htmlFor="traditionalCheckbox">Traditional</label>
+            <input type="checkbox" id="traditionalCheckbox" onChange={this.handleCharacterSetToggle}/> <I18n component="label" stringId="instructions.traditionalLabel" htmlFor="traditionalCheckbox" />
           </div>
 
           <I18n

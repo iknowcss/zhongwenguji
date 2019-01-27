@@ -11,28 +11,34 @@ exports[`Results renders 1`] = `
     className="ResultsChart"
   />
   <div
-    className="startAgainContainer"
+    className="actionContainer"
   >
     <button
-      className="button"
+      className="button action"
       onClick={[Function]}
     >
       results.startAgain
     </button>
-  </div>
-  <div
-    className="feedbackBar"
-  >
-    <div>
-      results.feedbackPreface
-    </div>
-    <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490=undefined"
-      rel="noopener"
-      target="_blank"
+    <button
+      className="button secondary action"
+      onClick={[Function]}
     >
-      results.feedbackLinkText
-    </a>
+      results.reviewMissedCharacters
+    </button>
+    <div
+      className="action feedbackBar"
+    >
+      <div>
+        results.feedbackPreface
+      </div>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490=undefined"
+        rel="noopener"
+        target="_blank"
+      >
+        results.feedbackLinkText
+      </a>
+    </div>
   </div>
 </div>
 `;
