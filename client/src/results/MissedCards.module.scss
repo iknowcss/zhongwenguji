@@ -34,10 +34,6 @@ $color-light-light: lighten($color-light, 3%);
 
       &:nth-child(2n) {
         background-color: $color-white;
-
-        .cardDefColumn span:after {
-          background: linear-gradient(transparentize($color-white, .99), $color-white 80%);
-        }
       }
     }
   }
@@ -63,6 +59,7 @@ $color-light-light: lighten($color-light, 3%);
 
   &PinyinDefRow {
     display: flex;
+    padding-bottom: .25em;
   }
 
   &PinyinColumn {
@@ -85,18 +82,11 @@ $color-light-light: lighten($color-light, 3%);
       margin: .5em .5em 0 0;
       line-height: 1.2;
       overflow-y: hidden;
-      max-height: 3.5em;
+      max-height: 3.7em;
       text-overflow: ellipsis;
       position: relative;
 
       &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 1.6em;
-        top: 2em;
-        background: linear-gradient(transparentize($color-light-light, .99), $color-light-light 80%);
       }
     }
   }
