@@ -13,37 +13,69 @@ Object {
         Object {
           "cs": "明",
           "ct": "明",
-          "d": "bright/opposite: dark 暗[an4]/(of meaning) clear/to understand/next/public or open/wise/generic term for a sacrifice to the gods/Ming Dynasty (1368-1644)/surname Ming/Ming (c. 2000 BC), fourth of the legendary Flame Emperors, 炎帝[Yan2 di4] descended from Shennong 神農|神农[Shen2 nong2] Farmer God",
+          "d": Array [
+            "bright/opposite: dark 暗[an4]/(of meaning) clear/to understand/next/public or open/wise/generic term for a sacrifice to the gods",
+            "Ming Dynasty (1368-1644)/surname Ming/Ming (c. 2000 BC), fourth of the legendary Flame Emperors, 炎帝[Yan2 di4] descended from Shennong 神農|神农[Shen2 nong2] Farmer God",
+          ],
           "i": 121,
-          "p": "ming2/Ming2",
+          "p": Array [
+            "ming2",
+            "Ming2",
+          ],
         },
         Object {
           "cs": "知",
           "ct": "知",
-          "d": "to know/to be aware",
+          "d": Array [
+            "to know/to be aware",
+          ],
           "i": 123,
-          "p": "zhi1",
+          "p": Array [
+            "zhi1",
+          ],
         },
         Object {
           "cs": "论",
           "ct": "論",
-          "d": "opinion/view/theory/doctrine/to discuss/to talk about/to regard/to consider/per/by the (kilometer, hour etc)/abbr. for 論語|论语[Lun2 yu3], The Analects (of Confucius)",
+          "d": Array [
+            "opinion/view/theory/doctrine/to discuss/to talk about/to regard/to consider/per/by the (kilometer, hour etc)",
+            "abbr. for 論語|论语[Lun2 yu3], The Analects (of Confucius)",
+          ],
           "i": 205,
-          "p": "lun4/Lun2",
+          "p": Array [
+            "lun4",
+            "Lun2",
+          ],
         },
         Object {
           "cs": "为",
           "ct": "為",
-          "d": "as (in the capacity of)/to take sth as/to act as/to serve as/to behave as/to become/to be/to do/by (in the passive voice)/because of/for/to/variant of 為|为[wei2]/as (i.e. in the capacity of)/to take sth as/to act as/to serve as/to behave as/to become/to be/to do/variant of 為|为[wei4], because of/for/to",
+          "d": Array [
+            "as (in the capacity of)/to take sth as/to act as/to serve as/to behave as/to become/to be/to do/by (in the passive voice)",
+            "because of/for/to",
+            "variant of 為|为[wei2]/as (i.e. in the capacity of)/to take sth as/to act as/to serve as/to behave as/to become/to be/to do",
+            "variant of 為|为[wei4], because of/for/to",
+          ],
           "i": 18,
-          "p": "wei2/wei4/wei2/wei4",
+          "p": Array [
+            "wei2",
+            "wei4",
+            "wei2",
+            "wei4",
+          ],
         },
         Object {
           "cs": "立",
           "ct": "立",
-          "d": "to stand/to set up/to establish/to lay down/to draw up/at once/immediately/surname Li",
+          "d": Array [
+            "to stand/to set up/to establish/to lay down/to draw up/at once/immediately",
+            "surname Li",
+          ],
           "i": 197,
-          "p": "li4/Li4",
+          "p": Array [
+            "li4",
+            "Li4",
+          ],
         },
       ],
     },
@@ -56,37 +88,65 @@ Object {
         Object {
           "cs": "令",
           "ct": "令",
-          "d": "see 脊令[ji2 ling2]/classifier for a ream of paper/to order/to command/an order/warrant/writ/to cause/to make sth happen/virtuous/honorific title/season/government position (old)/see 令狐[Ling2 hu2]",
+          "d": Array [
+            "see 脊令[ji2 ling2]",
+            "classifier for a ream of paper",
+            "to order/to command/an order/warrant/writ/to cause/to make sth happen/virtuous/honorific title/season/government position (old)",
+            "see 令狐[Ling2 hu2]",
+          ],
           "i": 378,
-          "p": "ling2/ling3/ling4/Ling2",
+          "p": Array [
+            "ling2",
+            "ling3",
+            "ling4",
+            "Ling2",
+          ],
         },
         Object {
           "cs": "准",
           "ct": "准",
-          "d": "to allow/to grant/in accordance with/in the light of",
+          "d": Array [
+            "to allow/to grant/in accordance with/in the light of",
+          ],
           "i": 379,
-          "p": "zhun3",
+          "p": Array [
+            "zhun3",
+          ],
         },
         Object {
           "cs": "质",
           "ct": "質",
-          "d": "character/nature/quality/plain/to pawn/pledge/hostage/to question/Taiwan pr. [zhi2]",
+          "d": Array [
+            "character/nature/quality/plain/to pawn/pledge/hostage/to question/Taiwan pr. [zhi2]",
+          ],
           "i": 404,
-          "p": "zhi4",
+          "p": Array [
+            "zhi4",
+          ],
         },
         Object {
           "cs": "轻",
           "ct": "輕",
-          "d": "light/easy/gentle/soft/reckless/unimportant/frivolous/small in number/unstressed/neutral/to disparage",
+          "d": Array [
+            "light/easy/gentle/soft/reckless/unimportant/frivolous/small in number/unstressed/neutral/to disparage",
+          ],
           "i": 460,
-          "p": "qing1",
+          "p": Array [
+            "qing1",
+          ],
         },
         Object {
           "cs": "似",
           "ct": "似",
-          "d": "see 似的[shi4 de5]/to seem/to appear/to resemble/similar/-like/pseudo-/(more) than",
+          "d": Array [
+            "see 似的[shi4 de5]",
+            "to seem/to appear/to resemble/similar/-like/pseudo-/(more) than",
+          ],
           "i": 431,
-          "p": "shi4/si4",
+          "p": Array [
+            "shi4",
+            "si4",
+          ],
         },
       ],
     },
@@ -99,37 +159,59 @@ Object {
         Object {
           "cs": "环",
           "ct": "環",
-          "d": "ring/hoop/loop/(chain) link/classifier for scores in archery etc/to surround/to encircle/to hem in/surname Huan",
+          "d": Array [
+            "ring/hoop/loop/(chain) link/classifier for scores in archery etc/to surround/to encircle/to hem in",
+            "surname Huan",
+          ],
           "i": 681,
-          "p": "huan2/Huan2",
+          "p": Array [
+            "huan2",
+            "Huan2",
+          ],
         },
         Object {
           "cs": "云",
           "ct": "云",
-          "d": "(classical) to say",
+          "d": Array [
+            "(classical) to say",
+          ],
           "i": 692,
-          "p": "yun2",
+          "p": Array [
+            "yun2",
+          ],
         },
         Object {
           "cs": "革",
           "ct": "革",
-          "d": "animal hide/leather/to reform/to remove/to expel (from office)",
+          "d": Array [
+            "animal hide/leather/to reform/to remove/to expel (from office)",
+          ],
           "i": 521,
-          "p": "ge2",
+          "p": Array [
+            "ge2",
+          ],
         },
         Object {
           "cs": "征",
           "ct": "征",
-          "d": "journey/trip/expedition/to go on long campaign/to attack",
+          "d": Array [
+            "journey/trip/expedition/to go on long campaign/to attack",
+          ],
           "i": 739,
-          "p": "zheng1",
+          "p": Array [
+            "zheng1",
+          ],
         },
         Object {
           "cs": "男",
           "ct": "男",
-          "d": "male/Baron, lowest of five orders of nobility 五等爵位[wu3 deng3 jue2 wei4]/CL:個|个[ge4]",
+          "d": Array [
+            "male/Baron, lowest of five orders of nobility 五等爵位[wu3 deng3 jue2 wei4]/CL:個|个[ge4]",
+          ],
           "i": 602,
-          "p": "nan2",
+          "p": Array [
+            "nan2",
+          ],
         },
       ],
     },
@@ -142,37 +224,61 @@ Object {
         Object {
           "cs": "左",
           "ct": "左",
-          "d": "left/the Left (politics)/east/unorthodox/queer/wrong/differing/opposite/variant of 佐[zuo3]/surname Zuo",
+          "d": Array [
+            "left/the Left (politics)/east/unorthodox/queer/wrong/differing/opposite/variant of 佐[zuo3]",
+            "surname Zuo",
+          ],
           "i": 782,
-          "p": "zuo3/Zuo3",
+          "p": Array [
+            "zuo3",
+            "Zuo3",
+          ],
         },
         Object {
           "cs": "乡",
           "ct": "鄉",
-          "d": "country or countryside/native place/home village or town/township (PRC administrative unit)",
+          "d": Array [
+            "country or countryside/native place/home village or town/township (PRC administrative unit)",
+          ],
           "i": 922,
-          "p": "xiang1",
+          "p": Array [
+            "xiang1",
+          ],
         },
         Object {
           "cs": "亡",
           "ct": "亡",
-          "d": "to die/to lose/to be gone/to flee/deceased",
+          "d": Array [
+            "to die/to lose/to be gone/to flee/deceased",
+          ],
           "i": 957,
-          "p": "wang2",
+          "p": Array [
+            "wang2",
+          ],
         },
         Object {
           "cs": "败",
           "ct": "敗",
-          "d": "to defeat/to damage/to lose (to an opponent)/to fail/to wither",
+          "d": Array [
+            "to defeat/to damage/to lose (to an opponent)/to fail/to wither",
+          ],
           "i": 862,
-          "p": "bai4",
+          "p": Array [
+            "bai4",
+          ],
         },
         Object {
           "cs": "铁",
           "ct": "鐵",
-          "d": "iron (metal)/arms/weapons/hard/strong/violent/unshakeable/determined/close/tight (slang)/surname Tie",
+          "d": Array [
+            "iron (metal)/arms/weapons/hard/strong/violent/unshakeable/determined/close/tight (slang)",
+            "surname Tie",
+          ],
           "i": 779,
-          "p": "tie3/Tie3",
+          "p": Array [
+            "tie3",
+            "Tie3",
+          ],
         },
       ],
     },
@@ -185,37 +291,61 @@ Object {
         Object {
           "cs": "宽",
           "ct": "寬",
-          "d": "lenient/wide/broad/surname Kuan",
+          "d": Array [
+            "lenient/wide/broad",
+            "surname Kuan",
+          ],
           "i": 1155,
-          "p": "kuan1/Kuan1",
+          "p": Array [
+            "kuan1",
+            "Kuan1",
+          ],
         },
         Object {
           "cs": "齐",
           "ct": "齊",
-          "d": "neat/even/level with/identical/simultaneous/all together/to even sth out/(name of states and dynasties at several different periods)/surname Qi",
+          "d": Array [
+            "neat/even/level with/identical/simultaneous/all together/to even sth out",
+            "(name of states and dynasties at several different periods)/surname Qi",
+          ],
           "i": 1063,
-          "p": "qi2/Qi2",
+          "p": Array [
+            "qi2",
+            "Qi2",
+          ],
         },
         Object {
           "cs": "丈",
           "ct": "丈",
-          "d": "measure of length, ten Chinese feet (3.3 m)/to measure/husband/polite appellation for an older male",
+          "d": Array [
+            "measure of length, ten Chinese feet (3.3 m)/to measure/husband/polite appellation for an older male",
+          ],
           "i": 1242,
-          "p": "zhang4",
+          "p": Array [
+            "zhang4",
+          ],
         },
         Object {
           "cs": "彻",
           "ct": "徹",
-          "d": "thorough/penetrating/to pervade/to pass through",
+          "d": Array [
+            "thorough/penetrating/to pervade/to pass through",
+          ],
           "i": 1240,
-          "p": "che4",
+          "p": Array [
+            "che4",
+          ],
         },
         Object {
           "cs": "窗",
           "ct": "窗",
-          "d": "shutter/window/CL:扇[shan4]",
+          "d": Array [
+            "shutter/window/CL:扇[shan4]",
+          ],
           "i": 1074,
-          "p": "chuang1",
+          "p": Array [
+            "chuang1",
+          ],
         },
       ],
     },
@@ -228,37 +358,59 @@ Object {
         Object {
           "cs": "摄",
           "ct": "攝",
-          "d": "to take in/to absorb/to assimilate/to act for/to take a photo/photo shoot/photo/to conserve (one's health)",
+          "d": Array [
+            "to take in/to absorb/to assimilate/to act for/to take a photo/photo shoot/photo/to conserve (one's health)",
+          ],
           "i": 1403,
-          "p": "she4",
+          "p": Array [
+            "she4",
+          ],
         },
         Object {
           "cs": "患",
           "ct": "患",
-          "d": "to suffer (from illness)/to contract (a disease)/misfortune/trouble/danger/worry",
+          "d": Array [
+            "to suffer (from illness)/to contract (a disease)/misfortune/trouble/danger/worry",
+          ],
           "i": 1249,
-          "p": "huan4",
+          "p": Array [
+            "huan4",
+          ],
         },
         Object {
           "cs": "冬",
           "ct": "冬",
-          "d": "winter",
+          "d": Array [
+            "winter",
+          ],
           "i": 1384,
-          "p": "dong1",
+          "p": Array [
+            "dong1",
+          ],
         },
         Object {
           "cs": "尺",
           "ct": "尺",
-          "d": "one of the characters used to represent a musical note in gongche notation, 工尺譜|工尺谱[gong1 che3 pu3]/a Chinese foot/one-third of a meter/a ruler/a tape-measure/one of the three acupoints for measuring pulse in Chinese medicine/CL:支[zhi1],把[ba3]",
+          "d": Array [
+            "one of the characters used to represent a musical note in gongche notation, 工尺譜|工尺谱[gong1 che3 pu3]",
+            "a Chinese foot/one-third of a meter/a ruler/a tape-measure/one of the three acupoints for measuring pulse in Chinese medicine/CL:支[zhi1],把[ba3]",
+          ],
           "i": 1474,
-          "p": "che3/chi3",
+          "p": Array [
+            "che3",
+            "chi3",
+          ],
         },
         Object {
           "cs": "奉",
           "ct": "奉",
-          "d": "to offer (tribute)/to present respectfully (to superior, ancestor, deity etc)/to esteem/to revere/to believe in (a religion)/to wait upon/to accept orders (from superior)",
+          "d": Array [
+            "to offer (tribute)/to present respectfully (to superior, ancestor, deity etc)/to esteem/to revere/to believe in (a religion)/to wait upon/to accept orders (from superior)",
+          ],
           "i": 1382,
-          "p": "feng4",
+          "p": Array [
+            "feng4",
+          ],
         },
       ],
     },
@@ -271,37 +423,59 @@ Object {
         Object {
           "cs": "椅",
           "ct": "椅",
-          "d": "chair",
+          "d": Array [
+            "chair",
+          ],
           "i": 1663,
-          "p": "yi3",
+          "p": Array [
+            "yi3",
+          ],
         },
         Object {
           "cs": "惨",
           "ct": "慘",
-          "d": "miserable/wretched/cruel/inhuman/disastrous/tragic/dim/gloomy",
+          "d": Array [
+            "miserable/wretched/cruel/inhuman/disastrous/tragic/dim/gloomy",
+          ],
           "i": 1530,
-          "p": "can3",
+          "p": Array [
+            "can3",
+          ],
         },
         Object {
           "cs": "戈",
           "ct": "戈",
-          "d": "dagger-axe/abbr. for 戈瑞[ge1 rui4]/(Tw) abbr. for 戈雷[ge1 lei2]/surname Ge",
+          "d": Array [
+            "dagger-axe/abbr. for 戈瑞[ge1 rui4]/(Tw) abbr. for 戈雷[ge1 lei2]",
+            "surname Ge",
+          ],
           "i": 1695,
-          "p": "ge1/Ge1",
+          "p": Array [
+            "ge1",
+            "Ge1",
+          ],
         },
         Object {
           "cs": "邓",
           "ct": "鄧",
-          "d": "surname Deng",
+          "d": Array [
+            "surname Deng",
+          ],
           "i": 1614,
-          "p": "Deng4",
+          "p": Array [
+            "Deng4",
+          ],
         },
         Object {
           "cs": "扣",
           "ct": "扣",
-          "d": "to fasten/to button/button/buckle/knot/to arrest/to confiscate/to deduct (money)/discount/to knock/to smash, spike or dunk (a ball)/to cover (with a bowl etc)/fig. to tag a label on sb",
+          "d": Array [
+            "to fasten/to button/button/buckle/knot/to arrest/to confiscate/to deduct (money)/discount/to knock/to smash, spike or dunk (a ball)/to cover (with a bowl etc)/fig. to tag a label on sb",
+          ],
           "i": 1625,
-          "p": "kou4",
+          "p": Array [
+            "kou4",
+          ],
         },
       ],
     },
@@ -314,37 +488,65 @@ Object {
         Object {
           "cs": "削",
           "ct": "削",
-          "d": "to peel with a knife/to pare/to cut (a ball at tennis etc)/to pare/to reduce/to remove/Taiwan pr. [xue4]",
+          "d": Array [
+            "to peel with a knife/to pare/to cut (a ball at tennis etc)",
+            "to pare/to reduce/to remove/Taiwan pr. [xue4]",
+          ],
           "i": 1794,
-          "p": "xiao1/xue1",
+          "p": Array [
+            "xiao1",
+            "xue1",
+          ],
         },
         Object {
           "cs": "哀",
           "ct": "哀",
-          "d": "sorrow/grief/pity/to grieve for/to pity/to lament/to condole/Ai (c. 2000 BC), sixth of legendary Flame Emperors 炎帝[Yan2 di4] descended from Shennong 神農|神农[Shen2 nong2] Farmer God, also known as Li 釐|厘[Li2]",
+          "d": Array [
+            "sorrow/grief/pity/to grieve for/to pity/to lament/to condole",
+            "Ai (c. 2000 BC), sixth of legendary Flame Emperors 炎帝[Yan2 di4] descended from Shennong 神農|神农[Shen2 nong2] Farmer God, also known as Li 釐|厘[Li2]",
+          ],
           "i": 1751,
-          "p": "ai1/Ai1",
+          "p": Array [
+            "ai1",
+            "Ai1",
+          ],
         },
         Object {
           "cs": "葛",
           "ct": "葛",
-          "d": "kudzu (Pueraria lobata)/hemp cloth/surname Ge",
+          "d": Array [
+            "kudzu (Pueraria lobata)/hemp cloth",
+            "surname Ge",
+          ],
           "i": 1919,
-          "p": "ge2/Ge3",
+          "p": Array [
+            "ge2",
+            "Ge3",
+          ],
         },
         Object {
           "cs": "哼",
           "ct": "哼",
-          "d": "to groan/to snort/to hum/to croon/humph!",
+          "d": Array [
+            "to groan/to snort/to hum/to croon/humph!",
+          ],
           "i": 1966,
-          "p": "heng1",
+          "p": Array [
+            "heng1",
+          ],
         },
         Object {
           "cs": "丑",
           "ct": "丑",
-          "d": "clown/2nd earthly branch: 1-3 a.m., 12th solar month (6th January to 3rd February), year of the Ox/ancient Chinese compass point: 30°/surname Chou",
+          "d": Array [
+            "clown/2nd earthly branch: 1-3 a.m., 12th solar month (6th January to 3rd February), year of the Ox/ancient Chinese compass point: 30°",
+            "surname Chou",
+          ],
           "i": 1901,
-          "p": "chou3/Chou3",
+          "p": Array [
+            "chou3",
+            "Chou3",
+          ],
         },
       ],
     },
@@ -357,37 +559,57 @@ Object {
         Object {
           "cs": "妮",
           "ct": "妮",
-          "d": "girl/phonetic \\"ni\\" (in female names)/Taiwan pr. [ni2]",
+          "d": Array [
+            "girl/phonetic \\"ni\\" (in female names)/Taiwan pr. [ni2]",
+          ],
           "i": 2124,
-          "p": "ni1",
+          "p": Array [
+            "ni1",
+          ],
         },
         Object {
           "cs": "肺",
           "ct": "肺",
-          "d": "lung/CL:個|个[ge4]",
+          "d": Array [
+            "lung/CL:個|个[ge4]",
+          ],
           "i": 2044,
-          "p": "fei4",
+          "p": Array [
+            "fei4",
+          ],
         },
         Object {
           "cs": "悠",
           "ct": "悠",
-          "d": "long or drawn out/remote in time or space/leisurely/to swing/pensive/worried",
+          "d": Array [
+            "long or drawn out/remote in time or space/leisurely/to swing/pensive/worried",
+          ],
           "i": 2055,
-          "p": "you1",
+          "p": Array [
+            "you1",
+          ],
         },
         Object {
           "cs": "禧",
           "ct": "禧",
-          "d": "joy",
+          "d": Array [
+            "joy",
+          ],
           "i": 2085,
-          "p": "xi3",
+          "p": Array [
+            "xi3",
+          ],
         },
         Object {
           "cs": "狮",
           "ct": "獅",
-          "d": "lion",
+          "d": Array [
+            "lion",
+          ],
           "i": 2211,
-          "p": "shi1",
+          "p": Array [
+            "shi1",
+          ],
         },
       ],
     },
@@ -400,37 +622,57 @@ Object {
         Object {
           "cs": "搏",
           "ct": "搏",
-          "d": "to fight/to combat/to seize/(of heart) to beat",
+          "d": Array [
+            "to fight/to combat/to seize/(of heart) to beat",
+          ],
           "i": 2372,
-          "p": "bo2",
+          "p": Array [
+            "bo2",
+          ],
         },
         Object {
           "cs": "媚",
           "ct": "媚",
-          "d": "flatter/charm",
+          "d": Array [
+            "flatter/charm",
+          ],
           "i": 2291,
-          "p": "mei4",
+          "p": Array [
+            "mei4",
+          ],
         },
         Object {
           "cs": "夷",
           "ct": "夷",
-          "d": "non-Han people, esp. to the East of China/barbarians/to wipe out/to exterminate/to tear down/to raze",
+          "d": Array [
+            "non-Han people, esp. to the East of China/barbarians/to wipe out/to exterminate/to tear down/to raze",
+          ],
           "i": 2337,
-          "p": "yi2",
+          "p": Array [
+            "yi2",
+          ],
         },
         Object {
           "cs": "颁",
           "ct": "頒",
-          "d": "to promulgate/to send out/to issue/to grant or confer",
+          "d": Array [
+            "to promulgate/to send out/to issue/to grant or confer",
+          ],
           "i": 2319,
-          "p": "ban1",
+          "p": Array [
+            "ban1",
+          ],
         },
         Object {
           "cs": "膊",
           "ct": "膊",
-          "d": "shoulder/upper arm",
+          "d": Array [
+            "shoulder/upper arm",
+          ],
           "i": 2440,
-          "p": "bo2",
+          "p": Array [
+            "bo2",
+          ],
         },
       ],
     },
@@ -443,37 +685,59 @@ Object {
         Object {
           "cs": "桐",
           "ct": "桐",
-          "d": "tree name (variously Paulownia, Firmiana or Aleurites)",
+          "d": Array [
+            "tree name (variously Paulownia, Firmiana or Aleurites)",
+          ],
           "i": 2712,
-          "p": "tong2",
+          "p": Array [
+            "tong2",
+          ],
         },
         Object {
           "cs": "淘",
           "ct": "淘",
-          "d": "to wash/to clean out/to cleanse/to eliminate/to dredge",
+          "d": Array [
+            "to wash/to clean out/to cleanse/to eliminate/to dredge",
+          ],
           "i": 2499,
-          "p": "tao2",
+          "p": Array [
+            "tao2",
+          ],
         },
         Object {
           "cs": "幢",
           "ct": "幢",
-          "d": "banner/classifier for buildings/carriage curtain (old)",
+          "d": Array [
+            "banner",
+            "classifier for buildings/carriage curtain (old)",
+          ],
           "i": 2566,
-          "p": "chuang2/zhuang4",
+          "p": Array [
+            "chuang2",
+            "zhuang4",
+          ],
         },
         Object {
           "cs": "凳",
           "ct": "凳",
-          "d": "bench/stool",
+          "d": Array [
+            "bench/stool",
+          ],
           "i": 2680,
-          "p": "deng4",
+          "p": Array [
+            "deng4",
+          ],
         },
         Object {
           "cs": "瑰",
           "ct": "瑰",
-          "d": "(semiprecious stone)/extraordinary",
+          "d": Array [
+            "(semiprecious stone)/extraordinary",
+          ],
           "i": 2492,
-          "p": "gui1",
+          "p": Array [
+            "gui1",
+          ],
         },
       ],
     },
@@ -486,37 +750,59 @@ Object {
         Object {
           "cs": "钙",
           "ct": "鈣",
-          "d": "calcium (chemistry)",
+          "d": Array [
+            "calcium (chemistry)",
+          ],
           "i": 2951,
-          "p": "gai4",
+          "p": Array [
+            "gai4",
+          ],
         },
         Object {
           "cs": "萎",
           "ct": "萎",
-          "d": "to wither/to drop/to decline/spiritless/Taiwan pr. [wei1]",
+          "d": Array [
+            "to wither/to drop/to decline/spiritless/Taiwan pr. [wei1]",
+          ],
           "i": 2757,
-          "p": "wei3",
+          "p": Array [
+            "wei3",
+          ],
         },
         Object {
           "cs": "敷",
           "ct": "敷",
-          "d": "to spread/to lay out/to apply (powder, ointment etc)/sufficient (to cover)/enough",
+          "d": Array [
+            "to spread/to lay out/to apply (powder, ointment etc)/sufficient (to cover)/enough",
+          ],
           "i": 2788,
-          "p": "fu1",
+          "p": Array [
+            "fu1",
+          ],
         },
         Object {
           "cs": "鄂",
           "ct": "鄂",
-          "d": "abbr. for Hubei Province 湖北省[Hu2 bei3 Sheng3] in central China/surname E",
+          "d": Array [
+            "abbr. for Hubei Province 湖北省[Hu2 bei3 Sheng3] in central China/surname E",
+          ],
           "i": 2946,
-          "p": "E4",
+          "p": Array [
+            "E4",
+          ],
         },
         Object {
           "cs": "聂",
           "ct": "聶",
-          "d": "to whisper/surname Nie",
+          "d": Array [
+            "to whisper",
+            "surname Nie",
+          ],
           "i": 2797,
-          "p": "nie4/Nie4",
+          "p": Array [
+            "nie4",
+            "Nie4",
+          ],
         },
       ],
     },
@@ -529,37 +815,59 @@ Object {
         Object {
           "cs": "瑛",
           "ct": "瑛",
-          "d": "(crystal)/lustrous",
+          "d": Array [
+            "(crystal)/lustrous",
+          ],
           "i": 2998,
-          "p": "ying1",
+          "p": Array [
+            "ying1",
+          ],
         },
         Object {
           "cs": "淀",
           "ct": "淀",
-          "d": "shallow water",
+          "d": Array [
+            "shallow water",
+          ],
           "i": 3159,
-          "p": "dian4",
+          "p": Array [
+            "dian4",
+          ],
         },
         Object {
           "cs": "谟",
           "ct": "謨",
-          "d": "plan/to practice/old variant of 謨|谟[mo2]",
+          "d": Array [
+            "plan/to practice",
+            "old variant of 謨|谟[mo2]",
+          ],
           "i": 3172,
-          "p": "mo2/mo2",
+          "p": Array [
+            "mo2",
+            "mo2",
+          ],
         },
         Object {
           "cs": "巍",
           "ct": "巍",
-          "d": "lofty/towering/Taiwan pr. [wei2]",
+          "d": Array [
+            "lofty/towering/Taiwan pr. [wei2]",
+          ],
           "i": 3201,
-          "p": "wei1",
+          "p": Array [
+            "wei1",
+          ],
         },
         Object {
           "cs": "炳",
           "ct": "炳",
-          "d": "bright/brilliant/luminous",
+          "d": Array [
+            "bright/brilliant/luminous",
+          ],
           "i": 3227,
-          "p": "bing3",
+          "p": Array [
+            "bing3",
+          ],
         },
       ],
     },
@@ -572,37 +880,57 @@ Object {
         Object {
           "cs": "漓",
           "ct": "漓",
-          "d": "pattering (of rain)/seep through",
+          "d": Array [
+            "pattering (of rain)/seep through",
+          ],
           "i": 3413,
-          "p": "li2",
+          "p": Array [
+            "li2",
+          ],
         },
         Object {
           "cs": "咏",
           "ct": "詠",
-          "d": "to sing",
+          "d": Array [
+            "to sing",
+          ],
           "i": 3469,
-          "p": "yong3",
+          "p": Array [
+            "yong3",
+          ],
         },
         Object {
           "cs": "氮",
           "ct": "氮",
-          "d": "nitrogen (chemistry)",
+          "d": Array [
+            "nitrogen (chemistry)",
+          ],
           "i": 3482,
-          "p": "dan4",
+          "p": Array [
+            "dan4",
+          ],
         },
         Object {
           "cs": "肛",
           "ct": "肛",
-          "d": "anus",
+          "d": Array [
+            "anus",
+          ],
           "i": 3394,
-          "p": "gang1",
+          "p": Array [
+            "gang1",
+          ],
         },
         Object {
           "cs": "冕",
           "ct": "冕",
-          "d": "crown in the form of a horizontal board with hanging decorations/imperial crown",
+          "d": Array [
+            "crown in the form of a horizontal board with hanging decorations/imperial crown",
+          ],
           "i": 3456,
-          "p": "mian3",
+          "p": Array [
+            "mian3",
+          ],
         },
       ],
     },
@@ -615,37 +943,57 @@ Object {
         Object {
           "cs": "嗔",
           "ct": "嗔",
-          "d": "to be angry at/to be displeased and annoyed",
+          "d": Array [
+            "to be angry at/to be displeased and annoyed",
+          ],
           "i": 3546,
-          "p": "chen1",
+          "p": Array [
+            "chen1",
+          ],
         },
         Object {
           "cs": "沥",
           "ct": "瀝",
-          "d": "to drip/to strain or filter/a trickle",
+          "d": Array [
+            "to drip/to strain or filter/a trickle",
+          ],
           "i": 3598,
-          "p": "li4",
+          "p": Array [
+            "li4",
+          ],
         },
         Object {
           "cs": "匾",
           "ct": "匾",
-          "d": "horizontal rectangular inscribed tablet hung over a door or on a wall/shallow round woven bamboo basket",
+          "d": Array [
+            "horizontal rectangular inscribed tablet hung over a door or on a wall/shallow round woven bamboo basket",
+          ],
           "i": 3501,
-          "p": "bian3",
+          "p": Array [
+            "bian3",
+          ],
         },
         Object {
           "cs": "湄",
           "ct": "湄",
-          "d": "brink/edge",
+          "d": Array [
+            "brink/edge",
+          ],
           "i": 3639,
-          "p": "mei2",
+          "p": Array [
+            "mei2",
+          ],
         },
         Object {
           "cs": "揍",
           "ct": "揍",
-          "d": "to beat up/to break to pieces",
+          "d": Array [
+            "to beat up/to break to pieces",
+          ],
           "i": 3540,
-          "p": "zou4",
+          "p": Array [
+            "zou4",
+          ],
         },
       ],
     },
@@ -658,37 +1006,59 @@ Object {
         Object {
           "cs": "瓮",
           "ct": "瓮",
-          "d": "variant of 甕|瓮[weng4]/earthen jar/urn",
+          "d": Array [
+            "variant of 甕|瓮[weng4]/earthen jar/urn",
+          ],
           "i": 3873,
-          "p": "weng4",
+          "p": Array [
+            "weng4",
+          ],
         },
         Object {
           "cs": "锢",
           "ct": "錮",
-          "d": "obstinate disease/to restrain/to stop",
+          "d": Array [
+            "obstinate disease/to restrain/to stop",
+          ],
           "i": 3948,
-          "p": "gu4",
+          "p": Array [
+            "gu4",
+          ],
         },
         Object {
           "cs": "蟀",
           "ct": "蟀",
-          "d": "cricket",
+          "d": Array [
+            "cricket",
+          ],
           "i": 3792,
-          "p": "shuai4",
+          "p": Array [
+            "shuai4",
+          ],
         },
         Object {
           "cs": "箍",
           "ct": "箍",
-          "d": "hoop/to bind with hoops",
+          "d": Array [
+            "hoop/to bind with hoops",
+          ],
           "i": 3764,
-          "p": "gu1",
+          "p": Array [
+            "gu1",
+          ],
         },
         Object {
           "cs": "傀",
           "ct": "傀",
-          "d": "grand/strange/exotic/puppet",
+          "d": Array [
+            "grand/strange/exotic",
+            "puppet",
+          ],
           "i": 3946,
-          "p": "gui1/kui3",
+          "p": Array [
+            "gui1",
+            "kui3",
+          ],
         },
       ],
     },
@@ -701,37 +1071,63 @@ Object {
         Object {
           "cs": "宕",
           "ct": "宕",
-          "d": "dissipated/put off",
+          "d": Array [
+            "dissipated/put off",
+          ],
           "i": 4231,
-          "p": "dang4",
+          "p": Array [
+            "dang4",
+          ],
         },
         Object {
           "cs": "芥",
           "ct": "芥",
-          "d": "see 芥藍|芥蓝[gai4 lan2]/mustard",
+          "d": Array [
+            "see 芥藍|芥蓝[gai4 lan2]",
+            "mustard",
+          ],
           "i": 4002,
-          "p": "gai4/jie4",
+          "p": Array [
+            "gai4",
+            "jie4",
+          ],
         },
         Object {
           "cs": "铿",
           "ct": "鏗",
-          "d": "(onom.) clang/jingling of metals/to strike",
+          "d": Array [
+            "(onom.) clang/jingling of metals/to strike",
+          ],
           "i": 4111,
-          "p": "keng1",
+          "p": Array [
+            "keng1",
+          ],
         },
         Object {
           "cs": "甬",
           "ct": "甬",
-          "d": "variant of 桶[tong3], bucket/(classifier) cubic dry measure (5 pecks 五斗, approx half-liter)/path screened by walls on both sides/the Yongjiang river 甬江[Yong3 jiang1] through Ningbo 寧波|宁波[Ning2 bo1]/abbr. for Ningbo",
+          "d": Array [
+            "variant of 桶[tong3], bucket/(classifier) cubic dry measure (5 pecks 五斗, approx half-liter)",
+            "path screened by walls on both sides",
+            "the Yongjiang river 甬江[Yong3 jiang1] through Ningbo 寧波|宁波[Ning2 bo1]/abbr. for Ningbo",
+          ],
           "i": 4038,
-          "p": "tong3/yong3/Yong3",
+          "p": Array [
+            "tong3",
+            "yong3",
+            "Yong3",
+          ],
         },
         Object {
           "cs": "淙",
           "ct": "淙",
-          "d": "noise of water",
+          "d": Array [
+            "noise of water",
+          ],
           "i": 4172,
-          "p": "cong2",
+          "p": Array [
+            "cong2",
+          ],
         },
       ],
     },
@@ -744,37 +1140,61 @@ Object {
         Object {
           "cs": "骁",
           "ct": "驍",
-          "d": "brave/good horse/strong",
+          "d": Array [
+            "brave/good horse/strong",
+          ],
           "i": 4404,
-          "p": "xiao1",
+          "p": Array [
+            "xiao1",
+          ],
         },
         Object {
           "cs": "蚜",
           "ct": "蚜",
-          "d": "aphis",
+          "d": Array [
+            "aphis",
+          ],
           "i": 4415,
-          "p": "ya2",
+          "p": Array [
+            "ya2",
+          ],
         },
         Object {
           "cs": "芍",
           "ct": "芍",
-          "d": "Chinese peony/Paeonia albiflora or lactiflora/see 芍陂[Que4 pi2]",
+          "d": Array [
+            "Chinese peony/Paeonia albiflora or lactiflora",
+            "see 芍陂[Que4 pi2]",
+          ],
           "i": 4361,
-          "p": "shao2/Que4",
+          "p": Array [
+            "shao2",
+            "Que4",
+          ],
         },
         Object {
           "cs": "缜",
           "ct": "縝",
-          "d": "fine and dense",
+          "d": Array [
+            "fine and dense",
+          ],
           "i": 4383,
-          "p": "zhen3",
+          "p": Array [
+            "zhen3",
+          ],
         },
         Object {
           "cs": "俚",
           "ct": "俚",
-          "d": "rustic/vulgar/unrefined/abbr. for 俚語|俚语[li3 yu3], slang/old name for the 黎[Li2] ethnic group",
+          "d": Array [
+            "rustic/vulgar/unrefined/abbr. for 俚語|俚语[li3 yu3], slang",
+            "old name for the 黎[Li2] ethnic group",
+          ],
           "i": 4358,
-          "p": "li3/Li3",
+          "p": Array [
+            "li3",
+            "Li3",
+          ],
         },
       ],
     },
@@ -787,37 +1207,61 @@ Object {
         Object {
           "cs": "杈",
           "ct": "杈",
-          "d": "fork of a tree/pitchfork/branches of a tree/fork of a tree",
+          "d": Array [
+            "fork of a tree/pitchfork",
+            "branches of a tree/fork of a tree",
+          ],
           "i": 4529,
-          "p": "cha1/cha4",
+          "p": Array [
+            "cha1",
+            "cha4",
+          ],
         },
         Object {
           "cs": "犷",
           "ct": "獷",
-          "d": "rough/uncouth/boorish",
+          "d": Array [
+            "rough/uncouth/boorish",
+          ],
           "i": 4624,
-          "p": "guang3",
+          "p": Array [
+            "guang3",
+          ],
         },
         Object {
           "cs": "艮",
           "ct": "艮",
-          "d": "blunt/tough/chewy/one of the Eight Trigrams 八卦[ba1 gua4], symbolizing mountain/☶/ancient Chinese compass point: 45° (northeast)",
+          "d": Array [
+            "blunt/tough/chewy",
+            "one of the Eight Trigrams 八卦[ba1 gua4], symbolizing mountain/☶/ancient Chinese compass point: 45° (northeast)",
+          ],
           "i": 4564,
-          "p": "gen3/gen4",
+          "p": Array [
+            "gen3",
+            "gen4",
+          ],
         },
         Object {
           "cs": "讣",
           "ct": "訃",
-          "d": "to report a bereavement/obituary",
+          "d": Array [
+            "to report a bereavement/obituary",
+          ],
           "i": 4666,
-          "p": "fu4",
+          "p": Array [
+            "fu4",
+          ],
         },
         Object {
           "cs": "罄",
           "ct": "罄",
-          "d": "to use up/to exhaust/empty",
+          "d": Array [
+            "to use up/to exhaust/empty",
+          ],
           "i": 4542,
-          "p": "qing4",
+          "p": Array [
+            "qing4",
+          ],
         },
       ],
     },
@@ -830,37 +1274,57 @@ Object {
         Object {
           "cs": "湟",
           "ct": "湟",
-          "d": "name of a river",
+          "d": Array [
+            "name of a river",
+          ],
           "i": 4862,
-          "p": "huang2",
+          "p": Array [
+            "huang2",
+          ],
         },
         Object {
           "cs": "菏",
           "ct": "菏",
-          "d": "He river in Shandong",
+          "d": Array [
+            "He river in Shandong",
+          ],
           "i": 4926,
-          "p": "He2",
+          "p": Array [
+            "He2",
+          ],
         },
         Object {
           "cs": "峥",
           "ct": "崢",
-          "d": "excel/lofty",
+          "d": Array [
+            "excel/lofty",
+          ],
           "i": 4958,
-          "p": "zheng1",
+          "p": Array [
+            "zheng1",
+          ],
         },
         Object {
           "cs": "邛",
           "ct": "邛",
-          "d": "mound/place name",
+          "d": Array [
+            "mound/place name",
+          ],
           "i": 4885,
-          "p": "qiong2",
+          "p": Array [
+            "qiong2",
+          ],
         },
         Object {
           "cs": "闶",
           "ct": "閌",
-          "d": "in 閌閬|闶阆, open space in a structure",
+          "d": Array [
+            "in 閌閬|闶阆, open space in a structure",
+          ],
           "i": 4797,
-          "p": "kang1",
+          "p": Array [
+            "kang1",
+          ],
         },
       ],
     },
@@ -873,37 +1337,57 @@ Object {
         Object {
           "cs": "聩",
           "ct": "聵",
-          "d": "born deaf/deaf/obtuse",
+          "d": Array [
+            "born deaf/deaf/obtuse",
+          ],
           "i": 5209,
-          "p": "kui4",
+          "p": Array [
+            "kui4",
+          ],
         },
         Object {
           "cs": "稔",
           "ct": "稔",
-          "d": "ripe grain",
+          "d": Array [
+            "ripe grain",
+          ],
           "i": 5151,
-          "p": "ren3",
+          "p": Array [
+            "ren3",
+          ],
         },
         Object {
           "cs": "咭",
           "ct": "咭",
-          "d": "variant of 嘰|叽[ji1]",
+          "d": Array [
+            "variant of 嘰|叽[ji1]",
+          ],
           "i": 5107,
-          "p": "ji1",
+          "p": Array [
+            "ji1",
+          ],
         },
         Object {
           "cs": "黍",
           "ct": "黍",
-          "d": "broomcorn millet/glutinous millet",
+          "d": Array [
+            "broomcorn millet/glutinous millet",
+          ],
           "i": 5081,
-          "p": "shu3",
+          "p": Array [
+            "shu3",
+          ],
         },
         Object {
           "cs": "鬈",
           "ct": "鬈",
-          "d": "to curl/curled",
+          "d": Array [
+            "to curl/curled",
+          ],
           "i": 5094,
-          "p": "quan2",
+          "p": Array [
+            "quan2",
+          ],
         },
       ],
     },
@@ -916,37 +1400,57 @@ Object {
         Object {
           "cs": "膈",
           "ct": "膈",
-          "d": "diaphragm (anatomy)",
+          "d": Array [
+            "diaphragm (anatomy)",
+          ],
           "i": 5398,
-          "p": "ge2",
+          "p": Array [
+            "ge2",
+          ],
         },
         Object {
           "cs": "鼋",
           "ct": "黿",
-          "d": "sea turtle",
+          "d": Array [
+            "sea turtle",
+          ],
           "i": 5232,
-          "p": "yuan2",
+          "p": Array [
+            "yuan2",
+          ],
         },
         Object {
           "cs": "纰",
           "ct": "紕",
-          "d": "error/carelessness/spoiled silk",
+          "d": Array [
+            "error/carelessness/spoiled silk",
+          ],
           "i": 5277,
-          "p": "pi1",
+          "p": Array [
+            "pi1",
+          ],
         },
         Object {
           "cs": "苤",
           "ct": "苤",
-          "d": "Brassica campestris subsp. rapa",
+          "d": Array [
+            "Brassica campestris subsp. rapa",
+          ],
           "i": 5404,
-          "p": "pie3",
+          "p": Array [
+            "pie3",
+          ],
         },
         Object {
           "cs": "箧",
           "ct": "篋",
-          "d": "chest/box/trunk/suitcase/portfolio",
+          "d": Array [
+            "chest/box/trunk/suitcase/portfolio",
+          ],
           "i": 5474,
-          "p": "qie4",
+          "p": Array [
+            "qie4",
+          ],
         },
       ],
     },
@@ -959,37 +1463,57 @@ Object {
         Object {
           "cs": "煸",
           "ct": "煸",
-          "d": "to stir-fry before broiling or stewing",
+          "d": Array [
+            "to stir-fry before broiling or stewing",
+          ],
           "i": 5609,
-          "p": "bian1",
+          "p": Array [
+            "bian1",
+          ],
         },
         Object {
           "cs": "悭",
           "ct": "慳",
-          "d": "stingy",
+          "d": Array [
+            "stingy",
+          ],
           "i": 5480,
-          "p": "qian1",
+          "p": Array [
+            "qian1",
+          ],
         },
         Object {
           "cs": "肄",
           "ct": "肄",
-          "d": "to learn/to practice or study (old)",
+          "d": Array [
+            "to learn/to practice or study (old)",
+          ],
           "i": 5563,
-          "p": "yi4",
+          "p": Array [
+            "yi4",
+          ],
         },
         Object {
           "cs": "帑",
           "ct": "帑",
-          "d": "state treasury/public funds",
+          "d": Array [
+            "state treasury/public funds",
+          ],
           "i": 5546,
-          "p": "tang3",
+          "p": Array [
+            "tang3",
+          ],
         },
         Object {
           "cs": "螬",
           "ct": "螬",
-          "d": "larva of Mimela lucidula",
+          "d": Array [
+            "larva of Mimela lucidula",
+          ],
           "i": 5726,
-          "p": "cao2",
+          "p": Array [
+            "cao2",
+          ],
         },
       ],
     },
@@ -1002,37 +1526,61 @@ Object {
         Object {
           "cs": "盱",
           "ct": "盱",
-          "d": "anxious/stare/surname Xu",
+          "d": Array [
+            "anxious/stare",
+            "surname Xu",
+          ],
           "i": 5897,
-          "p": "xu1/Xu1",
+          "p": Array [
+            "xu1",
+            "Xu1",
+          ],
         },
         Object {
           "cs": "呒",
           "ct": "嘸",
-          "d": "perplexed/astonished/dialectal equivalent of 沒有|没有[mei2 you3]",
+          "d": Array [
+            "perplexed/astonished",
+            "dialectal equivalent of 沒有|没有[mei2 you3]",
+          ],
           "i": 5781,
-          "p": "fu3/m2",
+          "p": Array [
+            "fu3",
+            "m2",
+          ],
         },
         Object {
           "cs": "肭",
           "ct": "肭",
-          "d": "see 膃肭|腽肭, fur seal or its blubber",
+          "d": Array [
+            "see 膃肭|腽肭, fur seal or its blubber",
+          ],
           "i": 5867,
-          "p": "na4",
+          "p": Array [
+            "na4",
+          ],
         },
         Object {
           "cs": "崤",
           "ct": "崤",
-          "d": "name of a mountain in Henan/also pr. [Yao2]",
+          "d": Array [
+            "name of a mountain in Henan/also pr. [Yao2]",
+          ],
           "i": 5905,
-          "p": "Xiao2",
+          "p": Array [
+            "Xiao2",
+          ],
         },
         Object {
           "cs": "癔",
           "ct": "癔",
-          "d": "see 癔病[yi4 bing4]",
+          "d": Array [
+            "see 癔病[yi4 bing4]",
+          ],
           "i": 5942,
-          "p": "yi4",
+          "p": Array [
+            "yi4",
+          ],
         },
       ],
     },
@@ -1045,37 +1593,57 @@ Object {
         Object {
           "cs": "皲",
           "ct": "皸",
-          "d": "to chap",
+          "d": Array [
+            "to chap",
+          ],
           "i": 6122,
-          "p": "jun1",
+          "p": Array [
+            "jun1",
+          ],
         },
         Object {
           "cs": "桴",
           "ct": "桴",
-          "d": "beam/rafter",
+          "d": Array [
+            "beam/rafter",
+          ],
           "i": 6141,
-          "p": "fu2",
+          "p": Array [
+            "fu2",
+          ],
         },
         Object {
           "cs": "蓍",
           "ct": "蓍",
-          "d": "yarrow (Achillea millefolium)",
+          "d": Array [
+            "yarrow (Achillea millefolium)",
+          ],
           "i": 6185,
-          "p": "shi1",
+          "p": Array [
+            "shi1",
+          ],
         },
         Object {
           "cs": "蟥",
           "ct": "蟥",
-          "d": "horse-leech",
+          "d": Array [
+            "horse-leech",
+          ],
           "i": 6026,
-          "p": "huang2",
+          "p": Array [
+            "huang2",
+          ],
         },
         Object {
           "cs": "撄",
           "ct": "攖",
-          "d": "oppose/to attack",
+          "d": Array [
+            "oppose/to attack",
+          ],
           "i": 6139,
-          "p": "ying1",
+          "p": Array [
+            "ying1",
+          ],
         },
       ],
     },
@@ -1088,37 +1656,57 @@ Object {
         Object {
           "cs": "枘",
           "ct": "枘",
-          "d": "tenon/tool handle/wedge",
+          "d": Array [
+            "tenon/tool handle/wedge",
+          ],
           "i": 6312,
-          "p": "rui4",
+          "p": Array [
+            "rui4",
+          ],
         },
         Object {
           "cs": "猁",
           "ct": "猁",
-          "d": "a kind of monkey",
+          "d": Array [
+            "a kind of monkey",
+          ],
           "i": 6244,
-          "p": "li4",
+          "p": Array [
+            "li4",
+          ],
         },
         Object {
           "cs": "柰",
           "ct": "柰",
-          "d": "crab-apple/how can one help",
+          "d": Array [
+            "crab-apple/how can one help",
+          ],
           "i": 6394,
-          "p": "nai4",
+          "p": Array [
+            "nai4",
+          ],
         },
         Object {
           "cs": "襞",
           "ct": "襞",
-          "d": "creases/folds or pleats in a garment",
+          "d": Array [
+            "creases/folds or pleats in a garment",
+          ],
           "i": 6470,
-          "p": "bi4",
+          "p": Array [
+            "bi4",
+          ],
         },
         Object {
           "cs": "栊",
           "ct": "櫳",
-          "d": "bar/cage/gratings",
+          "d": Array [
+            "bar/cage/gratings",
+          ],
           "i": 6357,
-          "p": "long2",
+          "p": Array [
+            "long2",
+          ],
         },
       ],
     },
@@ -1131,37 +1719,57 @@ Object {
         Object {
           "cs": "鸡",
           "ct": "雞",
-          "d": "fowl/chicken/CL:隻|只[zhi1]/(slang) prostitute",
+          "d": Array [
+            "fowl/chicken/CL:隻|只[zhi1]/(slang) prostitute",
+          ],
           "i": 6662,
-          "p": "ji1",
+          "p": Array [
+            "ji1",
+          ],
         },
         Object {
           "cs": "骢",
           "ct": "驄",
-          "d": "buckskin horse",
+          "d": Array [
+            "buckskin horse",
+          ],
           "i": 6675,
-          "p": "cong1",
+          "p": Array [
+            "cong1",
+          ],
         },
         Object {
           "cs": "飞",
           "ct": "飛",
-          "d": "to fly",
+          "d": Array [
+            "to fly",
+          ],
           "i": 6642,
-          "p": "fei1",
+          "p": Array [
+            "fei1",
+          ],
         },
         Object {
           "cs": "骎",
           "ct": "駸",
-          "d": "fleet horse",
+          "d": Array [
+            "fleet horse",
+          ],
           "i": 6593,
-          "p": "qin1",
+          "p": Array [
+            "qin1",
+          ],
         },
         Object {
           "cs": "貅",
           "ct": "貅",
-          "d": "see 貔貅[pi2 xiu1], composite mythical animal (originally 貅 was the female)",
+          "d": Array [
+            "see 貔貅[pi2 xiu1], composite mythical animal (originally 貅 was the female)",
+          ],
           "i": 6673,
-          "p": "xiu1",
+          "p": Array [
+            "xiu1",
+          ],
         },
       ],
     },
@@ -1174,37 +1782,59 @@ Object {
         Object {
           "cs": "鴥",
           "ct": "鴥",
-          "d": "(of a bird) to fly swiftly/to swoop",
+          "d": Array [
+            "(of a bird) to fly swiftly/to swoop",
+          ],
           "i": 6868,
-          "p": "yu4",
+          "p": Array [
+            "yu4",
+          ],
         },
         Object {
           "cs": "农",
           "ct": "農",
-          "d": "peasant/to farm/agriculture/diligent (old)/government field official (old)/surname Nong",
+          "d": Array [
+            "peasant/to farm/agriculture/diligent (old)/government field official (old)",
+            "surname Nong",
+          ],
           "i": 6919,
-          "p": "nong2/Nong2",
+          "p": Array [
+            "nong2",
+            "Nong2",
+          ],
         },
         Object {
           "cs": "迻",
           "ct": "迻",
-          "d": "to shift/to transfer",
+          "d": Array [
+            "to shift/to transfer",
+          ],
           "i": 6797,
-          "p": "yi2",
+          "p": Array [
+            "yi2",
+          ],
         },
         Object {
           "cs": "轺",
           "ct": "軺",
-          "d": "light carriage",
+          "d": Array [
+            "light carriage",
+          ],
           "i": 6862,
-          "p": "yao2",
+          "p": Array [
+            "yao2",
+          ],
         },
         Object {
           "cs": "埯",
           "ct": "埯",
-          "d": "hole in the ground to plant seeds in/to make a hole for seeds/to dibble",
+          "d": Array [
+            "hole in the ground to plant seeds in/to make a hole for seeds/to dibble",
+          ],
           "i": 6755,
-          "p": "an3",
+          "p": Array [
+            "an3",
+          ],
         },
       ],
     },
@@ -1217,37 +1847,65 @@ Object {
         Object {
           "cs": "閒",
           "ct": "閒",
-          "d": "variant of 間|间[jian1]/variant of 間|间[jian4]/variant of 閑|闲, idle/unoccupied/leisure/free time",
+          "d": Array [
+            "variant of 間|间[jian1]",
+            "variant of 間|间[jian4]",
+            "variant of 閑|闲, idle/unoccupied/leisure/free time",
+          ],
           "i": 7043,
-          "p": "jian1/jian4/xian2",
+          "p": Array [
+            "jian1",
+            "jian4",
+            "xian2",
+          ],
         },
         Object {
           "cs": "翘",
           "ct": "翹",
-          "d": "outstanding/to raise/to stick up/to rise on one end/to tilt",
+          "d": Array [
+            "outstanding/to raise",
+            "to stick up/to rise on one end/to tilt",
+          ],
           "i": 7007,
-          "p": "qiao2/qiao4",
+          "p": Array [
+            "qiao2",
+            "qiao4",
+          ],
         },
         Object {
           "cs": "茼",
           "ct": "茼",
-          "d": "Chrysanthemum coronarium",
+          "d": Array [
+            "Chrysanthemum coronarium",
+          ],
           "i": 7098,
-          "p": "tong2",
+          "p": Array [
+            "tong2",
+          ],
         },
         Object {
           "cs": "鱼",
           "ct": "魚",
-          "d": "fish/CL:條|条[tiao2],尾[wei3]/surname Yu",
+          "d": Array [
+            "fish/CL:條|条[tiao2],尾[wei3]",
+            "surname Yu",
+          ],
           "i": 7214,
-          "p": "yu2/Yu2",
+          "p": Array [
+            "yu2",
+            "Yu2",
+          ],
         },
         Object {
           "cs": "鱵",
           "ct": "鱵",
-          "d": "Hyporhampus sajuri",
+          "d": Array [
+            "Hyporhampus sajuri",
+          ],
           "i": 7119,
-          "p": "zhen1",
+          "p": Array [
+            "zhen1",
+          ],
         },
       ],
     },
@@ -1260,37 +1918,59 @@ Object {
         Object {
           "cs": "臑",
           "ct": "臑",
-          "d": "biceps (in Chinese medicine)/(arch.) forelimbs of livestock animal",
+          "d": Array [
+            "biceps (in Chinese medicine)/(arch.) forelimbs of livestock animal",
+          ],
           "i": 7348,
-          "p": "nao4",
+          "p": Array [
+            "nao4",
+          ],
         },
         Object {
           "cs": "仳",
           "ct": "仳",
-          "d": "to part",
+          "d": Array [
+            "to part",
+          ],
           "i": 7350,
-          "p": "pi3",
+          "p": Array [
+            "pi3",
+          ],
         },
         Object {
           "cs": "钢",
           "ct": "鋼",
-          "d": "steel",
+          "d": Array [
+            "steel",
+          ],
           "i": 7394,
-          "p": "gang1",
+          "p": Array [
+            "gang1",
+          ],
         },
         Object {
           "cs": "𬺈",
           "ct": "齮",
-          "d": "to bite/surname Yi",
+          "d": Array [
+            "to bite",
+            "surname Yi",
+          ],
           "i": 7453,
-          "p": "yi3/Yi3",
+          "p": Array [
+            "yi3",
+            "Yi3",
+          ],
         },
         Object {
           "cs": "剞",
           "ct": "剞",
-          "d": "curved wood graver",
+          "d": Array [
+            "curved wood graver",
+          ],
           "i": 7417,
-          "p": "ji1",
+          "p": Array [
+            "ji1",
+          ],
         },
       ],
     },
@@ -1303,37 +1983,59 @@ Object {
         Object {
           "cs": "肃",
           "ct": "肅",
-          "d": "respectful/solemn/to eliminate/to clean up/surname Su",
+          "d": Array [
+            "respectful/solemn/to eliminate/to clean up",
+            "surname Su",
+          ],
           "i": 7538,
-          "p": "su4/Su4",
+          "p": Array [
+            "su4",
+            "Su4",
+          ],
         },
         Object {
           "cs": "诉",
           "ct": "訴",
-          "d": "to complain/to sue/to tell",
+          "d": Array [
+            "to complain/to sue/to tell",
+          ],
           "i": 7511,
-          "p": "su4",
+          "p": Array [
+            "su4",
+          ],
         },
         Object {
           "cs": "腽",
           "ct": "膃",
-          "d": "blubber (animal fat)",
+          "d": Array [
+            "blubber (animal fat)",
+          ],
           "i": 7694,
-          "p": "wa4",
+          "p": Array [
+            "wa4",
+          ],
         },
         Object {
           "cs": "御",
           "ct": "禦",
-          "d": "to defend/to resist",
+          "d": Array [
+            "to defend/to resist",
+          ],
           "i": 7495,
-          "p": "yu4",
+          "p": Array [
+            "yu4",
+          ],
         },
         Object {
           "cs": "螣",
           "ct": "螣",
-          "d": "flying dragon",
+          "d": Array [
+            "flying dragon",
+          ],
           "i": 7653,
-          "p": "teng2",
+          "p": Array [
+            "teng2",
+          ],
         },
       ],
     },
@@ -1346,37 +2048,57 @@ Object {
         Object {
           "cs": "臐",
           "ct": "臐",
-          "d": "lamb soup",
+          "d": Array [
+            "lamb soup",
+          ],
           "i": 7722,
-          "p": "xun1",
+          "p": Array [
+            "xun1",
+          ],
         },
         Object {
           "cs": "磥",
           "ct": "磥",
-          "d": "a heap of stones/boulders",
+          "d": Array [
+            "a heap of stones/boulders",
+          ],
           "i": 7813,
-          "p": "lei3",
+          "p": Array [
+            "lei3",
+          ],
         },
         Object {
           "cs": "镦",
           "ct": "鐓",
-          "d": "upsetting (forged pieces)",
+          "d": Array [
+            "upsetting (forged pieces)",
+          ],
           "i": 7920,
-          "p": "dun1",
+          "p": Array [
+            "dun1",
+          ],
         },
         Object {
           "cs": "苎",
           "ct": "苧",
-          "d": "Boehmeria nivea/Chinese grass",
+          "d": Array [
+            "Boehmeria nivea/Chinese grass",
+          ],
           "i": 7800,
-          "p": "zhu4",
+          "p": Array [
+            "zhu4",
+          ],
         },
         Object {
           "cs": "毳",
           "ct": "毳",
-          "d": "crisp/brittle/fine animal hair",
+          "d": Array [
+            "crisp/brittle/fine animal hair",
+          ],
           "i": 7796,
-          "p": "cui4",
+          "p": Array [
+            "cui4",
+          ],
         },
       ],
     },
@@ -1389,37 +2111,57 @@ Object {
         Object {
           "cs": "咏",
           "ct": "詠",
-          "d": "to sing",
+          "d": Array [
+            "to sing",
+          ],
           "i": 8054,
-          "p": "yong3",
+          "p": Array [
+            "yong3",
+          ],
         },
         Object {
           "cs": "諆",
           "ct": "諆",
-          "d": "to deceive/to contrive",
+          "d": Array [
+            "to deceive/to contrive",
+          ],
           "i": 8056,
-          "p": "qi1",
+          "p": Array [
+            "qi1",
+          ],
         },
         Object {
           "cs": "鹫",
           "ct": "鷲",
-          "d": "vulture",
+          "d": Array [
+            "vulture",
+          ],
           "i": 8003,
-          "p": "jiu4",
+          "p": Array [
+            "jiu4",
+          ],
         },
         Object {
           "cs": "乃",
           "ct": "迺",
-          "d": "variant of 乃[nai3]",
+          "d": Array [
+            "variant of 乃[nai3]",
+          ],
           "i": 7986,
-          "p": "nai3",
+          "p": Array [
+            "nai3",
+          ],
         },
         Object {
           "cs": "褵",
           "ct": "褵",
-          "d": "bride's veil or kerchief",
+          "d": Array [
+            "bride's veil or kerchief",
+          ],
           "i": 7979,
-          "p": "li2",
+          "p": Array [
+            "li2",
+          ],
         },
       ],
     },
@@ -1432,37 +2174,57 @@ Object {
         Object {
           "cs": "圊",
           "ct": "圊",
-          "d": "restroom/latrine",
+          "d": Array [
+            "restroom/latrine",
+          ],
           "i": 8424,
-          "p": "qing1",
+          "p": Array [
+            "qing1",
+          ],
         },
         Object {
           "cs": "讼",
           "ct": "訟",
-          "d": "litigation",
+          "d": Array [
+            "litigation",
+          ],
           "i": 8397,
-          "p": "song4",
+          "p": Array [
+            "song4",
+          ],
         },
         Object {
           "cs": "苲",
           "ct": "苲",
-          "d": "see 苲草[zha3 cao3]",
+          "d": Array [
+            "see 苲草[zha3 cao3]",
+          ],
           "i": 8271,
-          "p": "zha3",
+          "p": Array [
+            "zha3",
+          ],
         },
         Object {
           "cs": "臞",
           "ct": "臞",
-          "d": "variant of 癯[qu2]",
+          "d": Array [
+            "variant of 癯[qu2]",
+          ],
           "i": 8463,
-          "p": "qu2",
+          "p": Array [
+            "qu2",
+          ],
         },
         Object {
           "cs": "蜕",
           "ct": "蛻",
-          "d": "skin cast off during molting/exuvia/to pupate/to molt/to slough/to cast off an old skin or shell",
+          "d": Array [
+            "skin cast off during molting/exuvia/to pupate/to molt/to slough/to cast off an old skin or shell",
+          ],
           "i": 8343,
-          "p": "tui4",
+          "p": Array [
+            "tui4",
+          ],
         },
       ],
     },
@@ -1475,37 +2237,57 @@ Object {
         Object {
           "cs": "缭",
           "ct": "繚",
-          "d": "to wind round/to sew with slanting stitches",
+          "d": Array [
+            "to wind round/to sew with slanting stitches",
+          ],
           "i": 8616,
-          "p": "liao2",
+          "p": Array [
+            "liao2",
+          ],
         },
         Object {
           "cs": "核",
           "ct": "覈",
-          "d": "variant of 核[he2]/to investigate",
+          "d": Array [
+            "variant of 核[he2]/to investigate",
+          ],
           "i": 8478,
-          "p": "he2",
+          "p": Array [
+            "he2",
+          ],
         },
         Object {
           "cs": "磭",
           "ct": "磭",
-          "d": "big lip",
+          "d": Array [
+            "big lip",
+          ],
           "i": 8525,
-          "p": "chuo4",
+          "p": Array [
+            "chuo4",
+          ],
         },
         Object {
           "cs": "蛎",
           "ct": "蠣",
-          "d": "oyster",
+          "d": Array [
+            "oyster",
+          ],
           "i": 8647,
-          "p": "li4",
+          "p": Array [
+            "li4",
+          ],
         },
         Object {
           "cs": "铈",
           "ct": "鈰",
-          "d": "cerium (chemistry)",
+          "d": Array [
+            "cerium (chemistry)",
+          ],
           "i": 8546,
-          "p": "shi4",
+          "p": Array [
+            "shi4",
+          ],
         },
       ],
     },
@@ -1518,37 +2300,59 @@ Object {
         Object {
           "cs": "釱",
           "ct": "釱",
-          "d": "fetters/to fetter",
+          "d": Array [
+            "fetters/to fetter",
+          ],
           "i": 8763,
-          "p": "di4",
+          "p": Array [
+            "di4",
+          ],
         },
         Object {
           "cs": "龈",
           "ct": "齦",
-          "d": "variant of 啃[ken3]/gums (of the teeth)",
+          "d": Array [
+            "variant of 啃[ken3]",
+            "gums (of the teeth)",
+          ],
           "i": 8748,
-          "p": "ken3/yin2",
+          "p": Array [
+            "ken3",
+            "yin2",
+          ],
         },
         Object {
           "cs": "肴",
           "ct": "餚",
-          "d": "variant of 肴[yao2]",
+          "d": Array [
+            "variant of 肴[yao2]",
+          ],
           "i": 8821,
-          "p": "yao2",
+          "p": Array [
+            "yao2",
+          ],
         },
         Object {
           "cs": "鰫",
           "ct": "鰫",
-          "d": "bighead carp",
+          "d": Array [
+            "bighead carp",
+          ],
           "i": 8734,
-          "p": "yong2",
+          "p": Array [
+            "yong2",
+          ],
         },
         Object {
           "cs": "鸴",
           "ct": "鷽",
-          "d": "various species of finch (old)",
+          "d": Array [
+            "various species of finch (old)",
+          ],
           "i": 8811,
-          "p": "xue2",
+          "p": Array [
+            "xue2",
+          ],
         },
       ],
     },
@@ -1561,37 +2365,57 @@ Object {
         Object {
           "cs": "薠",
           "ct": "薠",
-          "d": "plant similar to coco-grass 莎草[suo1 cao3] (classical)",
+          "d": Array [
+            "plant similar to coco-grass 莎草[suo1 cao3] (classical)",
+          ],
           "i": 9123,
-          "p": "fan2",
+          "p": Array [
+            "fan2",
+          ],
         },
         Object {
           "cs": "簠",
           "ct": "簠",
-          "d": "basket used in state worship",
+          "d": Array [
+            "basket used in state worship",
+          ],
           "i": 9082,
-          "p": "fu3",
+          "p": Array [
+            "fu3",
+          ],
         },
         Object {
           "cs": "鹢",
           "ct": "鷁",
-          "d": "a kind of aquatic bird",
+          "d": Array [
+            "a kind of aquatic bird",
+          ],
           "i": 9201,
-          "p": "yi4",
+          "p": Array [
+            "yi4",
+          ],
         },
         Object {
           "cs": "鬙",
           "ct": "鬙",
-          "d": "short hair/unkempt",
+          "d": Array [
+            "short hair/unkempt",
+          ],
           "i": 9190,
-          "p": "seng1",
+          "p": Array [
+            "seng1",
+          ],
         },
         Object {
           "cs": "鹯",
           "ct": "鸇",
-          "d": "sparrow hawk/swift",
+          "d": Array [
+            "sparrow hawk/swift",
+          ],
           "i": 9203,
-          "p": "zhan1",
+          "p": Array [
+            "zhan1",
+          ],
         },
       ],
     },
@@ -1604,37 +2428,61 @@ Object {
         Object {
           "cs": "齰",
           "ct": "齰",
-          "d": "to bite",
+          "d": Array [
+            "to bite",
+          ],
           "i": 9352,
-          "p": "ze2",
+          "p": Array [
+            "ze2",
+          ],
         },
         Object {
           "cs": "砫",
           "ct": "砫",
-          "d": "ancestral tablet",
+          "d": Array [
+            "ancestral tablet",
+          ],
           "i": 9388,
-          "p": "zhu3",
+          "p": Array [
+            "zhu3",
+          ],
         },
         Object {
           "cs": "缉",
           "ct": "緝",
-          "d": "to seize/to arrest/Taiwan pr. [qi4]/to stitch finely",
+          "d": Array [
+            "to seize/to arrest/Taiwan pr. [qi4]",
+            "to stitch finely",
+          ],
           "i": 9456,
-          "p": "ji1/qi1",
+          "p": Array [
+            "ji1",
+            "qi1",
+          ],
         },
         Object {
           "cs": "谥",
           "ct": "謚",
-          "d": "variant of 諡|谥[shi4]/smiling face",
+          "d": Array [
+            "variant of 諡|谥[shi4]",
+            "smiling face",
+          ],
           "i": 9278,
-          "p": "shi4/yi4",
+          "p": Array [
+            "shi4",
+            "yi4",
+          ],
         },
         Object {
           "cs": "髅",
           "ct": "髏",
-          "d": "skull",
+          "d": Array [
+            "skull",
+          ],
           "i": 9384,
-          "p": "lou2",
+          "p": Array [
+            "lou2",
+          ],
         },
       ],
     },
@@ -1647,37 +2495,57 @@ Object {
         Object {
           "cs": "鲡",
           "ct": "鱺",
-          "d": "eel",
+          "d": Array [
+            "eel",
+          ],
           "i": 9683,
-          "p": "li2",
+          "p": Array [
+            "li2",
+          ],
         },
         Object {
           "cs": "舱",
           "ct": "艙",
-          "d": "cabin/the hold of a ship or airplane",
+          "d": Array [
+            "cabin/the hold of a ship or airplane",
+          ],
           "i": 9483,
-          "p": "cang1",
+          "p": Array [
+            "cang1",
+          ],
         },
         Object {
           "cs": "贽",
           "ct": "贄",
-          "d": "gifts to superiors",
+          "d": Array [
+            "gifts to superiors",
+          ],
           "i": 9567,
-          "p": "zhi4",
+          "p": Array [
+            "zhi4",
+          ],
         },
         Object {
           "cs": "鴽",
           "ct": "鴽",
-          "d": "quail-like bird",
+          "d": Array [
+            "quail-like bird",
+          ],
           "i": 9692,
-          "p": "ru2",
+          "p": Array [
+            "ru2",
+          ],
         },
         Object {
           "cs": "衔",
           "ct": "銜",
-          "d": "bit (of a bridle)/to hold in the mouth/to harbor (feelings)/to link/to accept/rank/title",
+          "d": Array [
+            "bit (of a bridle)/to hold in the mouth/to harbor (feelings)/to link/to accept/rank/title",
+          ],
           "i": 9599,
-          "p": "xian2",
+          "p": Array [
+            "xian2",
+          ],
         },
       ],
     },
@@ -1690,37 +2558,59 @@ Object {
         Object {
           "cs": "荙",
           "ct": "薘",
-          "d": "plantago major",
+          "d": Array [
+            "plantago major",
+          ],
           "i": 9900,
-          "p": "da2",
+          "p": Array [
+            "da2",
+          ],
         },
         Object {
           "cs": "鹭",
           "ct": "鷺",
-          "d": "heron",
+          "d": Array [
+            "heron",
+          ],
           "i": 9854,
-          "p": "lu4",
+          "p": Array [
+            "lu4",
+          ],
         },
         Object {
           "cs": "阍",
           "ct": "閽",
-          "d": "doorkeeper",
+          "d": Array [
+            "doorkeeper",
+          ],
           "i": 9737,
-          "p": "hun1",
+          "p": Array [
+            "hun1",
+          ],
         },
         Object {
           "cs": "蒪",
           "ct": "蒪",
-          "d": "myoga ginger (Zingiber mioga)",
+          "d": Array [
+            "myoga ginger (Zingiber mioga)",
+          ],
           "i": 9839,
-          "p": "po4",
+          "p": Array [
+            "po4",
+          ],
         },
         Object {
           "cs": "颏",
           "ct": "頦",
-          "d": "chin/(used in bird names) throat",
+          "d": Array [
+            "chin",
+            "(used in bird names) throat",
+          ],
           "i": 9917,
-          "p": "ke1/ke2",
+          "p": Array [
+            "ke1",
+            "ke2",
+          ],
         },
       ],
     },
