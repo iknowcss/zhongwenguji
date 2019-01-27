@@ -246,6 +246,8 @@ export default (state = DEFAULT_STATE, action = {}) => {
         state: statusEnum.RESULTS_READY,
         resultData: action.resultData
       };
+    case actionTypes.TEST_RESULTS_SHOW:
+      return { ...state, state: statusEnum.RESULTS_READY };
     case actionTypes.REVIEW_MISSED_START:
       return { ...state, state: statusEnum.REVIEW };
     case actionTypes.TEST_RESET:

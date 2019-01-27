@@ -19,6 +19,7 @@ export const actionTypes = {
   TEST_RESULTS_SUBMIT_START: '@zwgj//testResults/submit/start',
   TEST_RESULTS_SUBMIT_SUCCESS: '@zwgj//testResults/submit/success',
   TEST_RESULTS_SUBMIT_FAIL: '@zwgj//testResults/submit/fail',
+  TEST_RESULTS_SHOW: '@zwgj//testResults/show',
   TEST_RESET: '@zwgj//test/reset',
   TEST_SET_CHARACTER_SET_SIMPLIFIED: '@zwgj//test/characterSet/setSimplified',
   TEST_SET_CHARACTER_SET_TRADITIONAL: '@zwgj//test/characterSet/setTraditional',
@@ -111,3 +112,5 @@ export const setCharacterSetSimplified = () => ({ type: actionTypes.TEST_SET_CHA
 export const setCharacterSetTraditional = () => ({ type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL });
 
 export const reviewMissed = () => ({ type: actionTypes.REVIEW_MISSED_START });
+
+export const showTestResults = () => ({ type: actionTypes.TEST_RESULTS_SHOW });

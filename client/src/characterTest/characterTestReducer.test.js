@@ -678,6 +678,14 @@ describe('characterTestReducer', () => {
         state: 'ERROR'
       });
     });
+
+    it('shows existing test results', () => {
+      expect(characterTestReducer(null, {
+        type: actionTypes.TEST_RESULTS_SHOW
+      })).toEqual({
+        state: statusEnum.RESULTS_READY
+      });
+    });
   });
 
   describe('review missed characters', () => {

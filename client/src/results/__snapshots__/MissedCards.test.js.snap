@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MissedCards renders cards 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="cardRowContainer"
+  >
+    <div
+      className="cardRowColor"
+    >
+      <div
+        className="cardRow"
+      >
+        <div
+          className="cardCharacterColumn"
+        >
+          <span>
+            读
+          </span>
+        </div>
+        <div
+          className="cardPinyinDefColumn"
+        >
+          <div
+            className="cardPinyinDefRow"
+          >
+            <div
+              className="cardPinyinColumn"
+            >
+              <span>
+                dòu
+              </span>
+            </div>
+            <div
+              className="cardDefColumn"
+            >
+              <span>
+                comma / phrase marked by pause
+              </span>
+            </div>
+          </div>
+          <div
+            className="cardPinyinDefRow"
+          >
+            <div
+              className="cardPinyinColumn"
+            >
+              <span>
+                dú
+              </span>
+            </div>
+            <div
+              className="cardDefColumn"
+            >
+              <span>
+                to read / to study
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="actionButtonContainer"
+  >
+    <button
+      className="button actionButton"
+      onClick={[Function]}
+    >
+      reviewMissed.backButton
+    </button>
+  </div>
+</div>
+`;
+
+exports[`MissedCards renders no cards 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="cardRowContainer"
+  />
+  <div
+    className="actionButtonContainer"
+  >
+    <button
+      className="button actionButton"
+      onClick={[Function]}
+    >
+      reviewMissed.backButton
+    </button>
+  </div>
+</div>
+`;

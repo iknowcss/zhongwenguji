@@ -7,7 +7,8 @@ import {
   loadSamples,
   markCurrentUnknown,
   markCurrentKnown,
-  undoDiscard
+  undoDiscard,
+  showTestResults
 } from './characterTestActions';
 import getConfig from '../getConfig';
 
@@ -188,6 +189,14 @@ describe('characterTestActions', () => {
             }
           ]);
         });
+    });
+  });
+
+  describe('simple actions', () => {
+    it('showTestResults', () => {
+      expect(showTestResults()).toEqual({
+        type: actionTypes.TEST_RESULTS_SHOW
+      });
     });
   });
 });
