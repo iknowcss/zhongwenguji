@@ -30,8 +30,8 @@ Array [
           "showLine": false,
         },
         Object {
-          "backgroundColor": "rgba(0,255,255,0.5)",
-          "borderColor": "#ffff00",
+          "backgroundColor": "rgba(254,254,254,0.5)",
+          "borderColor": "#ffaaaa",
           "borderWidth": 2,
           "data": Array [
             Object {

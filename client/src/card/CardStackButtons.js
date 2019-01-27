@@ -40,8 +40,9 @@ export default class CardStackButtons extends Component {
           <UndoIcon size="medium" className={style.buttonIcon} />
         </Button>
         <Button
-          secondary={this.props.showDefinition}
-          className={cx(style.button)}
+          className={cx(style.button, {
+            [style.buttonActive]: this.props.showDefinition
+          })}
           onClick={this.handleDefinitionClick}
         >
           <SearchIcon size="medium" className={style.buttonIcon} />

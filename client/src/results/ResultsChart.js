@@ -12,7 +12,6 @@ function transparentize(color, transparency) {
   }
   return color;
 }
-const lightTransparent = transparentize(colors.light, .5);
 
 function datify(curvePoints, samplePoints) {
   let stopIndex = 0;
@@ -24,7 +23,7 @@ function datify(curvePoints, samplePoints) {
       {
         data: Array.from(samplePoints, ([x, y]) => ({x, y})),
         backgroundColor: 'transparent',
-        borderColor: colors.primary,
+        borderColor: colors.brandColor,
         showLine: false,
         borderWidth: 2,
         pointRadius: 4
@@ -32,8 +31,8 @@ function datify(curvePoints, samplePoints) {
       {
         showLine: true,
         data: Array.from(curvePoints.slice(0, stopIndex), ([x, y]) => ({x, y})),
-        backgroundColor: lightTransparent,
-        borderColor: colors.secondary,
+        backgroundColor: transparentize(colors.lightShades, .5),
+        borderColor: colors.lightAccent,
         borderWidth: 2,
         pointRadius: 0
       }

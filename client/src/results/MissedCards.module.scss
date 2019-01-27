@@ -1,23 +1,23 @@
 @import '../style/colors';
 
-$color-light-light: lighten($color-light, 3%);
+$color-light-shades-light: lighten($color-light-shades, 3%);
 
 .container {
   min-height: 100%;
+  font-size: 6vw;
+
+  @media screen and (min-width: 400px) {
+    font-size: 5vw;
+  }
+
+  @media screen and (min-width: 640px) {
+    font-size: 32px;
+  }
 }
 
 .card {
   &RowContainer {
-    font-size: 6vw;
-    margin-bottom: 6.4rem;
-
-    @media screen and (min-width: 400px) {
-      font-size: 5vw;
-    }
-
-    @media screen and (min-width: 640px) {
-      font-size: 32px;
-    }
+    padding-top: 2.4em;
   }
 
   &Row {
@@ -30,7 +30,7 @@ $color-light-light: lighten($color-light, 3%);
 
     &Color {
       width: 100%;
-      background-color: $color-light-light;
+      background-color: $color-light-shades-light;
 
       &:nth-child(2n) {
         background-color: $color-white;
@@ -46,7 +46,7 @@ $color-light-light: lighten($color-light, 3%);
     span {
       display: inline-block;
       margin: .25em;
-      border: .05em solid $color-dark;
+      border: .05em solid $color-dark-accent;
       border-radius: .1em;
       line-height: 1.2;
       background-color: $color-white;
@@ -85,23 +85,21 @@ $color-light-light: lighten($color-light, 3%);
       max-height: 3.7em;
       text-overflow: ellipsis;
       position: relative;
-
-      &:after {
-      }
     }
   }
 }
 
 .actionButton {
-  &Container {
-    box-shadow: rgba(70, 20, 0, .6) 0 .1em .4em 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background-color: $color-white;
-  }
+  font-size: .6em;
+  margin: .5em .5em;
 
-  margin: 1.5rem .5rem;
+  &Container {
+    box-shadow:
+            0 16px 38px -12px transparentize($color-dark-shades, .5),
+            0 4px 25px 0px transparentize($color-dark-shades, .88);
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    background-color: $color-dark-shades;
+  }
 }

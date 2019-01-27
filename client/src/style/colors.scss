@@ -1,17 +1,22 @@
-$color-primary: #b90008;
-$color-secondary: #ffc86f;
-$color-light: #ffefd5;
-$color-dark: #3c495d;
+$color-light-shades: #EEECE5;
+$color-light-accent: #8BBAC6;
+$color-brand-color: #386CAB;
+$color-dark-accent: #5B6D8A;
+$color-dark-shades: #273033;
+$color-success: #469b6b;
+$color-warning: #c38b33;
+$color-danger: #f44336;
+
 $color-light-grey: #cfcfcf;
 $color-medium-grey: #afafaf;
 $color-white: #fefefe;
 $color-black: #101010;
 
 :export {
-  primary: $color-primary;
-  secondary: $color-secondary;
-  light: $color-light;
-  dark: $color-dark;
+  brandColor: $color-brand-color;
+  lightAccent: $color-light-accent;
+  lightShades: $color-light-shades;
+  darkAccent: $color-dark-accent;
   white: $color-white;
   black: $color-black;
 }

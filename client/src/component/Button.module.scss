@@ -8,9 +8,9 @@
   }
 
   line-height: 3em;
-  padding: 0 1.3em;
-  background-color: $color-primary;
-  border: .2em solid darken($color-primary, 5%);
+  padding: 0 1.5em;
+  background-color: $color-brand-color;
+  border: none;
   border-radius: 1.7em;
   color: $color-white;
   cursor: pointer;
@@ -23,13 +23,12 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: rgba(70, 20, 0, .6) 0 .1em .4em 0;
+  box-shadow: rgba(0, 20, 70, .6) 0 .1em .4em 0;
 
   transition:
     transform ease-in-out 50ms,
     box-shadow ease-in-out 50ms,
-    background-color ease-in-out 100ms,
-    border-color ease-in-out 100ms;
+    background-color ease-in-out 100ms;
 
   &:active {
     transform: translateY(.08em);
@@ -37,7 +36,7 @@
   }
 
   &:hover {
-    background-color: lighten($color-primary, 5%);
+    background-color: lighten($color-brand-color, 5%);
   }
 
   svg {
@@ -46,24 +45,23 @@
 }
 
 .secondary {
-  background-color: $color-secondary;
-  color: darken($color-secondary, 50%);
-  border-color: lighten($color-secondary, 10%);
+  background-color: $color-light-shades;
+  color: $color-dark-shades;
 
   &:hover {
-    background-color: lighten($color-secondary, 5%);
+    background-color: lighten($color-light-shades, 5%);
   }
 
   svg {
-    fill: darken($color-secondary, 40%) !important;
+    fill: $color-white !important;
   }
 }
 
-.disabled, .disabled:hover {
+.disabled, .disabled:hover, .disabled:active {
   box-shadow: none;
   background-color: $color-light-grey;
   color: $color-medium-grey;
-  border-color: $color-medium-grey;
+  transform: none;
 
   svg {
     fill: $color-medium-grey !important;

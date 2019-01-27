@@ -23,7 +23,9 @@ describe('CardStackButtons', () => {
   it('updates the buttons when showDefinition is true', () => {
     setup({ showDefinition: true });
     expect(undoButton.props.disabled).toEqual(true);
-    expect(definitionButton.props.secondary).toEqual(true);
+    expect(definitionButton.props.className.split(/\s+/)).toEqual(
+      expect.arrayContaining(['buttonActive'])
+    );
   });
 
   describe('click handlers', () => {

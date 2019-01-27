@@ -65,9 +65,6 @@ class MissedCards extends Component {
     const { missedCards } = this.props;
     return (
       <div className={style.container}>
-        <div className={style.cardRowContainer}>
-          {missedCards.map(this.renderCardRow)}
-        </div>
         <div className={style.actionButtonContainer}>
           <I18n
             component={Button}
@@ -78,6 +75,9 @@ class MissedCards extends Component {
           {/*<Button
             className={style.actionButton}
           >Add to Skritter</Button>*/}
+        </div>
+        <div className={style.cardRowContainer}>
+          {missedCards.map(this.renderCardRow)}
         </div>
       </div>
     );

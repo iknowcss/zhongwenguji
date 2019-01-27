@@ -6,13 +6,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: .2rem solid $color-dark;
+  border: .2rem solid darken($color-dark-accent, 10%);
   box-sizing: border-box;
   width: 12rem;
   height: 15rem;
   border-radius: .4rem;
   overflow-y: auto;
   background-color: $color-white;
+  box-shadow:
+          0 16px 38px -12px transparentize($color-dark-shades, .5),
+          0 4px 25px 0px transparentize($color-dark-shades, .88);
 }
 
 .showDefinition {

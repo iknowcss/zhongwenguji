@@ -5,6 +5,16 @@ exports[`MissedCards renders cards 1`] = `
   className="container"
 >
   <div
+    className="actionButtonContainer"
+  >
+    <button
+      className="button actionButton"
+      onClick={[Function]}
+    >
+      reviewMissed.backButton
+    </button>
+  </div>
+  <div
     className="cardRowContainer"
   >
     <div
@@ -63,16 +73,6 @@ exports[`MissedCards renders cards 1`] = `
       </div>
     </div>
   </div>
-  <div
-    className="actionButtonContainer"
-  >
-    <button
-      className="button actionButton"
-      onClick={[Function]}
-    >
-      reviewMissed.backButton
-    </button>
-  </div>
 </div>
 `;
 
@@ -81,9 +81,6 @@ exports[`MissedCards renders no cards 1`] = `
   className="container"
 >
   <div
-    className="cardRowContainer"
-  />
-  <div
     className="actionButtonContainer"
   >
     <button
@@ -93,5 +90,8 @@ exports[`MissedCards renders no cards 1`] = `
       reviewMissed.backButton
     </button>
   </div>
+  <div
+    className="cardRowContainer"
+  />
 </div>
 `;

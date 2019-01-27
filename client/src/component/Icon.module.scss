@@ -22,12 +22,12 @@
   }
 
   &--medium {
-    width: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-    min-width: 2rem;
-    min-height: 2rem;
-    font-size: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    font-size: 2.5rem;
   }
 
   &--large {
@@ -73,7 +73,7 @@
     }
 
     &:nth-child(n+2) {
-      border: .05em solid $color-primary;
+      border: .05em solid $color-brand-color;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
       border-bottom-color: transparent;
