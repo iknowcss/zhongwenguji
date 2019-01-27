@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon renders LoadingIcon with default size 1`] = `
+<span
+  className="span span--small loadingIcon"
+>
+  <span>
+    加载
+  </span>
+  <span />
+  <span />
+  <span />
+  <span />
+</span>
+`;
+
+exports[`Icon renders LoadingIcon with medium size 1`] = `
+<span
+  className="span span--medium loadingIcon"
+>
+  <span>
+    加载
+  </span>
+  <span />
+  <span />
+  <span />
+  <span />
+</span>
+`;

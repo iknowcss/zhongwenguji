@@ -70,9 +70,3 @@ export const LoadingIcon = ({ className, size = 'small' }) => (
     <span />
   </span>
 );
-
-export const CharIcon = ({ className, size = 'small', character }) => (
-  <span className={cx(style.span, style[`span--${size}`], className)}>
-    {character}
-  </span>
-);
