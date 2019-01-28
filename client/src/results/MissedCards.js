@@ -72,9 +72,13 @@ class MissedCards extends Component {
             className={style.actionButton}
             onClick={this.handleBackButtonClick}
           />
-          {/*<Button
+          <Button
             className={style.actionButton}
-          >Add to Skritter</Button>*/}
+            onClick={(e) => {
+              e.preventDefault();
+              document.location = 'https://legacy.skritter.com/api/v0/oauth2/authorize?response_type=code&client_id=hanzishanapp&state=testresults';
+            }}
+          >Add to Skritter</Button>
         </div>
         <div className={style.cardRowContainer}>
           {missedCards.map(this.renderCardRow)}

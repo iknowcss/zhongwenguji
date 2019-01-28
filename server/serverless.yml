@@ -6,8 +6,12 @@ provider:
   region: ap-southeast-2
   stage: ${env:STAGE, 'development'}
   environment:
+    STATE_ENCRYPTION_KEY: ${env:STATE_ENCRYPTION_KEY,'cc6254c878e0dfd4fc34b51aea03805e'}
+    STATE_ENCRYPTION_IV: ${env:STATE_ENCRYPTION_KEY,'6c8eeb5616ee85acffca94ccaca25376'}
     SKRITTER_OAUTH_CLIENT_NAME: ${env:SKRITTER_OAUTH_CLIENT_NAME}
     SKRITTER_OAUTH_CLIENT_SECRET: ${env:SKRITTER_OAUTH_CLIENT_SECRET}
+    SKRITTER_OAUTH_CALLBACK_URL: 'https://n822oyux32.execute-api.ap-southeast-2.amazonaws.com/staging/oauth/skritter/callback'
+    SKRITTER_OAUTH_REDIRECT_URL: 'http://staging.hanzishan.com'
 
 functions:
   app:
