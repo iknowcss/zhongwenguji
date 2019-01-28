@@ -1,4 +1,4 @@
-# 汉字山 - Hanzi Mountain · [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE)
+# 汉字山 - Hanzi Mountain · [![GitHub license](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-blue.svg)](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE)
 
 # Credits
 
@@ -19,18 +19,10 @@ Icons made by:
     from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     (licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>)
 
-# Deployment
-
-## Environment variables
-
-| Variable                | Example value   |
-| ----------------------- | --------------- |
-| `AWS_ACCESS_KEY_ID`     | `************`  |
-| `AWS_SECRET_ACCESS_KEY` | `************`  |
-| `DEPLOY_S3_BUCKET`      | `hanzishan.com` |
-| `PUBLIC_URL`            | `/`             |
-| `STAGE`                 | `production`    |
-
 # License
 
-Hanzi Shan is licensed under [GPLv3](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE).
+Except where otherwise noted, all files in this repository are licensed by 
+[iknowcss](https://github.com/iknowcss) (Cody Jenkins) under 
+[CC BY-NC-SA 4.0](https://github.com/iknowcss/zhongwenguji/blob/master/LICENSE) 
+(human-readable summary available 
+[here](https://creativecommons.org/licenses/by-nc-sa/4.0/)).
