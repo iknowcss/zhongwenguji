@@ -10,14 +10,18 @@ functions:
   app:
     handler: index.handler
     events:
-      - http:
-          path: /getCharacterSample
-          method: get
-          cors: true
-      - http:
-          path: /submitTest
-          method: post
-          cors: true
+    - http:
+        path: /getCharacterSample
+        method: get
+        cors: true
+    - http:
+        path: /submitTest
+        method: post
+        cors: true
+    - http:
+        path: /oauth/skritter/callback
+        method: get
+        cors: false
 
 plugins:
   - serverless-offline
