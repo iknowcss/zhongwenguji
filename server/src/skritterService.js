@@ -1,7 +1,7 @@
 const { URL } = require('url');
 const request = require('request');
 
-const SKRITTER_API_BASE_URL = 'https://legacy.skritter.com/api/v0';
+const SKRITTER_API_BASE_URL = 'https://legacy.skritter.com/api/v0/';
 
 function isSuccessResponse(response) {
   return response && response.statusCode === 200;
@@ -26,7 +26,7 @@ function fetchAuthByCode(code) {
     console.warn('SKRITTER_OAUTH_CALLBACK_URL is not set');
   }
 
-  const url = new URL('/oauth2/token', SKRITTER_API_BASE_URL);
+  const url = new URL('oauth2/token', SKRITTER_API_BASE_URL);
   url.searchParams.set('grant_type', 'authorization_code');
   url.searchParams.set('client_id', SKRITTER_OAUTH_CLIENT_NAME);
   url.searchParams.set('redirect_uri', SKRITTER_OAUTH_CALLBACK_URL);
@@ -79,7 +79,7 @@ function fetchAuthByCode(code) {
 }
 
 function fetchUserDetails(userId, fields) {
-  const url = new URL(`/users/${userId}`, SKRITTER_API_BASE_URL);
+  const url = new URL(`users/${userId}`, SKRITTER_API_BASE_URL);
   if (Array.isArray(fields)) {
     url.searchParams.set('fields', fields.join(','));
   }
