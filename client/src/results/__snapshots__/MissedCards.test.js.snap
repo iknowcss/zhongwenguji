@@ -13,6 +13,12 @@ exports[`MissedCards renders cards 1`] = `
     >
       reviewMissed.backButton
     </button>
+    <button
+      className="button actionButton"
+      onClick={[Function]}
+    >
+      Add to Skritter
+    </button>
   </div>
   <div
     className="cardRowContainer"
@@ -88,6 +94,12 @@ exports[`MissedCards renders no cards 1`] = `
       onClick={[Function]}
     >
       reviewMissed.backButton
+    </button>
+    <button
+      className="button actionButton"
+      onClick={[Function]}
+    >
+      Add to Skritter
     </button>
   </div>
   <div
