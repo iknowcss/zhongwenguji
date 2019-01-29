@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducer';
-import { addToSkritter } from './skritterActions';
+import { actionTypes, addToSkritter, receiveContext } from './skritterActions';
 
 jest.mock('../getConfig', () => () => ({
   skritterCallbackUrl: 'http://example.com/authorize'
@@ -29,6 +29,13 @@ describe('skritterActionCreator', () => {
     it('redirects to the skritter OAuth2 endpoint', () => {
       expect(window.location.assign)
         .toHaveBeenCalledWith('http://example.com/authorize');
+    });
+  });
+
+  it('handles receiveContext', () => {
+    expect(receiveContext({ foo: 'bar' })).toEqual({
+      type: actionTypes.CONTEXT_RECEIVE,
+      context: { foo: 'bar' }
     });
   });
 });

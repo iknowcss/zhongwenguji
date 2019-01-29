@@ -14,6 +14,8 @@ function getSearchParams(search) {
 
 export default (search) => {
   const searchParams = getSearchParams(search);
+  window.history.replaceState(null, null, '.');
+
   let skritterContext = null;
   if (searchParams.skritterContext) {
     try {
@@ -24,6 +26,13 @@ export default (search) => {
   }
 
   let initialState = null;
+  if (skritterContext) {
+    try {
+      initialState = JSON.parse(localStorage.getItem('reduxState'));
+    } catch (error) {
+      console.warn('Failed to load initial redux state', error);
+    }
+  }
 
   return { initialState, skritterContext };
 };

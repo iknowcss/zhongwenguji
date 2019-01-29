@@ -6,6 +6,7 @@ import mapSelectors from '../util/mapSelectors';
 import { missedCards } from '../characterTest/characterTestReducer';
 import { loadSamples, showTestResults } from '../characterTest/characterTestActions';
 import { addToSkritter } from '../skritter/skritterActions';
+import { isLoggedIn, userName } from '../skritter/skritterReducer';
 import formatPinyin from '../util/formatPinyin';
 import noop from '../util/noop';
 import Button from '../component/Button';
@@ -80,10 +81,19 @@ class MissedCards extends Component {
             className={style.actionButton}
             onClick={this.handleBackButtonClick}
           />
-          <Button
-            className={style.actionButton}
-            onClick={this.handleAddToSkritterClick}
-          >Add to Skritter</Button>
+          <div className={style.skritterContainer}>
+            {this.props.isLoggedIn ? (
+              <span className={style.skritterUserName}>
+                {this.props.userName}
+              </span>
+            ) : null}
+            <I18n
+              component={Button}
+              stringId="reviewMissed.addToSkritter"
+              className={style.actionButton}
+              onClick={this.handleAddToSkritterClick}
+            />
+          </div>
         </div>
         <div className={style.cardRowContainer}>
           {missedCards.map(this.renderCardRow)}
@@ -96,6 +106,6 @@ class MissedCards extends Component {
 export { MissedCards as Pure };
 
 export default connect(
-  mapSelectors({ missedCards }),
+  mapSelectors({ missedCards, isLoggedIn, userName }),
   { loadSamples, showTestResults, addToSkritter }
 )(MissedCards);

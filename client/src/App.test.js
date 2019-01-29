@@ -24,12 +24,6 @@ describe('App', () => {
       component.update(<App {...props} />);
     }
 
-    it('occurs on mount', () => {
-      const loadSamplesStub = jest.fn();
-      mount({ loadSamples: loadSamplesStub });
-      expect(loadSamplesStub).toHaveBeenCalled();
-    });
-
     it('occurs after component updates to "READY" state', () => {
       const loadSamplesStub = jest.fn();
       mount({
