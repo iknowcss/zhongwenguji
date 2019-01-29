@@ -5,6 +5,7 @@ import style from './MissedCards.module.scss';
 import mapSelectors from '../util/mapSelectors';
 import { missedCards } from '../characterTest/characterTestReducer';
 import { loadSamples, showTestResults } from '../characterTest/characterTestActions';
+import { addToSkritter } from '../skritter/skritterActions';
 import formatPinyin from '../util/formatPinyin';
 import noop from '../util/noop';
 import Button from '../component/Button';
@@ -24,17 +25,24 @@ function formatDefinition(definition) {
 class MissedCards extends Component {
   static propTypes = {
     missedCards: PropTypes.arrayOf(PropTypes.object),
-    showTestResults: PropTypes.func
+    showTestResults: PropTypes.func,
+    addToSkritter: PropTypes.func
   };
 
   static defaultProps = {
     missedCards: [],
-    showTestResults: noop
+    showTestResults: noop,
+    addToSkritter: noop
   };
 
   handleBackButtonClick = (e) => {
     e.preventDefault();
     this.props.showTestResults();
+  };
+
+  handleAddToSkritterClick = (e) => {
+    e.preventDefault();
+    this.props.addToSkritter();
   };
 
   renderCardPinyinDef = ({ pinyin, definition }, i) => (
@@ -74,10 +82,7 @@ class MissedCards extends Component {
           />
           <Button
             className={style.actionButton}
-            onClick={(e) => {
-              e.preventDefault();
-              document.location = 'https://legacy.skritter.com/api/v0/oauth2/authorize?response_type=code&client_id=hanzishanapp&state=testresults';
-            }}
+            onClick={this.handleAddToSkritterClick}
           >Add to Skritter</Button>
         </div>
         <div className={style.cardRowContainer}>
@@ -92,5 +97,5 @@ export { MissedCards as Pure };
 
 export default connect(
   mapSelectors({ missedCards }),
-  { loadSamples, showTestResults }
+  { loadSamples, showTestResults, addToSkritter }
 )(MissedCards);
