@@ -4,9 +4,15 @@ import { Pure as MissedCards } from './MissedCards';
 
 describe('MissedCards', () => {
   let component;
+  let backButton;
+  let addToSkritterButton;
+  let skritterUserName;
 
   function setup(props) {
     component = Renderer.create(<MissedCards {...props} />);
+    backButton = component.root.findAllByProps({ stringId: 'reviewMissed.backButton' })[0];
+    addToSkritterButton = component.root.findAllByProps({ stringId: 'reviewMissed.addToSkritter' })[0];
+    skritterUserName = component.root.findAllByProps({ className: 'skritterUserName' })[0];
   }
 
   it('renders no cards', () => {
@@ -36,9 +42,26 @@ describe('MissedCards', () => {
     const preventDefault = jest.fn();
     const showTestResults = jest.fn();
     setup({ showTestResults });
-    const button = component.root.findByProps({ stringId: 'reviewMissed.backButton' });
-    button.props.onClick({ preventDefault });
+    backButton.props.onClick({ preventDefault });
+
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(showTestResults).toHaveBeenCalledTimes(1);
+  });
+
+  it('links to skritter', () => {
+    const preventDefault = jest.fn();
+    const addToSkritter = jest.fn();
+    setup({ addToSkritter });
+    addToSkritterButton.props.onClick({ preventDefault });
+
+    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expect(addToSkritter).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders the user name', () => {
+    setup({ isLoggedIn: true, userName: 'iknowcss' });
+
+    expect(skritterUserName).toBeDefined();
+    expect(skritterUserName.children).toEqual(['iknowcss']);
   });
 });

@@ -17,5 +17,6 @@
   "results.startAgain": "Test again",
   "results.feedbackPreface": "How did you enjoy the test?",
   "results.feedbackLinkText": "Let me know here",
-  "reviewMissed.backButton": "Back"
+  "reviewMissed.backButton": "Back",
+  "reviewMissed.addToSkritter": "Add to Skritter"
 }

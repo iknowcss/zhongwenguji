@@ -101,5 +101,11 @@ $color-light-shades-light: lighten($color-light-shades, 3%);
     z-index: 1;
     width: 100%;
     background-color: $color-dark-shades;
+    display: flex;
   }
+}
+
+.skritterContainer {
+  display: inline-block;
+  align-self: flex-end;
 }
