@@ -14,7 +14,7 @@ function getSearchParams(search) {
 
 export default (search) => {
   const searchParams = getSearchParams(search);
-  window.history.replaceState(null, null, '.');
+  // window.history.replaceState(null, null, '.');
 
   let skritterContext = null;
   if (searchParams.skritterContext) {

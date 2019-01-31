@@ -95,17 +95,29 @@ $color-light-shades-light: lighten($color-light-shades, 3%);
 
   &Container {
     box-shadow:
-            0 16px 38px -12px transparentize($color-dark-shades, .5),
-            0 4px 25px 0px transparentize($color-dark-shades, .88);
+      0 16px 38px -12px transparentize($color-dark-shades, .5),
+      0 4px 25px 0px transparentize($color-dark-shades, .88);
     position: fixed;
     z-index: 1;
     width: 100%;
     background-color: $color-dark-shades;
     display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 }
 
-.skritterContainer {
-  display: inline-block;
-  align-self: flex-end;
+.skritter {
+  &Container {
+    display: flex;
+    align-items: center;
+  }
+
+  &UserName {
+    color: $color-white;
+    display: inline;
+    margin-right: .5em;
+    font-size: .8em;
+  }
 }

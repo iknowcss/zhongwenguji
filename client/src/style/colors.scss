@@ -12,6 +12,33 @@ $color-medium-grey: #afafaf;
 $color-white: #fefefe;
 $color-black: #101010;
 
+@mixin modal-container() {
+  background-color: transparentize($color-white, .2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+@mixin modal() {
+  width: 90%;
+  max-width: 20rem;
+  background-color: $color-light-shades;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: .3rem;
+  color: $color-black;
+  box-shadow:
+    0 16px 38px -12px transparentize($color-dark-shades, .5),
+    0 4px 25px 0px transparentize($color-dark-shades, .88);
+}
+
 :export {
   brandColor: $color-brand-color;
   lightAccent: $color-light-accent;

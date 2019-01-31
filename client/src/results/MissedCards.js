@@ -11,6 +11,7 @@ import formatPinyin from '../util/formatPinyin';
 import noop from '../util/noop';
 import Button from '../component/Button';
 import I18n from '../i18n/I18n';
+import AddToSkritter from '../skritter/AddToSkritter';
 
 function pairPinyinDefinitions(pinyinArray, definitionArray) {
   return pinyinArray.map((pinyin, i) => ({
