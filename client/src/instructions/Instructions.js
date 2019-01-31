@@ -26,7 +26,7 @@ class Instructions extends Component {
   };
 
   static defaultProps = {
-    touch: true,
+    touch: false,
     dismissInstructions: noop,
     setCharacterSetSimplified: noop,
     setCharacterSetTraditional: noop,

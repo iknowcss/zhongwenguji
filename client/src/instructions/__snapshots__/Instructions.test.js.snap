@@ -16,42 +16,42 @@ exports[`Instructions renders keyboard instructions 1`] = `
       className="iconParagraphContainer"
     >
       <span
-        className="span span--medium swipeRightIcon iconParagraphIcon"
+        className="span span--small keyboardArrowRightIcon iconParagraphIcon iconParagraphKeyboardIcon"
       >
         <svg
           className="svg"
-          viewBox="0 0 397.233 397.233"
+          viewBox="0 0 419.901 419.901"
         >
           <use
-            xlinkHref="swipeRight.svg#main"
+            xlinkHref="keyboardArrowRight.svg#main"
           />
         </svg>
       </span>
       <p
         className="iconParagraph"
       >
-        instructions.swipeRight
+        instructions.keyboardRight
       </p>
     </div>
     <div
       className="iconParagraphContainer"
     >
       <span
-        className="span span--medium swipeLeftIcon iconParagraphIcon"
+        className="span span--small keyboardArrowLeftIcon iconParagraphIcon iconParagraphKeyboardIcon"
       >
         <svg
           className="svg"
-          viewBox="0 0 397.232 397.232"
+          viewBox="0 0 377.338 377.338"
         >
           <use
-            xlinkHref="swipeLeft.svg#main"
+            xlinkHref="keyboardArrowLeft.svg#main"
           />
         </svg>
       </span>
       <p
         className="iconParagraph"
       >
-        instructions.swipeLeft
+        instructions.keyboardLeft
       </p>
     </div>
     <div
@@ -76,7 +76,7 @@ exports[`Instructions renders keyboard instructions 1`] = `
       <p
         className="iconParagraph"
       >
-        instructions.definitionTouch
+        instructions.definitionMouse
       </p>
     </div>
     <div
@@ -101,7 +101,7 @@ exports[`Instructions renders keyboard instructions 1`] = `
       <p
         className="iconParagraph"
       >
-        instructions.undoTouch
+        instructions.undoMouse
       </p>
     </div>
     <div
