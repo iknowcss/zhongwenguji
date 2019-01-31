@@ -6,10 +6,18 @@ describe('AddToSkritter', () => {
   let component;
 
   function setup(props) {
-    component = Renderer.create(<AddToSkritter {...props} />);
+    component = Renderer.create(
+      <AddToSkritter
+        missedCards={[]}
+        userName="iknowcss"
+        auth="b2hhaQ=="
+        {...props}
+      />
+    );
   }
 
   it('renders with defaults', () => {
     setup();
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });

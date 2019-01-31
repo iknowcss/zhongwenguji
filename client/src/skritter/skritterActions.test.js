@@ -37,7 +37,7 @@ describe('skritterActionCreator', () => {
       beforeAll(() => {
         window.location.assign = jest.fn();
         initialState = rootReducer(rootReducer(), receiveContext({
-          auth: 'auth==',
+          auth: 'b2hhaQ==',
           user: { name: 'iknowcss' }
         }));
         store = buildMockStore(initialState);

@@ -3,6 +3,7 @@ const express = require('express');
 const getCharacterSample = require('./src/getCharacterSample');
 const submitTest = require('./src/submitTest');
 const skritterCallbackHandler = require('./src/skritterCallbackHandler');
+const skritterAddCharacters = require('./src/skritterAddCharacters');
 
 const app = express();
 
@@ -16,6 +17,7 @@ const cors = (req, res, next) => {
 
 app.get('/getCharacterSample', cors, getCharacterSample());
 app.post('/submitTest', cors, submitTest());
-app.get('/oauth/skritter/callback', skritterCallbackHandler());
+app.get('/skritter/oauth/callback', skritterCallbackHandler());
+app.post('/skritter/characters', skritterAddCharacters());
 
 module.exports.handler = serverless(app);
