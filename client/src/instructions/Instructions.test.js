@@ -30,4 +30,35 @@ describe('Instructions', () => {
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(dismissInstructions).toHaveBeenCalledTimes(1);
   });
+
+  describe('toggle character set', () => {
+    let component;
+    let checkbox;
+    let setCharacterSetTraditional;
+    let setCharacterSetSimplified;
+
+    beforeEach(() => {
+      setCharacterSetTraditional = jest.fn();
+      setCharacterSetSimplified = jest.fn();
+      component = Renderer.create(
+        <Instructions
+          setCharacterSetTraditional={setCharacterSetTraditional}
+          setCharacterSetSimplified={setCharacterSetSimplified}
+        />
+      );
+      checkbox = component.root.findAllByProps({ id: 'traditionalCheckbox' })[0];
+    });
+
+    it('toggles the traditional character set', () => {
+      checkbox.props.onChange({ target: { checked: true }});
+      expect(setCharacterSetSimplified).not.toHaveBeenCalled();
+      expect(setCharacterSetTraditional).toHaveBeenCalledTimes(1);
+    });
+
+    it('toggles the simplified character set', () => {
+      checkbox.props.onChange({ target: { checked: false }});
+      expect(setCharacterSetSimplified).toHaveBeenCalledTimes(1);
+      expect(setCharacterSetTraditional).not.toHaveBeenCalled();
+    });
+  });
 });
