@@ -1,12 +1,13 @@
 import { actionTypes } from './skritterActions';
-import skritterReducer, { isLoggedIn, userName } from './skritterReducer';
+import skritterReducer, { isLoggedIn, userName, isAdding } from './skritterReducer';
 
 describe('skritterReducer', () => {
   it('has a default state', () => {
     expect(skritterReducer()).toEqual({
       loggedIn: false,
       userName: null,
-      auth: null
+      auth: null,
+      adding: false
     });
   });
 
@@ -17,7 +18,18 @@ describe('skritterReducer', () => {
     })).toEqual({
       loggedIn: true,
       userName: 'iknowcss',
-      auth: 'b2hhaQ=='
+      auth: 'b2hhaQ==',
+      adding: true
+    });
+  });
+
+  it('starts adding to skritter', () => {
+    expect(skritterReducer({
+      adding: false
+    }, {
+      type: actionTypes.ADD_START
+    })).toEqual({
+      adding: true
     });
   });
 
@@ -28,6 +40,10 @@ describe('skritterReducer', () => {
 
     it('userName', () => {
       expect(userName({ skritter: { userName: 'iknowcss' } })).toEqual('iknowcss');
+    });
+
+    it('isAdding', () => {
+      expect(isAdding({ skritter: { adding: true } })).toEqual(true);
     });
   });
 });

@@ -16,6 +16,8 @@ import mapSelectors from './util/mapSelectors'
 import style from './App.module.scss';
 import noop from './util/noop';
 import MissedCards from './results/MissedCards';
+import AddToSkritter from './skritter/AddToSkritter';
+import { isAdding } from './skritter/skritterReducer';
 
 class App extends Component {
   static propTypes = {
@@ -40,7 +42,7 @@ class App extends Component {
 
   render() {
     const isTouch = 'ontouchstart' in document.documentElement;
-    const { status, showInstructions } = this.props;
+    const { status, showInstructions, isAddingToSkritter } = this.props;
     return (
       <I18nContext.Provider value={this.props.language}>
         <CSSTransitionGroup
@@ -87,6 +89,10 @@ class App extends Component {
           {!showInstructions && status === statusEnum.REVIEW ? (
             <MissedCards />
           ): null}
+
+          {!showInstructions && status === statusEnum.REVIEW && isAddingToSkritter ? (
+            <AddToSkritter />
+          ) : null}
         </CSSTransitionGroup>
       </I18nContext.Provider>
     );
@@ -96,6 +102,11 @@ class App extends Component {
 export { App as Pure };
 
 export default connect(
-  mapSelectors({ status, showInstructions, language }),
+  mapSelectors({
+    status,
+    showInstructions,
+    language,
+    isAddingToSkritter: isAdding
+  }),
   { loadSamples }
 )(App);

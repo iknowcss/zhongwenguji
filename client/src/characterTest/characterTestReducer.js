@@ -10,6 +10,7 @@ export const statusEnum = {
   TESTING: 'TESTING',
   REVIEW: 'REVIEW',
   ERROR: 'ERROR',
+  ADDING_TO_SKRITTER: 'ADDING_TO_SKRITTER'
 };
 
 export const characterSetEnum = {

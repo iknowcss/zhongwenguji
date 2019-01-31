@@ -1,0 +1,15 @@
+@import '../style/colors';
+
+.container {
+  @include modal-container();
+}
+
+.modal {
+  @include modal();
+
+  text-align: center;
+}
+
+.button {
+  margin-top: 1em;
+}
