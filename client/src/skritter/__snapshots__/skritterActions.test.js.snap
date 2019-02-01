@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`skritterActionCreator fetchContext fetches the skritter from the server 1`] = `
+Array [
+  "http://example.com/skritter/context",
+  Object {
+    "cache": "no-cache",
+    "credentials": "omit",
+    "headers": Object {
+      "Authorization": "Code secretcode",
+    },
+    "mode": "cors",
+    "redirect": "follow",
+  },
+]
+`;

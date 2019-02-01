@@ -11,7 +11,7 @@ function fetchAuthByCode(code) {
   const {
     SKRITTER_OAUTH_CLIENT_NAME,
     SKRITTER_OAUTH_CLIENT_SECRET,
-    SKRITTER_OAUTH_CALLBACK_URL,
+    SKRITTER_OAUTH_REDIRECT_URI
   } = process.env;
 
   if (!SKRITTER_OAUTH_CLIENT_NAME) {
@@ -22,14 +22,14 @@ function fetchAuthByCode(code) {
     console.warn('SKRITTER_OAUTH_CLIENT_SECRET is not set');
   }
 
-  if (!SKRITTER_OAUTH_CALLBACK_URL) {
-    console.warn('SKRITTER_OAUTH_CALLBACK_URL is not set');
+  if (!SKRITTER_OAUTH_REDIRECT_URI) {
+    console.warn('SKRITTER_OAUTH_REDIRECT_URI is not set');
   }
 
   const url = new URL('oauth2/token', SKRITTER_API_BASE_URL);
   url.searchParams.set('grant_type', 'authorization_code');
   url.searchParams.set('client_id', SKRITTER_OAUTH_CLIENT_NAME);
-  url.searchParams.set('redirect_uri', SKRITTER_OAUTH_CALLBACK_URL);
+  url.searchParams.set('redirect_uri', SKRITTER_OAUTH_REDIRECT_URI);
   url.searchParams.set('code', code);
 
   const authString = Buffer

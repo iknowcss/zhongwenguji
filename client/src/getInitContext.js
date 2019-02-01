@@ -14,19 +14,12 @@ function getSearchParams(search) {
 
 export default (search) => {
   const searchParams = getSearchParams(search);
-  // window.history.replaceState(null, null, '.');
-
-  let skritterContext = null;
-  if (searchParams.skritterContext) {
-    try {
-      skritterContext = JSON.parse(atob(searchParams.skritterContext));
-    } catch (error) {
-      console.warn('Failed to load skritter context', error);
-    }
-  }
+  window.history.replaceState(null, null, '.');
 
   let initialState = null;
-  if (skritterContext) {
+  let skritterCode = null;
+  if (searchParams.code && searchParams.state === 'addtoskritter') {
+    skritterCode = searchParams.code;
     try {
       initialState = JSON.parse(localStorage.getItem('reduxState'));
     } catch (error) {
@@ -34,5 +27,5 @@ export default (search) => {
     }
   }
 
-  return { initialState, skritterContext };
+  return { skritterCode, initialState };
 };

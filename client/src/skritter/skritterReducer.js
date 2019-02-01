@@ -9,7 +9,7 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
-    case actionTypes.CONTEXT_RECEIVE:
+    case actionTypes.CONTEXT_FETCH_SUCCESS:
       const { auth, user = {} } = action.context || {};
       return {
         ...state,

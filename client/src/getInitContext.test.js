@@ -1,53 +1,45 @@
-import cloneDeep from 'lodash/cloneDeep';
+import mockConsole from 'jest-mock-console';
 import rootReducer from './reducer';
 import getInitContext from './getInitContext';
 
 describe('getInitContext', () => {
-  function encode(object) {
-    return Buffer.from(JSON.stringify(object)).toString('base64');
-  }
-
   let initialState;
+  let restoreConsole;
+
   beforeEach(() => {
+    restoreConsole = mockConsole();
     initialState = rootReducer();
     localStorage.__STORE__['reduxState'] = JSON.stringify(initialState);
   });
 
+  afterEach(() => {
+    restoreConsole();
+  });
+
   it('returns an empty state when there is no context', () => {
     expect(getInitContext('')).toEqual({
-      skritterContext: null,
+      skritterCode: null,
       initialState: null
     });
   });
 
-  it('parses the skritter context and initial state', () => {
-    const skritterContext = { user: 'iknowcss', auth: 'b2hhaQ==' };
-    expect(getInitContext(`?skritterContext=${encode(skritterContext)}`))
-      .toEqual({
-        skritterContext,
-        initialState
-      });
-  });
+  describe('skritter code', () => {
+    it('returns the skritter code and parses initial state', () => {
+      expect(getInitContext('?code=deadbeef&state=addtoskritter'))
+        .toEqual({
+          skritterCode: 'deadbeef',
+          initialState
+        });
+    });
 
-  it('handles a skritter context parse error', () => {
-    global.console = { warn: jest.fn() };
-    expect(getInitContext(`?skritterContext=totallynotbase64orjson`))
-      .toEqual({
-        skritterContext: null,
-        initialState: null
-      });
-    expect(console.warn).toHaveBeenCalledWith('Failed to load skritter context', expect.any(Error))
-  });
-
-  it('handles an inital state parse error', () => {
-    global.console = { warn: jest.fn() };
-    const skritterContext = { user: 'iknowcss', auth: 'b2hhaQ==' };
-    localStorage.__STORE__['reduxState'] = 'totallynotjson';
-    expect(getInitContext(`?skritterContext=${encode(skritterContext)}`))
-      .toEqual({
-        skritterContext,
-        initialState: null
-      });
-    expect(console.warn).toHaveBeenCalledWith('Failed to load initial redux state', expect.any(Error))
+    it('handles an inital state parse error', () => {
+      localStorage.__STORE__['reduxState'] = 'totallynotjson';
+      expect(getInitContext('?code=deadbeef&state=addtoskritter'))
+        .toEqual({
+          skritterCode: 'deadbeef',
+          initialState: null
+        });
+      expect(console.warn).toHaveBeenCalledWith('Failed to load initial redux state', expect.any(Error))
+    });
   });
 });
