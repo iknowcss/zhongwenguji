@@ -13,7 +13,7 @@ describe('skritterReducer', () => {
 
   it('receives context', () => {
     expect(skritterReducer(null, {
-      type: actionTypes.CONTEXT_RECEIVE,
+      type: actionTypes.CONTEXT_FETCH_SUCCESS,
       context: { user: { name: 'iknowcss' }, auth: 'b2hhaQ==' }
     })).toEqual({
       loggedIn: true,
