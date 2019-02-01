@@ -16,13 +16,12 @@ const { skritterCode, initialState } = getInitContext(document.location.search);
 let store;
 if (initialState) {
   store = createStore(reducer, initialState, enhancers);
+  if (skritterCode) {
+    store.dispatch(fetchSkritterContext(skritterCode));
+  }
 } else {
   store = createStore(reducer, enhancers);
   store.dispatch(loadSamples());
-}
-
-if (skritterCode) {
-  store.dispatch(fetchSkritterContext(skritterCode));
 }
 
 export { store };

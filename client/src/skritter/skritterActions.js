@@ -6,10 +6,12 @@ export const actionTypes = {
   CONTEXT_FETCH_FAIL: '@zwgj//skritterActions/context/fetch/fail',
   CONTEXT_FETCH_SUCCESS: '@zwgj//skritterActions/context/fetch/success',
   ADD_START: '@zwgj//skritterActions/add/start',
+  LOGIN_START: '@zwgj//skritterActions/login/start'
 };
 
 export const addToSkritter = () => (dispatch, getState) => {
   if (!isLoggedIn(getState())) {
+    dispatch({ type: actionTypes.LOGIN_START });
     const reduxState = JSON.stringify(getState());
     localStorage.setItem('reduxState', reduxState);
     window.location.assign(getConfig().skritterCallbackUrl);

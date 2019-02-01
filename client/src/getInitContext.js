@@ -18,8 +18,10 @@ export default (search) => {
 
   let initialState = null;
   let skritterCode = null;
-  if (searchParams.code && searchParams.state === 'addtoskritter') {
-    skritterCode = searchParams.code;
+  if (searchParams.state === 'addtoskritter') {
+    if (searchParams.code) {
+      skritterCode = searchParams.code;
+    }
     try {
       initialState = JSON.parse(localStorage.getItem('reduxState'));
     } catch (error) {

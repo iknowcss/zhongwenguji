@@ -1,10 +1,6 @@
 const httpStatus = require('http-status');
 const { decryptObject } = require('./cryptoService');
 
-function parseSession(xSession) {
-  console.log();
-}
-
 module.exports = () => (req, res) => {
   const xSession = req.headers['x-session'];
   if (!xSession) {

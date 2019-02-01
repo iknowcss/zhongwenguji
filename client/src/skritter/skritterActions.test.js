@@ -30,6 +30,9 @@ describe('skritterActionCreator', () => {
       });
 
       it('redirects to the skritter OAuth2 endpoint', () => {
+        expect(store.getActions()[0]).toEqual({
+          type: actionTypes.LOGIN_START
+        });
         expect(window.location.assign)
           .toHaveBeenCalledWith('http://example.com/authorize');
       });
