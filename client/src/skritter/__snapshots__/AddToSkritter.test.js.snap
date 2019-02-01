@@ -12,6 +12,7 @@ exports[`AddToSkritter renders with defaults 1`] = `
     </div>
     <button
       className="button button"
+      disabled={false}
       onClick={[Function]}
     >
       Add
