@@ -45,11 +45,12 @@
 }
 
 .secondary {
-  background-color: $color-light-shades;
+  $color-secondary-button: lighten($color-light-accent, 20%);
+  background-color: $color-secondary-button;
   color: $color-dark-shades;
 
   &:hover {
-    background-color: lighten($color-light-shades, 5%);
+    background-color: lighten($color-secondary-button, 5%);
   }
 
   svg {

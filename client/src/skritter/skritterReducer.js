@@ -1,8 +1,15 @@
 import { actionTypes } from './skritterActions';
 
+export const stateEnum = {
+  LOGGED_OUT: 'LOGGED_OUT',
+  LOGGED_IN: 'LOGGED_IN',
+  LOGIN_PENDING: 'LOGIN_PENDING',
+  LOGIN_FAILED: 'LOGIN_FAILED'
+};
+
 const DEFAULT_STATE = {
-  loginPending: false,
-  loggedIn: false,
+  loginState: stateEnum.LOGGED_OUT,
+  fetchId: -1,
   userName: null,
   auth: null,
   adding: false
@@ -13,12 +20,12 @@ export default (state = DEFAULT_STATE, action = {}) => {
     case actionTypes.ADD_START:
       return { ...state, adding: true };
     case actionTypes.LOGIN_START:
-      return { ...state, loginPending: true, adding: true };
+      return { ...state, loginState: stateEnum.LOGIN_PENDING, adding: true };
     case actionTypes.CONTEXT_FETCH_START:
       return {
         ...state,
-        loginPending: true,
-        loggedIn: false,
+        fetchId: action.fetchId,
+        loginState: stateEnum.LOGIN_PENDING,
         userName: null,
         auth: null
       };
@@ -26,27 +33,37 @@ export default (state = DEFAULT_STATE, action = {}) => {
       const { auth, user = {} } = action.context || {};
       return {
         ...state,
-        loginPending: false,
-        loggedIn: true,
+        loginState: stateEnum.LOGGED_IN,
         userName: user.name,
-        auth,
-        adding: true
+        auth
       };
     case actionTypes.CONTEXT_FETCH_FAIL:
       return {
         ...state,
-        loginPending: false,
-        loggedIn: false,
+        loginState: stateEnum.LOGIN_FAILED,
+        userName: null,
+        auth: null
+      };
+    case actionTypes.CONTEXT_FETCH_CANCEL:
+      return {
+        ...state,
+        loginState: stateEnum.LOGGED_OUT,
         userName: null,
         auth: null,
-        adding: true
+        fetchId: -1
       };
     default:
       return state;
   }
 };
 
-export const isLoggedIn = ({ skritter }) => skritter.loggedIn;
+export const loginState = ({ skritter }) => skritter.loginState;
+
+export const isLoggedIn = ({ skritter }) => skritter.loginState === stateEnum.LOGGED_IN;
+
+export const isLoginPending = ({ skritter }) => skritter.loginState === stateEnum.LOGIN_PENDING;
+
+export const isLoginFailed = ({ skritter }) => skritter.loginState === stateEnum.LOGIN_FAILED;
 
 export const userName = ({ skritter }) => skritter.userName;
 
@@ -54,4 +71,4 @@ export const auth = ({ skritter }) => skritter.auth;
 
 export const isAdding = ({ skritter }) => skritter.adding;
 
-export const isLoginPending = ({ skritter }) => skritter.loginPending;
+export const isMatchingFetchId = ({ skritter }, fetchId) => skritter.fetchId === fetchId;

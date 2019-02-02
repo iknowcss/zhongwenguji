@@ -10,12 +10,27 @@ exports[`AddToSkritter renders with defaults 1`] = `
     <div>
       Add all characters to Skritter
     </div>
+    <div
+      className="loggedInMessage"
+    >
+      Logged in as 
+      <span
+        className="loggedInUserName"
+      >
+        iknowcss
+      </span>
+    </div>
     <button
       className="button button"
       disabled={false}
       onClick={[Function]}
     >
-      Add
+      Add to Skritter
+    </button>
+    <button
+      className="button secondary button"
+    >
+      Cancel
     </button>
   </div>
 </div>
