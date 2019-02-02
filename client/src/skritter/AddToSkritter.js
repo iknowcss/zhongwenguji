@@ -25,12 +25,18 @@ class AddToSkritter extends Component {
   handleClick = (e) => {
     e.preventDefault();
 
-    const { /*missedCards,*/ auth } = this.props;
+    const { missedCards, auth } = this.props;
     const { skritterCharactersUrl } = getConfig();
 
     fetch(skritterCharactersUrl, {
       method: 'POST',
-      headers: { 'X-Session': auth }
+      headers: {
+        'content-type': 'application/json',
+        'x-Session': auth
+      },
+      body: JSON.stringify({
+        characters: missedCards.map(({ character }) => character)
+      }),
     })
       .then((result) => {
         console.log(result.status);

@@ -6,7 +6,6 @@ const CODE_PARSE_REGEXP = /^Code ([a-z0-9]{1,128})$/i;
 module.exports = () => async (req, res) => {
   const { headers: { authorization } } = req;
 
-  console.log('authorization', req.headers);
   if (!CODE_PARSE_REGEXP.test(authorization)) {
     res
       .status(httpStatus.BAD_REQUEST)

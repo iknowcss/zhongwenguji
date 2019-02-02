@@ -14,7 +14,7 @@ $color-black: #101010;
 
 @mixin modal-container() {
   background-color: transparentize($color-white, .2);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
