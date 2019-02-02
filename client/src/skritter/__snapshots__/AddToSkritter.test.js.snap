@@ -29,6 +29,7 @@ exports[`AddToSkritter renders with defaults 1`] = `
     </button>
     <button
       className="button secondary button"
+      onClick={[Function]}
     >
       Cancel
     </button>
