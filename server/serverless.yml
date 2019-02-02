@@ -6,6 +6,7 @@ provider:
   region: ap-southeast-2
   stage: ${env:STAGE, 'development'}
   environment:
+    STAGE: ${env:STAGE, 'development'}
     STATE_ENCRYPTION_KEY: ${env:STATE_ENCRYPTION_KEY,'cc6254c878e0dfd4fc34b51aea03805e'}
     STATE_ENCRYPTION_IV: ${env:STATE_ENCRYPTION_IV,'6c8eeb5616ee85acffca94ccaca25376'}
     SKRITTER_OAUTH_CLIENT_NAME: ${env:SKRITTER_OAUTH_CLIENT_NAME}
@@ -19,19 +20,15 @@ functions:
     - http:
         path: /getCharacterSample
         method: get
-        cors: true
     - http:
         path: /submitTest
         method: post
-        cors: true
     - http:
         path: /skritter/oauth/token
         method: get
-        cors: true
     - http:
         path: /skritter/characters
         method: post
-        cors: true
 
 plugins:
   - serverless-offline
