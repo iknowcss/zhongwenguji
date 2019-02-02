@@ -1,6 +1,6 @@
 import { actionTypes } from './skritterActions';
 import skritterReducer, {
-  stateEnum,
+  loginStateEnum,
   userName,
   isAdding,
   loginState,
@@ -13,7 +13,7 @@ import skritterReducer, {
 describe('skritterReducer', () => {
   it('has a default state', () => {
     expect(skritterReducer()).toEqual({
-      loginState: stateEnum.LOGGED_OUT,
+      loginState: loginStateEnum.LOGGED_OUT,
       fetchId: -1,
       userName: null,
       auth: null,
@@ -23,12 +23,12 @@ describe('skritterReducer', () => {
 
   it('receives context', () => {
     expect(skritterReducer({
-      loginState: stateEnum.LOGIN_PENDING,
+      loginState: loginStateEnum.LOGIN_PENDING,
     }, {
       type: actionTypes.CONTEXT_FETCH_SUCCESS,
       context: { user: { name: 'iknowcss' }, auth: 'b2hhaQ==' }
     })).toEqual({
-      loginState: stateEnum.LOGGED_IN,
+      loginState: loginStateEnum.LOGGED_IN,
       userName: 'iknowcss',
       auth: 'b2hhaQ=='
     });
@@ -36,11 +36,11 @@ describe('skritterReducer', () => {
 
   it('fails to receive context', () => {
     expect(skritterReducer({
-      loginState: stateEnum.LOGIN_PENDING
+      loginState: loginStateEnum.LOGIN_PENDING
     }, {
       type: actionTypes.CONTEXT_FETCH_FAIL
     })).toEqual({
-      loginState: stateEnum.LOGIN_FAILED,
+      loginState: loginStateEnum.LOGIN_FAILED,
       userName: null,
       auth: null
     });
@@ -48,12 +48,12 @@ describe('skritterReducer', () => {
 
   it('cancels receive context', () => {
     expect(skritterReducer({
-      loginState: stateEnum.LOGIN_PENDING,
+      loginState: loginStateEnum.LOGIN_PENDING,
       fetchId: 9999
     }, {
       type: actionTypes.CONTEXT_FETCH_CANCEL
     })).toEqual({
-      loginState: stateEnum.LOGGED_OUT,
+      loginState: loginStateEnum.LOGGED_OUT,
       fetchId: -1,
       userName: null,
       auth: null
@@ -70,26 +70,36 @@ describe('skritterReducer', () => {
     });
   });
 
+  it('cancel adding to skritter', () => {
+    expect(skritterReducer({
+      adding: true
+    }, {
+      type: actionTypes.ADD_CANCEL
+    })).toEqual({
+      adding: false
+    });
+  });
+
   it('starts the login process', () => {
     expect(skritterReducer({
-      loginState: stateEnum.LOGGED_OUT,
+      loginState: loginStateEnum.LOGGED_OUT,
       adding: false
     }, {
       type: actionTypes.LOGIN_START
     })).toEqual({
-      loginState: stateEnum.LOGIN_PENDING,
+      loginState: loginStateEnum.LOGIN_PENDING,
       adding: true
     });
   });
 
   it('starts the context fetch process', () => {
     expect(skritterReducer({
-      loginState: stateEnum.LOGGED_OUT,
+      loginState: loginStateEnum.LOGGED_OUT,
     }, {
       type: actionTypes.CONTEXT_FETCH_START,
       fetchId: 9999
     })).toEqual({
-      loginState: stateEnum.LOGIN_PENDING,
+      loginState: loginStateEnum.LOGIN_PENDING,
       userName: null,
       auth: null,
       fetchId: 9999
@@ -98,19 +108,19 @@ describe('skritterReducer', () => {
 
   describe('selectors', () => {
     it('loginState', () => {
-      expect(loginState({ skritter: { loginState: stateEnum.LOGGED_IN } })).toEqual(stateEnum.LOGGED_IN);
+      expect(loginState({ skritter: { loginState: loginStateEnum.LOGGED_IN } })).toEqual(loginStateEnum.LOGGED_IN);
     });
 
     it('isLoggedIn', () => {
-      expect(isLoggedIn({ skritter: { loginState: stateEnum.LOGGED_IN } })).toEqual(true);
+      expect(isLoggedIn({ skritter: { loginState: loginStateEnum.LOGGED_IN } })).toEqual(true);
     });
 
     it('isLoginPending', () => {
-      expect(isLoginPending({ skritter: { loginState: stateEnum.LOGIN_PENDING } })).toEqual(true);
+      expect(isLoginPending({ skritter: { loginState: loginStateEnum.LOGIN_PENDING } })).toEqual(true);
     });
 
     it('isLoginFailed', () => {
-      expect(isLoginFailed({ skritter: { loginState: stateEnum.LOGIN_FAILED } })).toEqual(true);
+      expect(isLoginFailed({ skritter: { loginState: loginStateEnum.LOGIN_FAILED } })).toEqual(true);
     });
 
     it('userName', () => {

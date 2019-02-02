@@ -6,7 +6,9 @@ import getConfig from '../getConfig';
 import mapSelectors from '../util/mapSelectors';
 import { missedCards } from '../characterTest/characterTestReducer';
 import { userName, auth, isLoginPending, isLoginFailed, isLoggedIn } from './skritterReducer';
+import { cancelAddToSkritter } from './skritterActions';
 import Button from '../component/Button';
+import noop from '../util/noop';
 import style from './AddToSkritter.module.scss';
 
 class AddToSkritter extends Component {
@@ -15,14 +17,16 @@ class AddToSkritter extends Component {
     userName: PropTypes.string,
     auth: PropTypes.string,
     isLoginPending: PropTypes.bool,
-    isLoginFailed: PropTypes.bool
+    isLoginFailed: PropTypes.bool,
+    cancelAddToSkritter: PropTypes.func
   };
 
   static defaultProps = {
     userName: '',
     auth: '',
     isLoginPending: false,
-    isLoginFailed: false
+    isLoginFailed: false,
+    cancelAddToSkritter: noop
   };
 
   handleClick = (e) => {
@@ -44,6 +48,11 @@ class AddToSkritter extends Component {
       .then((result) => {
         console.log(result.status);
       })
+  };
+
+  handleCancelClick = (e) => {
+    e.preventDefault();
+    this.props.cancelAddToSkritter();
   };
 
   render() {
@@ -80,5 +89,6 @@ class AddToSkritter extends Component {
 export { AddToSkritter as Pure };
 
 export default connect(
-  mapSelectors({ missedCards, userName, auth, isLoginPending, isLoginFailed, isLoggedIn })
+  mapSelectors({ missedCards, userName, auth, isLoginPending, isLoginFailed, isLoggedIn }),
+  { cancelAddToSkritter }
 )(AddToSkritter);
