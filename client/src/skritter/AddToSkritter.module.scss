@@ -12,5 +12,22 @@
 
 .button {
   margin-top: 1em;
-  width: 50%;
+  width: 60%;
+}
+
+.loggedIn {
+  &Message {
+    transition: height ease-in-out 200ms;
+    overflow-y: hidden;
+    height: 0;
+    line-height: 1.5em;
+
+    &Active {
+      height: 1.5em;
+    }
+  }
+
+  &UserName {
+    font-weight: bold;
+  }
 }

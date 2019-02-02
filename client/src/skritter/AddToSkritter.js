@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import getConfig from '../getConfig';
 import mapSelectors from '../util/mapSelectors';
 import { missedCards } from '../characterTest/characterTestReducer';
-import { userName, auth, isLoginPending } from './skritterReducer';
+import { userName, auth, isLoginPending, isLoginFailed, isLoggedIn } from './skritterReducer';
 import Button from '../component/Button';
 import style from './AddToSkritter.module.scss';
 
@@ -14,12 +15,14 @@ class AddToSkritter extends Component {
     userName: PropTypes.string,
     auth: PropTypes.string,
     isLoginPending: PropTypes.bool,
+    isLoginFailed: PropTypes.bool
   };
 
   static defaultProps = {
     userName: '',
     auth: '',
-    isLoginPending: false
+    isLoginPending: false,
+    isLoginFailed: false
   };
 
   handleClick = (e) => {
@@ -41,26 +44,32 @@ class AddToSkritter extends Component {
       .then((result) => {
         console.log(result.status);
       })
-
-    // console.log({
-    //   skritterCharactersUrl,
-    //   characters: missedCards.map(({ character }) => character),
-    //   auth
-    // });
   };
 
   render() {
-    const { isLoginPending } = this.props;
+    const { isLoginPending, isLoginFailed, isLoggedIn, userName } = this.props;
     return (
       <div className={style.container}>
         <div className={style.modal}>
           <div>Add all characters to Skritter</div>
+          <div className={cx(style.loggedInMessage, {
+            [style.loggedInMessageActive]: isLoggedIn
+          })}>
+            Logged in as <span className={style.loggedInUserName}>{userName}</span>
+          </div>
           <Button
-            disabled={isLoginPending}
+            disabled={isLoginPending || isLoginFailed}
             className={style.button}
             onClick={this.handleClick}
           >
-            {isLoginPending ? 'Authorizing...' : 'Add'}
+            {isLoginPending ? 'Authorizing...' : isLoginFailed ? 'Failed :(' : 'Add to Skritter'}
+          </Button>
+          <Button
+            className={style.button}
+            secondary
+            onClick={this.handleCancelClick}
+          >
+            Cancel
           </Button>
         </div>
       </div>
@@ -71,5 +80,5 @@ class AddToSkritter extends Component {
 export { AddToSkritter as Pure };
 
 export default connect(
-  mapSelectors({ missedCards, userName, auth, isLoginPending })
+  mapSelectors({ missedCards, userName, auth, isLoginPending, isLoginFailed, isLoggedIn })
 )(AddToSkritter);

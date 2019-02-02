@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`skritterActionCreator fetchContext fetches the skritter from the server 1`] = `
+exports[`skritterActionCreator fetchContext success fetches the skritter context from the server 1`] = `
 Array [
   "http://example.com/skritter/context",
   Object {
