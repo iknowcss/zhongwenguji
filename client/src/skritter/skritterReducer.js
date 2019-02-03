@@ -16,21 +16,36 @@ export const addingStateEnum = {
 };
 
 const DEFAULT_STATE = {
+  addingState: addingStateEnum.CLOSED,
   loginState: loginStateEnum.LOGGED_OUT,
   fetchId: -1,
   userName: null,
-  auth: null,
-  adding: false
+  auth: null
 };
 
 export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
+
+    /// - Add State ---------------------------------------
+
     case actionTypes.ADD_START:
-      return { ...state, adding: true };
+      return {
+        ...state,
+        addingState: addingStateEnum.SUBMIT_READY
+      };
     case actionTypes.ADD_CANCEL:
-      return { ...state, adding: false };
+      return {
+        ...state,
+        addingState: addingStateEnum.CLOSED
+      };
+
+    /// - Login State -------------------------------------
+
     case actionTypes.LOGIN_START:
-      return { ...state, loginState: loginStateEnum.LOGIN_PENDING, adding: true };
+      return {
+        ...state,
+        loginState: loginStateEnum.LOGIN_PENDING
+      };
     case actionTypes.CONTEXT_FETCH_START:
       return {
         ...state,
@@ -62,6 +77,9 @@ export default (state = DEFAULT_STATE, action = {}) => {
         auth: null,
         fetchId: -1
       };
+
+    /// - Default -----------------------------------------
+
     default:
       return state;
   }
@@ -79,6 +97,6 @@ export const userName = ({ skritter }) => skritter.userName;
 
 export const auth = ({ skritter }) => skritter.auth;
 
-export const isAdding = ({ skritter }) => skritter.adding;
+export const isAdding = ({ skritter }) => skritter.addingState !== addingStateEnum.CLOSED;
 
 export const isMatchingFetchId = ({ skritter }, fetchId) => skritter.fetchId === fetchId;
