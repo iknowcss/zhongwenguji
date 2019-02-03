@@ -14,3 +14,17 @@ Array [
   },
 ]
 `;
+
+exports[`skritterActionCreator submitToSkritter success submits the vocab list 1`] = `
+Object {
+  "cache": "no-cache",
+  "credentials": "omit",
+  "headers": Object {
+    "content-type": "application/json",
+    "x-session": "mock-session",
+  },
+  "method": "POST",
+  "mode": "cors",
+  "redirect": "follow",
+}
+`;

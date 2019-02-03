@@ -1,6 +1,7 @@
 import { actionTypes } from './skritterActions';
 import skritterReducer, {
   loginStateEnum,
+  addingStateEnum,
   userName,
   isAdding,
   loginState,
@@ -14,10 +15,10 @@ describe('skritterReducer', () => {
   it('has a default state', () => {
     expect(skritterReducer()).toEqual({
       loginState: loginStateEnum.LOGGED_OUT,
+      addingState: addingStateEnum.CLOSED,
       fetchId: -1,
       userName: null,
-      auth: null,
-      adding: false
+      auth: null
     });
   });
 
@@ -62,33 +63,31 @@ describe('skritterReducer', () => {
 
   it('starts adding to skritter', () => {
     expect(skritterReducer({
-      adding: false
+      addingState: addingStateEnum.CLOSED
     }, {
       type: actionTypes.ADD_START
     })).toEqual({
-      adding: true
+      addingState: addingStateEnum.SUBMIT_READY
     });
   });
 
   it('cancel adding to skritter', () => {
     expect(skritterReducer({
-      adding: true
+      addingState: addingStateEnum.SUBMIT_READY
     }, {
       type: actionTypes.ADD_CANCEL
     })).toEqual({
-      adding: false
+      addingState: addingStateEnum.CLOSED
     });
   });
 
   it('starts the login process', () => {
     expect(skritterReducer({
-      loginState: loginStateEnum.LOGGED_OUT,
-      adding: false
+      loginState: loginStateEnum.LOGGED_OUT
     }, {
       type: actionTypes.LOGIN_START
     })).toEqual({
       loginState: loginStateEnum.LOGIN_PENDING,
-      adding: true
     });
   });
 
@@ -128,7 +127,8 @@ describe('skritterReducer', () => {
     });
 
     it('isAdding', () => {
-      expect(isAdding({ skritter: { adding: true } })).toEqual(true);
+      expect(isAdding({ skritter: { addingState: addingStateEnum.CLOSED } })).toEqual(false);
+      expect(isAdding({ skritter: { addingState: addingStateEnum.SUBMIT_READY } })).toEqual(true);
     });
 
     it('fetchId', () => {

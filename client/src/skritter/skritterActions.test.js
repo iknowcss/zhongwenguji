@@ -3,11 +3,18 @@ import thunk from 'redux-thunk';
 import mockConsole from 'jest-mock-console';
 import rootReducer from '../reducer';
 import * as skritterReducer from './skritterReducer';
-import { actionTypes, addToSkritter, cancelAddToSkritter, fetchContext } from './skritterActions';
+import {
+  actionTypes,
+  addToSkritter,
+  submitToSkritter,
+  cancelAddToSkritter,
+  fetchContext
+} from './skritterActions';
 
 jest.mock('../getConfig', () => () => ({
   skritterCallbackUrl: 'http://example.com/authorize',
-  skritterContextUrl: 'http://example.com/skritter/context'
+  skritterContextUrl: 'http://example.com/skritter/context',
+  skritterCharactersUrl: 'http://example.com/skritter/characters'
 }));
 
 describe('skritterActionCreator', () => {
@@ -41,7 +48,12 @@ describe('skritterActionCreator', () => {
       });
 
       it('redirects to the skritter OAuth2 endpoint', () => {
-        expect(store.getActions()[0]).toEqual({
+        const actions = store.getActions();
+        expect(actions).toHaveLength(2);
+        expect(actions[0]).toEqual({
+          type: actionTypes.ADD_START
+        });
+        expect(actions[1]).toEqual({
           type: actionTypes.LOGIN_START
         });
         expect(window.location.assign)
@@ -65,6 +77,95 @@ describe('skritterActionCreator', () => {
 
       it('starts adding', () => {
         expect(store.getActions()).toEqual([{ type: actionTypes.ADD_START }]);
+      });
+    });
+  });
+
+  describe('submitToSkritter', () => {
+    beforeEach(() => {
+      store = buildMockStore(rootReducer(rootReducer()));
+    });
+
+    describe('success', () => {
+      beforeEach(() => {
+        fetch.mockResponseOnce(() => new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ body: '' });
+          }, 10);
+        }));
+      });
+
+      it('submits the vocab list', async () => {
+        await expect(store.dispatch(submitToSkritter(
+          ['一', '二', '三'],
+          'mock-session'
+        )))
+          .resolves.toBeUndefined();
+
+        expect(fetch.mock.calls).toHaveLength(1);
+        const [url, { body, ...options }] = fetch.mock.calls[0];
+        expect(url).toEqual('http://example.com/skritter/characters');
+        expect(JSON.parse(body)).toEqual({ characters: ['一', '二', '三'] });
+        expect(options.method).toEqual('POST');
+        expect(options.headers['x-session']).toEqual('mock-session');
+        expect(options).toMatchSnapshot();
+
+        const actions = store.getActions();
+        expect(actions).toHaveLength(2);
+        expect(actions[0]).toEqual({
+          type: actionTypes.ADD_SUBMIT_START
+        });
+        expect(actions[1]).toEqual({
+          type: actionTypes.ADD_SUBMIT_SUCCESS
+        });
+      });
+    });
+
+    describe('fail', () => {
+      it('handles unexpected status codes', async () => {
+        fetch.mockResponseOnce(() => new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject({ body: '', status: 401 });
+          }, 10);
+        }));
+
+        await expect(store.dispatch(submitToSkritter(
+          ['一', '二', '三'],
+          'mock-session'
+        )))
+          .resolves.toBeUndefined();
+
+        const actions = store.getActions();
+        expect(actions).toHaveLength(2);
+        expect(actions[0]).toEqual({
+          type: actionTypes.ADD_SUBMIT_START
+        });
+        expect(actions[1]).toEqual({
+          type: actionTypes.ADD_SUBMIT_FAIL
+        });
+      });
+
+      it('handles network errors', async () => {
+        fetch.mockResponseOnce(() => new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(new Error('What happen'));
+          }, 10);
+        }));
+
+        await expect(store.dispatch(submitToSkritter(
+          ['一', '二', '三'],
+          'mock-session'
+        )))
+          .resolves.toBeUndefined();
+
+        const actions = store.getActions();
+        expect(actions).toHaveLength(2);
+        expect(actions[0]).toEqual({
+          type: actionTypes.ADD_SUBMIT_START
+        });
+        expect(actions[1]).toEqual({
+          type: actionTypes.ADD_SUBMIT_FAIL
+        });
       });
     });
   });
