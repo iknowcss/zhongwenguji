@@ -98,7 +98,8 @@ describe('skritterActionCreator', () => {
       it('submits the vocab list', async () => {
         await expect(store.dispatch(submitToSkritter(
           ['一', '二', '三'],
-          'mock-session'
+          'mock-session',
+          10
         )))
           .resolves.toBeUndefined();
 
@@ -111,12 +112,15 @@ describe('skritterActionCreator', () => {
         expect(options).toMatchSnapshot();
 
         const actions = store.getActions();
-        expect(actions).toHaveLength(2);
+        expect(actions).toHaveLength(3);
         expect(actions[0]).toEqual({
           type: actionTypes.ADD_SUBMIT_START
         });
         expect(actions[1]).toEqual({
           type: actionTypes.ADD_SUBMIT_SUCCESS
+        });
+        expect(actions[2]).toEqual({
+          type: actionTypes.ADD_FINISH
         });
       });
     });
@@ -177,7 +181,7 @@ describe('skritterActionCreator', () => {
       const actions = store.getActions();
       expect(actions).toHaveLength(1);
       expect(actions[0]).toEqual({
-        type: actionTypes.ADD_CANCEL
+        type: actionTypes.ADD_FINISH
       });
     });
 

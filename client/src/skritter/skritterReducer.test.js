@@ -8,7 +8,8 @@ import skritterReducer, {
   isLoggedIn,
   isLoginPending,
   isLoginFailed,
-  fetchId, isMatchingFetchId
+  isMatchingFetchId,
+  addingState
 } from './skritterReducer';
 
 describe('skritterReducer', () => {
@@ -71,11 +72,41 @@ describe('skritterReducer', () => {
     });
   });
 
+  it('starts submitting to skritter', () => {
+    expect(skritterReducer({
+      addingState: addingStateEnum.SUBMIT_READY
+    }, {
+      type: actionTypes.ADD_SUBMIT_START
+    })).toEqual({
+      addingState: addingStateEnum.SUBMIT_PENDING
+    });
+  });
+
+  it('handles skritter submit success', () => {
+    expect(skritterReducer({
+      addingState: addingStateEnum.SUBMIT_PENDING
+    }, {
+      type: actionTypes.ADD_SUBMIT_SUCCESS
+    })).toEqual({
+      addingState: addingStateEnum.SUBMIT_SUCCESS
+    });
+  });
+
+  it('handles skritter submit success', () => {
+    expect(skritterReducer({
+      addingState: addingStateEnum.SUBMIT_PENDING
+    }, {
+      type: actionTypes.ADD_SUBMIT_FAIL
+    })).toEqual({
+      addingState: addingStateEnum.SUBMIT_ERROR
+    });
+  });
+
   it('cancel adding to skritter', () => {
     expect(skritterReducer({
       addingState: addingStateEnum.SUBMIT_READY
     }, {
-      type: actionTypes.ADD_CANCEL
+      type: actionTypes.ADD_FINISH
     })).toEqual({
       addingState: addingStateEnum.CLOSED
     });
@@ -129,6 +160,10 @@ describe('skritterReducer', () => {
     it('isAdding', () => {
       expect(isAdding({ skritter: { addingState: addingStateEnum.CLOSED } })).toEqual(false);
       expect(isAdding({ skritter: { addingState: addingStateEnum.SUBMIT_READY } })).toEqual(true);
+    });
+
+    it('isSubmitting', () => {
+      expect(addingState({ skritter: { addingState: addingStateEnum.SUBMIT_PENDING } })).toEqual(addingStateEnum.SUBMIT_PENDING);
     });
 
     it('fetchId', () => {

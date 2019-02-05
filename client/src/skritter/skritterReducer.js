@@ -29,15 +29,15 @@ export default (state = DEFAULT_STATE, action = {}) => {
     /// - Add State ---------------------------------------
 
     case actionTypes.ADD_START:
-      return {
-        ...state,
-        addingState: addingStateEnum.SUBMIT_READY
-      };
-    case actionTypes.ADD_CANCEL:
-      return {
-        ...state,
-        addingState: addingStateEnum.CLOSED
-      };
+      return { ...state, addingState: addingStateEnum.SUBMIT_READY };
+    case actionTypes.ADD_SUBMIT_START:
+      return { ...state, addingState: addingStateEnum.SUBMIT_PENDING };
+    case actionTypes.ADD_SUBMIT_SUCCESS:
+      return { ...state, addingState: addingStateEnum.SUBMIT_SUCCESS };
+    case actionTypes.ADD_SUBMIT_FAIL:
+      return { ...state, addingState: addingStateEnum.SUBMIT_ERROR };
+    case actionTypes.ADD_FINISH:
+      return { ...state, addingState: addingStateEnum.CLOSED };
 
     /// - Login State -------------------------------------
 
@@ -98,5 +98,7 @@ export const userName = ({ skritter }) => skritter.userName;
 export const auth = ({ skritter }) => skritter.auth;
 
 export const isAdding = ({ skritter }) => skritter.addingState !== addingStateEnum.CLOSED;
+
+export const addingState = ({ skritter }) => skritter.addingState;
 
 export const isMatchingFetchId = ({ skritter }, fetchId) => skritter.fetchId === fetchId;
