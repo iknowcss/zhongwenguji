@@ -15,19 +15,16 @@
   width: 60%;
 }
 
-.loggedIn {
-  &Message {
-    transition: height ease-in-out 200ms;
-    overflow-y: hidden;
-    height: 0;
-    line-height: 1.5em;
+.loggedInUserName {
+  font-weight: bold;
+}
 
-    &Active {
-      height: 1.5em;
-    }
-  }
+.accordion {
+  transition: height ease-in-out 200ms;
+  overflow-y: hidden;
+  max-height: 0;
 
-  &UserName {
-    font-weight: bold;
+  &Active {
+    max-height: 5em;
   }
 }

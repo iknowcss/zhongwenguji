@@ -10,7 +10,7 @@ export const actionTypes = {
   ADD_SUBMIT_START: '@zwgj//skritterActions/add/submit/start',
   ADD_SUBMIT_SUCCESS: '@zwgj//skritterActions/add/submit/success',
   ADD_SUBMIT_FAIL: '@zwgj//skritterActions/add/submit/fail',
-  ADD_CANCEL: '@zwgj//skritterActions/add/cancel',
+  ADD_FINISH: '@zwgj//skritterActions/add/cancel',
   LOGIN_START: '@zwgj//skritterActions/login/start'
 };
 
@@ -24,7 +24,7 @@ export const addToSkritter = () => (dispatch, getState) => {
   }
 };
 
-export const submitToSkritter = (characters, auth) => (dispatch) => {
+export const submitToSkritter = (characters, auth, successCloseTimeoutMs = 1000) => (dispatch) => {
   dispatch({ type: actionTypes.ADD_SUBMIT_START });
   return fetch(getConfig().skritterCharactersUrl, {
     method: 'POST',
@@ -43,19 +43,19 @@ export const submitToSkritter = (characters, auth) => (dispatch) => {
       if (!(status >= 200 && status <= 299)) {
         return Promise.reject(new Error(`Unexpected HTTP response: ${status} ${statusText}`));
       }
-      return { type: actionTypes.ADD_SUBMIT_SUCCESS };
+
+      dispatch({ type: actionTypes.ADD_SUBMIT_SUCCESS });
+      return new Promise((res) => setTimeout(res, successCloseTimeoutMs));
     })
+    .then(() => { dispatch({ type: actionTypes.ADD_FINISH }); })
     .catch((error) => {
       console.error('Failed to add characters to skritter vocab list', error);
-      return { type: actionTypes.ADD_SUBMIT_FAIL };
+      dispatch({ type: actionTypes.ADD_SUBMIT_FAIL });
     })
-    .then((action) => {
-      dispatch(action);
-    });
 };
 
 export const cancelAddToSkritter = () => (dispatch, getState) => {
-  dispatch({ type: actionTypes.ADD_CANCEL });
+  dispatch({ type: actionTypes.ADD_FINISH });
   if (isLoginPending(getState())) {
     dispatch({ type: actionTypes.CONTEXT_FETCH_CANCEL });
   }

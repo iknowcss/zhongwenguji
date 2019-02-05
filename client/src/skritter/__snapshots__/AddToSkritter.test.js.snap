@@ -11,7 +11,7 @@ exports[`AddToSkritter renders with defaults 1`] = `
       Add all characters to Skritter
     </div>
     <div
-      className="loggedInMessage"
+      className="accordion"
     >
       Logged in as 
       <span
@@ -20,6 +20,9 @@ exports[`AddToSkritter renders with defaults 1`] = `
         iknowcss
       </span>
     </div>
+    <div
+      className="accordion"
+    />
     <button
       className="button button"
       disabled={false}
