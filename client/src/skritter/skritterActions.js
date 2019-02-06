@@ -24,7 +24,7 @@ export const addToSkritter = () => (dispatch, getState) => {
   }
 };
 
-export const submitToSkritter = (characters, auth, successCloseTimeoutMs = 1000) => (dispatch) => {
+export const submitToSkritter = (characters, characterSet, auth, successCloseTimeoutMs = 1000) => (dispatch) => {
   dispatch({ type: actionTypes.ADD_SUBMIT_START });
   return fetch(getConfig().skritterCharactersUrl, {
     method: 'POST',
@@ -36,7 +36,7 @@ export const submitToSkritter = (characters, auth, successCloseTimeoutMs = 1000)
       'content-type': 'application/json',
       'x-session': auth
     },
-    body: JSON.stringify({ characters })
+    body: JSON.stringify({ characterSet, characters })
   })
     .then((resp) => {
       const { status, statusText } = resp;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import mapSelectors from '../util/mapSelectors';
-import { missedCards } from '../characterTest/characterTestReducer';
+import { missedCards, characterSet, characterSetEnum } from '../characterTest/characterTestReducer';
 import {
   addingStateEnum,
   userName,
@@ -21,6 +21,10 @@ import style from './AddToSkritter.module.scss';
 class AddToSkritter extends Component {
   static propTypes = {
     missedCards: PropTypes.array.isRequired,
+    characterSet: PropTypes.oneOf([
+      characterSetEnum.SIMPLIFIED,
+      characterSetEnum.TRADITIONAL
+    ]).isRequired,
     userName: PropTypes.string,
     auth: PropTypes.string,
     isLoginPending: PropTypes.bool,
@@ -42,9 +46,9 @@ class AddToSkritter extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    const { missedCards, auth } = this.props;
+    const { missedCards, characterSet, auth } = this.props;
     const characters = missedCards.map(({ character }) => character);
-    this.props.submitToSkritter(characters, auth);
+    this.props.submitToSkritter(characters, characterSet, auth);
   };
 
   handleCancelClick = (e) => {
@@ -127,6 +131,7 @@ export { AddToSkritter as Pure };
 export default connect(
   mapSelectors({
     missedCards,
+    characterSet,
     userName,
     auth,
     isLoginPending,

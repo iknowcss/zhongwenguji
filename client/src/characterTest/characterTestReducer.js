@@ -305,3 +305,5 @@ export const missedCards = ({ characterTestReducer: { bins, characterSet } }) =>
       }))
     )
 );
+
+export const characterSet = ({ characterTestReducer: { characterSet } }) => characterSet;

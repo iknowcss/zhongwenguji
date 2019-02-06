@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import mockConsole from 'jest-mock-console';
 import rootReducer from '../reducer';
 import * as skritterReducer from './skritterReducer';
+import { characterSetEnum } from '../characterTest/characterTestReducer';
 import {
   actionTypes,
   addToSkritter,
@@ -98,6 +99,7 @@ describe('skritterActionCreator', () => {
       it('submits the vocab list', async () => {
         await expect(store.dispatch(submitToSkritter(
           ['一', '二', '三'],
+          characterSetEnum.SIMPLIFIED,
           'mock-session',
           10
         )))
@@ -106,7 +108,7 @@ describe('skritterActionCreator', () => {
         expect(fetch.mock.calls).toHaveLength(1);
         const [url, { body, ...options }] = fetch.mock.calls[0];
         expect(url).toEqual('http://example.com/skritter/characters');
-        expect(JSON.parse(body)).toEqual({ characters: ['一', '二', '三'] });
+        expect(JSON.parse(body)).toEqual({ characterSet: characterSetEnum.SIMPLIFIED, characters: ['一', '二', '三'] });
         expect(options.method).toEqual('POST');
         expect(options.headers['x-session']).toEqual('mock-session');
         expect(options).toMatchSnapshot();
@@ -135,6 +137,7 @@ describe('skritterActionCreator', () => {
 
         await expect(store.dispatch(submitToSkritter(
           ['一', '二', '三'],
+          characterSetEnum.SIMPLIFIED,
           'mock-session'
         )))
           .resolves.toBeUndefined();
@@ -158,6 +161,7 @@ describe('skritterActionCreator', () => {
 
         await expect(store.dispatch(submitToSkritter(
           ['一', '二', '三'],
+          characterSetEnum.SIMPLIFIED,
           'mock-session'
         )))
           .resolves.toBeUndefined();
