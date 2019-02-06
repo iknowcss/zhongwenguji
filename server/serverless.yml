@@ -20,15 +20,19 @@ functions:
     - http:
         path: /getCharacterSample
         method: get
+        cors: true
     - http:
         path: /submitTest
         method: post
+        cors: true
     - http:
         path: /skritter/oauth/token
         method: get
+        cors: true
     - http:
         path: /skritter/characters
         method: post
+        cors: true
 
 plugins:
   - serverless-offline
