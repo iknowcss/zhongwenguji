@@ -6,7 +6,7 @@ const cloneDeep = require('lodash/cloneDeep');
 const { decryptObject } = require('./cryptoService');
 
 const SKRITTER_API_BASE_URL = 'https://legacy.skritter.com/api/v0/';
-const VOCAB_LIST_NAME = 'HanziShan Missed Characters';
+const VOCAB_LIST_NAME = 'HanziShan Missed Characters 2';
 
 function buildAuthHeaders(session) {
   return {
@@ -95,22 +95,69 @@ async function createHanziShanVocablist(session) {
 }
 
 
-function createSection(index = 0, characters) {
-  return {
-    name: `Test ${index + 1}`,
-    rows: []
-  };
+async function mapCharactersToRows(session, characters) {
+  const vocabIds = await Promise.all(characters.map(async (character) => {
+    try {
+      const url = new URL('vocabs', SKRITTER_API_BASE_URL);
+      url.searchParams.set('q', character);
+      url.searchParams.set('lang', 'zh');
+      url.searchParams.set('fields', 'id,style');
+
+      const { Vocabs: vocabs } = await apiCall(`get vocab for character "${character}"`, { session, url });
+      const vocab = vocabs[0];
+      if (vocab) {
+        switch (vocab.style) {
+          case 'both':
+            return { vocabId: vocab.id, tradVocabId: vocab.id };
+          case 'trad':
+            return { tradVocabId: vocab.id };
+          case 'simp':
+          default:
+            return { vocabId: vocab.id };
+        }
+
+      }
+    } catch (error) {
+      console.warn(`Failed to fetch vocab "${character}"`, error);
+    }
+  }));
+
+  return vocabIds.filter(x => x);
 }
 
-async function addHanzishanVocabListSection(session, existingVocabList, characters) {
+// TODO: do better
+function getNewGroupNumber(sections) {
+  return parseInt((((sections[sections.length - 1] || { name: '' }).name || '').match(/^Group (\d+)$/) || [0, 0])[1], 10) + 1;
+}
+
+async function addEmptyHanzishanVocabListSection(session, existingVocabList) {
   const url = new URL(`vocablists/${existingVocabList.id}`, SKRITTER_API_BASE_URL);
   const body = {
     studyingMode: 'adding',
     sections: cloneDeep(existingVocabList.sections)
   };
-  body.sections.push(createSection(body.sections.length, characters));
+  body.sections.push({ name: `Group ${getNewGroupNumber(body.sections)}` });
 
-  await apiCall('add section to Skritter vocab list', {
+  const { VocabList: vocabList } = await apiCall('add empty section to Skritter vocab list', {
+    session,
+    url,
+    method: 'PUT',
+    body
+  });
+  return vocabList.sections[vocabList.sections.length - 1];
+}
+
+async function addHanzishanVocabListSection(session, existingVocabList, characters) {
+  const [newSection, rows] = await Promise.all([
+    addEmptyHanzishanVocabListSection(session, existingVocabList),
+    mapCharactersToRows(session, characters)
+  ]);
+
+  const url = new URL(`vocablists/${existingVocabList.id}/sections/${newSection.id}`, SKRITTER_API_BASE_URL);
+  const body = cloneDeep(newSection);
+  body.rows = rows;
+
+  await apiCall('add characters to new Skritter vocab list section', {
     session,
     url,
     method: 'PUT',
@@ -144,6 +191,7 @@ module.exports = () => [
       const { characters } = req.body;
       await addCharactersToVocabList(session, characters);
     } catch (error) {
+      console.error('Failed to add characters to vocab list', error);
       return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
     }
 
