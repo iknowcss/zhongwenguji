@@ -6,7 +6,7 @@ const cloneDeep = require('lodash/cloneDeep');
 const { decryptObject } = require('./cryptoService');
 
 const SKRITTER_API_BASE_URL = 'https://legacy.skritter.com/api/v0/';
-const VOCAB_LIST_NAME = 'HanziShan Missed Characters 2';
+const VOCAB_LIST_NAME = 'HanziShan Missed Characters';
 
 function buildAuthHeaders(session) {
   return {
