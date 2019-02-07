@@ -16,6 +16,7 @@ import {
 import { cancelAddToSkritter, submitToSkritter } from './skritterActions';
 import Button from '../component/Button';
 import noop from '../util/noop';
+import I18n from '../i18n/I18n';
 import style from './AddToSkritter.module.scss';
 
 class AddToSkritter extends Component {
@@ -25,11 +26,11 @@ class AddToSkritter extends Component {
       characterSetEnum.SIMPLIFIED,
       characterSetEnum.TRADITIONAL
     ]).isRequired,
+    addingState: PropTypes.string.isRequired,
     userName: PropTypes.string,
     auth: PropTypes.string,
     isLoginPending: PropTypes.bool,
     isLoginFailed: PropTypes.bool,
-    addingState: PropTypes.string,
     cancelAddToSkritter: PropTypes.func,
     submitToSkritter: PropTypes.func
   };
@@ -39,7 +40,6 @@ class AddToSkritter extends Component {
     auth: '',
     isLoginPending: false,
     isLoginFailed: false,
-    addingState: '',
     cancelAddToSkritter: noop,
     submitToSkritter: noop
   };
@@ -60,34 +60,50 @@ class AddToSkritter extends Component {
     const { isLoginPending, isLoginFailed, addingState } = this.props;
 
     if (isLoginPending) {
-      return { submitDisabled: true, submitText: 'Authorizing...' };
+      return {
+        submitTextStringId: 'addToSkritter.submit.authorizing',
+        submitDisabled: true
+      };
     }
     if (isLoginFailed) {
       return {
-        submitDisabled: true,
-        submitText: 'Login failed!',
-        submitResultMessage: ''
+        submitTextStringId: 'addToSkritter.submit.loginFailed',
+        submitDisabled: true
       };
     }
 
     switch (addingState) {
       case addingStateEnum.SUBMIT_PENDING:
-        return { submitDisabled: true, submitText: 'Adding...' };
+        return {
+          submitTextStringId: 'addToSkritter.submit.pending',
+          submitDisabled: true
+        };
       case addingStateEnum.SUBMIT_SUCCESS:
-        return { submitDisabled: true, submitText: 'Success!', buttonSuccess: true };
+        return {
+          submitTextStringId: 'addToSkritter.submit.success',
+          submitDisabled: true,
+          buttonSuccess: true
+        };
       case addingStateEnum.SUBMIT_ERROR:
-        return { submitDisabled: true, submitText: 'Failed!', buttonDanger: true};
+        return {
+          submitTextStringId: 'addToSkritter.submit.failed',
+          submitDisabled: true,
+          buttonDanger: true
+        };
       case addingStateEnum.SUBMIT_READY:
       default:
-        return { submitDisabled: false, submitText: 'Add to Skritter' };
+        return {
+          submitTextStringId: 'addToSkritter.submit.start',
+          submitDisabled: false
+        };
     }
   }
 
   render() {
     const {
       submitDisabled,
-      submitText,
-      submitResultMessage,
+      submitTextStringId,
+      submitResultStringId,
       buttonDanger,
       buttonSuccess
     } = this.getSubmitButtonState();
@@ -95,31 +111,40 @@ class AddToSkritter extends Component {
     return (
       <div className={style.container}>
         <div className={style.modal}>
-          <div>Add all characters to Skritter</div>
+          <I18n component="div" stringId="addToSkritter.description" />
 
-          <div className={cx(style.accordion, { [style.accordionActive]: isLoggedIn })}>
-            Logged in as <span className={style.loggedInUserName}>{userName}</span>
+          <div className={cx(style.loginMessage, style.accordion, {
+            [style.accordionActive]: isLoggedIn
+          })}>
+            <I18n stringId="addToSkritter.loggedInAs" />
+            {' '}
+            <span className={style.loggedInUserName}>{userName}</span>
           </div>
 
-          <div className={cx(style.accordion, { [style.accordionActive]: !!submitResultMessage })}>
-            {submitResultMessage}
-          </div>
+          <I18n
+            component="div"
+            stringId={submitResultStringId}
+            className={cx(style.submitResult, style.accordion, {
+              [style.accordionActive]: !!submitResultStringId
+            })}
+          />
 
-          <Button
+          <I18n
+            stringId={submitTextStringId}
             disabled={submitDisabled}
-            className={style.button}
+            className={cx(style.button)}
             onClick={this.handleClick}
             success={buttonSuccess}
             danger={buttonDanger}
-          >{submitText}</Button>
+          />
 
-          <Button
+          <I18n
+            component={Button}
+            stringId="addToSkritter.cancelButton"
             className={style.button}
             secondary
             onClick={this.handleCancelClick}
-          >
-            Cancel
-          </Button>
+          />
         </div>
       </div>
     );

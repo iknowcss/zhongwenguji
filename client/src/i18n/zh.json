@@ -17,5 +17,16 @@
   "results.startAgain": "重新开始",
   "results.feedbackPreface": "你对这个测试有什么想法？",
   "results.feedbackLinkText": "请在这里告诉我",
-  "reviewMissed.backButton": "返回"
+  "reviewMissed.backButton": "返回",
+  "reviewMissed.addToSkritter": "Add to Skritter",
+  "addToSkritter.description": "Add all characters to Skritter",
+  "addToSkritter.loggedInAs": "Logged in as",
+  "addToSkritter.cancelButton": "Cancel",
+  "addToSkritter.submit.start": "Add to Skritter",
+  "addToSkritter.submit.authorizing": "Authorizing...",
+  "addToSkritter.submit.loginFailed": "Login failed!",
+  "addToSkritter.submit.pending": "Adding...",
+  "addToSkritter.submit.success": "Success!",
+  "addToSkritter.submit.failed": "Failed!"
 }
+
