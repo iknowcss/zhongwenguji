@@ -18,5 +18,14 @@
   "results.feedbackPreface": "How did you enjoy the test?",
   "results.feedbackLinkText": "Let me know here",
   "reviewMissed.backButton": "Back",
-  "reviewMissed.addToSkritter": "Add to Skritter"
+  "reviewMissed.addToSkritter": "Add to Skritter",
+  "addToSkritter.description": "Add all characters to Skritter",
+  "addToSkritter.loggedInAs": "Logged in as",
+  "addToSkritter.cancelButton": "Cancel",
+  "addToSkritter.submit.start": "Add to Skritter",
+  "addToSkritter.submit.authorizing": "Authorizing...",
+  "addToSkritter.submit.loginFailed": "Login failed!",
+  "addToSkritter.submit.pending": "Adding...",
+  "addToSkritter.submit.success": "Success!",
+  "addToSkritter.submit.failed": "Failed!"
 }
