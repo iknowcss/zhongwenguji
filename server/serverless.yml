@@ -32,7 +32,16 @@ functions:
     - http:
         path: /skritter/characters
         method: post
-        cors: true
+        cors:
+          origin: *
+          headers:
+            - X-Session
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
 
 plugins:
   - serverless-offline
