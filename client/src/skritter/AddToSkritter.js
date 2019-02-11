@@ -130,6 +130,7 @@ class AddToSkritter extends Component {
           />
 
           <I18n
+            component={Button}
             stringId={submitTextStringId}
             disabled={submitDisabled}
             className={cx(style.button)}
