@@ -33,7 +33,7 @@ functions:
         path: /skritter/characters
         method: post
         cors:
-          origin: *
+          origin: '*'
           headers:
             - X-Session
             - Content-Type

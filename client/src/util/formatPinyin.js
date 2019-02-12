@@ -1,15 +1,22 @@
-const UMLAUT_REGEXP = /u:|v/g;
+const LOWER_UMLAUT_REGEXP = /u:|v/g;
+const UPPER_UMLAUT_REGEXP = /U:|V/g;
 const PINYIN_PARTS_REGEXP = /(\D+)([1-5]?)/;
-const NUCLEUS_REGEXP = /[ae]|[oiuü](?![aeoiuü])|[oiuü]{2}/;
-const NON_PINYIN_REGEXP = /[^a-z0-9:ü]+/g;
+const NUCLEUS_REGEXP = /[ae]|[oiuü](?![aeoiuü])|[oiuü]{2}/i;
+const NON_PINYIN_REGEXP = /[^A-Za-z0-9:üÜ]+/g;
 
 const TONE_MAP = {
   'a': 'āáǎà'.split(''),
+  'A': 'āáǎà'.toUpperCase().split(''),
   'o': 'ōóǒò'.split(''),
+  'O': 'ōóǒò'.toUpperCase().split(''),
   'e': 'ēéěè'.split(''),
+  'E': 'ēéěè'.toUpperCase().split(''),
   'i': 'īíǐì'.split(''),
+  'I': 'īíǐì'.toUpperCase().split(''),
   'u': 'ūúǔù'.split(''),
-  'ü': 'ǖǘǚǜ'.split('')
+  'U': 'ūúǔù'.toUpperCase().split(''),
+  'ü': 'ǖǘǚǜ'.split(''),
+  'Ü': 'ǖǘǚǜ'.toUpperCase().split('')
 };
 
 // https://en.wikipedia.org/wiki/Pinyin#Rules_for_placing_the_tone_mark
@@ -34,8 +41,8 @@ function applyTone(nucleus, toneNumber) {
 
 function processPinyin(p) {
   const [, pron, tone] = p
-    .toLowerCase()
-    .replace(UMLAUT_REGEXP, 'ü')
+    .replace(LOWER_UMLAUT_REGEXP, 'ü')
+    .replace(UPPER_UMLAUT_REGEXP, 'Ü')
     .match(PINYIN_PARTS_REGEXP);
   return pron.replace(NUCLEUS_REGEXP, match => applyTone(match, tone));
 }

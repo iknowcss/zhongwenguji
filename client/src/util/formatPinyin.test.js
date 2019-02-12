@@ -57,7 +57,7 @@ describe('formatPinyin', () => {
     });
   });
 
-  describe('', () => {
+  describe('umlaut logic', () => {
     it('replaces "u:" with "ü"', () => {
       expect(formatPinyin('nu:3')).toEqual('nǚ');
     });
@@ -70,4 +70,12 @@ describe('formatPinyin', () => {
       expect(formatPinyin('nu:3/nv nu:')).toEqual('nǚ, nü');
     });
   });
+
+  describe('capitalization', () => {
+    it('leaves capitals as they are', () => {
+      expect(['Song2', 'Ao1', 'O2', 'E3', 'I4', 'U1', 'U:3', 'V2'].map(formatPinyin))
+        .toEqual(['Sóng', 'Āo', 'Ó', 'Ě', 'Ì', 'Ū', 'Ǚ', 'Ǘ']);
+    });
+  });
+
 });
