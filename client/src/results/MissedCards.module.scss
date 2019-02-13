@@ -110,7 +110,7 @@ $color-light-shades-light: lighten($color-light-shades, 3%);
 
 .skritter {
   &Container {
-    display: flex;
+    display: none; // TODO: enable this feature
     align-items: center;
   }
 
