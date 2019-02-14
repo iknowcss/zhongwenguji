@@ -1,9 +1,11 @@
 import {
   isShowDefinition,
   status as characterTestStatus,
-  scoreStatistics
+  scoreStatistics,
+  characterSet
 } from './characterTestReducer';
 import getConfig from '../getConfig';
+import * as analytics from '../analytics/analyticsAction';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',
@@ -33,12 +35,24 @@ function extractJson(response) {
   return response.json();
 }
 
+let hasMarkedFirst = false;
+let testStartTime;
+function resetTestAnalytics() {
+  hasMarkedFirst = false;
+  testStartTime = Date.now();
+}
+
+function getTestDuration() {
+  return Math.floor((Date.now() - testStartTime) / 1000);
+}
+
 export const loadSamples = () => (dispatch) => {
   const { getCharacterSampleUrl } = getConfig();
   dispatch({ type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START });
   return fetch(getCharacterSampleUrl)
     .then(extractJson)
     .then((data) => {
+      resetTestAnalytics();
       dispatch({
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
         sampleData: data
@@ -62,6 +76,8 @@ export const toggleDefinition = () => (dispatch, getState) => {
 };
 
 const testSubmit = () => (dispatch, getState) => {
+  analytics.completeTestAfterDuration(getTestDuration());
+
   const { submitTestUrl } = getConfig();
   dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
 
@@ -75,6 +91,7 @@ const testSubmit = () => (dispatch, getState) => {
   })
     .then(extractJson)
     .then((resultData) => {
+      analytics.receiveKnownEstimate(resultData.knownEstimate);
       dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData });
     })
     .catch((error) => {
@@ -86,6 +103,10 @@ const discardCurrent = () => (dispatch, getState) => {
   dispatch({ type: actionTypes.TEST_CARD_DISCARD });
   if (characterTestStatus(getState()) === 'COMPLETE') {
     return dispatch(testSubmit());
+  }
+  if (!hasMarkedFirst) {
+    analytics.firstSwipe(characterSet(getState()));
+    hasMarkedFirst = true;
   }
   return Promise.resolve();
 };
@@ -111,6 +132,9 @@ export const setCharacterSetSimplified = () => ({ type: actionTypes.TEST_SET_CHA
 
 export const setCharacterSetTraditional = () => ({ type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL });
 
-export const reviewMissed = () => ({ type: actionTypes.REVIEW_MISSED_START });
+export const reviewMissed = () => (dispatch) => {
+  dispatch({ type: actionTypes.REVIEW_MISSED_START });
+  analytics.reviewMissed();
+};
 
 export const showTestResults = () => ({ type: actionTypes.TEST_RESULTS_SHOW });

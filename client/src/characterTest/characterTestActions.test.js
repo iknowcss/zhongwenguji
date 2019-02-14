@@ -2,22 +2,28 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock';
 import prepareBins from './prepareBins.testutil';
+import { characterSetEnum } from './characterTestReducer';
+import * as analytics from '../analytics/analyticsAction';
 import {
   actionTypes,
   loadSamples,
   markCurrentUnknown,
   markCurrentKnown,
   undoDiscard,
-  showTestResults
+  showTestResults,
+  reviewMissed
 } from './characterTestActions';
 import getConfig from '../getConfig';
 
 const mockStore = configureMockStore([thunk]);
 
+jest.mock('../analytics/analyticsAction');
+
 describe('characterTestActions', () => {
   const { getCharacterSampleUrl, submitTestUrl } = getConfig();
   const oldConsole = {};
   let store;
+  let dateNowMock;
 
   function setup(characterTestStateOverrides) {
     store = mockStore({
@@ -26,6 +32,7 @@ describe('characterTestActions', () => {
         state: 'TESTING',
         currentSectionIndex: 0,
         currentCardIndex: 2,
+        characterSet: characterSetEnum.SIMPLIFIED,
         ...characterTestStateOverrides
       }
     });
@@ -35,29 +42,29 @@ describe('characterTestActions', () => {
     setup();
     oldConsole.error = console.error;
     console.error = jest.fn();
+    dateNowMock = jest.spyOn(Date, 'now').mockImplementation(() => 0);
   });
 
   afterEach(() => {
     fetchMock.restore();
     console.error = oldConsole.error;
+    dateNowMock.mockRestore();
   });
 
-  it('loads character samples', () => {
+  it('loads character samples', async () => {
     fetchMock.getOnce(getCharacterSampleUrl, {
       body: { mockData: true },
       headers: { 'Content-type': 'application/json' }
     });
 
-    return store.dispatch(loadSamples(getCharacterSampleUrl))
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
-          {
-            type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-            sampleData: { mockData: true }
-          }
-        ]);
-      });
+    await store.dispatch(loadSamples(getCharacterSampleUrl));
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
+      {
+        type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
+        sampleData: { mockData: true }
+      }
+    ]);
   });
 
   it('handles character sample load failure', () => {
@@ -81,6 +88,16 @@ describe('characterTestActions', () => {
   });
 
   describe('marking', () => {
+    beforeEach(async () => {
+      fetchMock.getOnce(getCharacterSampleUrl, {
+        body: { mockData: true },
+        headers: { 'Content-type': 'application/json' }
+      });
+
+      await store.dispatch(loadSamples(getCharacterSampleUrl));
+      store.clearActions();
+    });
+
     it('marks the current character unknown', () => {
       store.dispatch(markCurrentUnknown());
       expect(store.getActions()).toEqual([
@@ -104,39 +121,34 @@ describe('characterTestActions', () => {
         { type: actionTypes.TEST_CARD_DISCARD_UNDO }
       ]);
     });
+
+    it('fires an analytics event for the first swipe', () => {
+      analytics.firstSwipe.mockClear();
+      store.dispatch(markCurrentKnown());
+      store.dispatch(markCurrentKnown());
+      expect(analytics.firstSwipe).toHaveBeenCalledTimes(1);
+      expect(analytics.firstSwipe.mock.calls[0][0]).toEqual(characterSetEnum.SIMPLIFIED);
+    });
   });
 
   describe('submitting', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       setup({
         state: 'COMPLETE',
         bins: prepareBins([1, 0, 1, 1, 0]),
         currentSectionIndex: 0,
         currentCardIndex: 0
       });
+
+      fetchMock.getOnce(getCharacterSampleUrl, {
+        body: { mockData: true },
+        headers: { 'Content-type': 'application/json' }
+      });
+
+      await store.dispatch(loadSamples(getCharacterSampleUrl));
+      store.clearActions();
+      fetchMock.reset();
     });
-
-    function shallowEqual(a, b) {
-      const aKeys = Object.keys(a).sort();
-      const bKeys = Object.keys(b).sort();
-      if (aKeys.toString() !== bKeys.toString()) {
-        return false;
-      }
-      return aKeys.find(key => a[key] !== b[key]) === undefined;
-    }
-
-    function matchTestSubmit(expectedUrl, expectedTestData) {
-      return (url, { body }) => {
-        if (url !== expectedUrl) {
-          return false;
-        }
-        const { testData } = JSON.parse(body);
-        if (!Array.isArray(testData) || testData.length !== expectedTestData.length) {
-          return false;
-        }
-        return !testData.find((element, i) => !shallowEqual(element, expectedTestData[i]));
-      };
-    }
 
     it('sends the data to the server', () => {
       const resultData = {
@@ -145,6 +157,8 @@ describe('characterTestActions', () => {
         knownEstimate: 720,
         knownEstimateUncertainty: 120
       };
+
+      dateNowMock.mockImplementation(() => 42000);
 
       fetchMock.postOnce(submitTestUrl, {
         body: resultData,
@@ -171,6 +185,11 @@ describe('characterTestActions', () => {
             { type: actionTypes.TEST_RESULTS_SUBMIT_START },
             { type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData }
           ]);
+
+          expect(analytics.completeTestAfterDuration).toHaveBeenCalledTimes(1);
+          expect(analytics.completeTestAfterDuration.mock.calls[0][0]).toEqual(42);
+          expect(analytics.receiveKnownEstimate).toHaveBeenCalledTimes(1);
+          expect(analytics.receiveKnownEstimate.mock.calls[0][0]).toEqual(720);
         });
     });
 
@@ -197,6 +216,16 @@ describe('characterTestActions', () => {
       expect(showTestResults()).toEqual({
         type: actionTypes.TEST_RESULTS_SHOW
       });
+    });
+  });
+
+  describe('reviewMissed', () => {
+    it('starts reviewing the missed characters', () => {
+      store.dispatch(reviewMissed());
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.REVIEW_MISSED_START }
+      ]);
+      expect(analytics.reviewMissed).toHaveBeenCalledTimes(1);
     });
   });
 });
