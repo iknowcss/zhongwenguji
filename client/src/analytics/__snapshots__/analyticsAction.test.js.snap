@@ -1,32 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`analyticsAction completeTestAfterDuration 1`] = `
-Object {
-  "eventAction": "completeTestAfterDuration",
-  "eventCategory": "Test",
-  "eventValue": 42,
-}
+Array [
+  "completeTestAfterDuration",
+  Object {
+    "event_category": "Test",
+    "value": 42,
+  },
+]
 `;
 
 exports[`analyticsAction firstSwipe 1`] = `
-Object {
-  "eventAction": "firstSwipe",
-  "eventCategory": "Test",
-  "eventLabel": "traditional",
-}
+Array [
+  "firstSwipe",
+  Object {
+    "event_category": "Test",
+    "event_label": "traditional",
+  },
+]
 `;
 
 exports[`analyticsAction receiveKnownEstimate 1`] = `
-Object {
-  "eventAction": "receiveKnownEstimate",
-  "eventCategory": "Test results",
-  "eventValue": 980,
-}
+Array [
+  "receiveKnownEstimate",
+  Object {
+    "event_category": "Test results",
+    "value": 980,
+  },
+]
 `;
 
 exports[`analyticsAction reviewMissed 1`] = `
-Object {
-  "eventAction": "reviewMissed",
-  "eventCategory": "Test results",
-}
+Array [
+  "reviewMissed",
+  Object {
+    "event_category": "Test results",
+  },
+]
 `;

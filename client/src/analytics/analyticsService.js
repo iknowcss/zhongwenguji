@@ -9,6 +9,8 @@ export const initStateEnum = {
 export default {
   state: initStateEnum.UNINITIALIZED,
 
+  gtag() { /* noop */ },
+
   init() {
     if (this.state !== initStateEnum.UNINITIALIZED) {
       return;
@@ -22,18 +24,18 @@ export default {
       document.head.appendChild(gaScript);
 
       window.dataLayer = window.dataLayer || [];
-      const gtag = function () { window.dataLayer.push(arguments); };
-      gtag('js', new Date());
-      gtag('config', 'UA-131912391-1');
+      this.gtag = function () { window.dataLayer.push(arguments); };
+      this.gtag('js', new Date());
+      this.gtag('config', 'UA-131912391-1');
     } else {
       this.state = initStateEnum.WONT_INITIALIZE;
       console.log('GA Disabled');
     }
   },
 
-  sendEvent(options) {
+  sendEvent(eventName, options) {
     if (this.state === initStateEnum.INITIALIZED) {
-      window.ga('send', 'event', options);
+      this.gtag('event', eventName, options);
     }
   }
 }

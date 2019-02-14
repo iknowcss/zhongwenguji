@@ -23,6 +23,7 @@ describe('analyticsService', () => {
     beforeEach(() => {
       getConfigStub.mockImplementation(() => ({ enableGA: true }));
       analyticsService.init();
+      analyticsService.gtag = jest.fn();
     });
 
     it('initializes', () => {
@@ -32,16 +33,14 @@ describe('analyticsService', () => {
     });
 
     it('sends events', () => {
-      analyticsService.sendEvent({
-        eventCategory: 'Test',
-        eventAction: 'firstSwipe',
-        eventLabel: 'foo'
+      analyticsService.sendEvent('firstSwipe', {
+        event_category: 'Test',
+        event_label: 'foo'
       });
-      expect(global.window.ga).toHaveBeenCalledTimes(1);
-      expect(global.window.ga).toHaveBeenCalledWith('send', 'event', {
-        eventCategory: 'Test',
-        eventAction: 'firstSwipe',
-        eventLabel: 'foo'
+      expect(analyticsService.gtag).toHaveBeenCalledTimes(1);
+      expect(analyticsService.gtag).toHaveBeenCalledWith('event', 'firstSwipe', {
+        event_category: 'Test',
+        event_label: 'foo'
       });
     });
   });
@@ -50,6 +49,7 @@ describe('analyticsService', () => {
     beforeEach(() => {
       getConfigStub.mockImplementation(() => ({ enableGA: false }));
       analyticsService.init();
+      analyticsService.gtag = jest.fn();
     });
 
     it('initializes', () => {
@@ -59,12 +59,11 @@ describe('analyticsService', () => {
     });
 
     it('does not send', () => {
-      analyticsService.sendEvent({
-        eventCategory: 'Test',
-        eventAction: 'firstSwipe',
-        eventLabel: 'foo'
+      analyticsService.sendEvent('firstSwipe', {
+        event_category: 'Test',
+        event_label: 'foo'
       });
-      expect(global.window.ga).toHaveBeenCalledTimes(0);
+      expect(analyticsService.gtag).toHaveBeenCalledTimes(0);
     });
   });
 });

@@ -20,24 +20,24 @@ describe('analyticsAction', () => {
   it('firstSwipe', () => {
     firstSwipe('traditional');
     expect(sendEventStub).toHaveBeenCalledTimes(1);
-    expect(sendEventStub.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendEventStub.mock.calls[0]).toMatchSnapshot();
   });
 
   it('completeTestAfterDuration', () => {
     completeTestAfterDuration(42);
     expect(sendEventStub).toHaveBeenCalledTimes(1);
-    expect(sendEventStub.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendEventStub.mock.calls[0]).toMatchSnapshot();
   });
 
   it('receiveKnownEstimate', () => {
     receiveKnownEstimate(980);
     expect(sendEventStub).toHaveBeenCalledTimes(1);
-    expect(sendEventStub.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendEventStub.mock.calls[0]).toMatchSnapshot();
   });
 
   it('reviewMissed', () => {
     reviewMissed();
     expect(sendEventStub).toHaveBeenCalledTimes(1);
-    expect(sendEventStub.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendEventStub.mock.calls[0]).toMatchSnapshot();
   });
 });
