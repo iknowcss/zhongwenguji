@@ -20,7 +20,8 @@ const config = Object.assign({
     getCharacterSampleUrl: `${LAMBDA_BASE_URL.STAGING}/getCharacterSample`,
     submitTestUrl: `${LAMBDA_BASE_URL.STAGING}/submitTest`,
     skritterContextUrl: `${LAMBDA_BASE_URL.STAGING}/skritter/oauth/token`,
-    skritterCharactersUrl: `${LAMBDA_BASE_URL.STAGING}/skritter/characters`
+    skritterCharactersUrl: `${LAMBDA_BASE_URL.STAGING}/skritter/characters`,
+    enableGA: true // TODO: Remove after testing
   },
   production: {
     getCharacterSampleUrl: `${LAMBDA_BASE_URL.PRODUCTION}/getCharacterSample`,
