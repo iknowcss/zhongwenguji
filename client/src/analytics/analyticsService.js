@@ -1,21 +1,21 @@
 import getConfig from '../getConfig';
 
-const initState = {
+export const initStateEnum = {
   UNINITIALIZED: 'UNINITIALIZED',
   INITIALIZED: 'INITIALIZED',
   WONT_INITIALIZE: 'WONT_INITIALIZE'
 };
 
 export default {
-  state: initState.UNINITIALIZED,
+  state: initStateEnum.UNINITIALIZED,
 
   init() {
-    if (this.state !== initState.UNINITIALIZED) {
+    if (this.state !== initStateEnum.UNINITIALIZED) {
       return;
     }
     if (getConfig().enableGA) {
-      this.state = initState.INITIALIZED;
-      console.info('GA Enabled');
+      this.state = initStateEnum.INITIALIZED;
+      console.log('GA Enabled');
       const gaScript = document.createElement('script');
       gaScript.setAttribute('async', 'true');
       gaScript.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=UA-131912391-1');
@@ -26,13 +26,13 @@ export default {
       gtag('js', new Date());
       gtag('config', 'UA-131912391-1');
     } else {
-      this.state = initState.WONT_INITIALIZE;
-      console.info('GA Disabled');
+      this.state = initStateEnum.WONT_INITIALIZE;
+      console.log('GA Disabled');
     }
   },
 
   sendEvent(options) {
-    if (this.state === initState.INITIALIZED) {
+    if (this.state === initStateEnum.INITIALIZED) {
       window.ga('send', 'event', options);
     }
   }

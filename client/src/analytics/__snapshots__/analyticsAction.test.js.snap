@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`analyticsAction completeTestAfterDuration 1`] = `
+Object {
+  "eventAction": "completeTestAfterDuration",
+  "eventCategory": "Test",
+  "eventValue": 42,
+}
+`;
+
+exports[`analyticsAction firstSwipe 1`] = `
+Object {
+  "eventAction": "firstSwipe",
+  "eventCategory": "Test",
+  "eventLabel": "traditional",
+}
+`;
+
+exports[`analyticsAction receiveKnownEstimate 1`] = `
+Object {
+  "eventAction": "receiveKnownEstimate",
+  "eventCategory": "Test results",
+  "eventValue": 980,
+}
+`;
+
+exports[`analyticsAction reviewMissed 1`] = `
+Object {
+  "eventAction": "reviewMissed",
+  "eventCategory": "Test results",
+}
+`;
