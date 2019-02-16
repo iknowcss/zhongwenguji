@@ -1,12 +1,19 @@
 import analyticsService from './analyticsService';
+import { characterSetEnum } from '../characterTest/characterTestReducer';
 
-export const firstSwipe = (characterSet) => analyticsService.sendEvent('firstSwipe', {
-  event_category: 'Test',
-  event_label: characterSet
-});
+const cse = characterSetEnum || {};
+const characterSetActionMap = {
+  [cse.SIMPLIFIED]: 'firstSwipeSimplified',
+  [cse.TRADITIONAL]: 'firstSwipeTraditional'
+};
+
+export const firstSwipe = (characterSet) => {
+  const eventAction = characterSetActionMap[characterSet] || `firstSwipe${characterSet}`;
+  analyticsService.sendEvent(eventAction, { event_category: 'In-test' });
+};
 
 export const completeTestAfterDuration = (duration) => analyticsService.sendEvent('completeTestAfterDuration', {
-  event_category: 'Test',
+  event_category: 'In-test',
   value: duration
 });
 

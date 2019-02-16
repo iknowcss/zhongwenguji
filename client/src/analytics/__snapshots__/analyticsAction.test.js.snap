@@ -4,18 +4,8 @@ exports[`analyticsAction completeTestAfterDuration 1`] = `
 Array [
   "completeTestAfterDuration",
   Object {
-    "event_category": "Test",
+    "event_category": "In-test",
     "value": 42,
-  },
-]
-`;
-
-exports[`analyticsAction firstSwipe 1`] = `
-Array [
-  "firstSwipe",
-  Object {
-    "event_category": "Test",
-    "event_label": "traditional",
   },
 ]
 `;

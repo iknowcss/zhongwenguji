@@ -1,6 +1,5 @@
 import React from 'react';
 import Renderer from 'react-test-renderer';
-import { hasClassName } from '../util/asdf.testutil';
 import ResultsDisplay from './ResultsDisplay';
 import ResultsChart from './ResultsChart';
 import { Pure as Results } from './Results';

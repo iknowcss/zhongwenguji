@@ -5,6 +5,7 @@ import {
   receiveKnownEstimate,
   reviewMissed
 } from './analyticsAction';
+import { characterSetEnum } from '../characterTest/characterTestReducer'
 
 describe('analyticsAction', () => {
   let sendEventStub;
@@ -17,10 +18,33 @@ describe('analyticsAction', () => {
     sendEventStub.mockRestore();
   });
 
-  it('firstSwipe', () => {
-    firstSwipe('traditional');
-    expect(sendEventStub).toHaveBeenCalledTimes(1);
-    expect(sendEventStub.mock.calls[0]).toMatchSnapshot();
+  describe('firstSwipe', () => {
+    it('firstSwipeSimplified', () => {
+      firstSwipe(characterSetEnum.SIMPLIFIED);
+      expect(sendEventStub).toHaveBeenCalledTimes(1);
+      expect(sendEventStub.mock.calls[0]).toEqual([
+        'firstSwipeSimplified',
+        { event_category: 'In-test' }
+      ]);
+    });
+
+    it('firstSwipeTraditional', () => {
+      firstSwipe(characterSetEnum.TRADITIONAL);
+      expect(sendEventStub).toHaveBeenCalledTimes(1);
+      expect(sendEventStub.mock.calls[0]).toEqual([
+        'firstSwipeTraditional',
+        { event_category: 'In-test' }
+      ]);
+    });
+
+    it('firstSwipe fallback', () => {
+      firstSwipe('JAPANESE');
+      expect(sendEventStub).toHaveBeenCalledTimes(1);
+      expect(sendEventStub.mock.calls[0]).toEqual([
+        'firstSwipeJAPANESE',
+        { event_category: 'In-test' }
+      ]);
+    });
   });
 
   it('completeTestAfterDuration', () => {
