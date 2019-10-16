@@ -2,55 +2,54 @@
 import React from 'react';
 import cx from 'classnames';
 import style from './Icon.module.scss';
-import undoSvg from '-!svg-react-loader!./undo.svg';
-import searchSvg from '-!svg-react-loader!./search.svg';
-import swipeLeftSvg from '-!svg-react-loader!./swipeLeft.svg';
-import swipeRightSvg from '-!svg-react-loader!./swipeRight.svg';
-import keyboardArrowLeftSvg from '-!svg-react-loader!./keyboardArrowLeft.svg';
-import keyboardArrowRightSvg from '-!svg-react-loader!./keyboardArrowRight.svg';
+import UndoSvg from '-!svg-react-loader!./undo.svg';
+import SearchSvg from '-!svg-react-loader!./search.svg';
+import SwipeLeftSvg from '-!svg-react-loader!./swipeLeft.svg';
+import SwipeRightSvg from '-!svg-react-loader!./swipeRight.svg';
+import KeyboardArrowLeftSvg from '-!svg-react-loader!./keyboardArrowLeft.svg';
+import KeyboardArrowRightSvg from '-!svg-react-loader!./keyboardArrowRight.svg';
 
-const Icon = ({ className, XXX, size = 'small' }) => (
+const Icon = ({ IconComponent, className, size = 'small' }) => (
   <span className={cx(style.span, style[`span--${size}`], className)}>
-    <XXX className={style.svg} />
+    <IconComponent className={style.svg} />
   </span>
 );
 
-const iconClass = ({ baseClassName, XXX, viewBox }) => ({ className, ...props }) => (
+const iconClass = ({ IconComponent, baseClassName }) => ({ className, ...props }) => (
   <Icon
+    IconComponent={IconComponent}
     className={cx(baseClassName, className)}
-    viewBox={viewBox}
-    XXX={XXX}
     {...props}
   />
 );
 
 export const UndoIcon = iconClass({
-  XXX: undoSvg,
+  IconComponent: UndoSvg,
   baseClassName: style.undoIcon
 });
 
 export const SearchIcon = iconClass({
-  XXX: searchSvg,
+  IconComponent: SearchSvg,
   baseClassName: style.searchIcon
 });
 
 export const SwipeLeftIcon = iconClass({
-  XXX: swipeLeftSvg,
+  IconComponent: SwipeLeftSvg,
   baseClassName: style.swipeLeftIcon
 });
 
 export const SwipeRightIcon = iconClass({
-  XXX: swipeRightSvg,
+  IconComponent: SwipeRightSvg,
   baseClassName: style.swipeRightIcon
 });
 
 export const KeyboardArrowLeftIcon = iconClass({
-  XXX: keyboardArrowLeftSvg,
+  IconComponent: KeyboardArrowLeftSvg,
   baseClassName: style.keyboardArrowLeftIcon
 });
 
 export const KeyboardArrowRightIcon = iconClass({
-  XXX: keyboardArrowRightSvg,
+  IconComponent: KeyboardArrowRightSvg,
   baseClassName: style.keyboardArrowRightIcon
 });
 
