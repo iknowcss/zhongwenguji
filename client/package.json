@@ -48,6 +48,9 @@
         "lines": 90,
         "statements": 90
       }
+    },
+    "moduleNameMapper": {
+      "^-!svg-react-loader!(.*)$": "$1"
     }
   },
   "browserslist": [

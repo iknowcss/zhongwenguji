@@ -12,14 +12,9 @@ exports[`CardStackButtons renders 1`] = `
     <span
       className="span span--medium undoIcon buttonIcon"
     >
-      <svg
+      <undo.svg
         className="svg"
-        viewBox="0 0 511.63 511.631"
-      >
-        <use
-          xlinkHref="undo.svg#main"
-        />
-      </svg>
+      />
     </span>
   </button>
   <button
@@ -29,14 +24,9 @@ exports[`CardStackButtons renders 1`] = `
     <span
       className="span span--medium searchIcon buttonIcon"
     >
-      <svg
+      <search.svg
         className="svg"
-        viewBox="0 0 250.313 250.313"
-      >
-        <use
-          xlinkHref="search.svg#main"
-        />
-      </svg>
+      />
     </span>
   </button>
 </div>
