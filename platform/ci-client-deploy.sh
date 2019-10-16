@@ -14,7 +14,8 @@ then
   DEPLOY_S3_BUCKET=staging.hanzishan.com
 elif [ "$STAGE" = "production" ]
 then
-  PUBLIC_URL="https://d3s6t86za6yn71.cloudfront.net/"
+  #PUBLIC_URL="https://d3s6t86za6yn71.cloudfront.net/"
+  PUBLIC_URL="/"
   DEPLOY_S3_BUCKET=hanzishan.com
 fi
 
