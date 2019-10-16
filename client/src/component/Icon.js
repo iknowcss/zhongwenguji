@@ -1,64 +1,57 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import React from 'react';
 import cx from 'classnames';
 import style from './Icon.module.scss';
-import undoSvg from './undo.svg';
-import searchSvg from './search.svg';
-import swipeLeftSvg from './swipeLeft.svg';
-import swipeRightSvg from './swipeRight.svg';
-import keyboardArrowLeftSvg from './keyboardArrowLeft.svg';
-import keyboardArrowRightSvg from './keyboardArrowRight.svg';
+import undoSvg from '-!svg-react-loader!./undo.svg';
+import searchSvg from '-!svg-react-loader!./search.svg';
+import swipeLeftSvg from '-!svg-react-loader!./swipeLeft.svg';
+import swipeRightSvg from '-!svg-react-loader!./swipeRight.svg';
+import keyboardArrowLeftSvg from '-!svg-react-loader!./keyboardArrowLeft.svg';
+import keyboardArrowRightSvg from '-!svg-react-loader!./keyboardArrowRight.svg';
 
-const Icon = ({ className, viewBox, href, size = 'small' }) => (
+const Icon = ({ className, XXX, size = 'small' }) => (
   <span className={cx(style.span, style[`span--${size}`], className)}>
-    <svg viewBox={viewBox} className={style.svg}>
-      <use xlinkHref={href} />
-    </svg>
+    <XXX className={style.svg} />
   </span>
 );
 
-const iconClass = ({ baseClassName, href, viewBox }) => ({ className, ...props }) => (
+const iconClass = ({ baseClassName, XXX, viewBox }) => ({ className, ...props }) => (
   <Icon
     className={cx(baseClassName, className)}
     viewBox={viewBox}
-    href={href}
+    XXX={XXX}
     {...props}
   />
 );
 
 export const UndoIcon = iconClass({
-  href: `${undoSvg}#main`,
-  baseClassName: style.undoIcon,
-  viewBox: '0 0 511.63 511.631'
+  XXX: undoSvg,
+  baseClassName: style.undoIcon
 });
 
 export const SearchIcon = iconClass({
-  href: `${searchSvg}#main`,
-  baseClassName: style.searchIcon,
-  viewBox: '0 0 250.313 250.313'
+  XXX: searchSvg,
+  baseClassName: style.searchIcon
 });
 
 export const SwipeLeftIcon = iconClass({
-  href: `${swipeLeftSvg}#main`,
-  baseClassName: style.swipeLeftIcon,
-  viewBox: '0 0 397.232 397.232'
+  XXX: swipeLeftSvg,
+  baseClassName: style.swipeLeftIcon
 });
 
 export const SwipeRightIcon = iconClass({
-  href: `${swipeRightSvg}#main`,
-  baseClassName: style.swipeRightIcon,
-  viewBox: '0 0 397.233 397.233'
+  XXX: swipeRightSvg,
+  baseClassName: style.swipeRightIcon
 });
 
 export const KeyboardArrowLeftIcon = iconClass({
-  href: `${keyboardArrowLeftSvg}#main`,
-  baseClassName: style.keyboardArrowLeftIcon,
-  viewBox: '0 0 377.338 377.338'
+  XXX: keyboardArrowLeftSvg,
+  baseClassName: style.keyboardArrowLeftIcon
 });
 
 export const KeyboardArrowRightIcon = iconClass({
-  href: `${keyboardArrowRightSvg}#main`,
-  baseClassName: style.keyboardArrowRightIcon,
-  viewBox: '0 0 419.901 419.901'
+  XXX: keyboardArrowRightSvg,
+  baseClassName: style.keyboardArrowRightIcon
 });
 
 export const LoadingIcon = ({ className, size = 'small' }) => (
