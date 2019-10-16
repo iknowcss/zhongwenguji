@@ -18,14 +18,9 @@ exports[`Instructions renders keyboard instructions 1`] = `
       <span
         className="span span--small keyboardArrowRightIcon iconParagraphIcon iconParagraphKeyboardIcon"
       >
-        <svg
+        <keyboardArrowRight.svg
           className="svg"
-          viewBox="0 0 419.901 419.901"
-        >
-          <use
-            xlinkHref="keyboardArrowRight.svg#main"
-          />
-        </svg>
+        />
       </span>
       <p
         className="iconParagraph"
@@ -39,14 +34,9 @@ exports[`Instructions renders keyboard instructions 1`] = `
       <span
         className="span span--small keyboardArrowLeftIcon iconParagraphIcon iconParagraphKeyboardIcon"
       >
-        <svg
+        <keyboardArrowLeft.svg
           className="svg"
-          viewBox="0 0 377.338 377.338"
-        >
-          <use
-            xlinkHref="keyboardArrowLeft.svg#main"
-          />
-        </svg>
+        />
       </span>
       <p
         className="iconParagraph"
@@ -63,14 +53,9 @@ exports[`Instructions renders keyboard instructions 1`] = `
         <span
           className="span span--tiny searchIcon iconParagraphIcon"
         >
-          <svg
+          <search.svg
             className="svg"
-            viewBox="0 0 250.313 250.313"
-          >
-            <use
-              xlinkHref="search.svg#main"
-            />
-          </svg>
+          />
         </span>
       </div>
       <p
@@ -88,14 +73,9 @@ exports[`Instructions renders keyboard instructions 1`] = `
         <span
           className="span span--tiny undoIcon iconParagraphIcon"
         >
-          <svg
+          <undo.svg
             className="svg"
-            viewBox="0 0 511.63 511.631"
-          >
-            <use
-              xlinkHref="undo.svg#main"
-            />
-          </svg>
+          />
         </span>
       </div>
       <p
@@ -147,14 +127,9 @@ exports[`Instructions renders touch instructions 1`] = `
       <span
         className="span span--medium swipeRightIcon iconParagraphIcon"
       >
-        <svg
+        <swipeRight.svg
           className="svg"
-          viewBox="0 0 397.233 397.233"
-        >
-          <use
-            xlinkHref="swipeRight.svg#main"
-          />
-        </svg>
+        />
       </span>
       <p
         className="iconParagraph"
@@ -168,14 +143,9 @@ exports[`Instructions renders touch instructions 1`] = `
       <span
         className="span span--medium swipeLeftIcon iconParagraphIcon"
       >
-        <svg
+        <swipeLeft.svg
           className="svg"
-          viewBox="0 0 397.232 397.232"
-        >
-          <use
-            xlinkHref="swipeLeft.svg#main"
-          />
-        </svg>
+        />
       </span>
       <p
         className="iconParagraph"
@@ -192,14 +162,9 @@ exports[`Instructions renders touch instructions 1`] = `
         <span
           className="span span--tiny searchIcon iconParagraphIcon"
         >
-          <svg
+          <search.svg
             className="svg"
-            viewBox="0 0 250.313 250.313"
-          >
-            <use
-              xlinkHref="search.svg#main"
-            />
-          </svg>
+          />
         </span>
       </div>
       <p
@@ -217,14 +182,9 @@ exports[`Instructions renders touch instructions 1`] = `
         <span
           className="span span--tiny undoIcon iconParagraphIcon"
         >
-          <svg
+          <undo.svg
             className="svg"
-            viewBox="0 0 511.63 511.631"
-          >
-            <use
-              xlinkHref="undo.svg#main"
-            />
-          </svg>
+          />
         </span>
       </div>
       <p
