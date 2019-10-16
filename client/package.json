@@ -65,7 +65,7 @@
     "jest-mock-console": "^0.4.2",
     "lodash": "^4.17.15",
     "node-fetch": "^2.3.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "react-test-renderer": "^16.7.0",
     "redux-mock-store": "^1.5.3"
   }
