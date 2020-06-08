@@ -1,58 +1,65 @@
 const getBinSamples = require('./getBinSamples');
 
 describe('getBinSamples', () => {
+  const randomSeed = .314159;
+
   function range(end) {
     return Array.from({ length: end }, (x, i) => i);
   }
 
   it('gets the subset from plentiful data', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [0, 1, 2]);
-    expect(result).toHaveLength(3);
-    expect(result).toEqual([
-      [0, 1, 2, 3, 4],
-      [10, 11, 12, 13, 14],
-      [20, 21, 22, 23, 24],
+    const result = getBinSamples(items, 10, 5, [0, 1, 2], { randomSeed });
+    expect(result.randomSeed).toEqual(randomSeed);
+    expect(result.samples).toHaveLength(3);
+    expect(result.samples).toEqual([
+      [1, 5, 9, 2, 7],
+      [14, 19, 11, 16, 17],
+      [29, 28, 26, 27, 21],
     ]);
   });
 
   it('gets the next subset from plentiful data', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [1], 1);
-    expect(result).toHaveLength(1);
-    expect(result).toEqual([
-      [15, 16, 17, 18, 19],
+    const result = getBinSamples(items, 10, 5, [1], { randomSeed, subsetSkip: 1 });
+    expect(result.randomSeed).toEqual(randomSeed);
+    expect(result.samples).toHaveLength(1);
+    expect(result.samples).toEqual([
+      [18, 12, 13, 10, 15],
     ]);
   });
 
   it('treats non-existent bin ids as empty arrays', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [8, 9, 10]);
-    expect(result).toHaveLength(3);
-    expect(result).toEqual([
-      [80, 81, 82, 83, 84],
-      [90, 91, 92, 93, 94],
+    const result = getBinSamples(items, 10, 5, [8, 9, 10], { randomSeed });
+    expect(result.randomSeed).toEqual(randomSeed);
+    expect(result.samples).toHaveLength(3);
+    expect(result.samples).toEqual([
+      [87, 89, 83, 84, 80],
+      [99, 92, 93, 96, 95],
       [],
     ]);
   });
 
   it('returns less than the requested subset size if there are not enough items', () => {
     const items = range(11);
-    const result = getBinSamples(items, 3, 4, [0, 1, 2]);
-    expect(result).toHaveLength(3);
-    expect(result).toEqual([
-      [0, 1, 2, 3],
-      [4, 5, 6, 7],
-      [8, 9, 10],
+    const result = getBinSamples(items, 3, 4, [0, 1, 2], { randomSeed });
+    expect(result.randomSeed).toEqual(randomSeed);
+    expect(result.samples).toHaveLength(3);
+    expect(result.samples).toEqual([
+      [0, 2, 3, 1],
+      [5, 7, 4, 6],
+      [10, 8, 9],
     ]);
   });
 
   it('returns less than the requested subset size if there are not enough items in the next selection', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 3, [1], 3);
-    expect(result).toHaveLength(1);
-    expect(result).toEqual([
-      [19],
+    const result = getBinSamples(items, 10, 3, [1], { randomSeed, subsetSkip: 3 });
+    expect(result.randomSeed).toEqual(randomSeed);
+    expect(result.samples).toHaveLength(1);
+    expect(result.samples).toEqual([
+      [15],
     ]);
   });
 });
