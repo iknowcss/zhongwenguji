@@ -1,0 +1,17 @@
+{
+  "name": "ui-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ACTUAL_SCREENSHOT_DIR=\"$(mktemp -d)\" mocha test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "img-diff-js": "^0.4.1",
+    "mocha": "^7.2.0",
+    "puppeteer": "^3.3.0",
+    "puppeteer-core": "^3.3.0"
+  }
+}
