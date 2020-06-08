@@ -1,62 +1,46 @@
-const path = require('path');
-const assert = require('assert');
 const puppeteer = require('puppeteer');
-const imgDiff = require('img-diff-js');
+const { assertScreenshotMatchesPrevious, wait } = require('./util');
 
-const DELAY_INCREMENT_MS = 300;
-const ACTUAL_SCREENSHOT_DIR = process.env['ACTUAL_SCREENSHOT_DIR'];
-const EXPECTED_SCREENSHOT_DIR = 'screenshots';
-
-if (!ACTUAL_SCREENSHOT_DIR) {
-  throw new Error('Must set ACTUAL_SCREENSHOT_DIR');
-}
-
-async function wait(increments = 1) {
-  await new Promise(res => setTimeout(res, DELAY_INCREMENT_MS * increments));
-}
+const TEST_HEADLESS = process.env['TEST_HEADLESS'] !== '0';
+const DELAY_SWIPE_MS = 300;
+const DELAY_GRAPH_MS = 700;
+const RESULTS_SELECTOR = '[class*="Results_container"]';
+const CARD_STACK_SELECTOR = '[class*="CardStackDisplay_touchArea"]';
+const INSTRUCTIONS_SELECTOR = 'button[class*="Instructions_button"]';
 
 async function swipe(page, direction, { times = 1} = {}) {
   for (let i = 0; i < times; i++) {
     await page.keyboard.press(
       direction === 'left' ? 'ArrowLeft' :
         direction === 'right' ? 'ArrowRight' :
-        'Enter'
+          'Enter'
     );
-    await wait();
+    await wait(DELAY_SWIPE_MS);
   }
 }
 
-async function answerBlock(page, correctOf5) {
-  if (correctOf5 > 0) {
-    await swipe(page, 'right', { times: correctOf5 });
+async function markNextNKnown(page, numberKnownOf5) {
+  if (numberKnownOf5 > 0) {
+    await swipe(page, 'right', { times: numberKnownOf5 });
   }
-  if (correctOf5 < 5) {
-    await swipe(page, 'left', { times: 5 - correctOf5 });
+  if (numberKnownOf5 < 5) {
+    await swipe(page, 'left', { times: 5 - numberKnownOf5 });
   }
 }
 
-async function screenshotTests(page, screenshotName) {
-  await page.waitForSelector('[class*="Results_container"]');
-  await wait(2);
-
-  const actualFilename = path.join(ACTUAL_SCREENSHOT_DIR, `${screenshotName}.png`);
-  const expectedFilename = path.join(EXPECTED_SCREENSHOT_DIR, `${screenshotName}.png`);
-  await page.screenshot({ path: actualFilename });
-  const result = await imgDiff({
-    actualFilename: actualFilename,
-    expectedFilename: expectedFilename,
-  });
-  assert(result.imagesAreSame);
+async function waitForResults(page) {
+  await page.waitForSelector(RESULTS_SELECTOR);
+  await wait(DELAY_GRAPH_MS);
 }
 
-describe('foo', function () {
+describe('E2E test', function () {
   let browser;
   let page;
 
   this.timeout(30000);
 
   before(async () => {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({ headless: TEST_HEADLESS });
   });
 
   beforeEach(async function () {
@@ -64,10 +48,10 @@ describe('foo', function () {
     await page.goto('http://localhost:3000');
 
     // Wait for cards to load
-    await page.waitForSelector('[class*="CardStackDisplay_touchArea"]');
+    await page.waitForSelector(CARD_STACK_SELECTOR);
 
     // Click to start test
-    await page.click('button[class*="Instructions_button"]');
+    await page.click(INSTRUCTIONS_SELECTOR);
   });
 
   afterEach(async () => {
@@ -76,42 +60,46 @@ describe('foo', function () {
   });
 
   it('fails after the first 5 failures', async () => {
-    await answerBlock(page, 0);
-    await screenshotTests(page, 'fail-all');
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-all');
   });
 
   it('fails after 2 consecutive failures', async () => {
-    await answerBlock(page, 5);
-    await answerBlock(page, 0);
-    await answerBlock(page, 0);
-    await screenshotTests(page, 'fail-consecutive');
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 0);
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-consecutive');
   });
 
   it('fails after 2 non-consecutive failures', async () => {
-    await answerBlock(page, 5);
-    await answerBlock(page, 0);
-    await answerBlock(page, 3);
-    await answerBlock(page, 0);
-    await screenshotTests(page, 'fail-non-consecutive');
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 0);
+    await markNextNKnown(page, 3);
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-non-consecutive');
   });
 
-  it('completes a realistic test', async function () {
-    await answerBlock(page, 5);
-    await answerBlock(page, 4);
-    await answerBlock(page, 2);
-    await answerBlock(page, 5);
-    await answerBlock(page, 2);
-    await answerBlock(page, 3);
-    await answerBlock(page, 1);
-    await answerBlock(page, 2);
-    await answerBlock(page, 2);
-    await answerBlock(page, 1);
-    await answerBlock(page, 3);
-    await answerBlock(page, 1);
-    await answerBlock(page, 0);
-    await answerBlock(page, 0);
-    await screenshotTests(page, 'fail-non-consecutive');
-  });
+  // it('completes a realistic test', async function () {
+  //   await markNextNKnown(page, 5);
+  //   await markNextNKnown(page, 4);
+  //   await markNextNKnown(page, 2);
+  //   await markNextNKnown(page, 5);
+  //   await markNextNKnown(page, 2);
+  //   await markNextNKnown(page, 3);
+  //   await markNextNKnown(page, 1);
+  //   await markNextNKnown(page, 2);
+  //   await markNextNKnown(page, 2);
+  //   await markNextNKnown(page, 1);
+  //   await markNextNKnown(page, 3);
+  //   await markNextNKnown(page, 1);
+  //   await markNextNKnown(page, 0);
+  //   await markNextNKnown(page, 0);
+  //   await waitForResults(page);
+  //   await assertScreenshotMatchesPrevious(page, 'realistic');
+  // });
 
   after(async () => {
     await browser.close();
