@@ -22,6 +22,10 @@ functions:
         method: get
         cors: true
     - http:
+        path: /getBinSamples
+        method: get
+        cors: true
+    - http:
         path: /submitTest
         method: post
         cors: true

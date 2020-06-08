@@ -26,7 +26,7 @@ module.exports.assertScreenshotMatchesPrevious = async function (page, screensho
   const result = await imgDiff({
     actualFilename: saveToFilename,
     expectedFilename: expectedFilename,
-    diffFilename: diffFilename
+    diffFilename: diffFilename,
   });
 
   if (!result.imagesAreSame) {

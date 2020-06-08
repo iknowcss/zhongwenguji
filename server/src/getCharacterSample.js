@@ -1,4 +1,4 @@
-const allCharacters = require('../all-characters.json');
+const allCharacters = require('../all-characters.json').characters;
 
 const DEFAULT_BIN_COUNT = 40;
 const DEFAULT_SAMPLES_PER_BIN = 5;
@@ -57,15 +57,20 @@ module.exports = (configOverride) => {
     samplesPerBin: DEFAULT_SAMPLES_PER_BIN,
     ...configOverride
   };
-  const { characters } = allCharacters;
   return (req, res) => {
-    const totalCharacters = characters[characters.length - 1].i;
     const seed = extractSeed(req);
-    res.json({
+    const totalCharacters = allCharacters[allCharacters.length - 1].i;
+    const characters = sampleCharacters(allCharacters, { ...config, totalCharacters, seed });
+    console.log(JSON.stringify({
       ...config,
       seed,
       totalCharacters,
-      characters: sampleCharacters(characters, { ...config, totalCharacters, seed })
+      characters,
+    }));
+    res.json({
+      ...config,
+      seed,
+      characters,
     });
   };
 };
