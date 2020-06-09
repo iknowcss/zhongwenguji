@@ -12,7 +12,7 @@ function extractSeed({ query }) {
       }
     } catch (err) { }
   }
-  return Math.floor(Math.random() * 100000);
+  return 1 + Math.floor(Math.random() * 99999);
 }
 
 const rng = seed => (min = 0, max = 1) => {
