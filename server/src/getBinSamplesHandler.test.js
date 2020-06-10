@@ -5,6 +5,8 @@ const getBinSampleHandler = require('./getBinSamplesHandler');
 jest.mock('./getBinSamples', () => jest.fn(args => ({ mockJson: true })));
 
 describe('/getBinSamples', () => {
+  const totalCharacterCount = allCharacters[allCharacters.length - 1].i;
+
   function runWithQuery(query) {
     const json = jest.fn();
     getBinSampleHandler({ query }, { json });
@@ -33,7 +35,7 @@ describe('/getBinSamples', () => {
     expect(args.binCount).toEqual(40);
     expect(args.subsetSize).toEqual(5);
     expect(args.selectionBins).toEqual(Array.from({
-      length: Math.ceil(allCharacters.length / 40),
+      length: Math.ceil(totalCharacterCount / 40),
     }, (n, i) => i));
     expect(args.subsetSkip).toEqual(0);
     expect(args.seed).toBeLessThan(100000);
@@ -42,6 +44,7 @@ describe('/getBinSamples', () => {
       binCount: 40,
       subsetSize: 5,
       seed: args.seed,
+      totalCharacterCount,
       characters: { mockJson: true },
     });
   });

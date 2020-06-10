@@ -3,6 +3,7 @@ const getBinSamples = require('./getBinSamples');
 
 const DEFAULT_BIN_COUNT = 40;
 const DEFAULT_SUBSET_SIZE = 5;
+const totalCharacterCount = allCharacters[allCharacters.length - 1].i;
 
 /**
  * Parses a positive integer out of the provided string. Returns {undefined} if the integer is negative, if it is
@@ -62,7 +63,7 @@ module.exports = (req, res) => {
   let selectionBins = extractPositiveIntList(query.selectionBins);
   if (selectionBins.length === 0) {
     selectionBins = Array.from({
-      length: Math.ceil(allCharacters.length / binCount),
+      length: Math.ceil(totalCharacterCount / binCount),
     }, (n, i) => i);
   }
   const subsetSkip = extractPositiveInt(query.subsetSkip) || 0;
@@ -72,6 +73,7 @@ module.exports = (req, res) => {
     binCount,
     subsetSize,
     seed,
+    totalCharacterCount,
     characters: getBinSamples(
       allCharacters,
       binCount,
