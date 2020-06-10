@@ -2,11 +2,12 @@
  * A Chinese character entry from all-characters.json
  *
  * @typedef {Object} CharacterEntry
- * @property {number} i Character identifier
- * @property {string} cs Simplified string
- * @property {string} ct Traditional string
- * @property {string[]} p Available pronunciations
- * @property {string[]} d Available definitions
+ * @property {number} i Character frequency index. The index corresponds to the character's frequency relative to the
+ *    other characters. The lower the identifier, the higher the frequency.
+ * @property {string} cs Simplified string.
+ * @property {string} ct Traditional string.
+ * @property {string[]} p Available pronunciations.
+ * @property {string[]} d Available definitions.
  * @example
  * {
  *   "i": 1,
@@ -25,11 +26,12 @@
 /**
  * @typedef {object} BinSampleResult
  * @property {number|undefined} randomSeed
- * @property {[][]} samples
+ * @property {CharacterEntry[][]} samples
  */
 
-
 /**
+ * Return a function which takes an {Array} of items to shuffle in place.
+ *
  * @private
  * @param seed - Random number generator seed
  * @returns {function(Array): Array}
@@ -49,10 +51,22 @@ const shuffler = seed => items => {
 };
 
 /**
- * Divides the provided entries into equally sized bins and then selects from each of the specified bins a random
- * subset of the specified size.
+ * Divides the provided entries into bins grouped by character frequency, then selects from each of the requested bins
+ * a random subset of the specified size. If another round of characters is needed from the sample, call again with the
+ * same {seed} and specify a {subsetSkip} of 1 or more depending on what round this is. The first round will be 0, the
+ * second will be 1, etc.
  *
- * @param {[]} items - The full set of items.
+ * Entries are grouped into bins by their character frequency (@see {CharacterEntry.i}). The bin size is calculated
+ * by taking the frequency index of the last entry, dividing it by the {binCount}, and rounding up. The bins are then
+ * filled with each entry by its frequency index.
+ *
+ * For example, if the {binCount} is 5 and the last entry has a frequency index of 50, the bin size will be 10. Bin "0"
+ * will have character entries 1-10, bin "1" will have entries 11-20. In this example, a bin may have fewer than 10
+ * entries if one of those entries is missing from {entries}. For example, if the entry with frequency index "3" is
+ * missing, then bin "0" will have just 9 entries: 1-2 plus 4-10.
+ *
+ * @param {CharacterEntry[]} entries - The set of {CharacterEntry}s to sample from sorted ascending by Character
+ *    identifier.
  * @param {number} binCount - The number of bins to divide the set into.
  * @param {number} subsetSize - The maximum number of items to retrieve from each bin.
  * @param {number[]} selectionBins - The zero-indexed bins to make the selection from.
@@ -62,20 +76,21 @@ const shuffler = seed => items => {
  * @returns {BinSampleResult}
  */
 function getBinSamples(
-  items,
+  entries,
   binCount,
   subsetSize,
   selectionBins,
   subsetSkip,
   randomSeed,
 ) {
-  const binSize = Math.ceil(items.length / binCount);
+  const totalCharacterCount = entries[entries.length - 1].i;
+  const binSize = Math.ceil(totalCharacterCount / binCount);
   return {
     randomSeed,
     samples: Array.from(selectionBins, (binIndex) => {
       const firstId = 1 + binIndex * binSize;
       const lastId = firstId + binSize - 1;
-      let binItems = items.filter(({ i }) => firstId <= i && i <= lastId);
+      let binItems = entries.filter(({ i }) => firstId <= i && i <= lastId);
       if (typeof randomSeed === 'number') {
         binItems = shuffler(randomSeed + binIndex)(binItems);
       }
