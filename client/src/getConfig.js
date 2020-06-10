@@ -17,13 +17,13 @@ const config = Object.assign({
     enableReduxDevTools: true
   },
   staging: {
-    getCharacterSampleUrl: `${LAMBDA_BASE_URL.STAGING}/getCharacterSample`,
+    getCharacterSampleUrl: `${LAMBDA_BASE_URL.STAGING}/getBinSamples`,
     submitTestUrl: `${LAMBDA_BASE_URL.STAGING}/submitTest`,
     skritterContextUrl: `${LAMBDA_BASE_URL.STAGING}/skritter/oauth/token`,
     skritterCharactersUrl: `${LAMBDA_BASE_URL.STAGING}/skritter/characters`
   },
   production: {
-    getCharacterSampleUrl: `${LAMBDA_BASE_URL.PRODUCTION}/getCharacterSample`,
+    getCharacterSampleUrl: `${LAMBDA_BASE_URL.PRODUCTION}/getBinSamples`,
     submitTestUrl: `${LAMBDA_BASE_URL.PRODUCTION}/submitTest`,
     skritterContextUrl: `${LAMBDA_BASE_URL.PRODUCTION}/skritter/oauth/token`,
     enableGA: true

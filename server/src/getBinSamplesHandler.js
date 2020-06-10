@@ -53,7 +53,7 @@ function extractPositiveIntList(value) {
  * @param {string} [req.query.seed] - the randomization seed used for selecting the entries to go into the sample; this
  *    should be specified by the client on the 2nd request onward so that the client may get the the next lot of
  *    character entries from the bin which have not already been sampled. Defaults to a random number
- *    between 0 and 100,000
+ *    between 1 and 100,000
  * @param {ExpressServerResponse} res - the Express response object.
  */
 module.exports = (req, res) => {

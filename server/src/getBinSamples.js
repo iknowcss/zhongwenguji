@@ -1,29 +1,4 @@
 /**
- * A Chinese character entry from all-characters.json
- *
- * @typedef {Object} CharacterEntry
- * @property {number} i Character frequency index. The index corresponds to the character's frequency relative to the
- *    other characters. The lower the identifier, the higher the frequency.
- * @property {string} cs Simplified string.
- * @property {string} ct Traditional string.
- * @property {string[]} p Available pronunciations.
- * @property {string[]} d Available definitions.
- * @example
- * {
- *   "i": 1,
- *   "cs": "的",
- *   "ct": "的",
- *   "p": ["de5", "di1", "di2", "di4"],
- *   "d": [
- *     "of/~'s (possessive particle)/...",
- *     "see 的士[di1 shi4]",
- *     "really and truly",
- *     "aim/clear",
- *   ]
- * }
- */
-
-/**
  * @typedef {object} BinSampleResult
  * @property {number|undefined} randomSeed
  * @property {CharacterEntry[][]} samples

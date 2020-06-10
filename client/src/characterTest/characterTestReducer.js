@@ -2,6 +2,10 @@ import { actionTypes } from './characterTestActions';
 
 /// - Test state enum ------------------------------------------------------------------------------
 
+/**
+ * @readonly
+ * @enum {string}
+ */
 export const statusEnum = {
   READY: 'READY',
   LOADING: 'LOADING',
@@ -13,6 +17,10 @@ export const statusEnum = {
   ADDING_TO_SKRITTER: 'ADDING_TO_SKRITTER'
 };
 
+/**
+ * @readonly
+ * @enum {string}
+ */
 export const characterSetEnum = {
   SIMPLIFIED: 'SIMPLIFIED',
   TRADITIONAL: 'TRADITIONAL'
@@ -20,6 +28,22 @@ export const characterSetEnum = {
 
 /// ------------------------------------------------------------------------------------------------
 
+/**
+ * @typedef CharacterTestState
+ * @property {ScoredCharacterBin[]} bins - The scored bins of character samples being during in this test.
+ * @property {number} seed - Random seed.
+ * @property {boolean} isShowDefinition - Is currently showing the character definition.
+ * @property {statusEnum} state - The current stage of the test.
+ * @property {number} currentSectionIndex - The index of the bin that we are testing now.
+ * @property {number} currentCardIndex - The positional index of the character in the current bin that we are testing.
+ * @property {TestResult|null} resultData - The test result data. Set to {null} when there are no test results
+ *    available.
+ * @property {characterSetEnum} characterSet - The character set to use, "simplified" or "traditional".
+ */
+
+/**
+ * @type {CharacterTestState}
+ */
 const DEFAULT_STATE = {
   bins: [],
   seed: -1,
@@ -178,8 +202,14 @@ function processMark(state, action) {
   };
 }
 
-function processBins(characers) {
-  return characers.map(section => ({
+/**
+ * Processes the raw character entries into a form that may be marked in a test.
+ *
+ * @param {LegacyCharacterBin[]} characters
+ * @returns {ScoredCharacterBin[]}
+ */
+function processBins(characters) {
+  return characters.map(section => ({
     ...section,
     sample: section.sample.map(({ i, cs, ct, p, d }) => ({
       index: i,

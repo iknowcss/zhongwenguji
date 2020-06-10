@@ -87,10 +87,13 @@ module.exports = () => {
       const rawUncertainty = testData.reduce((sum, { range }) => sum + errorStd * curve(rangeMidpoint(range)) / 100, 0);
       const uncertainty = Math.max(10, Math.round(rawUncertainty / 10) * 10);
 
-      // Create graph points
+      // Create graph points at the boundaries of each of the bins (TODO: just make i the midpoint maybe?)
       const curveXPoints = [testData[0].range[0]].concat(testData.map(({ range }) => range[1]));
       let curvePoints = curveXPoints.map(xi => [xi, curve(xi)]);
 
+      /**
+       * @type {TestResult}
+       */
       const testResults = {
         testId,
         samplePoints,
