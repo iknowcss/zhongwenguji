@@ -1,4 +1,4 @@
-const fminsearch = require('./fminsearch');
+const fitModelToData = require('./fitModelToData');
 
 function model([amplitude, decayStartX, decayPeriod], xi) {
   if (xi < decayStartX) {
@@ -9,31 +9,23 @@ function model([amplitude, decayStartX, decayPeriod], xi) {
   return amplitude / 2 * (1 + Math.cos((xi - decayStartX) * Math.PI / decayPeriod));
 }
 
-const fun = (x, P) => x.map(model.bind(null, P));
-
 function rangeMidpoint([a, b]) {
   return (a + b) / 2;
 }
 
 function getCurveParameters(testData) {
-  const x = [];
-  const y = [];
-
-  testData.forEach((section) => {
-    if (!section.isTested) {
-      return;
-    }
+  const xValues = [];
+  const yValues = [];
+  testData.filter(({ isTested }) => isTested).forEach((section) => {
     try {
-      const xi = rangeMidpoint(section.range);
-      const yi = section.knownPercent || 0;
-      x.push(xi);
-      y.push(yi);
+      xValues.push(rangeMidpoint(section.range));
+      yValues.push(section.knownPercent || 0);
     } catch (error) {
       console.warn('Failed to calculate coordinates from section', { section, error });
     }
   });
 
-  const [amplitude, decayStartX, decayPeriod] = fminsearch(fun, [100, 1, 1000], x, y);
+  const [amplitude, decayStartX, decayPeriod] = fitModelToData(model, [100, 1, 1000], xValues, yValues);
   return { amplitude, decayStartX, decayPeriod };
 }
 
