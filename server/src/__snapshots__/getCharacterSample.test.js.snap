@@ -2617,6 +2617,5 @@ Object {
   ],
   "samplesPerBin": 5,
   "seed": 99999,
-  "totalCharacters": 9933,
 }
 `;

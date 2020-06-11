@@ -102,8 +102,6 @@ module.exports = () => {
         knownEstimateUncertainty: uncertainty
       };
 
-      console.log(JSON.stringify({ testResults, seed }));
-
       res.json(testResults);
     } catch (error) {
       res.statusCode(500).json({ error: true });

@@ -61,12 +61,6 @@ module.exports = (configOverride) => {
     const seed = extractSeed(req);
     const totalCharacters = allCharacters[allCharacters.length - 1].i;
     const characters = sampleCharacters(allCharacters, { ...config, totalCharacters, seed });
-    console.log(JSON.stringify({
-      ...config,
-      seed,
-      totalCharacters,
-      characters,
-    }));
     res.json({
       ...config,
       seed,

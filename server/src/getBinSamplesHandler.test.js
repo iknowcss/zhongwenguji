@@ -34,9 +34,7 @@ describe('/getBinSamples', () => {
     expect(args.allCharacters).toEqual(allCharacters);
     expect(args.binCount).toEqual(40);
     expect(args.subsetSize).toEqual(5);
-    expect(args.selectionBins).toEqual(Array.from({
-      length: Math.ceil(totalCharacterCount / 40),
-    }, (n, i) => i));
+    expect(args.selectionBins).toEqual(Array.from({ length: 40}, (n, i) => i));
     expect(args.subsetSkip).toEqual(0);
     expect(args.seed).toBeLessThan(100000);
 
