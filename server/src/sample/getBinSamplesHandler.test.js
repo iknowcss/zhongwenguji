@@ -16,11 +16,11 @@ describe('/getBinSamples', () => {
     const args = getBinSamples.mock.calls[0];
     return {
       allCharacters: args[0],
-      binCount: args[1],
-      subsetSize: args[2],
-      selectionBins: args[3],
-      subsetSkip: args[4],
-      seed: args[5],
+      binCount: args[1].binCount,
+      subsetSize: args[1].subsetSize,
+      seed: args[1].seed,
+      selectionBins: args[2],
+      subsetSkip: args[3],
       responseJson: json.mock.calls[0][0],
     };
   }

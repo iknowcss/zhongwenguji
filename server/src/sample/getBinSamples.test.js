@@ -7,7 +7,8 @@ describe('getBinSamples', () => {
 
   it('gets the subset from plentiful data', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [0, 1, 2], 0);
+    const sampleParams = { binCount: 10, subsetSize: 5 };
+    const result = getBinSamples(items, sampleParams, [0, 1, 2], 0);
     expect(result).toHaveLength(3);
     expect(result.map(({ binIndex}) => binIndex)).toEqual([0, 1, 2]);
     expect(result.map(({ characters}) => characters)).toEqual([
@@ -19,7 +20,8 @@ describe('getBinSamples', () => {
 
   it('gets the next subset from plentiful data', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [1], 1);
+    const sampleParams = { binCount: 10, subsetSize: 5 };
+    const result = getBinSamples(items, sampleParams, [1], 1);
     expect(result).toHaveLength(1);
     expect(result.map(({ binIndex}) => binIndex)).toEqual([1]);
     expect(result.map(({ characters}) => characters)).toEqual([
@@ -29,7 +31,8 @@ describe('getBinSamples', () => {
 
   it('treats non-existent bin ids as empty arrays', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 5, [8, 9, 10], 0);
+    const sampleParams = { binCount: 10, subsetSize: 5 };
+    const result = getBinSamples(items, sampleParams, [8, 9, 10], 0);
     expect(result).toHaveLength(3);
     expect(result.map(({ binIndex}) => binIndex)).toEqual([8, 9, 10]);
     expect(result.map(({ characters}) => characters)).toEqual([
@@ -41,7 +44,8 @@ describe('getBinSamples', () => {
 
   it('returns less than the requested subset size if there are not enough items', () => {
     const items = range(11);
-    const result = getBinSamples(items, 3, 4, [0, 1, 2], 0);
+    const sampleParams = { binCount: 3, subsetSize: 4 };
+    const result = getBinSamples(items, sampleParams, [0, 1, 2], 0);
     expect(result).toHaveLength(3);
     expect(result.map(({ binIndex}) => binIndex)).toEqual([0, 1, 2]);
     expect(result.map(({ characters}) => characters)).toEqual([
@@ -53,7 +57,8 @@ describe('getBinSamples', () => {
 
   it('returns less than the requested subset size if there are not enough items in the next selection', () => {
     const items = range(100);
-    const result = getBinSamples(items, 10, 3, [1], 3);
+    const sampleParams = { binCount: 10, subsetSize: 3 };
+    const result = getBinSamples(items, sampleParams, [1], 3);
     expect(result).toHaveLength(1);
     expect(result.map(({ binIndex}) => binIndex)).toEqual([1]);
     expect(result.map(({ characters}) => characters)).toEqual([
@@ -69,7 +74,8 @@ describe('getBinSamples', () => {
     ];
 
     it('gets the first sample', () => {
-      const result = getBinSamples(items, 3, 3, [0, 1, 2], 0);
+      const sampleParams = { binCount: 3, subsetSize: 3 };
+      const result = getBinSamples(items, sampleParams, [0, 1, 2], 0);
       expect(result).toHaveLength(3);
       expect(result.map(({ binIndex}) => binIndex)).toEqual([0, 1, 2]);
       expect(result.map(({ characters}) => characters)).toEqual([
@@ -80,7 +86,8 @@ describe('getBinSamples', () => {
     });
 
     it('gets the last sample', () => {
-      const result = getBinSamples(items, 3, 3, [0, 1, 2], 1);
+      const sampleParams = { binCount: 3, subsetSize: 3 };
+      const result = getBinSamples(items, sampleParams, [0, 1, 2], 1);
       expect(result).toHaveLength(3);
       expect(result.map(({ binIndex}) => binIndex)).toEqual([0, 1, 2]);
       expect(result.map(({ characters}) => characters)).toEqual([

@@ -1,5 +1,38 @@
 const fitModelToData = require('./fitModelToData');
 
+/**
+ * @typedef GraphData
+ * @property {{x: number, y: number}[]} samplePoints
+ * @property {{x: number, y: number}[]} modelFitPoints - Terminated when y = 0
+ *
+ */
+
+/**
+ * @typedef ModelFitResult
+ * @property {number} knownEstimate
+ * @property {number} knownEstimateError
+ * @property {GraphData} graphData
+ */
+
+/**
+ * Takes the character markings for the provided set of bins, logs them to the database and
+ * returns an estimate, error, and graph data
+ *
+ * @param {CharacterEntry[]} entries - The set of {CharacterEntry}s to sample from sorted ascending by Character
+ *    identifier.
+ * @param {BinSampleParameters} binSampleParameters - See {@link BinSampleParameters}.
+ * @param {CharacterMarking[]} characterMarkings
+ * @returns {ModelFitResult}
+ */
+function newThing(entries, binSampleParameters, characterMarkings) {
+  const totalCharacterCount = entries[entries.length - 1].i;
+  // Loop over each marking and:
+  //
+  //   1. Determine the bin it belongs in
+  //   2. Update the score for that bin (based on known or unknown)
+  //   3.
+}
+
 function model([amplitude, decayStartX, decayPeriod], xi) {
   if (xi < decayStartX) {
     return amplitude;

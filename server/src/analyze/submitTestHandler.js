@@ -1,6 +1,17 @@
 const uuid = require('uuid/v4');
 const { rangeMidpoint, getCurveParameters, buildCurve } = require('./submitTest');
 
+/**
+ * @typedef SubmitTestHandlerRequestBody
+ * @property {BinTestResult[]} testData
+ * @property {number} seed
+ */
+
+/**
+ *
+ * @param {{body: SubmitTestHandlerRequestBody}} req
+ * @param {{json: function(object):undefined, status:function(number):undefined}} res
+ */
 module.exports = (req, res) => {
   const { testData, seed } = req.body;
   const testId = uuid();

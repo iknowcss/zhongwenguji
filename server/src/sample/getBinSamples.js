@@ -36,22 +36,18 @@ const shuffler = seed => items => {
  *
  * @param {CharacterEntry[]} entries - The set of {CharacterEntry}s to sample from sorted ascending by Character
  *    identifier.
- * @param {number} binCount - The number of bins to divide the set into.
- * @param {number} subsetSize - The maximum number of items to retrieve from each bin.
+ * @param {BinSampleParameters} binSampleParameters - See {@link BinSampleParameters}.
  * @param {number[]} selectionBins - The zero-indexed bins to make the selection from.
  * @param {number} subsetSkip - The number of subsets to skip before making the selection.
- * @param {number|undefined} [randomSeed] - Seed used during random sample selection. If {undefined} then the selection
- *    is not randomized.
  * @returns {BinSample[]}
  */
 function getBinSamples(
   entries,
-  binCount,
-  subsetSize,
+  binSampleParameters,
   selectionBins,
   subsetSkip,
-  randomSeed,
 ) {
+  let { binCount, subsetSize, seed: randomSeed } = binSampleParameters;
   const totalCharacterCount = entries[entries.length - 1].i;
   const binSize = Math.ceil(totalCharacterCount / binCount);
   return Array.from(selectionBins, (binIndex) => {

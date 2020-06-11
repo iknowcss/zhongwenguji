@@ -42,18 +42,16 @@ function extractPositiveIntList(value) {
  *
  * @param {ExpressServerRequest} req - the Express request object.
  * @param {string} req.query - a key-value map of the parsed HTTP query string.
- * @param {string} [req.query.binCount] - the number of frequency bins to slice the full character set into.
- *    Defaults to "40".
- * @param {string} [req.query.subsetSize] - the number of character entries to sample from each bin. Defaults to "5".
+ * @param {string} [req.query.binCount] - See {@link BinSampleParameters}. Defaults to "40".
+ * @param {string} [req.query.subsetSize] - See {@link BinSampleParameters}. Defaults to "5".
+ * @param {string} [req.query.seed] - See {@link BinSampleParameters}. This should be specified by the client on the
+ *    2nd request onward so that the client may get the the next lot of character entries from the bin which have not
+ *    already been sampled. Defaults to a random number between 1 and 100,000.
  * @param {string} [req.query.selectionBins] - the comma-separated list of bin indices to select samples from.
  *    Defaults to return from all bins.
  * @param {string} [req.query.subsetSkip] - the number subsets of entries to skip over before starting selection;
  *    this allows the client to get the next lot of character entries from the bin which have not already been sampled.
  *    Defaults to "0".
- * @param {string} [req.query.seed] - the randomization seed used for selecting the entries to go into the sample; this
- *    should be specified by the client on the 2nd request onward so that the client may get the the next lot of
- *    character entries from the bin which have not already been sampled. Defaults to a random number
- *    between 1 and 100,000
  * @param {ExpressServerResponse} res - the Express response object.
  */
 module.exports = (req, res) => {
@@ -66,6 +64,7 @@ module.exports = (req, res) => {
   }
   const subsetSkip = extractPositiveInt(query.subsetSkip) || 0;
   const seed = extractPositiveInt(query.seed) || Math.floor(Math.random() * 99999) + 1;
+  const binSampleParameters = { binCount, subsetSize, seed };
 
   /**
    * @type {GetBinSamplesResponse}
@@ -77,11 +76,9 @@ module.exports = (req, res) => {
     totalCharacterCount,
     binSamples: getBinSamples(
       allCharacters,
-      binCount,
-      subsetSize,
+      binSampleParameters,
       selectionBins,
       subsetSkip,
-      seed,
     ),
   };
   res.json(response);

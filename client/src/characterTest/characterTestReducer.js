@@ -65,7 +65,14 @@ function processTestComplete(state) {
 }
 
 const calculateScoreStatisticsMemo = {};
-const calculateScoreStatistics = ({ bins, seed }) => {
+
+/**
+ *
+ * @param {CharacterTestState} characterTestState
+ * @returns {ScoreStatistics}
+ */
+const calculateScoreStatistics = (characterTestState) => {
+  const { bins, seed } = characterTestState;
   if (calculateScoreStatisticsMemo.bins === bins) {
     return calculateScoreStatisticsMemo.result;
   }
@@ -319,6 +326,10 @@ export const currentCard = ({ characterTestReducer: { currentSectionIndex, curre
   return null;
 };
 
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {ScoreStatistics}
+ */
 export const scoreStatistics = rootState => calculateScoreStatistics(rootState.characterTestReducer);
 
 export const resultData = rootState => rootState.characterTestReducer.resultData;

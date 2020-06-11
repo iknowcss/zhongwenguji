@@ -1,13 +1,13 @@
 /**
  * A Chinese character entry from all-characters.json
  *
- * @typedef {Object} CharacterEntry
- * @property {number} i Character frequency index. The index corresponds to the character's frequency relative to the
+ * @typedef CharacterEntry
+ * @property {number} i - Character frequency index. The index corresponds to the character's frequency relative to the
  *    other characters. The lower the identifier, the higher the frequency.
- * @property {string} cs Simplified string.
- * @property {string} ct Traditional string.
- * @property {string[]} p Available pronunciations.
- * @property {string[]} d Available definitions.
+ * @property {string} cs - Simplified string.
+ * @property {string} ct - Traditional string.
+ * @property {string[]} p - Available pronunciations.
+ * @property {string[]} d - Available definitions.
  * @example
  * {
  *   "i": 1,
@@ -64,11 +64,38 @@
  */
 
 /**
+ * @typedef BinSampleParameters
+ * @property {number} binCount - the number of frequency bins to slice the full character set into.
+ * @property {number} subsetSize - the number of character entries to sample from each bin.
+ * @property {number|undefined} seed - the randomization seed used for selecting the entries to go into the sample.
+ *    If {undefined} then the selection is not randomized.
+ */
+
+/**
  *
  * @typedef GetBinSamplesResponse
- * @property {number} binCount
- * @property {number} subsetSize
- * @property {number} seed
+ * @augments BinSampleParameters
  * @property {number} totalCharacterCount
  * @property {BinSample[]} binSamples
+ */
+
+/**
+ * @typedef BinTestResult
+ * @property {boolean} isTested
+ * @property {number} knownPercent
+ * @property {number[]} range
+ */
+
+/**
+ * @typedef ScoreStatistics
+ * @property {number} lastTestedSectionIndex
+ * @property {number} failedSectionCount
+ * @property {number} seed
+ * @property {BinTestResult[]} sectionStats
+ */
+
+/**
+ * @typedef CharacterMarking
+ * @property {number} i - Character frequency index. See {@link CharacterEntry}.
+ * @property {boolean} known - {true} if the character is known, {false} if not.
  */
