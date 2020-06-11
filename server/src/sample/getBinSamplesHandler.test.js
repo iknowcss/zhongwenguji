@@ -1,4 +1,4 @@
-const allCharacters = require('../all-characters.json').characters;
+const allCharacters = require('../../all-characters.json').characters;
 const getBinSamples = require('./getBinSamples');
 const getBinSampleHandler = require('./getBinSamplesHandler');
 

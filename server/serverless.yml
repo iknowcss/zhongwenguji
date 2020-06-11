@@ -7,20 +7,11 @@ provider:
   stage: ${env:STAGE, 'development'}
   environment:
     STAGE: ${env:STAGE, 'development'}
-    STATE_ENCRYPTION_KEY: ${env:STATE_ENCRYPTION_KEY,'cc6254c878e0dfd4fc34b51aea03805e'}
-    STATE_ENCRYPTION_IV: ${env:STATE_ENCRYPTION_IV,'6c8eeb5616ee85acffca94ccaca25376'}
-    SKRITTER_OAUTH_CLIENT_NAME: ${env:SKRITTER_OAUTH_CLIENT_NAME}
-    SKRITTER_OAUTH_CLIENT_SECRET: ${env:SKRITTER_OAUTH_CLIENT_SECRET}
-    SKRITTER_OAUTH_REDIRECT_URI: 'http://staging.hanzishan.com/'
 
 functions:
   app:
     handler: index.handler
     events:
-    - http:
-        path: /getCharacterSample
-        method: get
-        cors: true
     - http:
         path: /getBinSamples
         method: get
@@ -29,23 +20,6 @@ functions:
         path: /submitTest
         method: post
         cors: true
-    - http:
-        path: /skritter/oauth/token
-        method: get
-        cors: true
-    - http:
-        path: /skritter/characters
-        method: post
-        cors:
-          origin: '*'
-          headers:
-            - X-Session
-            - Content-Type
-            - X-Amz-Date
-            - Authorization
-            - X-Api-Key
-            - X-Amz-Security-Token
-            - X-Amz-User-Agent
 
 plugins:
   - serverless-offline

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
-const fminsearch = require('./analyze/fminsearch');
+const fminsearch = require('./fminsearch');
 
 function model([amplitude, decayStartX, decayPeriod], xi) {
   if (xi < decayStartX) {
