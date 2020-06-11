@@ -27,26 +27,45 @@
  */
 
 /**
- * @callback ErrorFunction
- * @param {number[]} y -
- * @param {number[]} fx -
- * @returns {number}
+ * @callback ModelFunction
+ * @param {number[]} parameters - Adjustable coefficients used to calculate the output value.
+ * @param {number} independentVariable - The input value.
+ * @returns {number} - The calculated output value.
  */
 
 /**
- * @callback FittingFunction
- * @param {number[]} xValues - x-values to calculate y-values for.
- * @param {number[]} coefficients - Coefficients of the fitting function.
- * @returns {number[]}
+ *
+ * @param {ModelFunction} modelFunction - The model function which we will try to fit to the data.
+ * @param {number[]} initialParameters - The model parameters to start adjusting from.
+ * @param {number[][]} sampleData - The set of 2D coordinates that we want our model to fit.
+ * @param {object} [options] - Configurable options.
+ * @param {number} [options.iterations] - The total number of iterations to perform during the fit. Defaults to {1000}.
+ * @param {number[]} [options.parameterSteps] - The initial step sizes for each of the model parameters. If no value is
+ *    specified, the step size for each parameter will be 1/100th of that parameter's starting value.
  */
+function performRegression(
+  modelFunction,
+  initialParameters,
+  sampleData,
+  options = {},
+) {
+  initialParameters.forEach((p) => {
+    if (p === 0) {
+      console.warn(`The initial value for parameter ${p} is 0. It is best to start with a non-zero value.`);
+    }
+  });
 
-/**
- * @typedef FMinSearchOptions
- * @property {number} [maxIter] - Defaults to {1000}.
- * @property {number[]} [step] - If unspecified, sets each coefficient step to 1/100th of the value of the initial
- *    coefficient.
- * @property {ObjFunction} [objFun] - .
- */
+  const iterations = options.iterations || 1000;
+  const parameterSteps = initialParameters.map((p, i) => (options.parameterSteps && options.parameterSteps[i]) || p / 100);
+  const parameterCount = initialParameters.length;
+  const [sampleXValues, sampleYValues] = sampleData.reduce((result, [x, y]) => {
+    result[0].push(x);
+    result[1].push(y);
+    return result;
+  }, [[], []]);
+  const parameterError = testParameters => residualSquaredSum(yValues, fittingFunction(xValues, coefficients));
+
+}
 
 /**
  * @param {FittingFunction} fittingFunction
@@ -64,19 +83,9 @@ function fminsearch(
   yValues,
   options = {},
 ) {
-  startCoefficients.forEach((coefficient) => {
-    if (coefficient === 0) {
-      console.warn(`The initial value for coefficient ${si} is 0. It is best to start with a non-zero value.`);
-    }
-  });
 
-  const totalIterations = options.maxIter || 1000;
-  const coefficientStep = (options.step || startCoefficients.map(p => p / 100)).map((si) => si === 0 ? 1 : si);
-  const errorFunction = options.objFun || residualSquaredSum;
-  const coefficientCount = startCoefficients.length;
-  const totalError = coefficients => errorFunction(yValues, fittingFunction(xValues, coefficients));
 
-  let bestCoefficients = [...startCoefficients];
+  let bestCoefficients = [...initialParameters];
   for (let iteration = 0; iteration < totalIterations; iteration++) {
     for (let coefficientIndex = 0; coefficientIndex < coefficientCount; coefficientIndex++) {
       // Step the current coefficient
