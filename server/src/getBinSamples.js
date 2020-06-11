@@ -1,10 +1,4 @@
 /**
- * @typedef {object} BinSampleResult
- * @property {number|undefined} randomSeed
- * @property {CharacterEntry[][]} samples
- */
-
-/**
  * Return a function which takes an {Array} of items to shuffle in place.
  *
  * @private
@@ -48,7 +42,7 @@ const shuffler = seed => items => {
  * @param {number} subsetSkip - The number of subsets to skip before making the selection.
  * @param {number|undefined} [randomSeed] - Seed used during random sample selection. If {undefined} then the selection
  *    is not randomized.
- * @returns {BinSampleResult}
+ * @returns {BinSample[]}
  */
 function getBinSamples(
   entries,
@@ -60,18 +54,18 @@ function getBinSamples(
 ) {
   const totalCharacterCount = entries[entries.length - 1].i;
   const binSize = Math.ceil(totalCharacterCount / binCount);
-  return {
-    randomSeed,
-    samples: Array.from(selectionBins, (binIndex) => {
-      const firstId = 1 + binIndex * binSize;
-      const lastId = firstId + binSize - 1;
-      let binItems = entries.filter(({ i }) => firstId <= i && i <= lastId);
-      if (typeof randomSeed === 'number') {
-        binItems = shuffler(randomSeed + binIndex)(binItems);
-      }
-      const subsetOffset = (subsetSkip || 0) * subsetSize;
-      return binItems.slice(subsetOffset, subsetOffset + subsetSize);
-    }),
-  };
+  return Array.from(selectionBins, (binIndex) => {
+    const firstId = 1 + binIndex * binSize;
+    const lastId = firstId + binSize - 1;
+    let binItems = entries.filter(({ i }) => firstId <= i && i <= lastId);
+    if (typeof randomSeed === 'number') {
+      binItems = shuffler(randomSeed + binIndex)(binItems);
+    }
+    const subsetOffset = (subsetSkip || 0) * subsetSize;
+    return {
+      binIndex,
+      characters: binItems.slice(subsetOffset, subsetOffset + subsetSize)
+    };
+  });
 }
 module.exports = getBinSamples;

@@ -205,18 +205,18 @@ function processMark(state, action) {
 /**
  *
  * @param {object} state
- * @param {GetBinSamplesResponse} responseData
+ * @param {GetBinSamplesResponse} response
  * @returns {{bins: ScoredCharacterBin[], seed: number}}
  */
-function processSampleData(state, responseData) {
-  const { seed, totalCharacterCount, binCount, characters } = responseData;
+function processSampleData(state, response) {
+  const { seed, totalCharacterCount, binCount, binSamples } = response;
   const binSize = Math.ceil(totalCharacterCount / binCount);
   return {
     ...state,
     seed,
-    bins: characters.samples.map((bin, i) => ({
-      range: [binSize * i, Math.min(binSize * (i + 1), totalCharacterCount)],
-      sample: bin.map(({ i, cs, ct, p, d }) => ({
+    bins: binSamples.map(({ binIndex, characters }) => ({
+      range: [binSize * binIndex, Math.min(binSize * (binIndex + 1), totalCharacterCount)],
+      sample: characters.map(({ i, cs, ct, p, d }) => ({
         index: i,
         simplified: cs,
         traditional: ct,

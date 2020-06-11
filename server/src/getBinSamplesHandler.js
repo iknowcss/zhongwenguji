@@ -75,7 +75,7 @@ module.exports = (req, res) => {
     subsetSize,
     seed,
     totalCharacterCount,
-    characters: getBinSamples(
+    binSamples: getBinSamples(
       allCharacters,
       binCount,
       subsetSize,

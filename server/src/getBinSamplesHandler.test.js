@@ -43,7 +43,7 @@ describe('/getBinSamples', () => {
       subsetSize: 5,
       seed: args.seed,
       totalCharacterCount,
-      characters: { mockJson: true },
+      binSamples: { mockJson: true },
     });
   });
 

@@ -58,11 +58,17 @@
  */
 
 /**
+ * @typedef {object} BinSample
+ * @property {number|undefined} binIndex
+ * @property {CharacterEntry[]} characters
+ */
+
+/**
  *
  * @typedef GetBinSamplesResponse
  * @property {number} binCount
  * @property {number} subsetSize
  * @property {number} seed
  * @property {number} totalCharacterCount
- * @property {BinSampleResult} characters
+ * @property {BinSample[]} binSamples
  */

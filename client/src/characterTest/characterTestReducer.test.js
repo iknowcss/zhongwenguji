@@ -41,17 +41,21 @@ describe('characterTestReducer', () => {
         subsetSize: 2,
         seed: 9999,
         totalCharacterCount: 3,
-        characters: {
-          samples: [
-            [
+        binSamples: [
+          {
+            binIndex: 0,
+            characters: [
               { i: 1, cs: '的', ct: '的', p: 'de', d: '(possessive particle)' },
               { i: 2, cs: '一', ct: '一', p: 'yi1', d: 'one' },
-            ],
-            [
+            ]
+          },
+          {
+            binIndex: 1,
+            characters: [
               { i: 3, cs: '从', ct: '從', p: 'cong2', d: 'from' }
             ]
-          ]
-        }
+          }
+        ]
       };
       expect(characterTestReducer(null, {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
