@@ -1,4 +1,4 @@
-/* Modified from:
+/* Adapted from:
  * https://github.com/jonasalmeida/fminsearch
  */
 
@@ -26,73 +26,89 @@
  *
  */
 
-function fminsearch(fun, Parm0, x, y, Opt) {
-  if(!Opt){Opt={}};
-  if(!Opt.maxIter){Opt.maxIter=1000};
-  if(!Opt.step){// initial step is 1/100 of initial value (remember not to use zero in Parm0)
-    Opt.step=Parm0.map(function(p){return p/100});
-    Opt.step=Opt.step.map(function(si){if(si==0){return 1}else{ return si}}); // convert null steps into 1's
-  };
-  if(typeof(Opt.display)=='undefined'){Opt.display=true};
-  if(!Opt.objFun){Opt.objFun=function(y,yp){return y.map(function(yi,i){return Math.pow((yi-yp[i]),2)}).reduce(function(a,b){return a+b})}} //SSD
-  
-  var cloneVector=function(V){return V.map(function(v){return v})};
-  var ya,y0,yb,fP0,fP1;
-  var P0=cloneVector(Parm0),P1=cloneVector(Parm0);
-  var n = P0.length;
-  var step=Opt.step;
-  var funParm=function(P){return Opt.objFun(y,fun(x,P))}//function (of Parameters) to minimize
-  // silly multi-univariate screening
-  for(var i=0;i<Opt.maxIter;i++){
-    for(var j=0;j<n;j++){ // take a step for each parameter
-      P1=cloneVector(P0);
-      P1[j]+=step[j];
-      if(funParm(P1)<funParm(P0)){ // if parm value going in the righ direction
-        step[j]=1.2*step[j]; // then go a little faster
-        P0=cloneVector(P1);
-      }
-      else{
-        step[j]=-(0.5*step[j]); // otherwiese reverse and go slower
-      } 
+/**
+ * @callback ErrorFunction
+ * @param {number[]} y -
+ * @param {number[]} fx -
+ * @returns {number}
+ */
+
+/**
+ * @callback FittingFunction
+ * @param {number[]} xValues - x-values to calculate y-values for.
+ * @param {number[]} coefficients - Coefficients of the fitting function.
+ * @returns {number[]}
+ */
+
+/**
+ * @typedef FMinSearchOptions
+ * @property {number} [maxIter] - Defaults to {1000}.
+ * @property {number[]} [step] - If unspecified, sets each coefficient step to 1/100th of the value of the initial
+ *    coefficient.
+ * @property {ObjFunction} [objFun] - .
+ */
+
+/**
+ * @param {FittingFunction} fittingFunction
+ * @param {number[]} startCoefficients - Initial coefficients to use when trying to fit the data. It is best not to
+ *    use {0} in any of the initial coefficients.
+ * @param {number[]} xValues
+ * @param {number[]} yValues
+ * @param {FMinSearchOptions} [options]
+ * @returns {number[]} - Coefficients that best fit the data.
+ */
+function fminsearch(
+  fittingFunction,
+  startCoefficients,
+  xValues,
+  yValues,
+  options = {},
+) {
+  startCoefficients.forEach((coefficient) => {
+    if (coefficient === 0) {
+      console.warn(`The initial value for coefficient ${si} is 0. It is best to start with a non-zero value.`);
     }
-    if(Opt.display){if(i>(Opt.maxIter-10)){/*console.log(i+1,funParm(P0),P0)*/}}
+  });
+
+  const totalIterations = options.maxIter || 1000;
+  const coefficientStep = (options.step || startCoefficients.map(p => p / 100)).map((si) => si === 0 ? 1 : si);
+  const errorFunction = options.objFun || residualSquaredSum;
+  const coefficientCount = startCoefficients.length;
+  const totalError = coefficients => errorFunction(yValues, fittingFunction(xValues, coefficients));
+
+  let bestCoefficients = [...startCoefficients];
+  for (let iteration = 0; iteration < totalIterations; iteration++) {
+    for (let coefficientIndex = 0; coefficientIndex < coefficientCount; coefficientIndex++) {
+      // Step the current coefficient
+      const testCoefficients = [...bestCoefficients];
+      testCoefficients[coefficientIndex] += coefficientStep[coefficientIndex];
+
+      if (totalError(testCoefficients) < totalError(bestCoefficients)) {
+        // If the total error is reduced, use the new coefficient value and step faster in that direction next time.
+        coefficientStep[coefficientIndex] *= 1.2; // then go a little faster
+        bestCoefficients = [...testCoefficients];
+      } else {
+        // If the total error increases, keep the current coefficient value and step slower in the opposite direction
+        // next time.
+        coefficientStep[coefficientIndex] *= -0.5; // otherwiese reverse and go slower
+      }
+    }
   }
-  // if (!!document.getElementById('plot')){ // if there is then use it
-  //   fminsearch.plot(x,y,fun(x,P0),P0);
-  // }
-  return P0
-};
 
-fminsearch.load=function(src){ // script loading
-  // example: fminsearch.load('http://localhost:8888/jmat/jmat.js')
-  var s = document.createElement('script');
-  s.src = src;
-  document.head.appendChild(s);
-  s.parentElement.removeChild(s);
-};
-
-fminsearch.plot=function(x,y,yp,Parms){ // ploting results using <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  // create Array in Google's format
-  var data = new google.visualization.DataTable();
-  data.addColumn('number', 'X');
-  data.addColumn('number', 'Observed');
-  data.addColumn('number', 'Model fit');
-  var n = x.length;
-  for (var i=0;i<n;i++){
-    data.addRow([x[i],y[i],yp[i]]);
-  };
-  //var results = new google.visualization.ScatterChart(
-  var titulo='Model fitting';
-  if(!!Parms){titulo='Model parameters: '+Parms};
-  var chart = new google.visualization.ComboChart(
-    document.getElementById('plot'));
-      chart.draw(data, {title: titulo,
-                        width: 600, height: 400,
-                        vAxis: {title: "Y", titleTextStyle: {color: "green"}},
-                        hAxis: {title: "X", titleTextStyle: {color: "green"}},
-              seriesType: "scatter",
-              series: {1: {type: "line"}}}
-                );
-};
+  return bestCoefficients;
+}
 
 module.exports = fminsearch;
+
+/**
+ * Calculates a scalar error value for a pair of vectors of equal length using the method of least squares.
+ * See https://en.wikipedia.org/wiki/Least_squares.
+ *
+ * @private
+ * @param {number[]} y - The first vector.
+ * @param {number[]} fx - the second vector.
+ * @returns {number}
+ */
+const residualSquaredSum = (y, fx) => y
+  .map((yi, i) => Math.pow((yi - fx[i]), 2))
+  .reduce((a, b) => a + b);
