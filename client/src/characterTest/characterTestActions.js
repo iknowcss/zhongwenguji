@@ -51,11 +51,11 @@ export const loadSamples = () => (dispatch) => {
   dispatch({ type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START });
   return fetch(getCharacterSampleUrl)
     .then(extractJson)
-    .then((data) => {
+    .then((responseData) => {
       resetTestAnalytics();
       dispatch({
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        sampleData: data
+        sampleData: responseData
       });
     })
     .catch((error) => {

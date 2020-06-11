@@ -56,3 +56,13 @@
  * @property {[number, number][]} curvePoints - Co-ordinate pairs of points along the best fit curve. The domain and
  *    range are the same as {samplePoints}.
  */
+
+/**
+ *
+ * @typedef GetBinSamplesResponse
+ * @property {number} binCount
+ * @property {number} subsetSize
+ * @property {number} seed
+ * @property {number} totalCharacterCount
+ * @property {BinSampleResult} characters
+ */

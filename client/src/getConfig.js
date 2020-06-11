@@ -6,7 +6,7 @@ const LAMBDA_BASE_URL = {
 
 const config = Object.assign({
   // Base config
-  getCharacterSampleUrl: `${LAMBDA_BASE_URL.LOCAL}/getCharacterSample`,
+  getCharacterSampleUrl: `${LAMBDA_BASE_URL.LOCAL}/getBinSamples`,
   submitTestUrl: `${LAMBDA_BASE_URL.LOCAL}/submitTest`,
   skritterContextUrl: `${LAMBDA_BASE_URL.LOCAL}/skritter/oauth/token`,
   skritterCharactersUrl: `${LAMBDA_BASE_URL.LOCAL}/skritter/characters`,

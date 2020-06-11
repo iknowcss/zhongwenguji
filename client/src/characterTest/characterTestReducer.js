@@ -66,6 +66,7 @@ function processTestComplete(state) {
 
 const calculateScoreStatisticsMemo = {};
 const calculateScoreStatistics = ({ bins, seed }) => {
+  console.log("bins", bins)
   if (calculateScoreStatisticsMemo.bins === bins) {
     return calculateScoreStatisticsMemo.result;
   }
@@ -203,30 +204,29 @@ function processMark(state, action) {
 }
 
 /**
- * Processes the raw character entries into a form that may be marked in a test.
  *
- * @param {LegacyCharacterBin[]} characters
- * @returns {ScoredCharacterBin[]}
+ * @param {object} state
+ * @param {GetBinSamplesResponse} responseData
+ * @returns {{bins: ScoredCharacterBin[], seed: number}}
  */
-function processBins(characters) {
-  return characters.map(section => ({
-    ...section,
-    sample: section.sample.map(({ i, cs, ct, p, d }) => ({
-      index: i,
-      simplified: cs,
-      traditional: ct,
-      pinyin: p,
-      definition: d,
-      score: NaN
-    }))
-  }));
-}
-
-function processSampleData(state, sampleData) {
+function processSampleData(state, responseData) {
+  const { seed, totalCharacterCount, binCount, characters } = responseData;
+  const binSize = Math.ceil(totalCharacterCount / binCount);
+  console.log("characters.samples", JSON.stringify(characters.samples))
   return {
     ...state,
-    seed: sampleData.seed,
-    bins: processBins(sampleData.characters)
+    seed,
+    bins: characters.samples.map((bin, i) => ({
+      range: [binSize * i, Math.min(binSize * (i + 1), totalCharacterCount) - 1],
+      sample: bin.map(({ i, cs, ct, p, d }) => ({
+        index: i,
+        simplified: cs,
+        traditional: ct,
+        pinyin: p,
+        definition: d,
+        score: NaN
+      }))
+    })),
   };
 }
 

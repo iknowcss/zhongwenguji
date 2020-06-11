@@ -62,14 +62,15 @@ module.exports = (req, res) => {
   const subsetSize = extractPositiveInt(query.subsetSize) || DEFAULT_SUBSET_SIZE;
   let selectionBins = extractPositiveIntList(query.selectionBins);
   if (selectionBins.length === 0) {
-    selectionBins = Array.from({
-      length: Math.ceil(totalCharacterCount / binCount),
-    }, (n, i) => i);
+    selectionBins = Array.from({ length: binCount }, (n, i) => i);
   }
   const subsetSkip = extractPositiveInt(query.subsetSkip) || 0;
   const seed = extractPositiveInt(query.seed) || Math.floor(Math.random() * 99999) + 1;
 
-  res.json({
+  /**
+   * @type {GetBinSamplesResponse}
+   */
+  const response = {
     binCount,
     subsetSize,
     seed,
@@ -82,5 +83,6 @@ module.exports = (req, res) => {
       subsetSkip,
       seed,
     ),
-  });
+  };
+  res.json(response);
 };
