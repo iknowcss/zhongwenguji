@@ -33,26 +33,29 @@ describe('characterTestReducer', () => {
     });
 
     it('successfully loads character samples and starts the test', () => {
-      expect(characterTestReducer(null, {
-        type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        sampleData: {
-          seed: 9999,
-          characters: [
-            {
-              range: [0, 2],
-              sample: [
-                { i: 1, cs: '的', ct: '的', p: 'de', d: '(possessive particle)' },
-                { i: 2, cs: '一', ct: '一', p: 'yi1', d: 'one' },
-              ]
-            },
-            {
-              range: [2, 3],
-              sample: [
-                { i: 3, cs: '从', ct: '從', p: 'cong2', d: 'from' }
-              ]
-            }
+      /**
+       * @type {GetBinSamplesResponse}
+       */
+      let responseData = {
+        binCount: 2,
+        subsetSize: 2,
+        seed: 9999,
+        totalCharacterCount: 3,
+        characters: {
+          samples: [
+            [
+              { i: 1, cs: '的', ct: '的', p: 'de', d: '(possessive particle)' },
+              { i: 2, cs: '一', ct: '一', p: 'yi1', d: 'one' },
+            ],
+            [
+              { i: 3, cs: '从', ct: '從', p: 'cong2', d: 'from' }
+            ]
           ]
         }
+      };
+      expect(characterTestReducer(null, {
+        type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
+        sampleData: responseData
       })).toEqual({
         seed: 9999,
         bins: [

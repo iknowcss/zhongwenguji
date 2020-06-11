@@ -66,7 +66,6 @@ function processTestComplete(state) {
 
 const calculateScoreStatisticsMemo = {};
 const calculateScoreStatistics = ({ bins, seed }) => {
-  console.log("bins", bins)
   if (calculateScoreStatisticsMemo.bins === bins) {
     return calculateScoreStatisticsMemo.result;
   }
@@ -212,12 +211,11 @@ function processMark(state, action) {
 function processSampleData(state, responseData) {
   const { seed, totalCharacterCount, binCount, characters } = responseData;
   const binSize = Math.ceil(totalCharacterCount / binCount);
-  console.log("characters.samples", JSON.stringify(characters.samples))
   return {
     ...state,
     seed,
     bins: characters.samples.map((bin, i) => ({
-      range: [binSize * i, Math.min(binSize * (i + 1), totalCharacterCount) - 1],
+      range: [binSize * i, Math.min(binSize * (i + 1), totalCharacterCount)],
       sample: bin.map(({ i, cs, ct, p, d }) => ({
         index: i,
         simplified: cs,
