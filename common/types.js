@@ -1,9 +1,18 @@
 /**
+ * @typedef FrequencyEntry
+ * @property {number} i - Frequency index. The index corresponds to the entry's frequency relative to the other entries.
+ *    The lower the identifier, the higher the frequency.
+ */
+
+/**
+ * @typedef {FrequencyEntry} MarkedFrequencyEntry
+ * @property {boolean} known - {true} if the entry is known, {false} if it is not.
+ */
+
+/**
  * A Chinese character entry from all-characters.json
  *
- * @typedef CharacterEntry
- * @property {number} i - Character frequency index. The index corresponds to the character's frequency relative to the
- *    other characters. The lower the identifier, the higher the frequency.
+ * @typedef {FrequencyEntry} CharacterEntry
  * @property {string} cs - Simplified string.
  * @property {string} ct - Traditional string.
  * @property {string[]} p - Available pronunciations.
@@ -41,8 +50,7 @@
  */
 
 /**
- * @typedef ScoredCharacterBin
- * @augments LegacyCharacterBin
+ * @typedef {LegacyCharacterBin} ScoredCharacterBin
  * @property {ScoredCharacterEntry[]} sample - The scored sample of characters which represent this bin.
  */
 
@@ -73,8 +81,7 @@
 
 /**
  *
- * @typedef GetBinSamplesResponse
- * @augments BinSampleParameters
+ * @typedef {BinSampleParameters} GetBinSamplesResponse
  * @property {number} totalCharacterCount
  * @property {BinSample[]} binSamples
  */
