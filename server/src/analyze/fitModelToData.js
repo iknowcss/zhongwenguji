@@ -26,7 +26,7 @@ const STEP_SLOWER_MULTIPLIER = 0.5;
  * @param {number[]|number[][]} independentValues - The set of values which represent the model's independent variable.
  * @param {number[]} dependentValues - The set of values which represent the model's dependent variable.
  * @param {FitModelToDataOptions|undefined} [options]
- * @returns {{ parameters: number[], error: number }} - The parameter values found to fit the data best.
+ * @returns {number[]} - The parameter values found to fit the data best.
  */
 function fitModelToData(
   modelFunction,

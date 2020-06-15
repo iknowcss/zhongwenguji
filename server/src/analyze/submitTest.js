@@ -62,29 +62,32 @@ function fitModelToMarkings(entries, binSampleParameters, markedEntries) {
 
   // Calculate the area under the curve.
   const curveArea = binSize * modelYValues.reduce(sum);
-  const curveAreaError = binSize * calculateUncertainty(modelFunction, sampleXValues, sampleYValues);
+  const curveAreaError = binSize * calculateUncertainty(modelFunction, modelXValues, sampleXValues, sampleYValues);
 
-  return {
-    knownEstimate: curveArea,
-    knownEstimateError: curveAreaError,
-    graphData,
-  };
+  // Significant digits
+  const minUncertanty = toPrecision(1, curveArea * 0.05);
+  const knownEstimateError = Math.max(minUncertanty, Number.parseFloat((curveAreaError).toPrecision(1)));
+  const significantDigits = Math.floor(log10(curveArea)) - Math.floor(log10(knownEstimateError)) + 1;
+  const knownEstimate = toPrecision(significantDigits, curveArea);
+
+  return { knownEstimate, knownEstimateError, graphData };
 }
 
 /**
  * @param {function(number): number} modelFunction
+ * @param {number[]} modelXValues
  * @param {number[]} sampleXValues
  * @param {number[]} sampleYValues
  */
-function calculateUncertainty(modelFunction, sampleXValues, sampleYValues) {
-  const errors = sampleXValues.map((sampleXValue, i) => sampleYValues[i] - modelFunction(sampleXValue));
-
-  // Analyze error
+function calculateUncertainty(modelFunction, modelXValues, sampleXValues, sampleYValues) {
+  const errors = sampleXValues.map((sampleXValue, i) => Math.abs(sampleYValues[i] - modelFunction(sampleXValue)));
   const errorMean = errors.reduce(sum) / errors.length;
-  const errorStd = Math.sqrt(errors.map(error => Math.pow(error - errorMean, 2)).reduce(sum) / errors.length);
 
   // Calculate error area
-  return sampleXValues.map(sampleXValue => errorStd * modelFunction(sampleXValue)).reduce(sum);
+  return modelXValues.map(modelXValue => {
+    const minBound = modelFunction(modelXValue) - errorMean;
+    return minBound < 0 ? errorMean + minBound : errorMean;
+  }).reduce(sum);
 }
 
 const binIndexMidpointCalculator = binSize => (binIndex) => {
@@ -100,6 +103,12 @@ const binIndexMidpointCalculator = binSize => (binIndex) => {
  * @returns {number}
  */
 const sum = (a, b) => (a || 0) + (b || 0);
+
+const log10 = x => Math.log(x) / Math.log(10);
+
+const toPrecision = (precision, n) => Number.parseFloat(n.toPrecision(precision));
+
+/// - Old Stuff --------------------------------------------------------------------------------------------------------
 
 function model([amplitude, decayStartX, decayPeriod], xi) {
   if (xi < decayStartX) {
@@ -120,8 +129,6 @@ const buildModelFunction = ([amplitude, decayStartX, decayPeriod]) => (xi) => {
 };
 
 module.exports.fitModelToMarkings = fitModelToMarkings;
-
-
 
 function rangeMidpoint([a, b]) {
   return (a + b) / 2;
