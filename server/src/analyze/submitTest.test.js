@@ -23,11 +23,12 @@ describe('submitTest', () => {
       [17, false], [18, false], [19, false], [20, false],
     ].map(([ i, known ]) => ({ i, known }));
 
+    const result = fitModelToMarkings(entries, binSampleParameters, markedEntries);
     const {
       knownEstimate,
       knownEstimateError,
       graphData,
-    } = fitModelToMarkings(entries, binSampleParameters, markedEntries);
+    } = result;
 
     expect(graphData.samplePoints).toEqual([
       { x:  4.5, y: 100 },
@@ -35,8 +36,10 @@ describe('submitTest', () => {
       { x: 20.5, y: 0 },
     ]);
     expect(knownEstimate).toMatchSnapshot();
-    expect(knownEstimateError).toMatchSnapshot(); // TODO
+    expect(knownEstimateError).toMatchSnapshot();
     expect(graphData.modelFitPoints).toMatchSnapshot();
+
+    // console.log(result)
   });
 
 

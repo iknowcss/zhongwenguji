@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submitTest does something 1`] = `12.013909422297465`;
+
+exports[`submitTest does something 2`] = `0.011107906441828306`;
+
+exports[`submitTest does something 3`] = `
+Array [
+  Object {
+    "x": 4.5,
+    "y": 100.01336417949835,
+  },
+  Object {
+    "x": 12.5,
+    "y": 49.97380179514486,
+  },
+  Object {
+    "x": 20.5,
+    "y": 0.1867018040750901,
+  },
+  Object {
+    "x": 28.5,
+    "y": 0,
+  },
+  Object {
+    "x": 36.5,
+    "y": 0,
+  },
+  Object {
+    "x": 44.5,
+    "y": 0,
+  },
+  Object {
+    "x": 52.5,
+    "y": 0,
+  },
+  Object {
+    "x": 60.5,
+    "y": 0,
+  },
+]
+`;

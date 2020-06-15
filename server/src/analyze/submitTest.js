@@ -40,39 +40,51 @@ function fitModelToMarkings(entries, binSampleParameters, markedEntries) {
   // Each x-value is the midpoint of the entry frequencies for the first hypothetical entry in the bin and the last
   // hypothetical entry in the bin. For example, when the binSize is 4, the 0th bin would have hypothetical entries
   // [1, 2, 3, 4]. The of this bin would be 2.5.
-  const xValues = Object.keys(binResults).map(binIndexMidpoint);
+  const sampleXValues = Object.keys(binResults).map(binIndexMidpoint);
 
-  // Each y-value is the percentage of entries marked correct. Ranges from 0 to 100.
-  const yValues = Object.keys(binResults).map((binIndex) => {
-    const scores = binResults[binIndex];
-    return Math.round(100 * scores.reduce(sum) / scores.length);
+  // Each y-value is the ratio of entries marked correct.
+  const sampleYValues = Object.keys(binResults).map(binIndex => {
+    const binEntryScore = binResults[binIndex];
+    return binEntryScore.reduce(sum) / binEntryScore.length;
   });
 
-  // Fit the model to the data.
-  const curveParameters = fitModelToData(model, [100, 1, 1000], xValues, yValues);
-  const curve = buildCurve(curveParameters);
+  // Fit the model to the sample data.
+  const curveParameters = fitModelToData(model, [1, 1, 1000], sampleXValues, sampleYValues);
+  const modelFunction = buildModelFunction(curveParameters);
   const modelXValues = Array.from({ length: binCount }, (n, binIndex) => binIndexMidpoint(binIndex));
-  const modelYValues = modelXValues.map(curve);
+  const modelYValues = modelXValues.map(modelFunction);
 
-  // Map the x,y values to coordinates to graph
-  let modelZeroCount = 0;
+  // Zip x and y arrays for sample and model curve points to coordinate pairs for graphing.
   const graphData = {
-    samplePoints: xValues.map((x, i) => ({ x, y: yValues[i] })),
-    modelFitPoints: modelXValues.map((x, i) => ({ x, y: modelYValues[i] })).filter(({ y }) => {
-      if (modelZeroCount >= 2) return false;
-      if (y <= 0) modelZeroCount++;
-      return true;
-    }),
+    samplePoints: sampleXValues.map((x, i) => ({ x, y: 100 * sampleYValues[i] })),
+    modelFitPoints: modelXValues.map((x, i) => ({ x, y: 100 * modelYValues[i] })),
   };
 
   // Calculate the area under the curve.
-  const curveArea = modelYValues.map(percentKnown => binSize * percentKnown / 100).reduce(sum);
+  const curveArea = binSize * modelYValues.reduce(sum);
+  const curveAreaError = binSize * calculateUncertainty(modelFunction, sampleXValues, sampleYValues);
 
   return {
-    knownEstimate: Math.round(curveArea),
-    knownEstimateError: 0,
+    knownEstimate: curveArea,
+    knownEstimateError: curveAreaError,
     graphData,
   };
+}
+
+/**
+ * @param {function(number): number} modelFunction
+ * @param {number[]} sampleXValues
+ * @param {number[]} sampleYValues
+ */
+function calculateUncertainty(modelFunction, sampleXValues, sampleYValues) {
+  const errors = sampleXValues.map((sampleXValue, i) => sampleYValues[i] - modelFunction(sampleXValue));
+
+  // Analyze error
+  const errorMean = errors.reduce(sum) / errors.length;
+  const errorStd = Math.sqrt(errors.map(error => Math.pow(error - errorMean, 2)).reduce(sum) / errors.length);
+
+  // Calculate error area
+  return sampleXValues.map(sampleXValue => errorStd * modelFunction(sampleXValue)).reduce(sum);
 }
 
 const binIndexMidpointCalculator = binSize => (binIndex) => {
@@ -82,6 +94,11 @@ const binIndexMidpointCalculator = binSize => (binIndex) => {
   return (firstEntryIndex + lastEntryIndex) / 2;
 };
 
+/**
+ * @param {number|undefined} a
+ * @param {number|undefined} b
+ * @returns {number}
+ */
 const sum = (a, b) => (a || 0) + (b || 0);
 
 function model([amplitude, decayStartX, decayPeriod], xi) {
@@ -93,7 +110,7 @@ function model([amplitude, decayStartX, decayPeriod], xi) {
   return amplitude / 2 * (1 + Math.cos((xi - decayStartX) * Math.PI / decayPeriod));
 }
 
-const buildCurve = ([amplitude, decayStartX, decayPeriod]) => (xi) => {
+const buildModelFunction = ([amplitude, decayStartX, decayPeriod]) => (xi) => {
   if (xi < decayStartX) {
     return amplitude;
   } else if (xi >= decayStartX + decayPeriod) {
@@ -128,4 +145,4 @@ function getCurveParameters(testData) {
 
 module.exports.rangeMidpoint = rangeMidpoint;
 module.exports.getCurveParameters = getCurveParameters;
-module.exports.buildCurve = buildCurve;
+module.exports.buildCurve = buildModelFunction;
