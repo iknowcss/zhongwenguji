@@ -1,10 +1,11 @@
 const uuid = require('uuid/v4');
-const { rangeMidpoint, getCurveParameters, buildCurve } = require('./submitTest');
+const allCharacters = require('../../all-characters').characters;
+const { fitModelToMarkings } = require('./submitTest');
 
 /**
  * @typedef SubmitTestHandlerRequestBody
  * @property {BinTestResult[]} testData
- * @property {number} seed
+ * @property {number|undefined} seed
  */
 
 /**
@@ -12,52 +13,32 @@ const { rangeMidpoint, getCurveParameters, buildCurve } = require('./submitTest'
  * @param {{body: SubmitTestHandlerRequestBody}} req
  * @param {{json: function(object):undefined, status:function(number):undefined}} res
  */
-module.exports = (req, res) => {
-  const { testData, seed } = req.body;
+function submitTestHandler(req, res) {
+  const { seed } = req.body;
+  let { markedEntries } = req.body;
   const testId = uuid();
   try {
-    // Extract
-    const samplePoints = testData
-      .filter(({ isTested }) => isTested)
-      .map(({ range, knownPercent }) => [rangeMidpoint(range), knownPercent]);
-
-    // Analyze
-    const curveParams = getCurveParameters(testData);
-    const curve = buildCurve(curveParams);
-
-    // Estimate and measure error
-    let curveArea = 0;
-    let errors = [];
-    testData.forEach(({ range, isTested, knownPercent }) => {
-      const rangeCharCount = range[1] - range[0];
-      const estimatedKnownPercent = curve(rangeMidpoint(range));
-      if (isTested) {
-        errors.push(rangeCharCount * (knownPercent - estimatedKnownPercent) / 100);
+    // TODO: Read this from the query params
+    const binSampleParameters = { binCount: 40, subsetSize: 5, seed };
+    if (!markedEntries) {
+      if (req.body.testData) {
+        markedEntries = adaptOldDataFormat(binSampleParameters, req.body.testData);
+        console.log({markedEntries})
+      } else {
+        return res.status(400).json({ error: true });
       }
-      curveArea += rangeCharCount * estimatedKnownPercent / 100;
-    });
-
-    // Analyze error
-    const errorMean = errors.reduce((sum, error) => sum + error, 0) / errors.length;
-    const errorStd = Math.sqrt((1 / errors.length) * errors.reduce((sum, error) => sum + Math.pow(error - errorMean, 2), 0));
-
-    // Calculate error area
-    const rawUncertainty = testData.reduce((sum, { range }) => sum + errorStd * curve(rangeMidpoint(range)) / 100, 0);
-    const uncertainty = Math.max(10, Math.round(rawUncertainty / 10) * 10);
-
-    // Create graph points at the boundaries of each of the bins (TODO: just make i the midpoint maybe?)
-    const curveXPoints = [testData[0].range[0]].concat(testData.map(({ range }) => range[1]));
-    let curvePoints = curveXPoints.map(xi => [xi, curve(xi)]);
+    }
+    const modelFitResult = fitModelToMarkings(allCharacters, binSampleParameters, markedEntries);
 
     /**
      * @type {TestResult}
      */
     const testResults = {
       testId,
-      samplePoints,
-      curvePoints,
-      knownEstimate: Math.round(curveArea / uncertainty) * uncertainty,
-      knownEstimateUncertainty: uncertainty
+      samplePoints: modelFitResult.graphData.samplePoints.map(({ x, y }) => [x, y]),
+      curvePoints: modelFitResult.graphData.modelFitPoints.map(({ x, y }) => [x, y]),
+      knownEstimate: modelFitResult.knownEstimate,
+      knownEstimateUncertainty: modelFitResult.knownEstimateError,
     };
 
     res.json(testResults);
@@ -65,4 +46,28 @@ module.exports = (req, res) => {
     res.status(500).json({ error: true });
     console.error('Could not calculate curve parameters', error);
   }
-};
+}
+
+/**
+ * Converts the old style test data to an analogue of the new style.
+ *
+ * @param {BinSampleParameters} binSampleParameters - See {@link BinSampleParameters}.
+ * @param {{isTested: boolean, knownPercent: number, range: [number, number]}[]} testData
+ * @returns {MarkedFrequencyEntry[]}
+ */
+function adaptOldDataFormat(binSampleParameters, testData) {
+  const binSize = Math.ceil(allCharacters[allCharacters.length - 1].i / binSampleParameters.binCount);
+  return testData
+    .filter(({ isTested }) => isTested)
+    .reduce((result, entry) => {
+      const { knownPercent, range } = entry;
+      const binIndex = Math.round(range[0] / (range[1] - range[0]));
+      const newEntries = Array.from({ length: 5 }, (_, i) => ({
+        known: knownPercent === 100 || i * 20 < knownPercent,
+        i: binIndex * binSize + 1 + i,
+      }));
+      return result.concat(newEntries);
+    }, []);
+}
+
+module.exports = submitTestHandler;

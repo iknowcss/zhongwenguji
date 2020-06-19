@@ -51,7 +51,7 @@ function fitModelToMarkings(entries, binSampleParameters, markedEntries) {
   // Fit the model to the sample data.
   const curveParameters = fitModelToData(model, [1, 1, 1000], sampleXValues, sampleYValues);
   const modelFunction = buildModelFunction(curveParameters);
-  const modelXValues = Array.from({ length: binCount }, (n, binIndex) => binIndexMidpoint(binIndex));
+  const modelXValues = Array.from({ length: binCount + 1 }, (n, binIndex) => binIndex * binSize);
   const modelYValues = modelXValues.map(modelFunction);
 
   // Zip x and y arrays for sample and model curve points to coordinate pairs for graphing.
@@ -61,8 +61,14 @@ function fitModelToMarkings(entries, binSampleParameters, markedEntries) {
   };
 
   // Calculate the area under the curve.
-  const curveArea = binSize * modelYValues.reduce(sum);
-  const curveAreaError = binSize * calculateUncertainty(modelFunction, modelXValues, sampleXValues, sampleYValues);
+  const dx = binSize / 100;
+  const curveArea = Array
+    .from(
+      { length: Math.floor(totalCharacterCount / dx) },
+      (_, infIndex) => modelFunction(dx * infIndex) * dx,
+    )
+    .reduce(sum);
+  const curveAreaError = calculateUncertainty(modelFunction, binSize, totalCharacterCount, sampleXValues, sampleYValues);
 
   // Significant digits
   const minUncertanty = toPrecision(1, curveArea * 0.05);
@@ -75,19 +81,27 @@ function fitModelToMarkings(entries, binSampleParameters, markedEntries) {
 
 /**
  * @param {function(number): number} modelFunction
- * @param {number[]} modelXValues
+ * @param {number} binSize
+ * @param {number} totalCharacterCount
  * @param {number[]} sampleXValues
  * @param {number[]} sampleYValues
  */
-function calculateUncertainty(modelFunction, modelXValues, sampleXValues, sampleYValues) {
-  const errors = sampleXValues.map((sampleXValue, i) => Math.abs(sampleYValues[i] - modelFunction(sampleXValue)));
-  const errorMean = errors.reduce(sum) / errors.length;
+function calculateUncertainty(modelFunction, binSize, totalCharacterCount, sampleXValues, sampleYValues) {
+  const normalizedErrors = sampleXValues.map((sampleXValue, i) => Math.abs(sampleYValues[i] - modelFunction(sampleXValue)));
+  const normalizedErrorMean = normalizedErrors.reduce(sum) / normalizedErrors.length;
 
   // Calculate error area
-  return modelXValues.map(modelXValue => {
-    const minBound = modelFunction(modelXValue) - errorMean;
-    return minBound < 0 ? errorMean + minBound : errorMean;
-  }).reduce(sum);
+  const dx = binSize / 100;
+  return Array
+    .from(
+      { length: Math.floor(totalCharacterCount / dx) },
+      (_, infIndex) => {
+        const modelXValue = dx * infIndex;
+        const minBound = modelFunction(modelXValue) - normalizedErrorMean;
+        return (minBound < 0 ? normalizedErrorMean + minBound : normalizedErrorMean) * dx;
+      },
+    )
+    .reduce(sum);
 }
 
 const binIndexMidpointCalculator = binSize => (binIndex) => {
@@ -107,6 +121,8 @@ const sum = (a, b) => (a || 0) + (b || 0);
 const log10 = x => Math.log(x) / Math.log(10);
 
 const toPrecision = (precision, n) => Number.parseFloat(n.toPrecision(precision));
+
+module.exports.fitModelToMarkings = fitModelToMarkings;
 
 /// - Old Stuff --------------------------------------------------------------------------------------------------------
 
@@ -128,7 +144,6 @@ const buildModelFunction = ([amplitude, decayStartX, decayPeriod]) => (xi) => {
   return amplitude / 2 * (1 + Math.cos((xi - decayStartX) * Math.PI / decayPeriod));
 };
 
-module.exports.fitModelToMarkings = fitModelToMarkings;
 
 function rangeMidpoint([a, b]) {
   return (a + b) / 2;

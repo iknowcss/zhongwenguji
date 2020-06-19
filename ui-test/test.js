@@ -82,24 +82,24 @@ describe('E2E test', function () {
     await assertScreenshotMatchesPrevious(page, 'fail-non-consecutive');
   });
 
-  // it('completes a realistic test', async function () {
-  //   await markNextNKnown(page, 5);
-  //   await markNextNKnown(page, 4);
-  //   await markNextNKnown(page, 2);
-  //   await markNextNKnown(page, 5);
-  //   await markNextNKnown(page, 2);
-  //   await markNextNKnown(page, 3);
-  //   await markNextNKnown(page, 1);
-  //   await markNextNKnown(page, 2);
-  //   await markNextNKnown(page, 2);
-  //   await markNextNKnown(page, 1);
-  //   await markNextNKnown(page, 3);
-  //   await markNextNKnown(page, 1);
-  //   await markNextNKnown(page, 0);
-  //   await markNextNKnown(page, 0);
-  //   await waitForResults(page);
-  //   await assertScreenshotMatchesPrevious(page, 'realistic');
-  // });
+  it('completes a realistic test', async function () {
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 4);
+    await markNextNKnown(page, 2);
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 2);
+    await markNextNKnown(page, 3);
+    await markNextNKnown(page, 1);
+    await markNextNKnown(page, 2);
+    await markNextNKnown(page, 2);
+    await markNextNKnown(page, 1);
+    await markNextNKnown(page, 3);
+    await markNextNKnown(page, 1);
+    await markNextNKnown(page, 0);
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'realistic');
+  });
 
   after(async () => {
     await browser.close();
