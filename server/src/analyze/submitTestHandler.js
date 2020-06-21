@@ -23,7 +23,6 @@ function submitTestHandler(req, res) {
     if (!markedEntries) {
       if (req.body.testData) {
         markedEntries = adaptOldDataFormat(binSampleParameters, req.body.testData);
-        console.log({markedEntries})
       } else {
         return res.status(400).json({ error: true });
       }

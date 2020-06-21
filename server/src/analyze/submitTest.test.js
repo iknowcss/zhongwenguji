@@ -35,7 +35,7 @@ describe('submitTest', () => {
       { x: 4.5 + 8 * 1, y: 50 },
       { x: 4.5 + 8 * 2, y: 0 },
     ]);
-    expect(knownEstimate).toEqual(12);
+    expect(knownEstimate).toEqual(12.6);
     expect(knownEstimateError).toEqual(0.6); // Can't be less than 5%
     expect(graphData.modelFitPoints).toMatchSnapshot();
   });
