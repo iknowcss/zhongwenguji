@@ -3,25 +3,29 @@ const allCharacters = require('../../all-characters').characters;
 const { fitModelToMarkings } = require('./submitTest');
 
 /**
- * @typedef SubmitTestHandlerRequestBody
+ * @typedef LegacySubmitTestHandlerRequestBody
  * @property {BinTestResult[]} testData
  * @property {number|undefined} seed
  */
 
 /**
+ * @typedef SubmitTestHandlerRequestBody
+ * @property {BinSampleParameters} binSampleParameters - See {@link BinSampleParameters}.
+ * @property {MarkedFrequencyEntry[]} markedEntries
+ */
+
+/**
  *
- * @param {{body: SubmitTestHandlerRequestBody}} req
+ * @param {{body: SubmitTestHandlerRequestBody|LegacySubmitTestHandlerRequestBody}} req
  * @param {{json: function(object):undefined, status:function(number):undefined}} res
  */
 function submitTestHandler(req, res) {
-  const { seed } = req.body;
-  let { markedEntries } = req.body;
+  let { binSampleParameters, markedEntries } = req.body;
   const testId = uuid();
   try {
-    // TODO: Read this from the query params
-    const binSampleParameters = { binCount: 40, subsetSize: 5, seed };
     if (!markedEntries) {
       if (req.body.testData) {
+        binSampleParameters = { binCount: 40, subsetSize: 5, seed: req.body.seed };
         markedEntries = adaptOldDataFormat(binSampleParameters, req.body.testData);
       } else {
         return res.status(400).json({ error: true });

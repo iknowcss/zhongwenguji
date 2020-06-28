@@ -8,10 +8,7 @@ const config = Object.assign({
   // Base config
   getCharacterSampleUrl: `${LAMBDA_BASE_URL.LOCAL}/getBinSamples`,
   submitTestUrl: `${LAMBDA_BASE_URL.LOCAL}/submitTest`,
-  skritterContextUrl: `${LAMBDA_BASE_URL.LOCAL}/skritter/oauth/token`,
-  skritterCharactersUrl: `${LAMBDA_BASE_URL.LOCAL}/skritter/characters`,
   feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490=',
-  skritterCallbackUrl: 'https://legacy.skritter.com/api/v0/oauth2/authorize?response_type=code&client_id=hanzishanapp&state=addtoskritter'
 }, {
   local: {
     enableReduxDevTools: true

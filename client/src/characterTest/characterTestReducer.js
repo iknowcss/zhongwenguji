@@ -346,3 +346,23 @@ export const missedCards = ({ characterTestReducer: { bins, characterSet } }) =>
 );
 
 export const characterSet = ({ characterTestReducer: { characterSet } }) => characterSet;
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}}
+ * @returns {MarkedFrequencyEntry[]}
+ */
+export const characterTestMarkedEntries = ({ characterTestReducer: { bins } }) => flatten(
+  bins
+    .map(({ sample }) => sample
+      .filter(({ score }) => score >= 0)
+      .map(({ index, score }) => ({ i: index, known: score > 0 }))
+    )
+);
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}}
+ * @returns {number}
+ */
+export const characterTestSeed = ({ characterTestReducer: { seed } }) => seed;

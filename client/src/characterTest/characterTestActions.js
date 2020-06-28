@@ -1,11 +1,13 @@
 import {
   isShowDefinition,
   status as characterTestStatus,
-  scoreStatistics,
+  characterTestMarkedEntries,
+  characterTestSeed,
   characterSet
 } from './characterTestReducer';
 import getConfig from '../getConfig';
 import * as analytics from '../analytics/analyticsAction';
+import * as testService from './testService';
 
 export const actionTypes = {
   CHARACTER_SAMPLES_LOAD_SAMPLES_START: '@zwgj//characterSamples/loadSamples/start',
@@ -77,19 +79,11 @@ export const toggleDefinition = () => (dispatch, getState) => {
 
 const testSubmit = () => (dispatch, getState) => {
   analytics.completeTestAfterDuration(getTestDuration());
+  const markedEntries = characterTestMarkedEntries(getState());
+  const seed = characterTestSeed(getState());
 
-  const { submitTestUrl } = getConfig();
   dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
-
-  const { sectionStats: testData, seed } = scoreStatistics(getState());
-  const body = { testData, seed };
-
-  return fetch(submitTestUrl, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: { 'Content-type': 'application/json' }
-  })
-    .then(extractJson)
+  return testService.submitTest(markedEntries, seed)
     .then((resultData) => {
       analytics.receiveKnownEstimate(resultData.knownEstimate);
       dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData });
