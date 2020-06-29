@@ -9,7 +9,7 @@ const totalCharacterCount = allCharacters[allCharacters.length - 1].i;
  * Parses a positive integer out of the provided string. Returns {undefined} if the integer is negative, if it is
  * larger than {Number.MAX_SAFE_INTEGER}, or if there is a parse error.
  *
- * @param {string} value - The string to parse the integer from
+ * @param {string|number} value - The string to parse the integer from
  * @returns {undefined|number}
  */
 function extractPositiveInt(value) {
@@ -37,21 +37,20 @@ function extractPositiveIntList(value) {
 }
 
 /**
+ * @typedef {BinSampleParameters} URLBinSampleParameters
+ * @property {string} [selectionBins] - the comma-separated list of bin indices to select samples from.
+ *    Defaults to return from all bins.
+ * @property {string} [subsetSkip] - the number subsets of entries to skip over before starting
+ *    selection; this allows the client to get the next lot of character entries from the bin which have not already
+ *    been sampled. Defaults to "0".
+ */
+
+/**
  * Sends the client a random sample of Chinese character entries separated into frequency bins. The client specifies
  * parameters for the selection process in the HTTP query.
  *
  * @param {ExpressServerRequest} req - the Express request object.
- * @param {string} req.query - a key-value map of the parsed HTTP query string.
- * @param {string} [req.query.binCount] - See {@link BinSampleParameters}. Defaults to "40".
- * @param {string} [req.query.subsetSize] - See {@link BinSampleParameters}. Defaults to "5".
- * @param {string} [req.query.seed] - See {@link BinSampleParameters}. This should be specified by the client on the
- *    2nd request onward so that the client may get the the next lot of character entries from the bin which have not
- *    already been sampled. Defaults to a random number between 1 and 100,000.
- * @param {string} [req.query.selectionBins] - the comma-separated list of bin indices to select samples from.
- *    Defaults to return from all bins.
- * @param {string} [req.query.subsetSkip] - the number subsets of entries to skip over before starting selection;
- *    this allows the client to get the next lot of character entries from the bin which have not already been sampled.
- *    Defaults to "0".
+ * @param {URLBinSampleParameters} req.query - a key-value map of the parsed HTTP query string.
  * @param {ExpressServerResponse} res - the Express response object.
  */
 module.exports = (req, res) => {

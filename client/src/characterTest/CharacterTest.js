@@ -6,14 +6,15 @@ import {
   toggleDefinition,
   markCurrentKnown,
   markCurrentUnknown,
-  undoDiscard
+  undoDiscard,
 } from './characterTestActions';
 import {
   currentCard,
+  markedEntries,
   isShowDefinition,
   status,
-  scoreStatistics,
-  resultData
+  resultData,
+  characterSet,
 } from './characterTestReducer';
 import mapSelectors from '../util/mapSelectors';
 import keyHandler from '../util/keyHandler';
@@ -23,13 +24,14 @@ import CardStackDisplay from '../card/CardStackDisplay';
 import CardStackButtons from '../card/CardStackButtons';
 
 const DISCARD_THRESHOLD = 50;
-const EMPTY_CARD = { index: -1, score: NaN };
 
 class CharacterTest extends Component {
   static propTypes = {
     currentCard: PropTypes.object,
+    markedEntries: PropTypes.array,
     isShowDefinition: PropTypes.bool,
     status: PropTypes.string,
+    characterSet: PropTypes.string,
 
     toggleDefinition: PropTypes.func,
     markCurrentKnown: PropTypes.func,
@@ -48,14 +50,35 @@ class CharacterTest extends Component {
     undoDiscard: noop,
   };
 
+  constructor() {
+    super();
+    this.state = { card: null, lastEntryKnown: undefined };
+  }
+
   componentDidMount() {
     this.keyHandler = keyHandler({
       onKeyDown: this.handleKeyDown
     });
+    this.setState({ card: this.props.currentCard });
   }
 
   componentWillUnmount() {
     this.keyHandler.unregister();
+  }
+
+  componentDidUpdate(prevProps) {
+    const previousCard = prevProps.currentCard;
+    const previousEntries = prevProps.markedEntries;
+    const { currentCard, markedEntries } = this.props;
+    if (currentCard && previousCard.i !== currentCard.i) {
+      if (markedEntries.length > previousEntries.length) {
+        const lastEntryKnown = (markedEntries[markedEntries.length - 1] || {}).known;
+        this.setState({ lastEntryKnown });
+      }
+      setTimeout(() => {
+        this.setState({ card: currentCard, lastEntryKnown: undefined });
+      }, 1);
+    }
   }
 
   handleKeyDown = (key) => {
@@ -94,19 +117,19 @@ class CharacterTest extends Component {
   };
 
   render() {
-    const {
-      currentCard = EMPTY_CARD,
-      isShowDefinition
-    } = this.props;
+    const { isShowDefinition, characterSet } = this.props;
+    const { card, lastEntryKnown } = this.state;
 
     return (
       <div className={cx(style.container, this.props.className)}>
         <CardStackDisplay
-          card={currentCard}
+          card={card}
+          lastEntryKnown={lastEntryKnown}
           showDefinition={isShowDefinition}
           discardThreshold={DISCARD_THRESHOLD}
           onDiscardLeft={this.handleDiscardLeft}
           onDiscardRight={this.handleDiscardRight}
+          characterSet={characterSet}
         />
         <CardStackButtons
           onUndo={this.handleUndo}
@@ -122,10 +145,11 @@ export { CharacterTest as Pure };
 
 export default connect(mapSelectors({
   currentCard,
+  markedEntries,
   isShowDefinition,
   status,
-  scoreStatistics,
-  resultData
+  resultData,
+  characterSet,
 }), {
   toggleDefinition,
   markCurrentKnown,

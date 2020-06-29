@@ -6,6 +6,7 @@
 
 /**
  * @typedef {FrequencyEntry} MarkedFrequencyEntry
+ * @property {number} originBinIndex -
  * @property {boolean} known - {true} if the entry is known, {false} if it is not.
  */
 
@@ -72,10 +73,16 @@
  */
 
 /**
+ * @typedef {object} MarkedBinSample
+ * @property {number} binIndex
+ * @property {MarkedFrequencyEntry[]} characters
+ */
+
+/**
  * @typedef BinSampleParameters
  * @property {number} binCount - the number of frequency bins to slice the full character set into.
  * @property {number} subsetSize - the number of character entries to sample from each bin.
- * @property {number|undefined} seed - the randomization seed used for selecting the entries to go into the sample.
+ * @property {number} [seed] - the randomization seed used for selecting the entries to go into the sample.
  *    If {undefined} then the selection is not randomized.
  */
 
