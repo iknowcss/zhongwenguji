@@ -48,7 +48,7 @@ export const characterSetEnum = {
 /**
  * @type {CharacterTestState}
  */
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
   binCount: 40,
   subsetSize: 5,
   seed: -1,
