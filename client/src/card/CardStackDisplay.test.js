@@ -1,12 +1,11 @@
 import React from 'react';
 import Renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
-import { JSDOM } from 'jsdom';
 import CharacterCard from './CharacterCard';
 import CardStackDisplay from './CardStackDisplay';
 import { classNames, hasClassName } from '../util/asdf.testutil';
 
-const BASE_CARD = { index: 1, score: NaN };
+const BASE_CARD = { i: 1, score: NaN };
 const DISCARD_THRESHOLD = 50;
 
 describe('CardStackDisplay', () => {
@@ -94,13 +93,13 @@ describe('CardStackDisplay', () => {
 
   describe('animation', () => {
     it('applies the discardLeft style', () => {
-      setup({ card: { ...BASE_CARD, score: 0 } });
+      setup({ card: { ...BASE_CARD }, lastEntryKnown: false });
       expect(classNames(animationContainer))
         .toEqual(expect.arrayContaining(['discardLeft']));
     });
 
     it('applies the discardRight style', () => {
-      setup({ card: { ...BASE_CARD, score: 1 } });
+      setup({ card: { ...BASE_CARD }, lastEntryKnown: true });
       expect(classNames(animationContainer))
         .toEqual(expect.arrayContaining(['discardRight']));
     });
@@ -255,7 +254,7 @@ describe('CardStackDisplay', () => {
 
       component.setProps({
         transitionTimeout: 0,
-        card: { ...BASE_CARD, index: 2 }
+        card: { ...BASE_CARD, i: 2 }
       });
       await updateEnzyme();
 
