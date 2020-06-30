@@ -7,7 +7,7 @@ exports[`CharacterCard renders the character 1`] = `
   <span
     className="character"
   >
-    科
+    对
   </span>
 </span>
 `;
@@ -19,12 +19,12 @@ exports[`CharacterCard renders the definition 1`] = `
   <span
     className="pinyin"
   >
-    kē
+    duì
   </span>
   <span
     className="definition"
   >
-    branch of study
+    right / correct
   </span>
 </span>
 `;
@@ -36,7 +36,7 @@ exports[`CharacterCard renders the fallback definition 1`] = `
   <span
     className="pinyin"
   >
-    kē
+    duì
   </span>
   <span
     className="definition"
