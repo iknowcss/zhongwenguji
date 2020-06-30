@@ -92,7 +92,7 @@ function processUndo(state) {
     return state;
   }
 
-  const { originBinIndex } = markedEntries[markedEntries.length - 1];
+  const { originBinIndex } = markedEntries[markedEntries.length - 2] || {};
   return {
     ...state,
     markedEntries: markedEntries.slice(0, -1),
@@ -138,7 +138,7 @@ function processMark(state, action) {
   // The user knows few of the most recently marked entries, so let's end the test.
   if (
     (currentBinIndex === 0 && lastMarkedKnownPercentage === 0) ||
-    (lastEntries.length === lastEntriesCount && lastMarkedKnownPercentage <= 0.3)
+    (lastEntries.length === lastEntriesCount && lastMarkedKnownPercentage <= 0.34)
   ) {
     return { ...newState, state: statusEnum.COMPLETE };
   }
