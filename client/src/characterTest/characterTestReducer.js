@@ -136,7 +136,10 @@ function processMark(state, action) {
     .reduce((sum, { known }) => sum + known, 0) / lastEntries.length;
 
   // The user knows few of the most recently marked entries, so let's end the test.
-  if (lastEntries.length === lastEntriesCount && lastMarkedKnownPercentage <= 0.4) {
+  if (
+    (currentBinIndex === 0 && lastMarkedKnownPercentage === 0) ||
+    (lastEntries.length === lastEntriesCount && lastMarkedKnownPercentage <= 0.3)
+  ) {
     return { ...newState, state: statusEnum.COMPLETE };
   }
 
