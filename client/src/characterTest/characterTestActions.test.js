@@ -10,7 +10,7 @@ import {
   markCurrentKnown,
   undoDiscard,
   showTestResults,
-  reviewMissed
+  reviewMissed, toggleDefinition, setCharacterSetSimplified, setCharacterSetTraditional
 } from './characterTestActions';
 import getConfig from '../getConfig';
 
@@ -89,6 +89,32 @@ describe('characterTestActions', () => {
           }
         ]);
       });
+  });
+
+  it('sets the character set', () => {
+    store.dispatch(setCharacterSetSimplified());
+    store.dispatch(setCharacterSetTraditional());
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED },
+      { type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL },
+    ]);
+  });
+
+  describe('toggle definition', () => {
+    it('shows by default', () => {
+      store.dispatch(toggleDefinition());
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW },
+      ]);
+    });
+
+    it('hides if showing', () => {
+      setup({ isShowDefinition: true })
+      store.dispatch(toggleDefinition());
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE },
+      ]);
+    });
   });
 
   describe('marking', () => {
