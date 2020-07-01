@@ -120,6 +120,7 @@ class CharacterTest extends Component {
     const { isShowDefinition, characterSet } = this.props;
     const { card, lastEntryKnown } = this.state;
 
+    // console.log({ isShowDefinition, characterSet, card, lastEntryKnown })
     return (
       <div className={cx(style.container, this.props.className)}>
         <CardStackDisplay

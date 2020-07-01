@@ -26,10 +26,8 @@ describe('CharacterTest', () => {
   let cardStackButtons;
 
   function setup(props) {
-    const currentCard = { index: 1, score: NaN };
-
     component = renderer.create(
-      <CharacterTest currentCard={currentCard} {...props} />
+      <CharacterTest currentCard={{ i: 1 }} {...props} />
     );
     cardStackDisplay = component.root.findByType(CardStackDisplay);
     cardStackButtons = component.root.findByType(CardStackButtons);

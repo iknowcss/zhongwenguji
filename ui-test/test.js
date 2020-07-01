@@ -59,28 +59,28 @@ describe('E2E test', function () {
     await page.close();
   });
 
-  // it('fails after the first 5 failures', async () => {
-  //   await markNextNKnown(page, 0);
-  //   await waitForResults(page);
-  //   await assertScreenshotMatchesPrevious(page, 'fail-all');
-  // });
-  //
-  // it('fails after 2 consecutive failures', async () => {
-  //   await markNextNKnown(page, 5);
-  //   await markNextNKnown(page, 0);
-  //   await markNextNKnown(page, 0);
-  //   await waitForResults(page);
-  //   await assertScreenshotMatchesPrevious(page, 'fail-consecutive');
-  // });
-  //
-  // it('fails after 2 non-consecutive failures', async () => {
-  //   await markNextNKnown(page, 5);
-  //   await markNextNKnown(page, 0);
-  //   await markNextNKnown(page, 3);
-  //   await markNextNKnown(page, 0);
-  //   await waitForResults(page);
-  //   await assertScreenshotMatchesPrevious(page, 'fail-non-consecutive');
-  // });
+  it('fails after the first 5 failures', async () => {
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-all');
+  });
+
+  it('fails after 2 consecutive failures', async () => {
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 0);
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-consecutive');
+  });
+
+  it('fails after 2 non-consecutive failures', async () => {
+    await markNextNKnown(page, 5);
+    await markNextNKnown(page, 0);
+    await markNextNKnown(page, 3);
+    await markNextNKnown(page, 0);
+    await waitForResults(page);
+    await assertScreenshotMatchesPrevious(page, 'fail-non-consecutive');
+  });
 
   it('completes a realistic test', async function () {
     await markNextNKnown(page, 5);
@@ -92,10 +92,6 @@ describe('E2E test', function () {
     await markNextNKnown(page, 1);
     await markNextNKnown(page, 2);
     await markNextNKnown(page, 2);
-    await markNextNKnown(page, 1);
-    await markNextNKnown(page, 3);
-    await markNextNKnown(page, 1);
-    await markNextNKnown(page, 0);
     await waitForResults(page);
     await assertScreenshotMatchesPrevious(page, 'realistic');
   });
