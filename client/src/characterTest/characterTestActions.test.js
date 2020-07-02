@@ -1,8 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock';
-import prepareBins from './prepareBins.testutil';
-import { characterSetEnum } from './characterTestReducer';
+import {characterSetEnum, statusEnum, DEFAULT_STATE} from './characterTestReducer';
 import * as analytics from '../analytics/analyticsAction';
 import {
   actionTypes,
@@ -11,7 +10,7 @@ import {
   markCurrentKnown,
   undoDiscard,
   showTestResults,
-  reviewMissed
+  reviewMissed, toggleDefinition, setCharacterSetSimplified, setCharacterSetTraditional
 } from './characterTestActions';
 import getConfig from '../getConfig';
 
@@ -20,7 +19,8 @@ const mockStore = configureMockStore([thunk]);
 jest.mock('../analytics/analyticsAction');
 
 describe('characterTestActions', () => {
-  const { getCharacterSampleUrl, submitTestUrl } = getConfig();
+  const { getCharacterSampleUrl: gcsuBase, submitTestUrl } = getConfig();
+  const getCharacterSampleUrl = `${gcsuBase}?subsetSize=5&binCount=40`;
   const oldConsole = {};
   let store;
   let dateNowMock;
@@ -28,11 +28,15 @@ describe('characterTestActions', () => {
   function setup(characterTestStateOverrides) {
     store = mockStore({
       characterTestReducer: {
-        bins: prepareBins([1, 0, NaN, NaN]),
-        state: 'TESTING',
-        currentSectionIndex: 0,
-        currentCardIndex: 2,
-        characterSet: characterSetEnum.SIMPLIFIED,
+        ...DEFAULT_STATE,
+        state: statusEnum.TESTING,
+        binSamples: [
+          { binIndex: 0, characters: [{i: 1}, {i: 2}, {i: 3}, {i: 4}] },
+        ],
+        markedEntries: [
+          { i: 1, originBinIndex: 0, known: true },
+          { i: 2, originBinIndex: 0, known: false },
+        ],
         ...characterTestStateOverrides
       }
     });
@@ -57,12 +61,12 @@ describe('characterTestActions', () => {
       headers: { 'Content-type': 'application/json' }
     });
 
-    await store.dispatch(loadSamples(getCharacterSampleUrl));
+    await store.dispatch(loadSamples());
     expect(store.getActions()).toEqual([
       { type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START },
       {
         type: actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS,
-        sampleData: { mockData: true }
+        response: { mockData: true }
       }
     ]);
   });
@@ -70,7 +74,7 @@ describe('characterTestActions', () => {
   it('handles character sample load failure', () => {
     fetchMock.getOnce(getCharacterSampleUrl, 500);
 
-    return store.dispatch(loadSamples(getCharacterSampleUrl))
+    return store.dispatch(loadSamples())
       .then(() => {
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error).toHaveBeenCalledWith(
@@ -87,6 +91,32 @@ describe('characterTestActions', () => {
       });
   });
 
+  it('sets the character set', () => {
+    store.dispatch(setCharacterSetSimplified());
+    store.dispatch(setCharacterSetTraditional());
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED },
+      { type: actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL },
+    ]);
+  });
+
+  describe('toggle definition', () => {
+    it('shows by default', () => {
+      store.dispatch(toggleDefinition());
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW },
+      ]);
+    });
+
+    it('hides if showing', () => {
+      setup({ isShowDefinition: true })
+      store.dispatch(toggleDefinition());
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE },
+      ]);
+    });
+  });
+
   describe('marking', () => {
     beforeEach(async () => {
       fetchMock.getOnce(getCharacterSampleUrl, {
@@ -94,7 +124,7 @@ describe('characterTestActions', () => {
         headers: { 'Content-type': 'application/json' }
       });
 
-      await store.dispatch(loadSamples(getCharacterSampleUrl));
+      await store.dispatch(loadSamples());
       store.clearActions();
     });
 
@@ -102,7 +132,6 @@ describe('characterTestActions', () => {
       store.dispatch(markCurrentUnknown());
       expect(store.getActions()).toEqual([
         { type: actionTypes.TEST_CARD_MARK_UNKNOWN },
-        { type: actionTypes.TEST_CARD_DISCARD }
       ]);
     });
 
@@ -110,14 +139,12 @@ describe('characterTestActions', () => {
       store.dispatch(markCurrentKnown());
       expect(store.getActions()).toEqual([
         { type: actionTypes.TEST_CARD_MARK_KNOWN },
-        { type: actionTypes.TEST_CARD_DISCARD }
       ]);
     });
 
     it('un-does the previous marking', () => {
       store.dispatch(undoDiscard());
       expect(store.getActions()).toEqual([
-        { type: actionTypes.TEST_CARD_MARK_CLEAR },
         { type: actionTypes.TEST_CARD_DISCARD_UNDO }
       ]);
     });
@@ -134,10 +161,17 @@ describe('characterTestActions', () => {
   describe('submitting', () => {
     beforeEach(async () => {
       setup({
-        state: 'COMPLETE',
-        bins: prepareBins([1, 0, 1, 1, 0]),
-        currentSectionIndex: 0,
-        currentCardIndex: 0
+        state: statusEnum.COMPLETE,
+        binSamples: [
+          { binIndex: 0, characters: [{i: 1}, {i: 2}, {i: 3}, {i: 4}, {i: 5}] },
+        ],
+        markedEntries: [
+          { i: 1, originBinIndex: 0, known: true },
+          { i: 2, originBinIndex: 0, known: false },
+          { i: 3, originBinIndex: 0, known: true },
+          { i: 4, originBinIndex: 0, known: true },
+          { i: 5, originBinIndex: 0, known: false },
+        ],
       });
 
       fetchMock.getOnce(getCharacterSampleUrl, {
@@ -145,7 +179,7 @@ describe('characterTestActions', () => {
         headers: { 'Content-type': 'application/json' }
       });
 
-      await store.dispatch(loadSamples(getCharacterSampleUrl));
+      await store.dispatch(loadSamples());
       store.clearActions();
       fetchMock.reset();
     });
@@ -173,18 +207,23 @@ describe('characterTestActions', () => {
 
           expect(headers).toBeDefined();
           expect(headers).toMatchObject({ 'Content-type': 'application/json' });
-          expect(body).toEqual({
-            testData: [
-              { isTested: true, knownPercent: 60, range: [0, 5] }
-            ]
+          expect(body.binSampleParameters).toEqual({
+            binCount: 40,
+            seed: -1,
+            subsetSize: 5,
           });
-
-          expect(store.getActions()).toEqual([
-            { type: actionTypes.TEST_CARD_MARK_KNOWN },
-            { type: actionTypes.TEST_CARD_DISCARD },
-            { type: actionTypes.TEST_RESULTS_SUBMIT_START },
-            { type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData }
+          expect(body.markedEntries).toEqual([
+            { i: 1, originBinIndex: 0, known: true },
+            { i: 2, originBinIndex: 0, known: false },
+            { i: 3, originBinIndex: 0, known: true },
+            { i: 4, originBinIndex: 0, known: true },
+            { i: 5, originBinIndex: 0, known: false },
           ]);
+
+          const actions = store.getActions();
+          expect(actions[0]).toEqual({ type: actionTypes.TEST_CARD_MARK_KNOWN });
+          expect(actions[1]).toEqual({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
+          expect(actions[2]).toEqual({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData });
 
           expect(analytics.completeTestAfterDuration).toHaveBeenCalledTimes(1);
           expect(analytics.completeTestAfterDuration.mock.calls[0][0]).toEqual(42);
@@ -200,7 +239,6 @@ describe('characterTestActions', () => {
         .then(() => {
           expect(store.getActions()).toEqual([
             { type: actionTypes.TEST_CARD_MARK_KNOWN },
-            { type: actionTypes.TEST_CARD_DISCARD },
             { type: actionTypes.TEST_RESULTS_SUBMIT_START },
             {
               type: actionTypes.TEST_RESULTS_SUBMIT_FAIL,

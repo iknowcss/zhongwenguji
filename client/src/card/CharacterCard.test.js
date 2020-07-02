@@ -7,9 +7,11 @@ describe('CharacterCard', () => {
 
   function setup(overrides) {
     const props = {
-      character: '科',
-      pinyin: ['ke1'],
-      definition: ['branch of study']
+      i: 33,
+      cs: '对',
+      ct: '對',
+      p: ['dui4'],
+      d: ['right/correct']
     };
 
     component = renderer.create(
@@ -33,7 +35,7 @@ describe('CharacterCard', () => {
   });
 
   it('renders the fallback definition', () => {
-    setup({ showDefinition: true, definition: undefined });
+    setup({ showDefinition: true, d: undefined });
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))
@@ -42,7 +44,7 @@ describe('CharacterCard', () => {
   });
 
   it('has a class for unknown marking', () => {
-    setup({ score: 0 });
+    setup({ known: false });
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))
@@ -50,7 +52,7 @@ describe('CharacterCard', () => {
   });
 
   it('has a class for unknown marking', () => {
-    setup({ score: 1 });
+    setup({ known: true });
     const tree = component.toJSON();
 
     expect(tree.props.className.trim().split(/\s+/))

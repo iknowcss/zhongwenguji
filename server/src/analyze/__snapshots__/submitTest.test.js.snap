@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submitTest does a close fit 1`] = `
+Array [
+  Object {
+    "x": 0,
+    "y": 100.22472874710179,
+  },
+  Object {
+    "x": 8,
+    "y": 87.11490204177962,
+  },
+  Object {
+    "x": 16,
+    "y": 19.74510338515462,
+  },
+  Object {
+    "x": 24,
+    "y": 0,
+  },
+  Object {
+    "x": 32,
+    "y": 0,
+  },
+  Object {
+    "x": 40,
+    "y": 0,
+  },
+  Object {
+    "x": 48,
+    "y": 0,
+  },
+  Object {
+    "x": 56,
+    "y": 0,
+  },
+  Object {
+    "x": 64,
+    "y": 0,
+  },
+]
+`;
+
+exports[`submitTest does a wide fit 1`] = `
+Array [
+  Object {
+    "x": 0,
+    "y": 91.50888838490053,
+  },
+  Object {
+    "x": 8,
+    "y": 71.18059151666836,
+  },
+  Object {
+    "x": 16,
+    "y": 49.51650996554281,
+  },
+  Object {
+    "x": 24,
+    "y": 29.276699863153198,
+  },
+  Object {
+    "x": 32,
+    "y": 13.039761730563853,
+  },
+  Object {
+    "x": 40,
+    "y": 2.874320565607222,
+  },
+  Object {
+    "x": 48,
+    "y": 0,
+  },
+  Object {
+    "x": 56,
+    "y": 0,
+  },
+  Object {
+    "x": 64,
+    "y": 0,
+  },
+]
+`;

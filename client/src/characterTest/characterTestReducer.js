@@ -2,6 +2,10 @@ import { actionTypes } from './characterTestActions';
 
 /// - Test state enum ------------------------------------------------------------------------------
 
+/**
+ * @readonly
+ * @enum
+ */
 export const statusEnum = {
   READY: 'READY',
   LOADING: 'LOADING',
@@ -10,9 +14,14 @@ export const statusEnum = {
   TESTING: 'TESTING',
   REVIEW: 'REVIEW',
   ERROR: 'ERROR',
+  COMPLETE: 'COMPLETE',
   ADDING_TO_SKRITTER: 'ADDING_TO_SKRITTER'
 };
 
+/**
+ * @readonly
+ * @enum
+ */
 export const characterSetEnum = {
   SIMPLIFIED: 'SIMPLIFIED',
   TRADITIONAL: 'TRADITIONAL'
@@ -20,225 +29,191 @@ export const characterSetEnum = {
 
 /// ------------------------------------------------------------------------------------------------
 
-const DEFAULT_STATE = {
-  bins: [],
+/**
+ * @typedef CharacterTestState
+ * @property {number} binCount -
+ * @property {number} subsetSize -
+ * @property {number} totalCharacterCount -
+ * @property {BinSample[]} binSamples -
+ * @property {MarkedFrequencyEntry[]} markedEntries -
+ * @property {number} currentBinIndex -
+ * @property {number} seed - Random seed.
+ * @property {boolean} isShowDefinition - Is currently showing the character definition.
+ * @property {statusEnum} state - The current stage of the test.
+ * @property {TestResult|null} resultData - The test result data. Set to {null} when there are no test results
+ *    available.
+ * @property {characterSetEnum} characterSet - The character set to use, "simplified" or "traditional".
+ */
+
+/**
+ * @type {CharacterTestState}
+ */
+export const DEFAULT_STATE = {
+  binCount: 40,
+  subsetSize: 5,
   seed: -1,
+  totalCharacterCount: 0,
+  binSamples: [],
+  markedEntries: [],
+  currentBinIndex: 0,
   isShowDefinition: false,
   state: statusEnum.READY,
-  currentSectionIndex: 0,
-  currentCardIndex: 0,
   resultData: null,
   characterSet: characterSetEnum.SIMPLIFIED
 };
 
-function processTestComplete(state) {
-  return {
-    ...state,
-    currentCardIndex: 0,
-    currentSectionIndex: 0,
-    state: 'COMPLETE',
-  };
-}
 
-const calculateScoreStatisticsMemo = {};
-const calculateScoreStatistics = ({ bins, seed }) => {
-  if (calculateScoreStatisticsMemo.bins === bins) {
-    return calculateScoreStatisticsMemo.result;
+/**
+ * Find the first entry in the current bin which has not yet been marked and returns the index of the entry in the
+ * context of the bin. If all of the entries in the bin marked, returns {-1}.
+ *
+ * @param {CharacterTestState} characterTestState
+ * @returns {number}
+ */
+function currentCardIndex(characterTestState) {
+  const { binSamples, currentBinIndex, markedEntries } = characterTestState;
+  const currentBinCharacters = binSamples[currentBinIndex].characters;
+  const markedBinCharacters = markedEntries
+    .filter((entry) => entry.originBinIndex === currentBinIndex);
+  if (currentBinCharacters.length === markedBinCharacters.length) {
+    return -1;
   }
-
-  let failedSectionCount = 0;
-  let lastTestedSectionIndex = 0;
-
-  const sectionStats = bins.map(({ sample, range }, i) => {
-    const totalScore = sample.reduce((sum, { score }) => sum + score, 0);
-    if (totalScore === 0) {
-      failedSectionCount++;
-    }
-    const knownPercent = Math.round(100 * totalScore / sample.length);
-    const isTested = sample[0].score >= 0;
-    if (isTested) {
-      lastTestedSectionIndex = i;
-    }
-    return { isTested, knownPercent, range };
-  });
-
-  const result = {
-    lastTestedSectionIndex,
-    failedSectionCount,
-    sectionStats,
-    seed
-  };
-
-  calculateScoreStatisticsMemo.bins = bins;
-  calculateScoreStatisticsMemo.result = result;
-
-  return result;
-};
-
-function processStepCard(state) {
-  return { ...state, currentCardIndex: state.currentCardIndex + 1 };
+  return markedBinCharacters.length;
 }
 
-function processStepSection(state, stepSize = 1) {
-  if (state.currentSectionIndex + stepSize < state.bins.length) {
-    return {
-      ...state,
-      currentCardIndex: 0,
-      currentSectionIndex: state.currentSectionIndex + stepSize
-    };
-  }
-  return processTestComplete(state);
-}
-
-function processDiscard(state) {
-  const {
-    lastTestedSectionIndex,
-    failedSectionCount,
-    sectionStats
-  } = calculateScoreStatistics(state);
-
-  if (failedSectionCount > 1 || (failedSectionCount === 1 && lastTestedSectionIndex === 0)) {
-    return processTestComplete(state);
-  }
-  if (state.currentCardIndex + 1 < state.bins[state.currentSectionIndex].sample.length) {
-    return processStepCard(state);
-  }
-  if (sectionStats[lastTestedSectionIndex].knownPercent >= 100) {
-    return processStepSection(state, 2);
-  }
-  return processStepSection(state, 1);
-}
-
-function processBinScore(bins, { sectionIndex, cardIndex, score }) {
-  return Array.from(bins, (section, i) => {
-    if (i === sectionIndex) {
-      return {
-        ...section,
-        sample: Array.from(section.sample, (character, j) => {
-          if (j === cardIndex) {
-            return { ...character, score };
-          }
-          return character;
-        })
-      };
-    }
-    return section;
-  });
-}
-
-function binHasScore(bin) {
-  return !isNaN(bin.sample[bin.sample.length - 1].score);
-}
-
-function processUndoDiscard(state) {
-  if (state.currentCardIndex <= 0 && state.currentSectionIndex <= 0) {
+/**
+ *
+ * @param {CharacterTestState} state
+ * @returns {CharacterTestState}
+ */
+function processUndo(state) {
+  const { markedEntries } = state;
+  if (markedEntries.length === 0) {
     return state;
   }
 
-  let currentCardIndex = state.currentCardIndex;
-  let currentSectionIndex = state.currentSectionIndex;
+  const { originBinIndex } = markedEntries[markedEntries.length - 2] || {};
+  return {
+    ...state,
+    markedEntries: markedEntries.slice(0, -1),
+    currentBinIndex: originBinIndex || DEFAULT_STATE.currentBinIndex,
+  };
+}
 
-  if (currentCardIndex > 0) {
-    currentCardIndex--;
-  } else {
-    while (currentSectionIndex > 0) {
-      currentSectionIndex--;
-      if (binHasScore(state.bins[currentSectionIndex])) {
-        currentCardIndex = state.bins[currentSectionIndex].sample.length - 1;
-        break;
-      }
-    }
+/**
+ *
+ * @param {CharacterTestState} state
+ * @param {{type: actionTypes}} action
+ * @returns {CharacterTestState}
+ */
+function processMark(state, action) {
+  const { binSamples, currentBinIndex, subsetSize, binCount } = state;
+  const known = action.type === actionTypes.TEST_CARD_MARK_UNKNOWN ? false
+    : action.type === actionTypes.TEST_CARD_MARK_KNOWN ? true
+      : undefined;
+  if (typeof known === 'undefined') {
+    return state;
   }
 
-  return {
-    ...state,
-    currentCardIndex,
-    currentSectionIndex,
-    bins: processBinScore(state.bins, {
-      cardIndex: currentCardIndex,
-      sectionIndex: currentSectionIndex,
-      score: NaN
-    }),
+  // Mark the entry and add it to the list.
+  const newEntry = {
+    ...binSamples[currentBinIndex].characters[currentCardIndex(state)],
+    known,
+    originBinIndex: currentBinIndex,
   };
+  const newState = { ...state, markedEntries: [...state.markedEntries, newEntry] };
+
+  // The user hasn't reached the end of the current bin so we should continue with the current bin.
+  if (currentCardIndex(newState) >= 0) {
+    return newState;
+  }
+
+  // The user has reached the end of the current bin. Take the results of the last 3 tested bins and
+  // calculate the known percentage.
+  const lastEntriesCount = 3 * subsetSize;
+  const lastEntries = newState.markedEntries.slice(-lastEntriesCount);
+  const lastMarkedKnownPercentage = lastEntries
+    .reduce((sum, { known }) => sum + known, 0) / lastEntries.length;
+
+  // The user knows few of the most recently marked entries, so let's end the test.
+  if (
+    (currentBinIndex === 0 && lastMarkedKnownPercentage === 0) ||
+    (lastEntries.length === lastEntriesCount && lastMarkedKnownPercentage <= 0.34)
+  ) {
+    return { ...newState, state: statusEnum.COMPLETE };
+  }
+
+  // Decide which bin to pick from based on the user's performance.
+  const newBinIndex = currentBinIndex + (lastMarkedKnownPercentage >= 0.9 ? 2 : 1);
+
+  // If the new bin is out of range, end the test.
+  if (newBinIndex > binCount) {
+    return { ...newState, state: statusEnum.COMPLETE };
+  }
+
+  // Otherwise, set the current bin and continue.
+  return { ...newState, currentBinIndex: newBinIndex };
 }
 
-function processMark(state, action) {
-  const score = ({
-    [actionTypes.TEST_CARD_MARK_UNKNOWN]: 0,
-    [actionTypes.TEST_CARD_MARK_KNOWN]: 1,
-    [actionTypes.TEST_CARD_MARK_CLEAR]: NaN
-  })[action.type];
-  return {
-    ...state,
-    bins: processBinScore(state.bins, {
-      sectionIndex: state.currentSectionIndex,
-      cardIndex: state.currentCardIndex,
-      score
-    })
-  };
-}
-
-function processBins(characers) {
-  return characers.map(section => ({
-    ...section,
-    sample: section.sample.map(({ i, cs, ct, p, d }) => ({
-      index: i,
-      simplified: cs,
-      traditional: ct,
-      pinyin: p,
-      definition: d,
-      score: NaN
-    }))
-  }));
-}
-
-function processSampleData(state, sampleData) {
-  return {
-    ...state,
-    seed: sampleData.seed,
-    bins: processBins(sampleData.characters)
-  };
+/**
+ *
+ * @param {object} state
+ * @param {GetBinSamplesResponse} response
+ * @returns {GetBinSamplesResponse}
+ */
+function processBinSamplesResponse(state, response) {
+  // TODO: merge with existing state when appropriate
+  return response;
 }
 
 /// - State reducer --------------------------------------------------------------------------------
 
 export default (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
+
+    /// - Loading characters -----------------------------------------------------------------------
+
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_START:
-      return { ...state, state: statusEnum.LOADING, bins: [] };
+      return { ...state, state: statusEnum.LOADING };
     case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_SUCCESS:
       return {
-        ...processSampleData(state, action.sampleData),
+        ...state,
+        ...processBinSamplesResponse(state, action.response),
         state: statusEnum.TESTING
       };
+    case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
+      return { ...state, state: statusEnum.ERROR };
+
+    /// - Character set ----------------------------------------------------------------------------
+
     case actionTypes.TEST_SET_CHARACTER_SET_SIMPLIFIED:
       return { ...state, characterSet: characterSetEnum.SIMPLIFIED };
     case actionTypes.TEST_SET_CHARACTER_SET_TRADITIONAL:
       return { ...state, characterSet: characterSetEnum.TRADITIONAL };
-    case actionTypes.CHARACTER_SAMPLES_LOAD_SAMPLES_FAIL:
-    case actionTypes.TEST_RESULTS_SUBMIT_FAIL:
-      return { ...state, state: statusEnum.ERROR };
+
+    /// - Card Definition --------------------------------------------------------------------------
+
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_SHOW:
       return { ...state, isShowDefinition: true };
     case actionTypes.CHARACTER_SAMPLES_DEFINITION_HIDE:
       return { ...state, isShowDefinition: false };
+
+    /// - Card marking/undo ------------------------------------------------------------------------
+
     case actionTypes.TEST_CARD_MARK_UNKNOWN:
     case actionTypes.TEST_CARD_MARK_KNOWN:
-    case actionTypes.TEST_CARD_MARK_CLEAR:
       if (state.state === statusEnum.TESTING) {
-        return processMark(state, action);
-      }
-      break;
-    case actionTypes.TEST_CARD_DISCARD:
-      if (state.state === statusEnum.TESTING) {
-        return {...processDiscard(state, action), isShowDefinition: false};
+        return { ...processMark(state, action), isShowDefinition: false };
       }
       break;
     case actionTypes.TEST_CARD_DISCARD_UNDO:
       if (state.state === statusEnum.TESTING) {
-        return {...processUndoDiscard(state, action), isShowDefinition: false};
+        return { ...processUndo(state), isShowDefinition: false };
       }
       break;
+
+    /// - Test submission --------------------------------------------------------------------------
+
     case actionTypes.TEST_RESULTS_SUBMIT_START:
       return { ...state, state: statusEnum.RESULTS_LOADING, resultData: null };
     case actionTypes.TEST_RESULTS_SUBMIT_SUCCESS:
@@ -247,63 +222,108 @@ export default (state = DEFAULT_STATE, action = {}) => {
         state: statusEnum.RESULTS_READY,
         resultData: action.resultData
       };
+    case actionTypes.TEST_RESULTS_SUBMIT_FAIL:
+      return { ...state, state: statusEnum.ERROR };
+
+    /// - Test conclusion and continue -------------------------------------------------------------
+
     case actionTypes.TEST_RESULTS_SHOW:
       return { ...state, state: statusEnum.RESULTS_READY };
     case actionTypes.REVIEW_MISSED_START:
       return { ...state, state: statusEnum.REVIEW };
     case actionTypes.TEST_RESET:
       return DEFAULT_STATE;
+
+    /// - Default noop -----------------------------------------------------------------------------
+
     default:
       return state;
   }
+
   return state;
 }
 
 /// - Root state selectors -------------------------------------------------------------------------
 
-function flatten(parentArray) {
-  const result = [];
-  parentArray.forEach(array => {
-    if (Array.isArray(array)) {
-      array.forEach(a => result.push(a));
-    } else {
-      result.push(array);
-    }
-  });
-  return result;
-}
-
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {statusEnum}
+ */
 export const status = rootState => rootState.characterTestReducer.state;
 
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {boolean}
+ */
 export const isShowDefinition = rootState => rootState.characterTestReducer.isShowDefinition;
 
-export const currentCard = ({ characterTestReducer: { currentSectionIndex, currentCardIndex, bins, state, characterSet } }) => {
-  if (state === statusEnum.TESTING) {
-    const {
-      traditional,
-      simplified,
-      ...card
-    } = bins[currentSectionIndex].sample[currentCardIndex];
-    return Object.assign(card, {
-      character: characterSet === characterSetEnum.TRADITIONAL ? traditional : simplified
-    });
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {CharacterEntry}
+ */
+export const currentCard = (rootState) => {
+  const characterTestState = rootState.characterTestReducer;
+  const { binSamples, currentBinIndex, state } = characterTestState;
+  if (state === statusEnum.TESTING && binSamples[currentBinIndex]) {
+    return binSamples[currentBinIndex].characters[currentCardIndex(characterTestState)];
   }
-  return null;
+  return undefined;
 };
 
-export const scoreStatistics = rootState => calculateScoreStatistics(rootState.characterTestReducer);
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {number}
+ */
+export const binCount = (rootState) => rootState.characterTestReducer.binCount;
 
-export const resultData = rootState => rootState.characterTestReducer.resultData;
+/**
+ * @param {{characterTestReducer: CharacterTestState}} rootState
+ * @returns {number}
+ */
+export const subsetSize = (rootState) => rootState.characterTestReducer.subsetSize;
 
-export const missedCards = ({ characterTestReducer: { bins, characterSet } }) => flatten(
-  bins
-    .map(({ sample }) => sample
-      .filter(({ score }) => score === 0)
-      .map(({ traditional, simplified, ...card }) => ({
-        ...card,
-        character: characterSet === characterSetEnum.TRADITIONAL ? traditional : simplified
-      }))
-    )
-);
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {TestResult|null}
+ */
+export const resultData = state => state.characterTestReducer.resultData;
 
-export const characterSet = ({ characterTestReducer: { characterSet } }) => characterSet;
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {MarkedFrequencyEntry[]}
+ */
+export const missedCards = (state) => state.characterTestReducer.markedEntries
+  .filter((entry) => !entry.known);
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {characterSetEnum}
+ */
+export const characterSet = (state) => state.characterTestReducer.characterSet;
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {MarkedFrequencyEntry[]}
+ */
+export const markedEntries = (state) => state.characterTestReducer.markedEntries;
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {boolean}
+ */
+export const lastEntryKnown = (state) => {
+  const { markedEntries } = state.characterTestReducer;
+  return (markedEntries[markedEntries.length - 1] || {}).known;
+};
+
+/**
+ *
+ * @param {{characterTestReducer: CharacterTestState}} state
+ * @returns {number}
+ */
+export const characterTestSeed = (state) => state.characterTestReducer.seed;

@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import formatPinyin from '../util/formatPinyin';
 import style from './CharacterCard.module.scss'
+import {characterSetEnum} from "../characterTest/characterTestReducer";
 
 const WIDEN_SLASH_REGEX = /\//g;
 
@@ -16,20 +17,27 @@ function formatDefinitionArray(definition) {
   return definition.map(d => d.replace(WIDEN_SLASH_REGEX, ' / ')).join(' / ');
 }
 
+/**
+ *
+ * @param {CharacterEntry & {className: string, showDefinition: boolean, characterSet: characterSetEnum, known: boolean}} props
+ * @returns {*}
+ */
 export default (props) => {
   const {
+    className,
     showDefinition,
-    character,
-    pinyin,
-    definition,
-    score,
-    className
+    characterSet,
+    known,
+    p: pinyin,
+    d: definition,
   } = props;
+
+  const character = characterSet === characterSetEnum.TRADITIONAL ? props.ct : props.cs;
 
   const finalClassName = cx(style.container, {
     [style.showDefinition]: showDefinition,
-    [style.markedUnknown]: score === 0,
-    [style.markedKnown]: score === 1
+    [style.markedUnknown]: known === false,
+    [style.markedKnown]: known === true,
   }, className);
 
   return (

@@ -18,16 +18,22 @@ function isAncestor(ancestor, child) {
 }
 
 export default class CardStackDisplay extends Component {
+  /**
+   * @property {CharacterEntry} card
+   */
   static propTypes = {
     onDiscardLeft: PropTypes.func,
     onDiscardRight: PropTypes.func,
-    transitionTimeout: PropTypes.number
+    transitionTimeout: PropTypes.number,
+    card: PropTypes.any,
+    lastEntryKnown: PropTypes.bool,
+    characterSet: PropTypes.string,
   };
 
   static defaultProps = {
     onDiscardLeft: noop,
     onDiscardRight: noop,
-    transitionTimeout: 300
+    transitionTimeout: 300,
   };
 
   constructor() {
@@ -89,7 +95,9 @@ export default class CardStackDisplay extends Component {
   }
 
   componentWillUpdate(newProps) {
-    if (this.props.card && newProps.card && this.props.card.index !== newProps.card.index) {
+    const oldCard = this.props.card || { i: -1 };
+    const newCard = newProps.card || { i: -1 };
+    if (oldCard.i !== newCard.i) {
       this.setOffsetVector([0, 0, 0]);
     }
   }
@@ -110,10 +118,11 @@ export default class CardStackDisplay extends Component {
   }
 
   renderTouchableCard() {
-    const { card, showDefinition, discardThreshold } = this.props;
+    const { card, showDefinition, discardThreshold, characterSet, lastEntryKnown } = this.props;
     const touchActive = !!this.state.activeTouch;
     const [ dx ] = this.state.offsetVector;
 
+    // console.log({card, showDefinition, discardThreshold, characterSet, lastEntryKnown})
     return (
       <div
         className={cx(style.touchArea, { [style.touchAreaSnap]: touchActive })}
@@ -125,14 +134,16 @@ export default class CardStackDisplay extends Component {
             [style.predictDiscardRight]: dx > discardThreshold,
             [style.predictDiscardLeft]: dx < -discardThreshold
           })}
+          characterSet={characterSet}
           showDefinition={showDefinition}
+          known={lastEntryKnown}
         />
       </div>
     );
   }
 
   render() {
-    const { card, transitionTimeout } = this.props;
+    const { card, transitionTimeout, lastEntryKnown } = this.props;
     return (
       <div className={style.cardContainer}>
         <div className={style.stackBase} ref={this.touchAreaRef}>
@@ -142,12 +153,12 @@ export default class CardStackDisplay extends Component {
             transitionEnterTimeout={transitionTimeout}
             transitionLeaveTimeout={transitionTimeout}
           >
-            {(card && card.index > 0) ? (
+            {(card && card.i > 0) ? (
               <div
-                key={card.index}
+                key={card.i}
                 className={cx(style.animationContainer, {
-                  [style.discardRight]: card.score === 1,
-                  [style.discardLeft]: card.score === 0
+                  [style.discardRight]: lastEntryKnown === true,
+                  [style.discardLeft]: lastEntryKnown === false,
                 })}>
                 {this.renderTouchableCard()}
               </div>
