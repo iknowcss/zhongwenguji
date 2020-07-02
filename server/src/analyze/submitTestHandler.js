@@ -12,6 +12,7 @@ const { fitModelToMarkings } = require('./submitTest');
  * @typedef SubmitTestHandlerRequestBody
  * @property {BinSampleParameters} binSampleParameters - See {@link BinSampleParameters}.
  * @property {MarkedFrequencyEntry[]} markedEntries
+ * @property {characterSetEnum} characterSet
  */
 
 /**
@@ -20,11 +21,11 @@ const { fitModelToMarkings } = require('./submitTest');
  * @param {{json: function(object):undefined, status:function(number):undefined}} res
  */
 async function submitTestHandler(req, res) {
-  let { binSampleParameters, markedEntries } = req.body;
+  let { binSampleParameters, markedEntries, characterSet } = req.body;
   const testId = uuid();
   try {
     if (markedEntries) {
-      await storeMarkedEntries(testId, markedEntries);
+      await storeMarkedEntries(testId, req.body);
     } else {
       if (req.body.testData) {
         binSampleParameters = { binCount: 40, subsetSize: 5, seed: req.body.seed };
@@ -78,9 +79,9 @@ function adaptOldDataFormat(binSampleParameters, testData) {
 /**
  *
  * @param {string} testId
- * @param {MarkedFrequencyEntry[]} markedEntries
+ * @param {SubmitTestHandlerRequestBody} body
  */
-async function storeMarkedEntries(testId, markedEntries) {
+async function storeMarkedEntries(testId, body) {
   const testResultsBucketName = process.env['TEST_RESULTS_BUCKET_NAME'];
   if (!testResultsBucketName) {
     console.info('Will not store marked entries. TEST_RESULTS_BUCKET_NAME is not set.');
@@ -90,12 +91,12 @@ async function storeMarkedEntries(testId, markedEntries) {
   const AWS = require('aws-sdk');
   const s3 = new AWS.S3();
   try {
-    const leanData = markedEntries.map(({ i, cs, ct, known }) => ({ i, cs, ct, known }));
+    const markedEntries = body.markedEntries.map(({ i, cs, ct, known }) => ({ i, cs, ct, known }));
     const gmtDateStamp = (new Date().toISOString()).split('T')[0];
     await s3.upload({
       Bucket: testResultsBucketName,
-      Key: `${gmtDateStamp}/${testId}/markedEntries.json`,
-      Body: JSON.stringify(leanData),
+      Key: `${gmtDateStamp}/${testId}.json`,
+      Body: JSON.stringify({ ...body, markedEntries }),
     }).promise();
     console.info('Stored marked entries for test.', testId);
   } catch (error) {

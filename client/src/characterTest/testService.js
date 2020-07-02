@@ -38,16 +38,18 @@ export function getBinSamples(binSampleParameters) {
  *
  * @param {MarkedFrequencyEntry[]} markedEntries - Marked entry data.
  * @param {BinSampleParameters} binSampleParameters -
+ * @param {characterSetEnum} characterSet -
  * @returns {Promise<TestResult>}
  * @throws {Error} - Throws a generic error if there was an issue submitting or processing the test results.
  */
-export function submitTest(markedEntries, binSampleParameters) {
+export function submitTest(markedEntries, binSampleParameters, characterSet) {
   /**
    * @type {SubmitTestHandlerRequestBody}
    */
   const body = {
     binSampleParameters,
     markedEntries,
+    characterSet,
   };
   return fetch(getConfig().submitTestUrl, {
     method: 'POST',

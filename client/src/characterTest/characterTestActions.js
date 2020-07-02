@@ -85,7 +85,7 @@ const testSubmit = () => (dispatch, getState) => {
   };
 
   dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_START });
-  return testService.submitTest(markedEntries(state), binSampleParameters)
+  return testService.submitTest(markedEntries(state), binSampleParameters, characterSet(state))
     .then((resultData) => {
       analytics.receiveKnownEstimate(resultData.knownEstimate);
       dispatch({ type: actionTypes.TEST_RESULTS_SUBMIT_SUCCESS, resultData });
