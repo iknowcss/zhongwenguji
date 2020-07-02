@@ -7,6 +7,13 @@ provider:
   stage: ${env:STAGE, 'development'}
   environment:
     STAGE: ${env:STAGE, 'development'}
+    TEST_RESULTS_BUCKET_NAME: '#{TestResultsBucket}'
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::#{TestResultsBucket}/*"
 
 functions:
   app:
@@ -21,8 +28,12 @@ functions:
         method: post
         cors: true
 
+resources:
+  - ${file(resources/test-result-bucket.yml)}
+
 plugins:
   - serverless-offline
+  - serverless-pseudo-parameters
 
 custom:
   serverless-offline:

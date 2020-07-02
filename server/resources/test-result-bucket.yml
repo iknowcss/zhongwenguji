@@ -1,0 +1,8 @@
+Resources:
+  TestResultsBucket:
+    Type: AWS::S3::Bucket
+
+Outputs:
+  TestResultsBucketName:
+    Value:
+      Ref: TestResultsBucket

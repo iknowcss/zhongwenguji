@@ -19,11 +19,13 @@ const { fitModelToMarkings } = require('./submitTest');
  * @param {{body: SubmitTestHandlerRequestBody|LegacySubmitTestHandlerRequestBody}} req
  * @param {{json: function(object):undefined, status:function(number):undefined}} res
  */
-function submitTestHandler(req, res) {
+async function submitTestHandler(req, res) {
   let { binSampleParameters, markedEntries } = req.body;
   const testId = uuid();
   try {
-    if (!markedEntries) {
+    if (markedEntries) {
+      await storeMarkedEntries(testId, markedEntries);
+    } else {
       if (req.body.testData) {
         binSampleParameters = { binCount: 40, subsetSize: 5, seed: req.body.seed };
         markedEntries = adaptOldDataFormat(binSampleParameters, req.body.testData);
@@ -71,6 +73,34 @@ function adaptOldDataFormat(binSampleParameters, testData) {
       }));
       return result.concat(newEntries);
     }, []);
+}
+
+/**
+ *
+ * @param {string} testId
+ * @param {MarkedFrequencyEntry[]} markedEntries
+ */
+async function storeMarkedEntries(testId, markedEntries) {
+  const testResultsBucketName = process.env['TEST_RESULTS_BUCKET_NAME'];
+  if (!testResultsBucketName) {
+    console.info('Will not store marked entries. TEST_RESULTS_BUCKET_NAME is not set.');
+    return;
+  }
+
+  const AWS = require('aws-sdk');
+  const s3 = new AWS.S3();
+  try {
+    const leanData = markedEntries.map(({ i, cs, ct, known }) => ({ i, cs, ct, known }));
+    const gmtDateStamp = (new Date().toISOString()).split('T')[0];
+    await s3.upload({
+      Bucket: testResultsBucketName,
+      Key: `${gmtDateStamp}/${testId}/markedEntries.json`,
+      Body: JSON.stringify(leanData),
+    }).promise();
+    console.info('Stored marked entries for test.', testId);
+  } catch (error) {
+    console.warn('Failed to store marked entries.', error.message, error.stack);
+  }
 }
 
 module.exports = submitTestHandler;
