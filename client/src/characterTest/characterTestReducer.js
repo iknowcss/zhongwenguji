@@ -75,6 +75,7 @@ function currentCardIndex(characterTestState) {
   const currentBinCharacters = binSamples[currentBinIndex].characters;
   const markedBinCharacters = markedEntries
     .filter((entry) => entry.originBinIndex === currentBinIndex);
+  console.log(markedEntries)
   if (currentBinCharacters.length === markedBinCharacters.length) {
     return -1;
   }
@@ -92,7 +93,7 @@ function processUndo(state) {
     return state;
   }
 
-  const { originBinIndex } = markedEntries[markedEntries.length - 2] || {};
+  const { originBinIndex } = markedEntries[markedEntries.length - 1] || {};
   return {
     ...state,
     markedEntries: markedEntries.slice(0, -1),

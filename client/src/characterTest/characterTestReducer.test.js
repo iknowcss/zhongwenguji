@@ -461,7 +461,6 @@ describe('characterTestReducer', () => {
         markedEntries: [
           { ...characters[0][0], originBinIndex: 0, known: true },
           { ...characters[0][1], originBinIndex: 0, known: true },
-          { ...characters[2][0], originBinIndex: 2, known: false },
         ],
         state: statusEnum.TESTING,
         currentBinIndex: 2,
@@ -473,7 +472,6 @@ describe('characterTestReducer', () => {
         isShowDefinition: false,
         markedEntries: [
           { ...characters[0][0], originBinIndex: 0, known: true },
-          { ...characters[0][1], originBinIndex: 0, known: true },
         ],
         state: statusEnum.TESTING,
         currentBinIndex: 0,

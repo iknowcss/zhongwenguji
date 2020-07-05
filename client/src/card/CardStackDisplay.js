@@ -122,7 +122,6 @@ export default class CardStackDisplay extends Component {
     const touchActive = !!this.state.activeTouch;
     const [ dx ] = this.state.offsetVector;
 
-    // console.log({card, showDefinition, discardThreshold, characterSet, lastEntryKnown})
     return (
       <div
         className={cx(style.touchArea, { [style.touchAreaSnap]: touchActive })}
