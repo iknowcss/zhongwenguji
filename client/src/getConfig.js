@@ -8,7 +8,7 @@ const config = Object.assign({
   // Base config
   getCharacterSampleUrl: `${LAMBDA_BASE_URL.LOCAL}/getBinSamples`,
   submitTestUrl: `${LAMBDA_BASE_URL.LOCAL}/submitTest`,
-  feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe74g0vXWUuVsQ9uqYGQhLFADOeqiUHfyyjBqT4AfdY4VOYxg/viewform?usp=pp_url&entry.1889314490=',
+  feedbackPrefillUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfRvmf2MkcTImXByka0zlHPmaPlQ1tmeepeWC-yPKLoylHIKQ/viewform?usp=pp_url&entry.1889314490=',
 }, {
   local: {
     enableReduxDevTools: true
