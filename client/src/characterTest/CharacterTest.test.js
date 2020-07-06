@@ -27,7 +27,11 @@ describe('CharacterTest', () => {
 
   function setup(props) {
     component = renderer.create(
-      <CharacterTest currentCard={{ i: 1 }} {...props} />
+      <CharacterTest
+        currentCard={{ i: 1 }}
+        markedEntries={[]}
+        {...props}
+      />
     );
     cardStackDisplay = component.root.findByType(CardStackDisplay);
     cardStackButtons = component.root.findByType(CardStackButtons);
@@ -43,6 +47,26 @@ describe('CharacterTest', () => {
       <CharacterTest />
     );
     expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('updates the current card known state before moving on to the next card', async () => {
+    setup({
+      currentCard: { i: 1 },
+      markedEntries: [],
+    });
+
+    component.update(<CharacterTest
+      currentCard={{ i: 2 }}
+      markedEntries={[{ i: 1, known: true }]}
+    />);
+
+    expect(cardStackDisplay.props.card).toEqual({ i: 1 });
+    expect(cardStackDisplay.props.lastEntryKnown).toBe(true);
+
+    await new Promise(resolve => setTimeout(() => resolve(), 10));
+
+    expect(cardStackDisplay.props.card).toEqual({ i: 2 });
+    expect(cardStackDisplay.props.lastEntryKnown).toBeUndefined();
   });
 
   describe('keypress events', () => {

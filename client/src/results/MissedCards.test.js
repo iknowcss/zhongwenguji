@@ -21,19 +21,21 @@ describe('MissedCards', () => {
   });
 
   it('renders cards', () => {
-    setup({
-      missedCards: [
-        {
-          index: 1,
-          character: '读',
-          pinyin: ['dou4', 'du2'],
-          definition: [
-            'comma/phrase marked by pause',
-            'to read/to study'
-          ]
-        }
-      ]
-    });
+    /**
+     *
+     * @type {FrequencyEntry}
+     */
+    const missedCard = {
+      i: 1,
+      cs: '读',
+      ct: '读',
+      p: ['dou4', 'du2'],
+      d: [
+        'comma/phrase marked by pause',
+        'to read/to study'
+      ],
+    };
+    setup({ missedCards: [missedCard] });
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -46,22 +48,5 @@ describe('MissedCards', () => {
 
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(showTestResults).toHaveBeenCalledTimes(1);
-  });
-
-  it('links to skritter', () => {
-    const preventDefault = jest.fn();
-    const addToSkritter = jest.fn();
-    setup({ addToSkritter });
-    addToSkritterButton.props.onClick({ preventDefault });
-
-    expect(preventDefault).toHaveBeenCalledTimes(1);
-    expect(addToSkritter).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders the user name', () => {
-    setup({ isLoggedIn: true, userName: 'iknowcss' });
-
-    expect(skritterUserName).toBeDefined();
-    expect(skritterUserName.children).toEqual(['iknowcss']);
   });
 });

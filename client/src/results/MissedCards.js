@@ -57,18 +57,26 @@ class MissedCards extends Component {
     </div>
   );
 
-  renderCardRow = card => (
-    <div key={card.index} className={style.cardRowColor}>
-      <div className={style.cardRow}>
-        <div className={style.cardCharacterColumn}>
-          <span>{card.character}</span>
-        </div>
-        <div className={style.cardPinyinDefColumn}>
-          {pairPinyinDefinitions(card.pinyin, card.definition).map(this.renderCardPinyinDef)}
+  /**
+   * @param {FrequencyEntry} card
+   * @returns {*}
+   */
+  renderCardRow = (card) => {
+    const { i: index, cs, p: pinyin, d: definition } = card;
+    const character = cs; // TODO
+    return (
+      <div key={index} className={style.cardRowColor}>
+        <div className={style.cardRow}>
+          <div className={style.cardCharacterColumn}>
+            <span>{character}</span>
+          </div>
+          <div className={style.cardPinyinDefColumn}>
+            {pairPinyinDefinitions(pinyin, definition).map(this.renderCardPinyinDef)}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    )
+  };
 
   render() {
     const { missedCards } = this.props;
@@ -81,19 +89,6 @@ class MissedCards extends Component {
             className={style.actionButton}
             onClick={this.handleBackButtonClick}
           />
-          <div className={style.skritterContainer}>
-            {this.props.isLoggedIn ? (
-              <span className={style.skritterUserName}>
-                {this.props.userName}
-              </span>
-            ) : null}
-            <I18n
-              component={Button}
-              stringId="reviewMissed.addToSkritter"
-              className={style.actionButton}
-              onClick={this.handleAddToSkritterClick}
-            />
-          </div>
         </div>
         <div className={style.cardRowContainer}>
           {missedCards.map(this.renderCardRow)}
