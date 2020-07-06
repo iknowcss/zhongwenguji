@@ -131,6 +131,9 @@ db.serialize(async () => {
         console.debug('  x Cannot use frequency entry as fallback - skip');
         continue;
       }
+    } else if (cedictEntry[0].simpDupe) {
+      console.debug(`  ! Skip ${cedictEntry[0].trad} (${cedictEntry[0].simp}) - duplicated simplification:`, cedictEntry[0].def);
+      continue;
     } else {
       const collected = collectCedict(cedictEntry);
       values.push(cedictEntry[0].simp);

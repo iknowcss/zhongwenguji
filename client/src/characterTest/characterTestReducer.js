@@ -75,7 +75,6 @@ function currentCardIndex(characterTestState) {
   const currentBinCharacters = binSamples[currentBinIndex].characters;
   const markedBinCharacters = markedEntries
     .filter((entry) => entry.originBinIndex === currentBinIndex);
-  console.log(markedEntries)
   if (currentBinCharacters.length === markedBinCharacters.length) {
     return -1;
   }

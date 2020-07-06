@@ -36,7 +36,8 @@ db.serialize(async () => {
       trad NCHAR(1),
       simp NCHAR(1),
       pinyin CHAR(10),
-      def TEXT
+      def TEXT,
+      simpDupe BOOLEAN
     );
     
     CREATE INDEX character_trad ON character (trad);
@@ -56,16 +57,32 @@ db.serialize(async () => {
   console.info(`Process CEDICT file - ${allRows.length} entries`, );
 
   const insertValues = [];
+  const entryMap = new Map();
   let addCount = 0;
   allRows.forEach((row) => {
     if (IGNORE_LINE_REGEXP.test(row)) return;
     if (!FREQUENCY_ROW_REGEXP.test(row)) return;
-    insertValues.push([++addCount].concat(row.match(FREQUENCY_ROW_REGEXP).slice(1)));
+    const entry = row.match(FREQUENCY_ROW_REGEXP).slice(1).concat([false]);
+    const [trad, simp] = entry;
+    if (entryMap.has(simp)) {
+      const oldEntry = insertValues[entryMap.get(simp)];
+      if (oldEntry[1] === trad || oldEntry[2] === trad) {
+        oldEntry[3] += ` ${entry[2]}`;
+        oldEntry[4] += `/${entry[3]}`;
+        addCount++;
+        return;
+      } else {
+        entry[entry.length - 1] = true;
+      }
+    } else {
+      entryMap.set(simp, insertValues.length);
+    }
+    insertValues.push([++addCount].concat(entry));
   });
 
   /// - Insert CEDICT character data into characters table --------------------
 
-  console.info(`Insert into characters table - ${addCount} rows`);
+  console.info(`Insert into characters table - ${insertValues.length} rows`);
   const estimator = new Estimator(5000, insertValues.length);
 
   // Insert in transaction chunks for speed
@@ -81,9 +98,9 @@ db.serialize(async () => {
       let transaction = db.exec('BEGIN TRANSACTION');
       chunk.forEach(entry => transaction = transaction.run(`
         INSERT INTO character
-        (id, trad, simp, pinyin, def)
+        (id, trad, simp, pinyin, def, simpDupe)
         VALUES
-        (?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?)
       `, entry));
       transaction.exec('COMMIT', (err) => { err ? reject(err) : resolve(); });
     });

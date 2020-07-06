@@ -407,7 +407,7 @@ describe('characterTestReducer', () => {
       });
     });
 
-    it('un-does the previous mark back to the previous card', () => {
+    it('un-does the previous mark back to the start card', () => {
       expect(characterTestReducer({
         subsetSize: 2,
         binSamples,
@@ -428,14 +428,33 @@ describe('characterTestReducer', () => {
       });
     });
 
-    it('un-does the previous mark back to the previous section', () => {
+    it('does not undo anything if already at the start', () => {
+      expect(characterTestReducer({
+        subsetSize: 2,
+        binSamples,
+        markedEntries: [],
+        state: statusEnum.TESTING,
+        currentBinIndex: 0,
+      }, {
+        type: actionTypes.TEST_CARD_DISCARD_UNDO
+      })).toEqual({
+        subsetSize: 2,
+        binSamples,
+        isShowDefinition: false,
+        markedEntries: [],
+        state: statusEnum.TESTING,
+        currentBinIndex: 0,
+      });
+    });
+
+    it('un-does the first card of the section', () => {
       expect(characterTestReducer({
         subsetSize: 2,
         binSamples,
         markedEntries: [
           { ...characters[0][0], originBinIndex: 0, known: false },
           { ...characters[0][1], originBinIndex: 0, known: true },
-          { ...characters[1][0], originBinIndex: 0, known: false },
+          { ...characters[1][0], originBinIndex: 1, known: false },
         ],
         state: statusEnum.TESTING,
         currentBinIndex: 1,
@@ -450,7 +469,7 @@ describe('characterTestReducer', () => {
           { ...characters[0][1], originBinIndex: 0, known: true },
         ],
         state: statusEnum.TESTING,
-        currentBinIndex: 0,
+        currentBinIndex: 1,
       });
     });
 
