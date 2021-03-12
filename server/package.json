@@ -23,7 +23,7 @@
     "express": "^4.17.1",
     "http-status": "^1.4.2",
     "jest": "^25.5.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "request": "^2.88.2",
     "serverless-http": "^1.10.1",
     "supertest": "^3.4.2",
