@@ -10,7 +10,7 @@ fi
 echo "Run client tests..."
 (
   set -e
-  cd $projectRoot/client
-  npm run ci:test
-  npm run ci:build
+  cd "$projectRoot/client"
+  yarn ci:test
+  yarn ci:build
 )

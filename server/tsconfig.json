@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "lib": ["es2019", "esnext"],
+    "removeComments": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowUnreachableCode": true,
+    "target": "es2019",
+    "outDir": "lib",
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": []
+}

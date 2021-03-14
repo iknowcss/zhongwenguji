@@ -8,7 +8,7 @@
     "build:db": "node createDb.js && node buildCharacterTable.js && node buildFrequencyTable.js",
     "build:db:rebuild": "node createDb.js --rebuild && node buildCharacterTable.js --rebuild && node buildFrequencyTable.js --rebuild",
     "build:flatfile": "node buildFlatFile.js",
-    "build": "npm run build:db && npm run build:flatfile"
+    "build": "yarn build:db && yarn build:flatfile"
   },
   "author": "",
   "license": "ISC",

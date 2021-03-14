@@ -10,6 +10,6 @@ fi
 echo "Run server tests..."
 (
   set -e
-  cd $projectRoot/server
-  npm run ci:test
+  cd "$projectRoot/server"
+  yarn ci:test
 )

@@ -10,6 +10,6 @@ fi
 echo "Install server dependencies..."
 (
   set -e
-  cd $projectRoot/server
-  npm install
+  cd "$projectRoot/server"
+  yarn
 )

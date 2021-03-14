@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
+    "lint": "eslint src --ext ts --cache",
     "start": "sls offline start",
     "ci:test": "jest --ci --no-colors",
     "ci:build": "echo \"Nothing to build\""
@@ -12,9 +13,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
     "serverless": "^1.74.1",
     "serverless-offline": "^5.12.1",
-    "serverless-pseudo-parameters": "^2.5.0"
+    "serverless-plugin-typescript": "^1.1.9",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "ts-jest": "^26.5.3",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "aes-js": "^3.1.2",
@@ -22,7 +34,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-status": "^1.4.2",
-    "jest": "^25.5.4",
+    "jest": "^26.6.3",
     "lodash": "^4.17.15",
     "request": "^2.88.2",
     "serverless-http": "^1.10.1",

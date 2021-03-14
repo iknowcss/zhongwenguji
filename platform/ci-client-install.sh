@@ -10,6 +10,6 @@ fi
 echo "Install client dependencies..."
 (
   set -e
-  cd $projectRoot/client
-  npm install
+  cd "$projectRoot/client"
+  yarn
 )

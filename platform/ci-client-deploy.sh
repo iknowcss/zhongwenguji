@@ -25,7 +25,7 @@ export PUBLIC_URL="$PUBLIC_URL"
 echo "Deploy client to S3..."
 (
   set -e
-  cd $projectRoot/client
-  npm run ci:build
+  cd "$projectRoot/client"
+  yarn ci:build
   aws s3 sync build/ s3://$DEPLOY_S3_BUCKET
 )

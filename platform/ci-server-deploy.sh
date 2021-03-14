@@ -10,6 +10,6 @@ fi
 echo "Deploy client to S3..."
 (
   set -e
-  cd $projectRoot/server
-  ./node_modules/.bin/sls deploy
+  cd "$projectRoot/server"
+  npx sls deploy
 )
